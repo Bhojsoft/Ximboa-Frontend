@@ -1,0 +1,141 @@
+<div class="container-fluid">
+  <div class="row">
+    <img class="img-fluid rounded" src="../../../assets/trainer_home_product.png" alt="">
+  </div>
+
+  <mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab *ngIf="isTrainer || isSELF_EXPERT "  label="My Products" >
+      <div class="row">
+        
+        <div class="col-sm-12 col-lg-12 d-flex gap-5 justify-content-end "> 
+            <button class="btn rounded-pill text-light " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="background-color: #3078ff;">Add New Product</button>
+            <button (click)="toggleIcon()" class="btn rounded-pill text-light " style="background-color: #F96D63;">Update/Delete Product</button>
+        </div>
+        <div *ngIf="showproductdata && showproductdata.length > 0" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+          <div *ngFor="let product of showproductdata" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+            <div class="card productcard">
+              <img src="{{product.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
+                alt="...">
+                <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+                <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span>
+              <div class="card-body text-center mb-0 pt-0">
+                <div class="d-flex align-items-center justify-content-between mt-1">
+                  <p class="m-0 p-0 text-end w-25"></p>
+                      <div class="w-50 text-center">
+                        <ng-container *ngFor="let star of starsArray; let i = index">
+                          <i
+                            class="fa-solid fa-star"
+                            [ngStyle]="{ 'color': i < (product.products_rating || 4) ? '#FFAE06' : '#d3d3d3' }"
+                          ></i>
+                        </ng-container>
+                      </div>
+                  <small class="m-0 p-0 text-end w-25">{{product.product_flag || "virtual"}}</small>
+                </div>
+                <h5 class="card-title">{{product.products_name}}</h5>
+                <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.products_category}}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                  <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
+                  <span class="d-flex align-items-center gap-2">
+                    <small class="text-decoration-line-through">₹ {{product.products_price}}</small> 
+                    <b>₹ {{product.products_selling_price}}</b>
+                  </span>
+                  <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
+                </div>
+                <i routerLink="/editproduct/{{product._id}}"  *ngIf="showIcon " class="fa-solid fa-edit right-side-top"></i>
+                  <i (click)="onDelete(product._id)" *ngIf="showIcon" class="fa-solid fa-trash right-side-top-delete"></i>
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div *ngIf="!showproductdata || showproductdata.length === 0" class="col-12 text-center">
+          <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
+      </div>
+  </div>
+    </mat-tab>
+    <mat-tab *ngIf="isUser"  label="Purchase Products" >
+    </mat-tab>
+   </mat-tab-group>
+
+
+    
+</div>
+
+
+<!-- Model For Add New Courses -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_name" class="col-form-label">Product Name:</label>
+                <input class="form-control" type="text" id="product_name" [(ngModel)]="product.product_name" name="product_name" required>  
+              </div> 
+        
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_prize" class="col-form-label">Product Prize:</label>
+                <input class="form-control" type="number" id="product_prize" [(ngModel)]="product.product_prize" name="product_prize" required>
+              </div>
+        
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_selling_prize" class="col-form-label">Product Selling Prize:</label>
+                <input class="form-control" type="number"  id="product_selling_prize" [(ngModel)]="product.product_selling_prize" name="product_selling_prize" required>
+              </div> 
+
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="categoryid" class="col-form-label">Select Categories</label>
+                <select class="form-select" aria-label="Default select example" id="categoryid"
+                  [(ngModel)]="product.categoryid" name="categoryid">
+                  <option selected>Select Categories</option>
+                  <option *ngFor="let category of showCategorydata" [value]="category._id">
+                    {{ category.category_name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_flag" class="col-form-label">Product Flag</label>
+                <select class="form-select" aria-label="Default select example" id="product_flag"
+                  [(ngModel)]="product.product_flag" name="product_flag">
+                  <option selected>Select Categories</option>
+                  <option  value="Virtual">Virtual</option>
+                  <option  value="Physical">Physical</option>
+                </select>
+              </div>
+        
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_image" class="col-form-label">Product Image</label>
+                <input class="form-control" type="file" id="product_image" name="product_image" (change)="onFileSelected($event)" required>
+              </div>
+
+              <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <label for="product_gallary" class="col-form-label">Product Gallary</label>
+                <input class="form-control" type="file" id="product_gallary" name="product_gallary" (change)="onFileSelected($event)" required>
+              </div> -->
+        
+              <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                <label for="products_info" class="col-form-label">Product Short Information:</label>
+                <textarea class="form-control" id="products_info" [(ngModel)]="product.products_info" name="products_info" required></textarea>
+              </div> 
+
+              <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                <label for="products_description" class="col-form-label">Product Details Information:</label>
+                <textarea class="form-control" id="products_description" [(ngModel)]="product.products_description" name="products_description" required></textarea>
+              </div> 
+            </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>

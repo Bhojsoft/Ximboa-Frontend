@@ -1,0 +1,30 @@
+.card1 {
+    height: 389px; /* Adjust this height as needed */
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+    /* Styles for screens that are 600px wide or less */
+   .column{
+    flex-direction: column;
+   }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    /* Styles for screens that are 600px wide or less */
+   .column{
+   padding:0 16px;
+   }
+   .form{
+    padding: 0 26px;
+   }
+   .contact_info{
+    padding: 0 24px;
+   }
+   .card1{
+    padding: 0px 14px;
+   }
+  }
+  

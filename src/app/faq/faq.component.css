@@ -1,0 +1,23 @@
+
+.accordion-item {
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #ddd; /* Soft border */
+}
+
+/* Customize button appearance */
+.accordion-button {
+  background-color: #f8f9fa; /* Light background color */
+  font-weight: bold; /* Make text bold */
+  border-radius: 8px; /* Rounded button */
+  padding: 15px; /* Increase padding */
+}
+
+/* Add hover effect */
+.accordion-button:hover {
+  background-color: #e9ecef; /* Slightly darker on hover */
+}
+
+/* Space between accordion body content */
+.accordion-body {
+  padding: 20px; /* Add padding inside accordion body */
+}

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="col-12">
+        <img class="img-fluid rounded" src="../../../assets/Appointment 1.png" alt="">
+    </div>
+    
+    <div class="row mt-2">
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="showAppointmentData && showAppointmentData.length > 0">
+                <tr *ngFor="let Apmt of showAppointmentData">
+                    <td>Sagar Singh</td>
+                    <td>{{Apmt.date}}</td>
+                    <td>{{Apmt.time}}</td>
+                    <td><button (click)="onDelete(Apmt._id)" class="btn btn-primary">Delete</button></td>
+                </tr>
+            </tbody>
+            <div *ngIf="!showAppointmentData || showAppointmentData.length === 0" class="col-12 text-center mt-2">
+                <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
+            </div>
+        </table>
+        
+    </div>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="container-fluid">
+  <!-- <div class="row">
+    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gy-2 gx-3">
+      <div *ngFor="let product of filteredProduct" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+        <div class="card p-2 rounded" routerLink="/shop/{{product._id}}">
+          <img src="{{product.product_image}}"  class="rounded img-fluid" alt="...">
+          <div class="card-body ">
+              <h5 class="card-title">{{product.product_name}}</h5>
+              <p class="m-0"><b>Prize : ₹ </b>{{product.product_prize}}</p>
+              <p class="m-0"><b>Selling Prize : ₹ </b> {{product.product_selling_prize}}</p>
+              <p class="m-0"><b>Description : </b> {{ (product.products_info | slice: 0 : 20)}} <br>
+                <button (click)="showProductDescription(product)" class="btn btn-sm btn-primary rounded-pill mt-2"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal">Read More</button>
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+    <!-- <div *ngFor="let product of filteredProduct | paginate: { itemsPerPage: 8, currentPage: p}" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+      <div class="card productcard">
+        <img src="{{product.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
+          alt="...">
+          <button class="btn btn-light rounded onproducthover">Add to cart</button>
+        <div class="card-body text-center">
+          <div>
+            <i class="fa-solid fa-star " style="color: #FFAE06;"></i>
+            <i class="fa-solid fa-star " style="color: #FFAE06;"></i>
+            <i class="fa-solid fa-star " style="color: #FFAE06;"></i>
+            <i class="fa-solid fa-star " style="color: #FFAE06;"></i>
+            <i class="fa-solid fa-star "></i>
+          </div>
+          <h5 class="card-title">{{product.product_name}}</h5>
+          <p>Development</p>
+          <div class="d-flex align-items-center justify-content-between">
+            <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
+            <b>₹ {{product.product_selling_prize}}</b>
+            <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
+          </div>
+         
+        </div>
+      </div>
+    </div> -->
+    <div *ngFor="let product of filteredProduct | paginate: { itemsPerPage: 8, currentPage: p}" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+      <div class="card productcard">
+        <img src="{{product?.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
+          alt="...">
+          <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+          <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span>
+        <div class="card-body text-center mb-0 pt-0">
+          <div class="d-flex align-items-center justify-content-between mt-1">
+            <p class="m-0 p-0 text-end w-25"></p>
+                <div class="w-50 text-center">
+                  <ng-container *ngFor="let star of starsArray; let i = index">
+                    <i
+                      class="fa-solid fa-star"
+                      [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"
+                    ></i>
+                  </ng-container>
+                </div>
+                <small class="m-0 p-0 text-end w-25">{{product.product_flag || "virtual"}}</small>
+          </div>
+          <h5 class="card-title">{{product.products_name}}</h5>
+          <p>{{product.products_category}}</p>
+          <div class="d-flex align-items-center justify-content-between">
+            <i class="fa-solid fa-cart-shopping fs-5" style="color: var(--TextColor);"></i>
+            <span class="d-flex align-items-center gap-2">
+              <small class="text-decoration-line-through">₹ {{product.products_price}}</small> 
+              <b>₹ {{product.products_selling_price}}</b>
+            </span>
+            <i class="fa-regular fa-heart fs-5" style="color: var(--TextColor);;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <pagination-controls style="float:right" (pageChange)="p = $event" class="text-end"></pagination-controls>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Product Description</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="selectedProduct">{{ selectedProduct.products_info }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

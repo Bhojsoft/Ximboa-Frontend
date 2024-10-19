@@ -1,0 +1,149 @@
+.Trainer-img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+}
+
+.fsize {
+  font-size: 60px;
+  font-weight: 800}
+
+.fsizeblue {
+  font-size: 35px;
+  font-weight: bold;
+  color: var(--TextColor);
+  letter-spacing: 2px;
+
+}
+
+
+.categoryheading{
+  font-size: 25 ;
+  font-weight: bold;
+}
+
+.categorysubtitle {
+  font-size: 15px;
+}
+
+
+
+.workflowwords{
+  font-size: 18px;
+  margin-top: 5px !important;
+}
+
+.ViewmoreArrow{
+  cursor: pointer;
+  i{
+    color: var(--TextColor);
+  }
+}
+
+/* .box-hover {
+  background: linear-gradient(to left, #ffffff 50%, #307DFF 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  cursor: pointer;
+  transition: all ease .3s;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  &:hover {
+    background-position: left bottom;
+    color: white;
+  }
+} */
+
+
+
+
+
+.trainercard {
+  position: relative; /* Uncommented to ensure relative positioning */
+}
+
+.trainercard:hover .viewtrainerbtn {
+  display: block; /* Shows the button on hover */
+}
+
+.viewtrainerbtn {
+  position: absolute;
+  top: 0;
+  left: 35%;
+  background-color: transparent; 
+  color: #f2f4f7; 
+  border: none; 
+  background-color: #307DFF;
+  display: none; /* Initially hidden */
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.productcard {
+  position: relative;
+}
+
+.productcard:hover .onproducthover {
+  display: block; /* Shows on hover */
+}
+
+.onproducthover {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  display: none; /* Initially hidden */
+}
+
+
+
+.img-class{
+  width: 180px !important;
+  height: 180px;
+  margin-top: -45%;
+   border: 1px solid #307DFF; 
+   padding: 2px
+}
+
+
+.line-container {
+  background-color: #2363bf; /* Matches the blue background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+}
+
+svg {
+  overflow: visible;
+}
+
+
+
+/* arrow Animation */
+body {
+  /* background: rgb(72, 102, 139); */
+  overflow: hidden;
+}
+
+svg {
+  height: 50px;
+}
+
+.filled {
+  color: #FFAE06; /* Filled star color */
+}
+
+.unfilled {
+  color: #d3d3d3; /* Unfilled star color */
+}
+
+
+
+/* crousal  */
+
+
+
+
+
+

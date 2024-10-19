@@ -1,0 +1,39 @@
+<div class="container-fluid mt-2">
+      
+      <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+         <div *ngFor="let allcourses of filteredCourses  | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-6 col-lg-3 mb-3">
+          <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
+            <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-body mb-0 pb-0">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="card-title m-0 p-0">{{allcourses.course_name}}</h5>
+                <span class="text-center">
+                  <span class="poppins-semibold-italic"> {{allcourses.online_offline}} </span> 
+                  <i *ngIf="allcourses.online_offline === 'Online'" class="fas fa-circle-play text-muted m-0 p-0"></i>
+                  <i *ngIf="allcourses.online_offline === 'Offline'" class="fas fa-location-dot m-0 p-0"></i>
+                </span>
+              </div>
+              <span class="">{{allcourses.category_name}}</span>
+              <div class="d-flex align-items-center justify-content-between mt-1 mb-0 m-0 p-0">
+                  <div class="d-flex align-items-center gap-2 ">
+                     <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt=""></p>
+                    <p>{{allcourses.business_Name }}</p>
+                  </div>
+               <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+              </div>
+              <button class="left-side-top rounded">{{allcourses.course_flag}}</button>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between pb-0 mt-0">
+                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+                <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{ getFormattedPrice(allcourses.course_price) }}</p>
+            </div>
+          </div>
+        </div> 
+      
+      
+    </div>
+      <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
+</div>
+
+
+

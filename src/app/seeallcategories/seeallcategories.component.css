@@ -1,0 +1,19 @@
+.card-user{
+  border: 1px solid black ;
+  padding: 5px 5px 0 5px;
+  border-radius: 5px;
+}
+
+.round{
+    border-radius: 10px !important;
+}
+
+.tr-img{
+  /* border: 1px solid black ; */
+  height: 24px;
+  object-fit: cover;
+  /* width: 18px; */
+  /* border-radius: 50%; */
+}
+
+  

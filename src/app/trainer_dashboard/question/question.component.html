@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col-12">
+        <img class="img-fluid rounded" src="../../../assets/Appointment 1.png" alt="">
+    </div>
+    
+    <div class="row mt-2">
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Question</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="ShowQuestion && ShowQuestion.length > 0">
+                <tr *ngFor="let question of ShowQuestion">
+                    <td>Sagar Singh</td>
+                    <td>{{question.created_at}}</td>
+                    <td>{{question.question}}</td>
+                    <td><button class="btn btn-primary">Delete</button></td>
+                </tr>
+            </tbody>
+            <div *ngIf="!ShowQuestion || ShowQuestion.length === 0" class="col-12 text-center mt-2">
+                <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
+            </div>
+        </table>
+        
+        </div>
+    </div>
+    
+</div>
