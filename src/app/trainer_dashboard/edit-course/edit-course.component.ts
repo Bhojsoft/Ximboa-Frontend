@@ -83,7 +83,6 @@ export class EditCourseComponent implements OnInit {
     formData.append('course_name',this.uploadform.get('course_name')?.value);
     formData.append('category_id',this.uploadform.get('category_id')?.value);
     formData.append('online_offline',this.uploadform.get('online_offline')?.value);
-    formData.append('trainer_id',this.uploadform.get('trainer_id')?.value);
     formData.append('price',this.uploadform.get('price')?.value);
     formData.append('offer_prize',this.uploadform.get('offer_prize')?.value);
     formData.append('start_date',this.uploadform.get('start_date')?.value);

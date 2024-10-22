@@ -173,4 +173,15 @@
   right: 0;       
 }
 
+.Notification-icon{
+  padding: 10px 12px;
+}
 
+.Notification-icon:hover{
+    border-radius: 50%;
+    background-color: #F5F5F5;
+    display: block;
+    transform: scale(1.1);
+    cursor: pointer;
+    
+}

@@ -1,36 +1,37 @@
 <div *ngIf="showprofile" class="container-fluid " style="background-color: #F5F5F5;">
 
-       <div class="row mb-0">
-        <div class="col-sm-12 col-md-6 col-lg-10">
-            <div class="row">
-                <div class="col-sm-12 col-md-2 col-lg-3" *ngIf="showprofile?.gallarys?.[0]">
-                    <img src="{{showprofile.gallarys[0]?.photos}}" alt="" class="object-fit-cover img-fluid rounded">
+       <div class="row mb-0 pt-1">
+        <div class="col-sm-12 col-md-6 col-lg-10 ">
+            <div class="row ">
+                <div class="col-sm-12 col-md-2 col-lg-3" >
+                    <img [src]="showprofile?.gallarys?.[0]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'"  alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
-                <div class="col-sm-12 col-md-2 col-lg-3" *ngIf="showprofile?.gallarys?.[1]">
-                    <img src="{{showprofile.gallarys[1]?.photos}}" alt="" class="object-fit-cover img-fluid rounded">
+                
+                <div class="col-sm-12 col-md-2 col-lg-3" >
+                    <img [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
-                <div class="col-sm-12 col-md-2 col-lg-3" *ngIf="showprofile?.gallarys?.[2]">
-                    <img src="{{showprofile.gallarys[2]?.photos}}" alt="" class="object-fit-cover img-fluid rounded">
+                <div class="col-sm-12 col-md-2 col-lg-3" >
+                    <img [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
-                <div class="col-sm-12 col-md-2 col-lg-3" *ngIf="showprofile?.gallarys?.[3]">
-                    <img src="{{showprofile.gallarys[3]?.photos}}" alt="" class="object-fit-cover img-fluid rounded">
+                <div class="col-sm-12 col-md-2 col-lg-3" >
+                    <img [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[3].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-2">
             <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6 mb-2" *ngIf="showprofile?.gallarys?.[5]">
-                    <img src="{{showprofile.gallarys[5]?.photos}}" class="rounded object-fit-cover" height="95px" width="114px" alt="...">
+                <div class="col-sm-12 col-md-6 col-lg-6 mb-2" >
+                    <img [src]="showprofile?.gallarys?.[5]?.photos ? showprofile.gallarys[5].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover" height="95px" width="114px" alt="Gallery Image">
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6" *ngIf="showprofile?.gallarys?.[4]">
-                    <img src="{{showprofile.gallarys[4]?.photos}}" class="rounded object-fit-cover" height="95px" width="114px" alt="...">
+                <div class="col-sm-12 col-md-6 col-lg-6" >
+                    <img [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover" height="95px" width="114px" alt="Gallery Image">
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 position-relative" data-bs-toggle="modal" data-bs-target="#gallery" *ngIf="showprofile?.gallarys?.[4]">
-                    <img src="{{showprofile.gallarys[4]?.photos}}" height="95px" width="114px" class="rounded object-fit-cover opacity-25 " alt="...">
+                <div class="col-sm-12 col-md-6 col-lg-6 position-relative" data-bs-toggle="modal" data-bs-target="#gallery" >
+                    <img [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'" height="95px" width="114px" class="rounded object-fit-cover opacity-25 " alt="Gallery Image">
                     <span class="position-absolute top-50 start-50 translate-middle fw-bold text-dark p-2">View More</span>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6" *ngIf="showprofile?.gallarys?.[3]">
-                    <img src="{{showprofile.gallarys[3]?.photos}}" height="95px" width="114px" class="rounded object-fit-cover" alt="...">
+                <div class="col-sm-12 col-md-6 col-lg-6" >
+                    <img [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'" height="95px" width="114px" class="rounded object-fit-cover" alt="Gallery Image">
                 </div>
             </div>
         </div>
@@ -98,9 +99,9 @@
     <div class="row   justify-content-around mt-1">
         <!-- First Row code start hrer -->
         <div class="col-sm-12 col-lg-4 " id="About">
-            <div class="d-flex align-items-center gap-3 " >
-                <img *ngIf="showprofile.trainer?.role === 'SELF_EXPERT'" src="../../assets/SELF_EXPERT.png" class="round" height="40px" width="40px" alt="" style="background-color:var(--TextColor);">
-                <img *ngIf="showprofile.trainer?.role === 'TRAINER'" src="../../assets/INSTITUTE.png" class="round" height="40px" width="40px" alt="" style="background-color:var(--TextColor);">
+            <div class="d-flex align-items-center gap-2 " >
+                <img *ngIf="showprofile.trainer?.role === 'SELF_EXPERT'" src="../../assets/SELF_EXPERT.png" class="rounded" height="30px" width="30px" alt="" style="background-color:var(--TextColor);">
+                <img *ngIf="showprofile.trainer?.role === 'TRAINER'" src="../../assets/INSTITUTE.png" class="rounded" height="30px" width="30px" alt="" style="background-color:var(--TextColor);">
                 <h5 class="text-color text-capitalize">{{showprofile.trainer?.business_Name || showprofile.institutes}}</h5>
             </div>
             <div class="d-flex align-items-center gap-3">
@@ -651,116 +652,103 @@
             <div class="modal-body px-5">
                 <form (ngSubmit)="onSubmit(signUpForm)" #signUpForm="ngForm">
                     <div class="row desktop">
-                        <div class="row">
-                            <div class="col-sm-12 mb-3">
-                                <h4><b>Register</b></h4>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="f_Name" class="form-label">First Name <sup>*</sup></label>
-                                <input type="text" class="form-control form-control-lg rounded-input" placeholder=""
-                                    id="f_Name" [(ngModel)]="userData.f_Name" name="f_Name" required
-                                    #FirstName="ngModel">
-                                <div *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)"
-                                    class="text-danger">
-                                    First Name is required.
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="l_Name" class="form-label">Last Name <sup>*</sup></label>
-                                <input type="text" class="form-control form-control-lg rounded-input" placeholder=""
-                                    id="l_Name" [(ngModel)]="userData.l_Name" name="l_Name" required
-                                    #LastName="ngModel">
-                                <div *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)"
-                                    class="text-danger">
-                                    Last Name is required.
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="middle_Name" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control form-control-lg rounded-input" placeholder=""
-                                    id="middle_Name" [(ngModel)]="userData.middle_Name" name="middle_Name"
-                                    #MiddleName="ngModel">
-                            </div>
-
-
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="email_id" class="form-label">Your Email <sup>*</sup></label>
-                                <input type="email" class="form-control form-control-lg rounded-input" placeholder=""
-                                    id="email_id" [(ngModel)]="userData.email_id" name="email_id" required email
-                                    #email="ngModel">
-                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-                                    <div *ngIf="email.errors?.['required']">Email is required.</div>
-                                    <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="mobile_number" class="form-label">Mobile Number <sup>*</sup></label>
-                                <input type="number" pattern="^[0-9]{10}$"
-                                    class="form-control form-control-lg rounded-input" minlength="10" maxlength="10"
-                                    pattern="^\d{10}$" id="mobile_number" [(ngModel)]="userData.mobile_number"
-                                    name="mobile_number" required #mobile="ngModel">
-                                <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="text-danger">
-                                    <div *ngIf="mobile.errors?.['required']">Mobile Number is required.</div>
-                                    <div *ngIf="mobile.errors?.['pattern']">Mobile Number must be exactly 10 digits.
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <label for="password" class="form-label">Password <sup>*</sup></label>
-                                <div class="d-flex align-items-center inputbtn">
-                                    <input [type]="show ? 'text' : 'password'"
-                                        class="form-control form-control-lg rounded-input h-25" id="password"
-                                        minlength="8" [(ngModel)]="userData.password" name="password" required
-                                        #password="ngModel"
-                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
-                                    <button type="button" (click)="togglePassword()">
-                                        <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
-                                        <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
-                                    </button>
-                                </div>
-                                <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                                    class="text-danger">
-                                    <div *ngIf="password.errors?.['required']">Password is required.</div>
-                                    <div *ngIf="password.errors?.['pattern']">
-                                        Password must be at least 8 characters long, include at least one uppercase
-                                        letter, one lowercase letter, one number, and one special character.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <div class="form-check pt-3">
-                                    <input class="form-check-input border-dark" type="checkbox" [(ngModel)]="rememberMe"
-                                        name="rememberMe" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">I accept the</label> &nbsp;
-                                    <label style="color: #6149CD;">Terms and Conditions</label>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                                <div class="form-check pt-3">
-                                    <label data-bs-dismiss="modal" aria-label="Close" class="form-check-label"
-                                        for="flexCheckDefault">Already Have an Account ? <a routerLink="/signin"> Login
-                                        </a></label>
-                                </div>
-                            </div>
-
+                      <div class="row">
+                        <div class="col-sm-12 mb-3">
+                          <h4><b>Register</b></h4>
                         </div>
-
-                        <div class="pt-5 mb-3 text-center">
-                            <button type="submit" class="btn sign-in-btn rounded-pill "
-                                [disabled]="!signUpForm.form.valid" style="width: 25%;">Sign up</button>
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="f_Name" class="form-label">First Name <sup>*</sup></label>
+                          <input type="text" class="form-control form-control-lg rounded-input" placeholder="" id="f_Name"
+                            [(ngModel)]="userData.f_Name" name="f_Name" required #FirstName="ngModel">
+                          <div *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" class="text-danger">
+                            First Name is required.
+                          </div>
                         </div>
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="l_Name" class="form-label">Last Name <sup>*</sup></label>
+                          <input type="text" class="form-control form-control-lg rounded-input" placeholder="" id="l_Name"
+                            [(ngModel)]="userData.l_Name" name="l_Name" required #LastName="ngModel">
+                          <div *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" class="text-danger">
+                            Last Name is required.
+                          </div>
+                        </div>
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="middle_Name" class="form-label">Middle Name <span class="text-muted">(optional)</span></label>
+                          <input type="text" class="form-control form-control-lg rounded-input" placeholder="" id="middle_Name"
+                            [(ngModel)]="userData.middle_Name" name="middle_Name" #MiddleName="ngModel">
+                        </div>
+              
+                        
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="email_id" class="form-label">Your Email <sup>*</sup></label>
+                          <input type="email" class="form-control form-control-lg rounded-input" placeholder="" id="email_id"
+                            [(ngModel)]="userData.email_id" name="email_id" required email #email="ngModel">
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                            <div *ngIf="email.errors?.['required']">Email is required.</div>
+                            <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
+                          </div>
+                        </div>
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="mobile_number" class="form-label">Mobile Number <sup>*</sup></label>
+                          <input type="number" pattern="^[0-9]{10}$" class="form-control form-control-lg rounded-input" minlength="10"
+                            maxlength="10" pattern="^\d{10}$" id="mobile_number" [(ngModel)]="userData.mobile_number" name="mobile_number" required
+                            #mobile="ngModel">
+                          <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="text-danger">
+                            <div *ngIf="mobile.errors?.['required']">Mobile Number is required.</div>
+                            <div *ngIf="mobile.errors?.['pattern']">Mobile Number must be exactly 10 digits.</div>
+                          </div>
+                          
+                        </div>
+              
+                        
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                          <label for="password" class="form-label">Password <sup>*</sup></label>
+                          <div class="d-flex align-items-center inputbtn">
+                            <input [type]="show ? 'text' : 'password'" class="form-control form-control-lg rounded-input h-25"
+                              id="password" minlength="8" [(ngModel)]="userData.password" name="password" required #password="ngModel"
+                              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                            <button type="button" (click)="togglePassword()">
+                              <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                              <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                            </button>
+                          </div>
+              
+                          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                            <div *ngIf="password.errors?.['required']">Password is required.</div>
+                            <div *ngIf="password.errors?.['pattern']">
+                              Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.
+                            </div>
+                          </div>
+                        </div>
+              
+                        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                            <div class="form-check pt-3">
+                              <input class="form-check-input border-dark" type="checkbox" [(ngModel)]="rememberMe" name="rememberMe"
+                                id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">I accept the</label> &nbsp;
+                              <label style="color: #6149CD;">Terms and Conditions</label>
+                            </div>
+                        </div>
+              
+                          <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                            <div class="form-check pt-3">
+                            <label class="form-check-label" for="flexCheckDefault">Already Have an Account ? <a routerLink="/signin"> Login </a></label>
+                          </div>
+                          </div>
+                        
+                      </div>
+              
+                      <div class="pt-5 mb-3 text-center">
+                        <button type="submit" class="btn sign-in-btn rounded-pill "
+                          [disabled]="!signUpForm.form.valid" style="width: 25%;">Sign up</button>
+                      </div>
                     </div>
-                </form>
+                  </form>
             </div>
         </div>
     </div>

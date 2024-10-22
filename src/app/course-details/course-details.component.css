@@ -206,3 +206,9 @@
   left: 30%;
   display: none; /* Initially hidden */
 }
+
+.sign-in-btn{
+  background: #3078FF  ;
+  color: white;
+  padding: 10px;
+}

@@ -2,10 +2,10 @@
 <div class="row mt-3">
 
    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-    <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: 8, currentPage: p}" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+    <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-3 mb-3">
       <div class="card" routerLink="/eventdetails/{{Event._id}}">
-        <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
-        <span class="onproducthoverflag rounded px-3">{{Event.event_flag}}</span>
+        <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid"  alt="..." style="height: 208px !important;">
+        <span class="onproducthoverflag rounded px-2">{{Event.event_flag}}</span>
         <div class="card-body text">
           <div class="d-flex align-items-center justify-content-between gap-1">
             <span>
@@ -20,7 +20,8 @@
               <i *ngIf="Event.event_type === 'Online'" class="fas fa-circle-play text-muted"></i>
               <i *ngIf="Event.event_type === 'Offline'" class="fas fa-location-dot"></i>
             </span>
-        </div>
+         </div>
+         <!-- <p>{{Event.event_category}}</p> -->
           <div class="d-flex align-items-center gap-2 justify-content-center">
             <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px" width="30px" alt="">
             <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px" width="30px" alt="">
@@ -29,12 +30,12 @@
             <label class="p-2 border rounded-circle"> +35</label>
           </div>
           <div class="d-flex align-items-center justify-content-between mt-2">
-            <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
-            <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
+            <button class="btn btn-sm rounded-pill px-3 text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
+            <button class="btn btn-sm rounded-pill px-3 text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-            <pagination-controls style="float:right" (pageChange)="p = $event" class="text-end"></pagination-controls>
+  <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
   </div>

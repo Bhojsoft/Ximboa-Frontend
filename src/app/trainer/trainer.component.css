@@ -25,3 +25,34 @@
 .social-icons1{
     border: 1px solid #307DFF;
 }
+
+.TrainerFlag{
+    background-color: var(--TextColor);
+    color: var(--WhiteColor);
+    font-size: 10px !important;
+    border: none;
+    /* position: absolute;
+    top: 4%;
+    right: 2%;
+    margin-top: 30px; */
+  }
+
+  .trainer-name-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .full-name {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: small;
+    padding: 5px;
+    z-index: 1;
+  }
+  
+  .trainer-name-container:hover .full-name {
+    display: block;
+  }
+  

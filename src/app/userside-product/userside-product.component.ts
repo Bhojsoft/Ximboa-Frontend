@@ -11,11 +11,16 @@ import { SearchService } from '../search.service';
 })
 export class UsersideProductComponent implements OnInit {
 
+  totalItems = 0;
+  currentPage = 1;
+  itemsPerPage = 8; 
   showproductdata: any[] = []; // Ensure it's an array
-  selectedProduct: any;
-  selectedCategories: string[] = []; 
-  filteredProduct: any[] = [];
+  filteredProducts: any[] = [];
+  selectedCategories: any; 
   p: number = 1;
+  term:any;
+  products: any[] = [];
+ 
   starsArray: number[] = [1, 2, 3, 4, 5]; // 5 stars total
   searchTerm: string = ''; // New property for search term
 
@@ -27,12 +32,12 @@ export class UsersideProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadProducts(); // Load initial product data
+    this.loadProducts(this.currentPage, this.itemsPerPage); // Load initial product data
 
     // Subscribe to category changes
     this.filter.selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
-      this.filterProducts(); // Re-filter when categories change
+      this.applyFilter(); // Re-filter when categories change
     });
 
     // Subscribe to search term changes
@@ -43,34 +48,63 @@ export class UsersideProductComponent implements OnInit {
     });
   }
 
-  loadProducts(): void {
-    this.service.productdata().subscribe(data => {
-      console.log(data);
+  loadProducts(page: number, limit: number): void {
+    this.service.productdata(page, limit).subscribe(data => {
+      // console.log(data);
       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
-      this.filterProducts(); // Apply filter after fetching the product data
+      this.filteredProducts = this.showproductdata;
+      this.totalItems = data?.pagination.totalItems;
+      this.applyFilter(); // Apply filter after fetching the product data
     });
   }
 
-  filterProducts(): void {
+  applyFilter(): void {
     // Start with all products
-    this.filteredProduct = this.showproductdata;
+    this.filteredProducts = this.showproductdata;
 
     // Apply search term filter
     if (this.searchTerm) {
-      this.filteredProduct = this.filteredProduct.filter(product =>
+      this.filteredProducts = this.filteredProducts.filter((product:any) =>
         product.products_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
 
     // Apply category filter
-    if (this.selectedCategories.length > 0) {
-      this.filteredProduct = this.filteredProduct.filter(product => 
-        this.selectedCategories.includes(product?.products_category)
-      );
-    }
+    // if (this.selectedCategories.length > 0) {
+    //   this.filteredProduct = this.filteredProduct.filter(product => 
+    //     this.selectedCategories.includes(product?.products_category)
+    //   );
+    // }
 
-    // console.log('Filtered Products:', this.filteredProduct);
+    if (this.selectedCategories.length > 0) {
+      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+        .subscribe(result => {
+          console.log("filtered category wise product", result);  
+          this.filteredProducts = result.data.filter((product:any) =>
+            this.selectedCategories.includes(product.products_category)
+          );
+        });
+    }
   }
+
+   // Handle page change for pagination
+   onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadProducts(this.currentPage, this.itemsPerPage); 
+    this.p = page;
+  }
+
+  // updateFilteredCourses() {
+  //   if (this.term) {
+  //     this.filteredProducts = this.showproductdata.filter(product =>
+  //       product.products_name.toLowerCase().includes(this.term.toLowerCase())
+  //     );
+  //   } else {
+  //     this.filteredProducts = this.showproductdata;
+  //   }
+  
+  //   this.p = 1;  // Reset to the first page after filtering
+  // }
 
   fetchProducts(): void {
     if (this.searchTerm) {
@@ -79,14 +113,14 @@ export class UsersideProductComponent implements OnInit {
           response => {
             this.showproductdata = response.data; // Update showproductdata with search results
             console.log('Fetched Products:', this.showproductdata); // Log fetched data
-            this.filterProducts(); // Apply filter after fetching products
+            this.applyFilter(); // Apply filter after fetching products
           },
           error => {
             console.error('Error fetching products:', error);
           }
         );
     } else {
-      this.loadProducts(); // Reload the product data if search term is empty
+      this.loadProducts(this.currentPage, this.itemsPerPage); // Reload the product data if search term is empty
     }
   }
 

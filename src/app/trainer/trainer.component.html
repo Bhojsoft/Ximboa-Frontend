@@ -8,8 +8,16 @@
           <img src="{{trainer.trainer_image}}" class="object-fit-cover rounded-circle img-class"  alt="...">
         </div>
         <button routerLink="/coursedetails/{{trainer._id}}" class="btn btn-sm rounded viewtrainerbtn">View Profile</button>
-          <div class="card-body text-center">
-            <p class="card-title trainernameheading text-capitalize">{{trainer.Business_Name}}</p>
+        <div class="card-body text-center">
+          <button class="btn btn-sm TrainerFlag rounded px-2">{{trainer.flag}}</button><br>
+            <div class="trainer-name-container">
+              <p class="card-title trainernameheading text-capitalize" 
+                 (mouseenter)="showFullName = true" 
+                 (mouseleave)="showFullName = false">
+                 {{ truncateBusinessName(trainer.Business_Name) }}
+              </p>
+              <span *ngIf="showFullName" class="full-name rounded">{{ trainer.Business_Name }}</span>
+           </div>
             <p class="text-capitalize" > {{trainer.f_Name || "John" }}  {{trainer.l_Name || "Deo" }}</p>
               <div class="social-icons">
                 <i href="https://www.facebook.com"  class="fa-brands fa-facebook  rounded-pill social-icons1"></i>

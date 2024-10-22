@@ -1,5 +1,5 @@
 
-<div class="container ">
+<div class="container my-3">
 <div class="row text-center border py-5 ">
     
     <!-- Display current image if available -->
@@ -10,7 +10,7 @@
     
     <form (ngSubmit)="onSubmit() ">
      <div class="row d-flex justify-content-center">       
-        <div class="mb-3 col-2  text-center">
+        <div class="mb-3 col-4  text-center">
             <label for="trainer_image" class="form-label">Upload New Image:</label>
             <input type="file" class="form-control" id="trainer_image" (change)="onFileSelected($event)" accept="image/*" >
           </div>

@@ -12,7 +12,7 @@ import { SearchService } from '../search.service';
 export class TrainerComponent implements OnInit {
   showtrainerData: any[] = [];
   filteredtrainer: any[] = [];
-  selectedCategories: string[] = []; 
+  selectedCategories: any; 
   searchTerm: string = ''; // New property for search term
   p: number = 1;
   totalItems = 0;
@@ -22,6 +22,11 @@ export class TrainerComponent implements OnInit {
   constructor(private service: DashboardService, private filter: FilterService,
     private http: HttpClient, private searchService: SearchService
   ) {}
+  
+  showFullName = false;
+  truncateBusinessName(name: string): string {
+    return name.length > 18 ? name.slice(0, 18) + '...' : name;
+  }
 
   ngOnInit(): void {
         this.loadtrainers(this.currentPage,this.itemsPerPage)
@@ -43,6 +48,7 @@ export class TrainerComponent implements OnInit {
     this.service.gettrainerdata(page, limit).subscribe(data => {
       this.showtrainerData = data.trainers;
       console.log(this.showtrainerData);
+      this.filteredtrainer = this.showtrainerData;
       this.totalItems = data.pagination.totalItems;
       this.filterTrainers(); // Initial filter
     });
@@ -58,13 +64,28 @@ export class TrainerComponent implements OnInit {
       );
     }
   
-    if (this.selectedCategories.length > 0) {
-      this.filteredtrainer = this.filteredtrainer.filter(trainer =>
-        this.selectedCategories.includes(trainer.categories?.toString()) 
-      );
+    // if (this.selectedCategories.length > 0) {
+    //   this.filteredtrainer = this.filteredtrainer.filter(trainer =>
+    //     this.selectedCategories.includes(trainer.categories?.toString()) 
+    //   );
+    // }
+
+     if (this.selectedCategories.length > 0) {
+      this.service.getTrainerdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+        .subscribe(result => {
+          console.log("filtered category wise Events", result);  
+          this.filteredtrainer = result.data.filter((trainer: any) => 
+            trainer.categories.some((category: any) => 
+              this.selectedCategories.includes(category)
+            )
+          );
+        });   
     }
+
+    
+    
   
-    console.log('Filtered Trainers:', this.filteredtrainer); 
+    // console.log('Filtered Trainers:', this.filteredtrainer); 
   }
   
   

@@ -10,21 +10,21 @@ import { SearchService } from '../search.service';
   styleUrls: ['./user-event.component.css']
 })
 export class UserEventComponent implements OnInit {
+
+  totalItems = 0;
+  currentPage = 1;
+  itemsPerPage = 8; 
   showeventdata: any[] = [];
   filteredEvent: any[] = [];
-  selectedCategories: string[] = []; 
-  // selectedEvent: any;
+  selectedCategories: any; 
   p: number = 1;
   searchTerm: string = ''; // New property for search term
   term:any;
   constructor(private Dservice: DashboardService, private filter: FilterService, private http: HttpClient, private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.Dservice.Eventdata().subscribe(Response => {
-      console.log(Response);
-      this.showeventdata = Response;
-      this.filterEvents(); // Initial filter
-    });
+    
+    this.loadEvents(this.currentPage, this.itemsPerPage);
 
     this.filter.selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
@@ -39,6 +39,16 @@ export class UserEventComponent implements OnInit {
     });
   }
 
+  loadEvents(page: number, limit: number):void{
+    this.Dservice.Eventdata(page, limit).subscribe(Response => {
+      console.log(Response);
+      this.showeventdata = Response.data;
+      this.filteredEvent = this.showeventdata;
+      this.totalItems = Response.pagination.totalItems;
+      this.filterEvents(); // Initial filter
+    });
+  }
+
   filterEvents(): void {
     this.filteredEvent = this.showeventdata;
 
@@ -50,13 +60,29 @@ export class UserEventComponent implements OnInit {
     }
 
     // Apply category filter
+    // if (this.selectedCategories.length > 0) {
+    //   this.filteredEvent = this.filteredEvent.filter(event =>
+    //     this.selectedCategories.includes(event?.event_category)
+    //   );
+    // }
     if (this.selectedCategories.length > 0) {
-      this.filteredEvent = this.filteredEvent.filter(event =>
-        this.selectedCategories.includes(event?.event_category)
-      );
+      this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+        .subscribe(result => {
+          console.log("filtered category wise Events", result);  
+          this.filteredEvent = result.data.filter((event:any) =>
+            this.selectedCategories.includes(event.event_category)
+          );
+        });
     }
 
     // console.log('Filtered Events:', this.filteredEvent); // Log filtered events for debugging
+  }
+
+   // Handle page change for pagination
+   onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadEvents(this.currentPage, this.itemsPerPage); 
+    this.p = page;
   }
 
   fetchEvents(): void {
@@ -73,68 +99,10 @@ export class UserEventComponent implements OnInit {
           }
         );
     } else {
-      // If no search term, reload all events
-      this.Dservice.Eventdata().subscribe(Response => {
-        this.showeventdata = Response;
-        this.filterEvents(); // Filter with all events
-      });
+      this.loadEvents(this.currentPage,this.itemsPerPage);
     }
   }
 }
 
 
 
-// import { Component, OnInit } from '@angular/core';
-// import { DashboardService } from '../common_service/dashboard.service';
-// import { FilterService } from '../common_service/filter.service';
-
-// @Component({
-//   selector: 'app-user-event',
-//   templateUrl: './user-event.component.html',
-//   styleUrls: ['./user-event.component.css']
-// })
-// export class UserEventComponent implements OnInit {
-
-//   showeventdata: any[] = [];
-//   filteredEvent: any[] = [];
-//   selectedCategories: string[] = []; 
-//   selectedEvent: any;
-//   p: number = 1;
-
-
-
-//   constructor(private Dservice: DashboardService, private filter: FilterService) { }
-
-//   ngOnInit(): void {
-//     this.Dservice.Eventdata().subscribe(Response => {
-//       console.log(Response);
-//       this.showeventdata = Response;
-//       // this.filteredEvent = this.showeventdata;
-//       this.filterEvents()
-//     });
-
-//     this.filter.selectedCategories$.subscribe(categories => {
-//       this.selectedCategories = categories;
-//       this.filterEvents();
-//     });
-//     // this.filter.selectedCategories$.subscribe(selectedCategories => {
-//     //   if (selectedCategories.length > 0) {
-//     //     this.filteredEvent = this.showeventdata.filter((event: any) =>
-//     //       selectedCategories.includes(event.event_category.category_name)
-//     //     );
-//     //   } else {
-//     //     this.filteredEvent = this.showeventdata; // Show all courses if no category is selected
-//     //   }
-//     // });
-//   }
-
-//   filterEvents(): void {
-//     if (this.selectedCategories.length > 0) {
-//       this.filteredEvent = this.showeventdata.filter((Events: any) => 
-//         this.selectedCategories.includes(Events.event_category?.category_name)
-//       );
-//     } else {
-//       this.filteredEvent = this.showeventdata;  // No filtering if no categories selected
-//     }
-//   }
-// }

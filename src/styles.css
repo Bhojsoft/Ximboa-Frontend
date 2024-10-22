@@ -2,8 +2,9 @@
 
 /* html, body { height: 100%; } */
 .body{ 
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
  } 
+
 
 .right-side-top{
     background-color: #F9C4C4;
@@ -31,11 +32,24 @@
 
   input:focus,
   select:focus,
-  textarea:focus{
+  textarea:focus,
+  .btn-close{
     outline: none !important;
     box-shadow: none !important;
   }
 
+  .ThumbnailImage{
+    height: 350px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .card > img {
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block !important;
+    width: 100% !important;
+  }
 
   /* CSS For zoom effect for card */
   .card{
@@ -56,7 +70,7 @@
     background-color: #307DFF;
     color: white;
     /* padding: 5px 15px 5px 15px; */
-    font-size: medium;
+    font-size: small;
     border: none;
     position: absolute;
     top: 0%;
@@ -70,8 +84,8 @@
 
 /* Style for Registration POP up */
 .sign-in-btn{
-  background: var(--TextColor)  ;
-  color: var(--WhiteColor);
+  background: #3078FF  ;
+  color: white;
   padding: 10px;
 }
 
@@ -137,6 +151,8 @@ sup{
   left: 2%;
   background-color: #307DFF;
   color: #ffffff;
+  font-size: small;
+
 }
 
 /* CSS For Trainer Card on Hover  */

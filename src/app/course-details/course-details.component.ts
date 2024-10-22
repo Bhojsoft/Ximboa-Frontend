@@ -6,6 +6,8 @@ import { DashboardService } from '../common_service/dashboard.service';
 import Swal from 'sweetalert2';
 import { Token } from '@angular/compiler';
 import { LoginService } from '../common_service/login.service';
+import { AuthServiceService } from '../common_service/auth-service.service';
+import * as $ from 'jquery'
 
 
 @Component({
@@ -26,10 +28,9 @@ export class CourseDetailsComponent implements OnInit {
   currentPageOfflineEvents: number = 1;
   currentPageProducts: number = 1;
 
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 3; 
 
-
-  constructor(private serive:TrainerService,private router:ActivatedRoute,
+  constructor(private serive:TrainerService,private router:ActivatedRoute,private authService:AuthServiceService,
     private dashboard:DashboardService,private loginservices:LoginService,private route:Router)
   {this.id=this.router.snapshot.paramMap.get('id');}
 
@@ -341,6 +342,8 @@ export class CourseDetailsComponent implements OnInit {
   }
 
 
+  
+
   show: boolean = false;
   rememberMe: boolean = false;
 
@@ -361,14 +364,14 @@ export class CourseDetailsComponent implements OnInit {
     if (form.valid) {
       this.loginservices.postsignupdata(this.userData).subscribe({
         next: (response) => {
-          // console.log(alert("Success"),response);
-          Swal.fire('Congratulation', 'Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-          // this.route.navigate(['/cart'])
+          sessionStorage.setItem("Authorization",response.token);
+          this.authService.login(response.token); // Set login state
+          Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
+          this.closeModel();
         },
-        error: (error) => {
-          // console.log(alert("Error"),error);
+        error: (error)=>{
           Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-        }
+        } 
       });
     } else {
       console.log('Form is invalid');
@@ -376,11 +379,14 @@ export class CourseDetailsComponent implements OnInit {
   }
 
 
-  // Hide And Show Password Logic
-  togglePassword() {
+   // Hide And Show Password Logic
+   togglePassword() {
     this.show = !this.show;
   }
 
+  closeModel(){
+    $('#CheckLoggedIN').modal('hide');
+  }
   
   // scroll pages in click on nav
 

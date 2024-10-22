@@ -119,13 +119,6 @@ svg {
 }
 
 
-
-/* arrow Animation */
-body {
-  /* background: rgb(72, 102, 139); */
-  overflow: hidden;
-}
-
 svg {
   height: 50px;
 }
@@ -139,9 +132,36 @@ svg {
 }
 
 
+.TrainerFlag{
+  background-color: var(--TextColor);
+  color: var(--WhiteColor);
+  font-size: 10px !important;
+  /* padding: 5px 15px 5px 15px; */
+  /* border: none;
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  margin-top: 30px; */
+}
 
-/* crousal  */
+.trainer-name-container {
+  position: relative;
+  display: inline-block;
+}
 
+.full-name {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  font-size: small;
+  padding: 5px;
+  z-index: 1;
+}
+
+.trainer-name-container:hover .full-name {
+  display: block;
+}
 
 
 

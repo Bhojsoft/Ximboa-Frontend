@@ -18,7 +18,7 @@ export class SeeallcategoriesComponent implements OnInit {
   itemsPerPage = 8; 
   ShowCourseData: any[] = [];   
   filteredCourses: any[] = [];  
-  selectedCategories: string[] = []; 
+  selectedCategories: any; 
   p: number = 1;
   term:any;
   courses: any[] = [];
@@ -70,14 +70,25 @@ export class SeeallcategoriesComponent implements OnInit {
     }
   
     // Apply category filter (if any categories are selected)
+    // if (this.selectedCategories.length > 0) {
+    //   this.filteredCourses = this.filteredCourses.filter(course =>
+    //     this.selectedCategories.includes(course.category_name)
+    //   );
+    // }
+
     if (this.selectedCategories.length > 0) {
-      this.filteredCourses = this.filteredCourses.filter(course =>
-        this.selectedCategories.includes(course.category_name)
-      );
+      this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+        .subscribe(result => {
+          console.log("filtered category wise course", result);  
+          // Update filteredCourses directly with the result from API
+          this.filteredCourses = result.data.filter((course:any) =>
+            this.selectedCategories.includes(course.category_name)
+          );
+        });
     }
     
     // this.totalItems = this.filteredCourses.length;
-  
+
     console.log('Filtered Courses:', this.filteredCourses);  // Log filtered courses for debugging
   }
   
@@ -90,17 +101,17 @@ export class SeeallcategoriesComponent implements OnInit {
     this.p = page;
   }
 
-  updateFilteredCourses() {
-    if (this.term) {
-      this.filteredCourses = this.ShowCourseData.filter(course =>
-        course.course_name.toLowerCase().includes(this.term.toLowerCase())
-      );
-    } else {
-      this.filteredCourses = this.ShowCourseData;
-    }
+  // updateFilteredCourses() {
+  //   if (this.term) {
+  //     this.filteredCourses = this.ShowCourseData.filter(course =>
+  //       course.course_name.toLowerCase().includes(this.term.toLowerCase())
+  //     );
+  //   } else {
+  //     this.filteredCourses = this.ShowCourseData;
+  //   }
   
-    this.p = 1;  // Reset to the first page after filtering
-  }
+  //   this.p = 1;  // Reset to the first page after filtering
+  // }
   
 
   fetchCourses() {
@@ -121,9 +132,6 @@ export class SeeallcategoriesComponent implements OnInit {
     }
   }
   
-  
-  
-
     // conver Rupees K or laks
     getFormattedPrice(price: number): string {
       if (price >= 100000) {

@@ -3,8 +3,8 @@
     <!-- carousel -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" class="bg-dark" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0"
-          class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0"
+          class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" class="bg-dark" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1"
           aria-label="Slide 2"></button>
         <button type="button" class="bg-dark" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2"
@@ -131,7 +131,15 @@
           </div>
           <button class="btn btn-sm rounded viewtrainerbtn">View Profile</button>
           <div class="card-body text-center">
-            <p class="card-title trainernameheading text-capitalize">{{trainer.Business_Name}}</p>
+            <button class="btn btn-sm TrainerFlag rounded ">{{trainer.flag}}</button><br>
+            <div class="trainer-name-container">
+              <p class="card-title trainernameheading text-capitalize" 
+                 (mouseenter)="showFullName = true" 
+                 (mouseleave)="showFullName = false">
+                 {{ truncateBusinessName(trainer.Business_Name) }}
+              </p>
+              <span *ngIf="showFullName" class="full-name rounded">{{ trainer.Business_Name }}</span>
+           </div>             
             <p class="text-capitalize"> {{trainer.f_Name || "John" }} {{trainer.l_Name || "Deo" }}</p>
             <div class="social-icons">
               <i href="https://www.facebook.com" class="fa-brands fa-facebook  rounded-pill social-icons1"></i>
@@ -250,8 +258,8 @@
       <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-5">
         <div *ngFor="let allcourses of visibleCourses()" class="col-sm-12 col-md-6 col-lg-3 mb-3">
           <div class="card" routerLink="/couserenroll/{{allcourses._id}}" >
-            <img src="{{allcourses.thumbnail_image}}" class="card-img-top "  alt="...">
-            <div class="card-body mb-0 pb-0">
+            <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid"  alt="..." >
+            <div class="card-body mb-0 pb-0 ">
               <div class="d-flex align-items-center justify-content-between ">
                 <h5 class="card-title m-0 p-0" style="font-size: 20px;">{{allcourses.course_name}}</h5>
                 <span class="text-center">
@@ -271,7 +279,7 @@
                 <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
               </div>
               
-              <button class="left-side-top rounded px-3">{{allcourses.course_flag}}</button>
+              <button class="left-side-top rounded px-2">{{allcourses.course_flag}}</button>
 
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between" >
@@ -301,10 +309,9 @@
       <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-5">
         <div *ngFor="let product of visibleProduct()" class="col-sm-12 col-md-3 col-lg-3 mb-3">
           <div class="card productcard">
-            <img src="{{product.productImage}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
-              alt="...">
+            <img src="{{product.productImage}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"  alt="..." >
             <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
-            <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span>
+            <span class="onproducthoverflag rounded px-2">{{product.identityFlag}}</span>
             <div class="card-body text-center mb-0 pt-0">
               <div class="d-flex align-items-center justify-content-between mt-1">
                 <p class="m-0 p-0 text-end w-25"></p>
@@ -344,7 +351,7 @@
 <!-- Event List Code Start From Here -->
 <div class="container-fluid " style="background-color: var(--bodyColor);">
   <div class="container">
-    <div class="row rowbgcolor px-3 py-3">
+    <div class="row rowbgcolor py-3">
       <div>
         <h4 class="text-center fsizeblue m-0 p-0">VIEW OUR</h4>
         <h1 class="text-center fsize m-0 p-0">Latest Events</h1>
@@ -353,8 +360,8 @@
       <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-5">
         <div *ngFor="let Event of visibleEvent()" class="col-sm-12 col-md-3 col-lg-3 mb-3">
           <div class="card" routerLink="/eventdetails/{{Event._id}}">
-            <img src="{{Event.eventImage}}" class="card-img-top img-fluid" alt="...">
-            <span class="onproducthoverflag rounded px-3">{{Event.event_falg}}</span>
+            <img src="{{Event.eventImage}}" class="card-img-top img-fluid"  alt="..." >
+            <span class="onproducthoverflag rounded px-2">{{Event.identityFlag}}</span>
             <div class="card-body text">
               <div class="d-flex align-items-center justify-content-between gap-1">
                 <span>
@@ -381,10 +388,10 @@
                   width="30px" alt="">
                 <label class="p-2 border rounded-circle"> +35</label>
               </div>
-              <div class="d-flex align-items-center justify-content-between mt-2">
-                <button class="btn rounded-pill px-4 text-light poppins-regular"
+              <div class="d-flex align-items-center justify-content-between mt-2 mb-0">
+                <button class="btn btn-sm rounded-pill px-3 text-light poppins-regular"
                   style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
-                <button class="btn rounded-pill px-4 text-light poppins-regular"
+                <button class="btn btn-sm rounded-pill px-3 text-light poppins-regular"
                   style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
               </div>
             </div>

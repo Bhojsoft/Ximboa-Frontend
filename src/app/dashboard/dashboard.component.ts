@@ -29,6 +29,10 @@ export class DashboardComponent implements OnInit {
     this.selectedProduct = product;
   }
 
+  showFullName = false;
+  truncateBusinessName(name: string): string {
+    return name.length > 18 ? name.slice(0, 18) + '...' : name;
+  }
 
   visibleCategories() {
     return this.showAll ? this.showCategorydata : this.showCategorydata.slice(0, 9);

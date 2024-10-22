@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { AuthServiceService } from '../common_service/auth-service.service';
 
 
+
 @Component({
   selector: 'app-edittrainer',
   templateUrl: './edittrainer.component.html',
@@ -16,6 +17,7 @@ export class EdittrainerComponent implements OnInit {
   isTrainer: boolean = false;
   isUser: boolean = false;
   isAdmin: boolean = false;
+  isSELF_EXPERT: boolean =false;
 
 
 
@@ -49,6 +51,7 @@ export class EdittrainerComponent implements OnInit {
   Testimonial = {
     Testimonial_Description:'',
       Testimonial_Title:'',
+      Testimonial_Autor_Name:'',
   }
 
 
@@ -70,9 +73,10 @@ export class EdittrainerComponent implements OnInit {
     
         this.isAdmin = role === 'SUPER_ADMIN';
         this.isTrainer = role === 'TRAINER';
-        this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN';
+        this.isSELF_EXPERT = role === 'SELF_EXPERT';
+        this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'SELF_EXPERT';
     
-        console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin);
+        console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, );
       }
 
 
@@ -114,6 +118,8 @@ export class EdittrainerComponent implements OnInit {
     }
 
     onSubmit(){
+      this.myForm.markAllAsTouched();
+      if (this.myForm.valid) {
       const formData = new FormData();
       formData.append("f_Name",this.myForm.get("f_Name")?.value);
       formData.append("l_Name",this.myForm.get("l_Name")?.value);
@@ -131,14 +137,18 @@ export class EdittrainerComponent implements OnInit {
       this.service.updatetrainerDetails(formData).subscribe({
         next: response => {
           console.log(response);
-          alert("Data Updated");
-        },
+          Swal.fire('Ohh...!', 'Your Profile Updated Successfully..!', 'success');
+          },
         error: error => {
           console.log(error);
-          alert("Error");
-
+          Swal.fire('Error...!', 'Soory.! Some Technical issue try after Some Time.', 'error');
         }
       });
+    }
+    // else{
+    //   Swal.fire('Error...!', 'Please Filled All fileds.', 'error');
+
+    // }
     }
 
   // ***************************  POST DATA SOCILA MIDEA *********************
@@ -210,6 +220,7 @@ export class EdittrainerComponent implements OnInit {
       const test ={
         Testimonial_Description: this.Testimonial.Testimonial_Description,
        Testimonial_Title: this.Testimonial.Testimonial_Title,
+       Testimonial_Autor_Name: this.Testimonial.Testimonial_Autor_Name,
       }
       this.service.posttestimonial(test).subscribe({
         next: (response) => {

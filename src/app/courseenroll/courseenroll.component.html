@@ -1,7 +1,7 @@
 <div class="container rounded my-3" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
   <div *ngIf="Showcoursedetails" class="row pt-4">
     <div class="col-sm-12 col-md-12 col-lg-5 ">
-        <img src="{{Showcoursedetails.thumbnail_image}}" class="img-fluid" alt="..." style="border-radius: 6px;"><br>
+        <img src="{{Showcoursedetails.thumbnail_image}}" class="ThumbnailImage img-fluid" alt="..." style="border-radius: 6px;"><br>
        <div class="d-flex align-items-center justify-content-between px-1">
         <p class="text-end mt-2">
           <span class="poppins-semibold-italic"> {{Showcoursedetails.online_offline}} </span> 
@@ -43,7 +43,7 @@
                 <label class="me-1">Tags: </label>
                 <label *ngFor="let tag of Showcoursedetails.tags"class="border rounded py-1 px-2 me-2 mb-2"> {{tag }}</label>                
             </div>
-
+           
           <div class="row g-0 align-items-center mt-3">
             <div class="col-sm-12 col-lg-2">
               <button  (click)="CourseEnroll(Showcoursedetails._id)" class="btn text-white  mb-3  px-2" style="background-color: #307DFF;">Enroll Now</button>
@@ -127,7 +127,7 @@
       <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 ">
         <div *ngFor="let allcourses of RelatedCourses" class="col-sm-12 col-md-6 col-lg-3 mb-3">
           <div class="card" routerLink="/couserenroll/{{allcourses._id}}" >
-            <img src="{{allcourses.thumbnail_image}}" class="card-img-top "  alt="...">
+            <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid"  alt="..." >
             <div class="card-body mb-0 pb-0">
               <div class="d-flex align-items-center justify-content-between ">
                 <h5 class="card-title m-0 p-0" style="font-size: 20px;">{{allcourses.course_name}}</h5>

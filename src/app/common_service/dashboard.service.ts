@@ -37,6 +37,11 @@ export class DashboardService {
             return this.http.get<any>(`${this.beforelogin}/allcourses?page=${page}&limit=${limit}`)
           }
 
+          getcouserdatacategory(page: number, limit: number, categories?: string): Observable<any> {
+            let url = `http://localhost:1000/filter/courses?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
+            return this.http.get<any>(url);
+          }
+
           gethomedatauser(page: number, limit: number):Observable<any>{
             return this.http.get<any>(`${this.beforelogin}/home?page=${page}&limit=${limit}`)
           }
@@ -49,9 +54,19 @@ export class DashboardService {
             return this.http.get<any>(`${this.beforelogin}/trainers?page=${page}&limit=${limit}`);
            }
 
-           productdata():Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allproduct`);
+           getTrainerdatacategory(page: number, limit: number, categories?: string): Observable<any> {
+            let url = `http://localhost:1000/trainers/filter?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
+            return this.http.get<any>(url);
+          }
+
+           productdata(page: number, limit: number):Observable<any>{
+            return this.http.get<any>(`${this.beforelogin}/allproduct?page=${page}&limit=${limit}`);
            }
+
+           getproductdatacategory(page: number, limit: number, categories?: string): Observable<any> {
+            let url = `http://localhost:1000/product/filter/product?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
+            return this.http.get<any>(url);
+          }
 
            productdatabyID(id:any):Observable<any>{
             return this.http.get<any>(`${this.beforelogin}/product/${id}`);
@@ -61,9 +76,14 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/review/course/${id}?page=${page}&limit=${limit}`);
            }
 
-           Eventdata():Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allevents`);
+           Eventdata(page: number, limit: number):Observable<any>{
+            return this.http.get<any>(`${this.beforelogin}/allevents?page=${page}&limit=${limit}`);
            }
+
+           getEventdatacategory(page: number, limit: number, categories?: string): Observable<any> {
+            let url = `http://localhost:1000/event/filter/event?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
+            return this.http.get<any>(url);
+          }
 
            EventdatabyID(id:any):Observable<any>{
             return this.http.get<any>(`${this.beforelogin}/event/${id}`);
