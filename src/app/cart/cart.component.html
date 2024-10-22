@@ -1,7 +1,7 @@
-<div class="container rounded my-5" style="box-shadow: 5px  5px 30px #a79ccf;">
+<div class="container rounded my-5 shadow bg-body-tertiary ">
     <div class="row ">
-        <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-center justify-content-between p-4 rounded-top" style="background-color: #E9E5FB;">
-            <p>Shopping Cart</p>
+        <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-center justify-content-between p-3 rounded-top" style="background-color: #E9E5FB;">
+            <p class="poppins-semibold fs-5" >Shopping Cart</p>
             <button routerLink="/relevance/userproduct" class="btn btn-0">Continue Shopping</button>
         </div>
 
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-        <div *ngIf="!showcartdata || showcartdata.length === 0" class="col-12 text-center">
+        <div *ngIf="!showcartdata || showcartdata.length === 0" class="col-12 text-center p-3">
             <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
         </div>
        

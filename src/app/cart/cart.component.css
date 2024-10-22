@@ -1,5 +1,5 @@
 .btn-0{
-    background-color: #F96D63;
+    background-color: var(--btndarkColor);
     color: white;
 }
 

@@ -1,10 +1,10 @@
-<div *ngIf="Showproductdata" class="container rounded mt-5 mb-3" style="background-color: var(--bodyColor);box-shadow: 10px  10px 50px #a79ccf;">
+<div *ngIf="Showproductdata" class="container rounded mt-5 mb-3 shadow-lg bg-body-tertiary" style="background-color: var(--bodyColor);">
    
    <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-5 mt-3 p-5">
+    <div class="col-sm-12 col-md-12 col-lg-5 mt-3 ">
       <img src="{{Showproductdata.product_image}}" class="ThumbnailImage img-fluid" alt="..." style="border-radius: 8px;">
   </div>
-  <div class="col-sm-12 col-md-12 col-lg-7  p-5" >
+  <div class="col-sm-12 col-md-12 col-lg-7  p-3" >
       <div class="d-flex align-items-center gap-2 ">
         <p class="mb-3 poppins-semibold" style="font-size: 25px;">{{Showproductdata.products_name}}  </p>
         <p class="mt-2" style="font-size: small;">( Provide by {{Showproductdata.business_Name}} )</p>
