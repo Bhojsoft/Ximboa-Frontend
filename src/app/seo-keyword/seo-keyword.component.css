@@ -1,6 +1,9 @@
 small{
-    cursor: pointer;
     font-size: small;  
+
+    label{
+        cursor: pointer;
+    }
 }
 p{
     font-size: smaller;

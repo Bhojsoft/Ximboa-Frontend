@@ -170,7 +170,11 @@
 
 .dropdown-menu {
   left: auto;     
-  right: 0;       
+  right: 0; 
+  li:hover{
+    cursor: pointer;
+    background-color: var(--bodyColor);
+  }      
 }
 
 .Notification-icon{

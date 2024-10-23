@@ -1,6 +1,6 @@
 .list > li{
         font-size: larger;
-        margin-top: 30px;
+        margin-top: 22px;
         list-style: none;
         display: flex;
         unicode-bidi: isolate;
@@ -14,10 +14,10 @@
 }
 
 .active {
-  color: #307DFF;
+  color: var(--TextColor);
   font-weight: bold;
   .active i{
-    color:#307DFF ;
+    color:var(--TextColor) ;
   }
 }
 

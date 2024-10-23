@@ -39,20 +39,22 @@
 
 
 .share-options {
-  position: absolute;
+    position: absolute;
     display: flex; 
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
     z-index: 1000;
     border-radius: 5px;
     background-color: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .share-option {
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .share-button:hover {

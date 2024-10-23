@@ -1,11 +1,12 @@
 <div class="container-fluid" style="background-color: #f3f3f3;">
     <div class="row ">
 
-        <div class="col-lg-2 bg-light  rounded-end my-2 sidebarlgscreen" >
-            <ul class="list px-2">
+        <div class="col-lg-2 rounded-end pt-1 sidebarlgscreen" >
+            <div class="ms-3  bg-light rounded ">
+            <ul class="list ">
                 <!-- Dashboard: Visible to USER, TRAINER, ADMIN -->
-                <li *ngIf="isUser" routerLink="/trainer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-house pt-2 px-1" style="font-size: 21px;"></i> Home
+                <li *ngIf="isUser" routerLink="/trainer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class=" " style="font-size: 20px;margin-top: 10px !important;">
+                    <i class="fa-solid fa-house pt-2 px-1 " style="font-size: 21px;"></i> Home
                 </li>
             
                 <!-- Request: Visible only to ADMIN & Institute -->
@@ -68,7 +69,7 @@
             </li> 
                <li (click)="logout()" style="font-size: 20px;"><i class=" fas fa-sign-out-alt pt-2 px-1 text-danger"></i> Logout</li> 
             </ul>
-            
+        </div>
             
         </div>
         

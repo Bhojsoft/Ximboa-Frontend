@@ -21,8 +21,6 @@
             <li  *ngFor="let category of Showcategorydata" [routerLink]="['/relevance']" [queryParams]="{ category: category.category_name }">
               <a class="dropdown-item">{{category.category_name}}</a>
             </li>
-            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
           </ul>
         </div>
       </div>
@@ -51,7 +49,7 @@
       </div>
     </div>
     
-    <div class="col-sm-6 col-md-6 col-lg-3  d-flex align-items-center gap-4">
+    <div class="col-sm-6 col-md-6 col-lg-3  d-flex align-items-center gap-2">
       <div class="d-flex align-items-center justify-content-between inputContainer1  position-relative ">
         <input type="text" [(ngModel)]="query" (keyup)="searchitem($event)" class="form-control form-control-lg searchinput "
           placeholder="Search courses or instructor">
@@ -64,25 +62,24 @@
           </ul>
         </div>
       </div>
-    
 
-
-    <div class="" style="cursor: pointer;">
-      <img routerLink="/cart" class="" height="30px" src="../../assets/cart header.png" alt="">
-    </div>
-
+      <div class="" style="cursor: pointer;">
+        <img routerLink="/cart" class="" height="27px" src="../../assets/cart header.png" alt="">
+      </div>
   </div>
+
+
 
     <div *ngIf="!(isLoggedIn$ | async)" class="col-sm-6 col-md-6 col-lg-2 text-end d-flex gap-4 justify-content-end ">
       <button routerLink="/signin" class="btn btn-primary rounded samllpoppins">Sign In</button>
       <button routerLink="/signup" class="btn btn-light rounded border samllpoppins">Sign Up</button>
     </div>
 
-    <div *ngIf="(isLoggedIn$ | async)" class="col-sm-6 col-md-6 col-lg-2 d-flex align-items-center justify-content-end">
-      <button *ngIf="isUser" class="btn btn-sm btn-primary main-button me-3" data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
+    <div *ngIf="(isLoggedIn$ | async)" class="col-sm-6 col-md-6 col-lg-2 ps-3 d-flex align-items-center justify-content-end">
+      <button *ngIf="isUser" class="btn btn-sm btn-primary main-button " data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
         Become an Expert
       </button>
-      <i routerLink="/Notification" class="fa-regular fa-bell me-3 fs-3 Notification-icon"></i>
+      <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
       <div class="dropdown">
           <!-- <img *ngIf="UserImage" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
           <i  class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i> -->
@@ -99,7 +96,7 @@
           <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
         </ul>
       </div>
-      <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3" ></i>
+      <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
     </div>
 
     

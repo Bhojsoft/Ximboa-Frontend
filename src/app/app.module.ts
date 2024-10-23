@@ -71,6 +71,10 @@ import { LinkedinAuthCallbackComponent } from './linkedin-auth-callback/linkedin
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactComponent } from './contact/contact.component';
+import { ForumComponent } from './forum/forum.component';
+import { ForumDetailsComponent } from './forum-details/forum-details.component';
+import { NgxEditorModule } from "ngx-editor";
+
 
 
 
@@ -136,6 +140,8 @@ import { ContactComponent } from './contact/contact.component';
     LinkedinAuthCallbackComponent,
     ResetPasswordComponent,
     ContactComponent,
+    ForumComponent,
+    ForumDetailsComponent,
     
   ],
   imports: [
@@ -147,7 +153,8 @@ import { ContactComponent } from './contact/contact.component';
     ReactiveFormsModule,
     NgxPaginationModule,
     MatTabsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    NgxEditorModule
     
    
   ],

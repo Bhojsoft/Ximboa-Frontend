@@ -54,6 +54,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { LinkedinAuthCallbackComponent } from './linkedin-auth-callback/linkedin-auth-callback.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactComponent } from './contact/contact.component';
+import { ForumComponent } from './forum/forum.component';
+import { ForumDetailsComponent } from './forum-details/forum-details.component';
 
 const routes: Routes = [
 
@@ -148,6 +150,9 @@ const routes: Routes = [
   { path: "faq", component: FAQComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "Contact", component:ContactComponent},
+  { path: "forum",component:ForumComponent},
+  { path: "forum-details",component:ForumDetailsComponent},
+
 
 ];
 
