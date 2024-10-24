@@ -56,6 +56,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ContactComponent } from './contact/contact.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
+import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
 
 const routes: Routes = [
 
@@ -108,28 +109,28 @@ const routes: Routes = [
 
   //  Routing For User Dashboard
   { path: "", component: DashboardComponent },
-  { path: "Home", component: DashboardComponent },
-  { path: "seeallcategories", component: SeeallcategoriesComponent },
+  { path: "Home", component: DashboardComponent},
+  { path: "seeallcategories", component: SeeallcategoriesComponent},
   { path: "coursedetails/:id", component: CourseDetailsComponent },
-  { path: "shop/:id", component: ShopComponent },
-  { path: "eventdetails/:id", component: UserEventDetailsComponent },
+  { path: "shop/:id", component: ShopComponent ,data: { breadcrumb: 'Product Details' }},
+  { path: "eventdetails/:id", component: UserEventDetailsComponent,data: { breadcrumb: 'Events Details' } },
   { path: "cart", component: CartComponent },
   { path: "gallery", component: GalleryComponent },
   {
-    path: "relevance", component: RelevanceComponent,
+    path: "relevance", component: RelevanceComponent, data: { breadcrumb: 'Relevance' },
     children: [
       // {path:"",component:RelevanceDataComponent},
       { path: "", component: SeeallcategoriesComponent },
-      { path: "seeallcategory", component: SeeallcategoriesComponent },
+      { path: "seeallcategory", component: SeeallcategoriesComponent,data: { breadcrumb: 'All Courses' } },
       { path: "relevancedata", component: RelevanceDataComponent },
       { path: "courses", component: CoursesComponent },
-      { path: "trainer", component: TrainerComponent },
-      { path: "userproduct", component: UsersideProductComponent },
-      { path: "userevent", component: UserEventComponent },
+      { path: "trainer", component: TrainerComponent ,data: { breadcrumb: 'All Trainer' } },
+      { path: "userproduct", component: UsersideProductComponent ,data: { breadcrumb: 'All Product' } },
+      { path: "userevent", component: UserEventComponent ,data: { breadcrumb: 'All Events' } },
     ]
   },
 
-  { path: "couserenroll/:id", component: CourseenrollComponent },
+  { path: "couserenroll/:id", component: CourseenrollComponent ,data: { breadcrumb: 'Course Details' } },
   { path: "enrollNow", component: EnrollNowComponent },
 
   // Routing For Student Dashborad
@@ -151,7 +152,8 @@ const routes: Routes = [
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "Contact", component:ContactComponent},
   { path: "forum",component:ForumComponent},
-  { path: "forum-details",component:ForumDetailsComponent},
+  { path: "forum-details/:id",component:ForumDetailsComponent},
+  { path: "Add-Forum",component:ForumAddPageComponent},
 
 
 ];
@@ -160,4 +162,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

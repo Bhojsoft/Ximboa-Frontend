@@ -74,6 +74,8 @@ import { ContactComponent } from './contact/contact.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { NgxEditorModule } from "ngx-editor";
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
 
 
 
@@ -142,6 +144,8 @@ import { NgxEditorModule } from "ngx-editor";
     ContactComponent,
     ForumComponent,
     ForumDetailsComponent,
+    BreadcrumbComponent,
+    ForumAddPageComponent,
     
   ],
   imports: [

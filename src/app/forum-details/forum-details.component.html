@@ -1,29 +1,39 @@
-<div class="container-fluid">
-    <div class="container">
+<div *ngIf="Forum" class="container-fluid">
+    <div class="container ">
         <div class="row">
             <div class="col">
-                <h1 class="mb-2">How to add two different log config files in startup.cs?</h1>
+                <div class="d-flex align-items-center justify-content-between mb-0">
+                    <h1 class="mb-0">{{Forum.title}}</h1>
+                    <button class="btn btn-primary" routerLink="/Add-Forum" >Ask Question?</button>
+                </div>
+                <small class="ms-2">Asking by <b>@{{Forum.creator_name}}</b>, Asked {{Forum.createdAt}}</small>
                 <hr>
-                <p>How to add two different log config files in startup.cs? We are trying to add two differentconfig files as shown in the below code in startup.cs file under ConfigureServices(). But, we are facing an ...</p>
-            </div>
-            <div>
-                <h4>Answer</h4>
-                <p>You can filter the items that are displayed in your dropdown using a pipe. The Pipe will filter the available selections in real time as the use types.
+                <div [innerHtml]="Forum?.sanitizedDescription"></div>
 
-                    The pipe takes all the items and the typed Value of you input. for simplicity I chose strings. but it will work with objects as well.</p>
+            </div>
+            <hr>
+            <div *ngFor="let Answer of Forum.answer">
+                <h4>Answer by <small style="font-size: small;">@{{Answer.author_name}}</small></h4>
+                <div [innerHtml]="Answer?.sanitizedDescription"></div>
+                <hr>
             </div>
         </div>
+        
        
-          <form [formGroup]="form">
+    <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+        <h4 class="text-muted">Give Your Answer</h4>
+          <form (ngSubmit)="PostAnswer()">
 			<div class="editor">
 				<ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
 				</ngx-editor-menu>
-				<ngx-editor [editor]="editor" formControlName="editorContent">
-				</ngx-editor>
+                <ngx-editor [editor]="editor" [(ngModel)]="ForumAnswer.content" name="content"></ngx-editor>
 			</div>
+            <button type="submit" class="btn btn-primary my-3">Post Your Answer</button>    
 		</form>     
-        <button class="btn btn-primary my-3">Post Your Answer</button>    
-        
+    </div>    
         
     </div>
 </div>
+
+ 
+ 

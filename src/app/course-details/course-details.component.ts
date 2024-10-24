@@ -41,6 +41,7 @@ export class CourseDetailsComponent implements OnInit {
       this.showreviewdata = data?.reviews; // Bind reviews data to showreviewdata
     });
     
+    
     this.enquiry.trainerid = this.id;
     this.question.trainerid = this.id;
     this.review.t_id=this.id;

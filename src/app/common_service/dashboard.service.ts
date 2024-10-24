@@ -165,4 +165,23 @@ export class DashboardService {
           getDashboardData(): Observable<any> {
             return this.http.get<any>(`${this.API_URL}/dashboard`);
           }
+
+          GetAllForum(): Observable<any>{
+            return this.http.get<any>(`${this.API_URL}/forum`)          
+          }
+
+          GetForumGetByID(id:string):Observable<any>{
+            return this.http.get<any>(`${this.API_URL}/forum/${id}`)
+          }
+
+          AddForum(Forum:any):Observable<any>{
+            return this.http.post<any>(`${this.API_URL}/forum/add`,Forum)
+          }
+
+          AddForumAnswer(Forum:any):Observable<any>{
+            return this.http.post<any>(`${this.API_URL}/forum/postanswer`,Forum)
+          }
+
+          
 }
+
