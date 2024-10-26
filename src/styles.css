@@ -114,7 +114,7 @@ sup{
   --bodyColor: #F5F5F5; /*Background Color */
   --rowColor: #1B1E2A;  /*Row Background Color */
   --TextColor: #307DFF; /*Text Color */
-  --btndarkColor: #265ABB;
+  --: #265ABB;
   --WhiteColor: #FFFFFF;
   --ArrowIcon: #307CFC; /*Arrow Color */
   --Poppins14: 14px;

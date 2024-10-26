@@ -1,10 +1,10 @@
 <img src="../../assets/Innner banner.jpg" alt="" class="object-fit-cover img-fluid">
-<div class="container-fluid">
+<div class="container-fluid" style="background-color: var(--bodyColor);">
   <div class="row"></div>
-  <div class="container mt-2">
+  <div class="container mt-3">
     <div class="row">
-      <div class="col-sm-12 col-md-6 col-lg-10">
-        <div class="d-flex align-items-center justify-content-between">
+      <div class="col-sm-12 col-md-6 col-lg-9 rounded" style="background-color: var(--WhiteColor);">
+        <div class="d-flex align-items-center justify-content-between m-2">
           <div>
             <h5 class="mb-0">All Questions</h5>
             <p>{{ShowForumdata.length}} Questions</p>
@@ -18,15 +18,16 @@
             </ul>
           </div>
         </div>
+        <hr>
 
-        <div *ngFor="let forum of ShowForumdata">
+        <div *ngFor="let forum of ShowForumdata" class="m-2">
           <div class="d-flex gap-2 mb-3">
             <img [src]="forum.trainer_image" class="rounded-circle" height="30px" width="30px" alt="">
             <div>
-              <h5 [routerLink]="'/forum-details/' + forum._id" class="mb-0" style="cursor: pointer;">
+              <h5 [routerLink]="'/forum-details/' + forum._id" class="mb-0" style="cursor: pointer;color: #265ABB;">
                 {{ forum.title }}
               </h5>
-              <b>@{{ forum.creator_name }}</b>, 
+              <b style="color: var(--TextColor);">@{{ forum.creator_name }}</b>, 
               <span class="text-muted">{{ forum.createdAt }}</span>
               <div [innerHtml]="forum.sanitizedDescription"></div>
             </div>
@@ -44,7 +45,7 @@
           <hr>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-2 py-1 text-center ">
+      <div class="col-sm-12 col-md-6 col-lg-2 py-1 text-center ms-5 rounded" style="background-color: var(--WhiteColor);">
         <h4 class="text-center">Tags</h4>
       </div>
     </div>

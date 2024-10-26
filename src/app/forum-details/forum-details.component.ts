@@ -1,10 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Editor, Toolbar } from 'ngx-editor';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from '../common_service/dashboard.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
+import { LoginService } from '../common_service/login.service';
+import { AuthServiceService } from '../common_service/auth-service.service';
 
 @Component({
   selector: 'app-forum-details',
@@ -41,7 +43,9 @@ export class ForumDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private serive: DashboardService,
     private router: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private loginservices: LoginService,
+    private authService: AuthServiceService
   ) {
     this.id = this.router.snapshot.paramMap.get('id'); 
   }
@@ -82,8 +86,10 @@ export class ForumDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  PostAnswer(): void {
+  token = sessionStorage.getItem('Authorization');
 
+  PostAnswer(): void {
+    if(this.token){
     this.serive.AddForumAnswer(this.ForumAnswer).subscribe({
       next: (response) => {
         Swal.fire('Success!', 'Your answer has been posted successfully!', 'success');
@@ -94,9 +100,56 @@ export class ForumDetailsComponent implements OnInit, OnDestroy {
         Swal.fire('Error', 'There was an issue posting your answer. Please try again.', 'error');
       }
     });
+  }else{
+    const modalElement = document.getElementById('CheckLoggedIN');
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
+    }  }
   }
 
   ngOnDestroy(): void {
     this.editor.destroy(); 
   }
+
+
+  show: boolean = false;
+  rememberMe: boolean = false;
+
+  userData = {
+    f_Name: '',
+    middle_Name: '',
+    l_Name: '',
+    email_id: ' ',
+    password: '',
+    mobile_number: ' ',
+
+  }
+
+
+
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      this.loginservices.postsignupdata(this.userData).subscribe({
+        next: (response) => {
+          sessionStorage.setItem("Authorization",response.token);
+          this.authService.login(response.token); // Set login state
+          Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
+        },
+        error: (error)=>{
+          Swal.fire('Error', 'Please Enter Valid Details.', 'error');
+        } 
+      });
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+
+   // Hide And Show Password Logic
+   togglePassword() {
+    this.show = !this.show;
+  }
+
 }
