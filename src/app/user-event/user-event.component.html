@@ -1,8 +1,8 @@
 <!-- Event List Code Start From Here -->
 <div class="row mt-3">
 
-   <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-    <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-3 mb-3">
+   <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-4 gy-2 mt-3">
+    <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-4 mb-3">
       <div class="card" routerLink="/eventdetails/{{Event._id}}">
         <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid"  alt="..." style="height: 208px !important;">
         <span class="onproducthoverflag rounded px-2">{{Event.event_flag}}</span>

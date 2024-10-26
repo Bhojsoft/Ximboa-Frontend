@@ -15,7 +15,7 @@ export class SeeallcategoriesComponent implements OnInit {
 
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 8; 
+  itemsPerPage = 9; 
   ShowCourseData: any[] = [];   
   filteredCourses: any[] = [];  
   selectedCategories: any; 

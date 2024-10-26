@@ -2,10 +2,10 @@
   <div class="row">
     <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
       
-      <div *ngFor="let trainer of filteredtrainer | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-6 col-lg-3  mb-3" >
+      <div *ngFor="let trainer of filteredtrainer | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-6 col-lg-4  mb-3" >
         <div class="card trainercard " style="margin-top: 40%;border: none;" routerLink="/coursedetails/{{trainer.t_id}}" >
           <div class="text-center mt-3" style="position: relative;" >
-          <img src="{{trainer.trainer_image}}" class="object-fit-cover rounded-circle img-class"  alt="...">
+          <img src="{{trainer.trainer_image}}" class="object-fit-cover img-fluid  img-class"  alt="...">
         </div>
         <button routerLink="/coursedetails/{{trainer._id}}" class="btn btn-sm rounded viewtrainerbtn">View Profile</button>
         <div class="card-body text-center">

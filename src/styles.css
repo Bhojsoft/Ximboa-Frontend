@@ -45,7 +45,7 @@
   }
 
   .card > img {
-    height: 200px !important;
+    height: 250px !important;
     object-fit: cover !important;
     display: block !important;
     width: 100% !important;

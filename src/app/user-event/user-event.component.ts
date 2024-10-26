@@ -13,7 +13,7 @@ export class UserEventComponent implements OnInit {
 
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 8; 
+  itemsPerPage = 9; 
   showeventdata: any[] = [];
   filteredEvent: any[] = [];
   selectedCategories: any; 

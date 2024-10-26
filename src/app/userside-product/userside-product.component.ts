@@ -13,7 +13,7 @@ export class UsersideProductComponent implements OnInit {
 
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 8; 
+  itemsPerPage = 9; 
   showproductdata: any[] = []; // Ensure it's an array
   filteredProducts: any[] = [];
   selectedCategories: any; 
