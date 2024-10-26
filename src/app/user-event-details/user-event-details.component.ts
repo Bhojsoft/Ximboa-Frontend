@@ -49,7 +49,7 @@ export class UserEventDetailsComponent {
     console.log("Event ID:", this.id);
         this.dservice.EventdatabyID(this.id).subscribe((data)=>{
         console.log("API Response:", data);
-        this.ShowEvent = data.event;
+        this.ShowEvent = data?.event;
         this.relatedEvent = data.relatedEvent;
       })
 

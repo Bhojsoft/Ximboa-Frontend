@@ -30,6 +30,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
-    "types": ["jquery"],
+    "types": ["jquery", "ngx-chips"],
   }
 }

@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
+  
+
   showcartdata: any;
   totalprice: number = 0;
 

@@ -60,18 +60,18 @@
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Achievements/Certificates</li>
 
-            <li class="btn btn-sm btn-outline-primary" href="#Skills"
+            <li *ngIf="showprofile?.skills[0]" class="btn btn-sm btn-outline-primary" href="#Skills"
             (click)="scrollToSection($event, 'Skills')"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Skills</li>
 
 
-            <li class="btn btn-sm btn-outline-primary" href="#Testimonials"
+            <li *ngIf="showprofile?.testimonials[0]" class="btn btn-sm btn-outline-primary" href="#Testimonials"
             (click)="scrollToSection($event, 'Testimonials')"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Testimonials</li>
 
-            <li class="btn btn-sm btn-outline-primary" href="#Courses"
+            <li *ngIf="showprofile?.currentBatches[0]  " class="btn btn-sm btn-outline-primary" href="#Courses"
             (click)="scrollToSection($event, 'Courses')"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Courses</li>
@@ -167,15 +167,22 @@
                 <div *ngIf="showprofile.About[0]?.about_us">
                 <h5 class="text-color">About Us</h5>
                 <p style="text-align: left;">{{showprofile.About[0]?.about_us}}</p>
-                </div>
                 <hr *ngIf="showprofile.About[0]?.about_us">
+                </div>
 
                 <!-- Our Services -->
                 <div class="mt-3" id="Services" *ngIf="showprofile.About[0]?.our_services">
                     <h5 class="text-color">Our Services</h5>
                     <p style="text-align: left;">{{showprofile.About[0].our_services}}</p>
+                    <hr *ngIf="showprofile.About[0]?.our_services">
                 </div>
-                <hr *ngIf="showprofile.About[0]?.our_services">
+
+                <!-- Skills-->
+                    <div class="mt-3" id="Skills" *ngIf="showprofile?.skills[0]">
+                      <h5 class="text-color">Skills</h5>
+                        <label *ngFor="let skills of showprofile.skills" class="border rounded-pill px-2 me-2 mb-2">{{skills}}</label>
+                        <hr>
+                    </div>
 
                 <div *ngIf="showprofile.Educations[0]?.school && showprofile.Educations[0]?.college && showprofile.Educations[0]?.degree">
                     <h5 class="text-color" id="Education">Education</h5>
@@ -208,12 +215,13 @@
                 <div class="mt-4" id="Achievements" *ngIf="showprofile.Educations[0]?.achievements">
                     <h5 class="text-color">Achievements / Certifications</h5>
                     <p>{{showprofile.Educations[0].achievements}}</p>
+                    <hr>
                 </div>
 
-                <hr>
+                
 
         <!-- Testimonial-->
-                    <div class="pt-3" id="Testimonials" >
+                    <div *ngIf="showprofile?.testimonials[0]" class="pt-3" id="Testimonials" >
                         <h5 class="text-color">Testimonial</h5>
                         <div id="carouselExampleDark" class="carousel carousel-dark slide">
                             <div class="carousel-indicators">
@@ -237,10 +245,10 @@
                                 </div>
                             </div>
                         </div>
-                   
+                        <hr>
                 </div>
 
-                <hr>
+               
 
                     <!-- Questions & Answers -->
             <div class="mt-2" >
@@ -344,7 +352,7 @@
         <!-- Second Row code start hrer -->
         <div class="col-sm-12 col-lg-7 border-start px-3" id="Courses" >
             <!-- current batches -->
-            <div class="pt-3">
+            <div *ngIf="showprofile?.currentBatches[0]" class="pt-3">
                 <h5 class="text-color">Current Batches</h5>
                 <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
                     <div *ngFor="let allcourses of currentBatches" class="col-sm-12 col-md-6 col-lg-4 mb-3">
@@ -377,11 +385,10 @@
                     <span>Page {{currentPageBatches}} of {{totalPagesBatches()}}</span>
                     <button class="border border-0 ms-2" (click)="nextPageBatches()" [disabled]="currentPageBatches === totalPagesBatches()"><i class="fa-solid fa-angles-right text-primary"></i></button>
                   </div>
-                  
-                 </div>
-            <hr>
+                     <hr>
+                </div>
             <!-- upcoming batches -->
-            <div class="mt-3">
+            <div *ngIf="showprofile?.upcomingBatches[0]" class="mt-3">
                 <h5 class="text-color">Upcoming Batches</h5>
                 <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-3 gx-3 mt-3">
                     <div *ngFor="let allcourses of upcomingBatches" class="col-sm-12 col-md-6 col-lg-4 mb-3">
@@ -417,13 +424,13 @@
                     <span>Page {{currentPageUpcomingBatches}} of {{totalPagesUpcomingBatches()}}</span>
                     <button class="border border-0 ms-2" (click)="nextPageUpcomingBatches()" [disabled]="currentPageUpcomingBatches === totalPagesUpcomingBatches()"><i class="fa-solid fa-angles-right text-primary"></i></button>
                   </div>
-                 </div>
+                  <hr>
+                </div>
 
-            <hr>
 
             
             <!-- Online Events -->
-            <div class="mb-2" id="Events">
+            <div *ngIf="showprofile?.onlineEvents[0]" class="mb-2" id="Events">
                 <h5 class="text-color">Online Events</h5>
                 <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
                     <div *ngFor="let Event of onlineEvents" class="col-sm-12 col-md-3 col-lg-4 mb-3">
@@ -467,11 +474,11 @@
                   <!-- <div class="text-end">
                     <p class="me-3 ViewmoreArrow">View More <i class="fa-solid fa-arrow-right "></i> </p>
                   </div> -->
-                 </div>
+                  <hr>
+              </div>
 
-            <hr>
             <!-- Offline Events -->
-            <div>
+            <div *ngIf="showprofile?.offlineEvents[0]">
                 <h5 class="text-color">Offline Events</h5>
                 <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
                     <div *ngFor="let Event of offlineEvents" class="col-sm-12 col-md-3 col-lg-4 mb-3">
@@ -512,10 +519,10 @@
                     <span>Page {{currentPageOfflineEvents}} of {{totalPagesOfflineEvents()}}</span>
                     <button class="border border-0 ms-2" (click)="nextPageOfflineEvents()" [disabled]="currentPageOfflineEvents === totalPagesOfflineEvents()"><i class="fa-solid fa-angles-right text-primary"></i></button>
                   </div>
-                  
+                  <hr>
                 </div>
 
-            <hr>
+            
     <!-- Products -->
             <div class="" id="Products">
                 <h5 class="text-color">Our Products</h5>
