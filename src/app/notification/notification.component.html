@@ -1,20 +1,30 @@
-<div class="container">
+<div class="container-fluid" style="background-color: var(--bodyColor);">
+<div class="container rounded  px-4 shadow bg-body-tertiary mb-4" style="background-color: var(--WhiteColor);">
     <div class="row">
-        <h1 class="my-3 text-primary "><i class="fa-solid fa-bell position-relative"><span class="position-absolute badge rounded-pill bg-danger " style="font-size: x-small;top: -10px;left: 20px;">
+
+        <div class="d-flex align-items-center justify-content-between">
+
+            <h1 class="my-3 text-primary "><i class="fa-solid fa-bell position-relative"><span class="position-absolute badge rounded-pill bg-danger " style="font-size: x-small;top: -10px;left: 20px;">
             {{totalItems}} +
-            <!-- <span class="">New messages</span> -->
-          </span></i> NOTIFICATIONS  </h1>
-      <section class="p-3 rounded" style="background-color: #EFF2F6;">
-        <div *ngFor="let Data of Shownotification | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="row mb-2 border-bottom">
+          </span></i> Notification  </h1>
+          <div class="d-flex gap-3">
+                <button class="btn" style="color: var(--WhiteColor);background-color: var(--btndarkColor);">All</button>
+                <button class="btn btn-outline-primary" >Unread (3)</button>
+                <button class="btn" style="color: var(--WhiteColor);background-color: var(--TextColor);">Mark all as completed</button>
+          </div>
+        </div> 
+      <section class="p-3 rounded">
+        <div *ngFor="let Data of Shownotification | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="row mb-2 border d-flex align-items-center p-2">
                 <div class="col-sm-12 col-md-3 col-lg-9">
-                    <h6>{{Data.activityType}}</h6>
-                    <p>{{Data.message}}</p>
+                    <h6 class="m-0" style="color: var(--btndarkColor);">{{Data.activityType}}</h6>
+                    <p  class="m-0" style="color: var(--te);">{{Data.message}}</p>
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-3 text-end">
                     <label><i class="fa-solid fa-clock"></i> {{Data.createdAt | date}}</label>
                 </div>
          </div>
-         <pagination-controls (pageChange)="onPageChange($event)" class="text-end"></pagination-controls>
+         <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
         </section>
     </div>
+</div>
 </div>

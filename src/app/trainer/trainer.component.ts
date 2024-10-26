@@ -25,7 +25,7 @@ export class TrainerComponent implements OnInit {
   
   showFullName = false;
   truncateBusinessName(name: string): string {
-    return name.length > 18 ? name.slice(0, 18) + '...' : name;
+    return name.length > 18 ? name.slice(0, 15) + '...' : name;
   }
 
   ngOnInit(): void {

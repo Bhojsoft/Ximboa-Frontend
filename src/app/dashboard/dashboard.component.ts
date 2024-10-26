@@ -25,13 +25,11 @@ export class DashboardComponent implements OnInit {
   page = 0;
   limit = 4;
 
-  showProductDescription(product: any) {
-    this.selectedProduct = product;
-  }
+
 
   showFullName = false;
   truncateBusinessName(name: string): string {
-    return name.length > 18 ? name.slice(0, 18) + '...' : name;
+    return name.length > 18 ? name.slice(0, 15) + '...' : name;
   }
 
   visibleCategories() {
