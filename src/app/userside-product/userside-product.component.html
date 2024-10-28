@@ -14,19 +14,19 @@
                   <ng-container *ngFor="let star of starsArray; let i = index">
                     <i
                       class="fa-solid fa-star"
-                      [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"
+                      [ngStyle]="{ 'color': i < (product.products_rating ) ? '#FFAE06' : '#d3d3d3' }"
                     ></i>
                   </ng-container>
                 </div>
-                <small class="m-0 p-0 text-end w-25">{{product.product_flag || "virtual"}}</small>
+                <small class="m-0 p-0 text-end w-25">{{product.product_flag}}</small>
           </div>
           <h5 class="card-title">{{product.products_name}}</h5>
           <p>{{product.products_category}}</p>
           <div class="d-flex align-items-center justify-content-between">
             <i class="fa-solid fa-cart-shopping fs-5" style="color: var(--TextColor);"></i>
             <span class="d-flex align-items-center gap-2">
-              <small class="text-decoration-line-through">₹ {{product.products_price}}</small> 
-              <b>₹ {{product.products_selling_price}}</b>
+              <small class="text-decoration-line-through">{{getFormattedPrice(product.products_price)}}</small> 
+              <b style="font-family: Poppins;color: var(--TextColor);font-size: 20px;">{{getFormattedPrice(product.products_selling_price)}}</b>
             </span>
             <i class="fa-regular fa-heart fs-5" style="color: var(--TextColor);;"></i>
           </div>

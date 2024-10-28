@@ -1,0 +1,180 @@
+
+
+
+header {
+  
+  height: 60px;
+  position: sticky;
+  z-index: 1000;
+  background-color: white;
+  top: 0;
+  padding: 0px 20px;
+  border-bottom: 1px solid #82ad25;
+
+}
+
+.menu {}
+
+.menu ul {
+  padding: 0;
+  margin: 0;
+  
+}
+
+.menu ul li {
+  list-style-type: none;
+  display: inline-block;
+  /* font-size: 19px; */
+  font-weight: 400;
+  margin-left: 30px;
+  
+}
+
+.menu ul li:hover {
+  color: #ee641a;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+}
+
+@media only screen and (max-width: 999px) {
+  .menu {
+    position: fixed;
+    right: -350px;
+    top: 60px;
+    width: 280px;
+    height: 100%;
+    z-index: 100;
+    transition: 0.4s ease-in-out;
+    background-color: #e7eef4 ;
+  }
+
+  .menu ul li {
+    display: block;
+    text-align: left;
+    margin: 0;
+    padding: 10px 0 10px 80px;
+  }
+
+  .menu_icon {
+    display: inline-block;
+    position: relative;
+    right: 13px;
+    top: 14px;
+  }
+
+  .menu_icon span {
+    width: 30px;
+    height: 3px;
+    background-color: rgb(63, 64, 65);
+    display: block;
+    transition: 0.4s ease-in-out;
+
+  }
+
+  .menu_icon span:nth-child(2) {
+    margin: 4px 0;
+  }
+
+  .menu_icon_Class span:nth-child(2) {
+    display: none;
+  }
+
+  .menu_icon_Class span:nth-child(1) {
+    transform: rotate(40deg);
+  }
+
+  .menu_icon_Class span:nth-child(3) {
+    transform: rotate(-40deg);
+    margin-top: -3px;
+  }
+
+  .menuClass {
+    right: 0;
+    transition: 0.4s ease-in-out;
+    z-index: 1000;
+  }
+
+  .nav-item li:hover {
+ 
+    color: #ee641a;
+  }
+  
+  .nav-item li::after {
+    display: none;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-item li.active {
+    color: #ee641a;
+  }
+  
+  .nav-item li.active::after {
+    width: 5%;
+  }
+  
+  
+}
+
+
+.nav-item li {
+  
+ /* padding: 13px 0;    */
+ padding-top: 13px;
+ right: 25px;
+  position: relative;
+
+  transition-property: scale;
+  transition-duration: 0.4s;
+}
+
+.nav-item li:hover {
+ 
+  color: #ee641a;
+}
+
+.nav-item li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #ee641a;
+  transition: width 0.3s ease;
+}
+
+.nav-item li.active {
+  color: #ee641a;
+}
+
+.nav-item li.active::after {
+  width: 100%;
+}
+
+.logo-container {
+  position: relative;
+}
+
+.logo img {
+  position: absolute;
+ 
+}
+
+
+.whatsapp-icon {
+  position: fixed;
+  width: 60px;
+  right: 10px;
+  padding-left: 4px;
+  bottom: 8%;
+  color: #0adc57;
+  z-index: 1000;
+  cursor: pointer;
+  font-size: 60px;
+  background: #e7eef4;
+  border-radius: 50%;
+}
+
+.whatsapp-icon:hover {
+  box-shadow: rgba(2, 108, 24, 0.2) 0px 7px 29px 0px;
+}

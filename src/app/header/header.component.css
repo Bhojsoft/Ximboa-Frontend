@@ -181,11 +181,47 @@
   padding: 10px 12px;
 }
 
-.Notification-icon:hover{
+.Notification-icon:hover, .cart-icon:hover {
     border-radius: 50%;
     background-color: #F5F5F5;
     display: block;
     transform: scale(1.1);
     cursor: pointer;
     
+}
+
+
+
+/* Mobile Devices (up to 600px) */
+@media (max-width: 600px) {
+  .ximboa-logo > img{
+      cursor: pointer;
+      width: 100px !important;
+      height: 100px !important;
+  }
+  .sign-in-up{
+    width: 100%;
+    text-align: end;
+    margin-top: 10px;
+  }
+  
+  .globale-search{
+    margin-left: 10px;
+  }
+  .cart-icon{
+    width: 20px;
+  }
+ 
+}
+
+/* Tablets (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Styles for tablets */
+}
+
+/* Desktop/Laptops (1025px and above) */
+@media (min-width: 1025px) {
+  .category-dropdown{
+    width: 200px;
+  }
 }

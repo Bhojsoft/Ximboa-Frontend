@@ -1,8 +1,7 @@
-<!-- navbar.component.html -->
-<div class="container-fluid" style="background-color: #ffffff;">
+<!-- <div class="container-fluid" style="background-color: #ffffff;">
   <div class="row mt-1 align-items-center">
     <div class="col-sm-6 col-md-6 col-lg-2">
-      <img routerLink="/" class="img-fluid object-fit-fill " src="../../assets/Ximboa-Logo.jpg"    alt=""
+      <img routerLink="/"  src="../../assets/Ximboa-Logo.jpg"  class="img-fluid object-fit-fill"  alt="XIMBOA"
         style="cursor: pointer;">
     </div>
     
@@ -42,9 +41,8 @@
           <p routerLink="/relevance/userproduct" routerLinkActive="active-link">Product </p>
           <p>|</p>
         </div>
-        <div class="d-flex gap-2 navmenu">
+        <div class="d-flex  navmenu">
           <p routerLink="/relevance/userevent" routerLinkActive="active-link">Event</p>
-          <!-- <p>|</p> -->
         </div>
       </div>
     </div>
@@ -81,8 +79,6 @@
       </button>
       <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
       <div class="dropdown">
-          <!-- <img *ngIf="UserImage" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
-          <i  class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i> -->
           <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"
             class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
           <ng-template #noImageIcon>
@@ -101,30 +97,99 @@
 
     
 
+ 
+</div> -->
 
-    <!-- <div class="col-sm-6 col-md-6 col-lg-1 d-flex align-items-center justify-content-end ">
-      <button *ngIf="(isLoggedIn$ | async) && isUser " class="btn btn-primary main-button" data-bs-toggle="modal"
-        data-bs-target="#exampleModalExpert">
-        Become an Expert
-      </button>&nbsp;&nbsp;&nbsp;&nbsp;
-      <i *ngIf="(isLoggedIn$ | async)" class="fa-solid fa-house-user Home-icon mx-3 text-primary" routerLink="/trainer" style="font-size: 35px;"></i>
-      <div class="dropdown">
-        <i class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
-        <ul class="dropdown-menu">
-          <ng-container *ngIf="(isLoggedIn$ | async); else notLoggedIn">
-            <li><a class="dropdown-item">{{ (user$ | async) }}</a></li>
-            <li><a class="dropdown-item" routerLink="/edittrainer">Edit Profile <i class="fa-solid fa-user-pen"></i></a></li>
-            <li><a class="dropdown-item" routerLink="/Notification">Notification <i class="fa-solid fa-bell"></i></a></li>
-            <li><a class="dropdown-item" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
-          </ng-container>
-          <ng-template #notLoggedIn>
-            <li><a class="dropdown-item" routerLink="/signin">LOGIN</a></li>
-          </ng-template>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid ms-0 ps-0">
+    <a class="navbar-brand ms-0 ps-0" routerLink="/"><img src="../../assets/Ximboa-Logo.jpg" class="" height="60px" alt=""></a>
+    <div class="category-dropdown">
+      <div class="dropdown ">
+        <div class="btn dropdown-toggle  border p-2 d-flex align-items-center justify-content-between samllpoppins" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+          <span>
+            <i class="fa-brands fa-pix"></i> Category
+          </span>
+        </div>
+        <div>
+         
+        </div>
+        <ul class="dropdown-menu w-100">
+          <li  *ngFor="let category of Showcategorydata" [routerLink]="['/relevance']" [queryParams]="{ category: category.category_name }">
+            <a class="dropdown-item">{{category.category_name}}</a>
+          </li>
         </ul>
       </div>
-    </div> -->
- 
-</div>
+    </div> 
+       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 ms-5 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active"><span  routerLink="/Home" routerLinkActive="active-link" style="cursor: pointer;">Home</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/seeallcategory" routerLinkActive="active-link" style="cursor: pointer;">Courses</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/trainer" routerLinkActive="active-link" style="cursor: pointer;">Trainer</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/userproduct" routerLinkActive="active-link" style="cursor: pointer;">Product</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/userevent" routerLinkActive="active-link" style="cursor: pointer;">Event</span></a>
+        </li>
+      </ul>
+    </div>
+        <div class="d-flex align-items-center justify-content-between inputContainer1  position-relative globale-search">
+          <input type="text" [(ngModel)]="query" (keyup)="searchitem($event)" class="form-control form-control-lg searchinput "
+            placeholder="Search courses or instructor">
+          <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo" (click)="onsearch()" style="color: #307DFF;"></i>
+          <div *ngIf="suggestions.length" class="suggestions-list">
+            <ul>
+              <li *ngFor="let item of suggestions" (click)="onSelectSuggestion(item)">
+                <a style="text-decoration: none;color: black;">{{item.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>        
+        <div class="mx-2" >
+          <i routerLink="/cart" class="fa-solid fa-cart-plus mx-2 fs-3 cart-icon"></i>
+        </div>
+    
+    
+        <div *ngIf="!(isLoggedIn$ | async)" class="sign-in-up mt-2 text-end d-flex gap-4 justify-content-end ">
+          <button routerLink="/signin" class="btn btn-primary rounded samllpoppins">Sign In</button>
+          <button routerLink="/signup" class="btn btn-light rounded border samllpoppins">Sign Up</button>
+        </div>
+    
+        <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up ps-3 d-flex align-items-center justify-content-end">
+          <button *ngIf="isUser" class="btn btn-sm btn-primary main-button " data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
+            Become an Expert
+          </button>
+          <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
+          <div class="dropdown">
+              <!-- <img *ngIf="UserImage" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
+              <i  class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i> -->
+              <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"
+                class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
+              <ng-template #noImageIcon>
+                <i class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+              </ng-template>
+            <ul class="dropdown-menu dropdown-menu-start">
+              <li><a class="dropdown-item">{{ (user$ | async) }}</a></li>
+              <li><a class="dropdown-item" routerLink="/editprofilepicture">Change Profile Image<i class="fa-solid fa-user-pen"></i></a></li>
+              <li><a class="dropdown-item" routerLink="/edittrainer">Edit Profile <i class="fa-solid fa-user-pen"></i></a></li>
+              <li><a class="dropdown-item" routerLink="/Notification">Notification <i class="fa-solid fa-bell"></i></a></li>
+              <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
+            </ul>
+          </div>
+          <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
+        </div>
+  </div>
+</nav>
 
 
 

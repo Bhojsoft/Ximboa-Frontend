@@ -56,6 +56,8 @@ export class RelevanceComponent implements OnInit {
     // Subscribe to route query parameters to detect changes
     this.route.queryParams.subscribe(params => {
       this.category = params['category'] || '';  
+      console.log(this.category);
+      
       this.initializeSelectedCategory();  // Apply category filter on route param change
     });
   }

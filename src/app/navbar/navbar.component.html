@@ -1,0 +1,36 @@
+
+
+<header>
+  <div class="conatainer-fluid">
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-3">
+        <div class="logo-conatiner">
+          <img class="logo" src="../../assets/Dronacharya-logo.png"width="120px" style="z-index: 1000; position: fixed;" alt="logo">
+        </div>
+      </div>
+      <div class="col-md-9 col-sm-9 col-9 text-end">
+        <div class="menu_icon"[class.menu_icon_Class]="menu_icon_Variable" (click)="openMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu"[class.menuClass]="menuVariable">
+          <ul class="nav-item">
+            <li routerLink="/" (click)="setActive('/')" [ngClass]="{ 'active': activeLink === '/' }" (click)="closeMenu()">Home</li>
+            <li routerLink="/about" (click)="setActive('/about')" [ngClass]="{ 'active': activeLink === '/about' }" (click)="closeMenu()">About Us</li>
+            <li  routerLink="/achivements" (click)="setActive('/achivements')" [ngClass]="{ 'active': activeLink === '/achivements' }" (click)="closeMenu()">Achievements</li>
+            <li routerLink="/coach_page" (click)="setActive('/coach')" [ngClass]="{ 'active': activeLink === '/coach' }" (click)="closeMenu()">Coach</li>
+            <li routerLink="/media" (click)="setActive('/media')" [ngClass]="{ 'active': activeLink === '/media' }" (click)="closeMenu()">Media</li>
+            <li routerLink="/blog" (click)="setActive('/blog')" [ngClass]="{ 'active': activeLink === '/blog' }" (click)="closeMenu()">Blog</li>
+            <li routerLink="/gallery" (click)="setActive('/gallery')" [ngClass]="{ 'active': activeLink === '/gallery' }" (click)="closeMenu()">Gallery</li>
+            <li routerLink="/contact_us" (click)="setActive('/contact')" [ngClass]="{ 'active': activeLink === '/contact' }" (click)="closeMenu()">Contact Us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </header>
+  
+  <div class>
+    <a href="https://wa.me/9545916988" target="_blank"><i class="fa-brands fa-whatsapp whatsapp-icon"></i></a>
+  </div>

@@ -276,14 +276,14 @@
                   </p>
                   <p>{{allcourses.business_Name }}</p>
                 </div>
-                <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+                <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
               </div>
               
               <button class="left-side-top rounded px-2">{{allcourses.course_flag}}</button>
 
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between" >
-              <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+              <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
               <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
                 getFormattedPrice(allcourses.course_price) }}</p>
             </div>
@@ -327,9 +327,9 @@
               <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.categoryName}}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
-                <span class="d-flex align-items-center gap-2">
-                  <small class="text-decoration-line-through">₹ {{product.productPrice}}</small>
-                  <b>₹ {{product.productSellingPrice}}</b>
+                <span class="d-flex align-items-center gap-2" >
+                  <small class="text-decoration-line-through" >{{getFormattedPrice(product.productPrice)}}</small>
+                  <b style="font-family: Poppins;color: var(--TextColor);font-size: 20px;">{{getFormattedPrice(product.productSellingPrice)}}</b>
                 </span>
                 <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
               </div>

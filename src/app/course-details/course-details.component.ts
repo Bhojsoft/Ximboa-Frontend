@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Token } from '@angular/compiler';
 import { LoginService } from '../common_service/login.service';
 import { AuthServiceService } from '../common_service/auth-service.service';
-import * as $ from 'jquery'
+declare var bootstrap: any;
 
 
 @Component({
@@ -367,8 +367,10 @@ export class CourseDetailsComponent implements OnInit {
         next: (response) => {
           sessionStorage.setItem("Authorization",response.token);
           this.authService.login(response.token); // Set login state
-          Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-          this.closeModel();
+          Swal.fire('Congratulation',
+            'Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!',
+             'success');
+          this.closeModal();
         },
         error: (error)=>{
           Swal.fire('Error', 'Please Enter Valid Details.', 'error');
@@ -385,8 +387,12 @@ export class CourseDetailsComponent implements OnInit {
     this.show = !this.show;
   }
 
-  closeModel(){
-    $('#CheckLoggedIN').modal('hide');
+  closeModal() {
+    const modalElement = document.getElementById('CheckLoggedIN');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hides the modal
+    }
   }
   
   // scroll pages in click on nav

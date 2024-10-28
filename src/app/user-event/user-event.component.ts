@@ -10,14 +10,15 @@ import { SearchService } from '../search.service';
   styleUrls: ['./user-event.component.css']
 })
 export class UserEventComponent implements OnInit {
-
+ 
+  
   totalItems = 0;
   currentPage = 1;
   itemsPerPage = 9; 
   showeventdata: any[] = [];
   filteredEvent: any[] = [];
   selectedCategories: any; 
-  p: number = 1;
+  p: number = 1;    
   searchTerm: string = ''; // New property for search term
   term:any;
   constructor(private Dservice: DashboardService, private filter: FilterService, private http: HttpClient, private searchService: SearchService) { }

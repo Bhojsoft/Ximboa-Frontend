@@ -39,6 +39,11 @@
     
     <div class="row mt-3 ">
         <ul class="srolltabs" >
+          <li *ngIf="showprofile?.skills[0]" class="btn btn-sm btn-outline-primary" href="#Skills"
+            (click)="scrollToSection($event, 'Skills')"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{exact: true}">Skills</li>
+            
             <li *ngIf="showprofile.About[0]?.about_us" class="btn btn-sm btn-outline-primary" href="#About" 
             (click)="scrollToSection($event, 'About')"
             routerLinkActive="active-link"
@@ -59,12 +64,6 @@
             (click)="scrollToSection($event, 'Achievements')"
             routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Achievements/Certificates</li>
-
-            <li *ngIf="showprofile?.skills[0]" class="btn btn-sm btn-outline-primary" href="#Skills"
-            (click)="scrollToSection($event, 'Skills')"
-            routerLinkActive="active-link"
-            [routerLinkActiveOptions]="{exact: true}">Skills</li>
-
 
             <li *ngIf="showprofile?.testimonials[0]" class="btn btn-sm btn-outline-primary" href="#Testimonials"
             (click)="scrollToSection($event, 'Testimonials')"

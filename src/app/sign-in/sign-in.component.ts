@@ -1,6 +1,3 @@
-
-
-// sign-in.component.ts
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../common_service/login.service';
 import {  Router } from '@angular/router';
@@ -68,6 +65,7 @@ export class SignInComponent implements OnInit {
       next: (response: any) => { 
         Swal.fire('', 'Password Reset Link on your Email ID', 'success');  
         // this.ngAfterViewInit();
+        this.closeModal();
       },
       error: () => { 
         this.message = 'An error occurred';
@@ -82,14 +80,13 @@ export class SignInComponent implements OnInit {
   }
 
 
-  // closeModal() {
-  //   const modalElement = document.getElementById('forgotpwd');
-  //   const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
-  //   if (modalInstance) {
-  //     modalInstance.hide(); // Hides the modal
-  //     modalInstance.dispose();
-  //   }
-  // }
+  closeModal() {
+    const modalElement = document.getElementById('forgotpwd');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hides the modal
+    }
+  }
 
   
   

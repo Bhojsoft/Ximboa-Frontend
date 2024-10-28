@@ -77,6 +77,7 @@ import { NgxEditorModule } from "ngx-editor";
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
 import { TagInputModule } from 'ngx-chips';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -147,6 +148,7 @@ import { TagInputModule } from 'ngx-chips';
     ForumDetailsComponent,
     BreadcrumbComponent,
     ForumAddPageComponent,
+    NavbarComponent,
     
   ],
   imports: [

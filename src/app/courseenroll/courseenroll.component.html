@@ -43,17 +43,13 @@
                 <label class="me-1">Tags: </label>
                 <label *ngFor="let tag of Showcoursedetails.tags"class="border rounded py-1 px-2 me-2 mb-2"> {{tag }}</label>                
             </div>
-           
-          <div class="row g-0 align-items-center mt-3">
-            <div class="col-sm-12 col-lg-2">
-              <button  (click)="CourseEnroll(Showcoursedetails._id)" class="btn text-white   px-2" style="background-color: #307DFF;">Enroll Now</button>
-            </div>
-            <div class="col-sm-12 col-lg-3">
-              <button routerLink="/coursedetails/{{Showcoursedetails?.trainer_id}}" class="btn text-white px-2" style="background-color: #265BBD;">View Trainer Profile</button>
-            </div>
+          <div>
+              <button  (click)="CourseEnroll(Showcoursedetails._id)" class="btn text-white   px-2 me-3 mb-2" style="background-color: #307DFF;">Enroll Now</button>
+              <button routerLink="/coursedetails/{{Showcoursedetails?.trainer_id}}" class="btn text-white px-2 me-3 mb-2" style="background-color: #265BBD;">View Trainer Profile</button>
+            
     <!-- share button scetion -->
-            <div class="col-sm-12 col-lg-2">
-              <button  (click)="shareicon()" class="btn text-white   px-2" style="background-color: #307DFF;"><i class="fas fa-share-alt fs-5"></i> Share</button>
+            
+              <button  (click)="shareicon()" class="btn text-white   px-2 mb-2" style="background-color: #307DFF;"><i class="fas fa-share-alt fs-5"></i> Share</button>
               <div class="share-container">
                   <div *ngIf="showshare" class="share-options  p-3 shadow bg-body-tertiary rounded">
                       <a (click)="shareOnFacebook()" class="share-option ">
@@ -71,7 +67,7 @@
                   </div>
               </div>
           </div>
-        </div>
+      
     </div>
 </div>
 <div class="row">

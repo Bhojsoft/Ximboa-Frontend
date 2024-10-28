@@ -156,19 +156,11 @@ export class HeaderComponent {
         }
       });
     }
-    // } else if (suggestion.type === 'trainer') {
-    //   this.route.navigate(['/relevance/trainer'], {
-    //     queryParams: {
-    //       category: suggestion.name || 'defaultCategory',
-    //       id: suggestion.id,
-    //       type: suggestion.type,
-    //       keyword: enteredKeyword
-    //     }
-    //   });
-    // }
+   
     else if (suggestion.type === 'trainer') {
-      // If the trainer has multiple categories, choose the first one or handle it accordingly
       const trainerCategory = suggestion.trainer_categories.length > 0 ? suggestion.trainer_categories[0] : 'defaultCategory';
+      console.log(trainerCategory);
+      
       this.route.navigate(['/relevance/trainer'], {
         queryParams: {
           category: trainerCategory,
@@ -176,7 +168,9 @@ export class HeaderComponent {
           type: suggestion.type,
           keyword: enteredKeyword
         }
+        
       });
+      console.log(trainerCategory);
     }
   }
 
@@ -217,14 +211,26 @@ export class HeaderComponent {
       })));
     }
 
+    // if (result.Trainers) {
+    //   formattedResults.push(...result.Trainers.map((trainer: any) => ({
+    //     type: 'trainer',
+    //     name: trainer.f_Name,
+    //     B_Name : trainer.business_Name,
+    //     trainer_categories: trainer.trainer_categories,
+    //     id: trainer._id
+    //   })));
+    // }
+
     if (result.Trainers) {
       formattedResults.push(...result.Trainers.map((trainer: any) => ({
         type: 'trainer',
-        name: trainer.f_Name,
+        name: `${trainer.f_Name} (${trainer.business_Name})`,
         trainer_categories: trainer.trainer_categories,
         id: trainer._id
       })));
     }
+
+   
 
     return formattedResults;
   }
