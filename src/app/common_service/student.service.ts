@@ -7,23 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  loginUrl="http://localhost:1000/student"
+  loginUrl="http://localhost:1000"
 
   constructor(private http:HttpClient) { }
 
   login(data:any):Observable<any>{
-    return this.http.post<any>(`${this.loginUrl}/login`,data);
+    return this.http.post<any>(`${this.loginUrl}/student/login`,data);
   }
 
   postsignupdata(Signup:any):Observable<any>{
-    return this.http.post<any>(`${this.loginUrl}/register`,Signup);
+    return this.http.post<any>(`${this.loginUrl}/student/register`,Signup);
   }
 
   
   getstudentdatabyID():Observable<any>{
     let headers = new HttpHeaders()
     .set("Authorization", `Bearer ${sessionStorage.getItem('Authorization')}`)
-    return this.http.get<any>("http://localhost:1000/enrollcourse/student",{headers});
+    return this.http.get<any>(`${this.loginUrl}/enrollcourse/student`,{headers});
   }
 
 

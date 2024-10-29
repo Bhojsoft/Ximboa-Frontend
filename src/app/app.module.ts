@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { RelevanceComponent } from './relevance/relevance.component';
-import { CoursesComponent } from './courses/courses.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { ShopComponent } from './shop/shop.component';
 import { CartComponent } from './cart/cart.component';
@@ -16,17 +15,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RelevanceDataComponent } from './relevance-data/relevance-data.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SeeallcategoriesComponent } from './seeallcategories/seeallcategories.component';
-import { SeealltrainerComponent } from './seealltrainer/seealltrainer.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { AdminDashboardCategoriesComponent } from './admin/admin-dashboard-categories/admin-dashboard-categories.component';
-import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { AdminCoursesComponent } from './admin/admin-courses/admin-courses.component';
-import { InstructorComponent } from './admin/instructor/instructor.component';
+
 import { TrainerHomeComponent } from './trainer_dashboard/trainer-home/trainer-home.component';
 import { CourseenrollComponent } from './courseenroll/courseenroll.component';
 import { EnrollNowComponent } from './enroll-now/enroll-now.component';
@@ -41,14 +35,8 @@ import { EditCourseComponent } from './trainer_dashboard/edit-course/edit-course
 import { EditCategoryComponent } from './Admin/edit-category/edit-category.component';
 import { UpdateProductComponent } from './trainer_dashboard/update-product/update-product.component';
 import { UpdateEventComponent } from './trainer_dashboard/update-event/update-event.component';
-import { UpdateCourseComponent } from './admin/update-course/update-course.component'; // Import FormsModule
 import { InterceptorService } from './Interceptor/interceptor.service';
-import { LoginComponent } from './Student_Dashboard/login.component';
-import { StudentRegisterComponent } from './Student_Dashboard/student-register/student-register.component';
-import { StudentHomeComponent } from './Student_Dashboard/student-home/student-home.component';
-import { StudentCourseComponent } from './Student_Dashboard/student-course/student-course.component';
 import { TrainerMyhomeComponent } from './trainer_dashboard/trainer-myhome/trainer-myhome.component';
-import { StudentDashboardComponent } from './Student_Dashboard/student-dashboard/student-dashboard.component';
 import { UsersideProductComponent } from './userside-product/userside-product.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FooterComponent } from './footer/footer.component';
@@ -69,7 +57,6 @@ import { EditProfilePictureComponent } from './edit-profile-picture/edit-profile
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LinkedinAuthCallbackComponent } from './linkedin-auth-callback/linkedin-auth-callback.component';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ContactComponent } from './contact/contact.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
@@ -77,7 +64,6 @@ import { NgxEditorModule } from "ngx-editor";
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
 import { TagInputModule } from 'ngx-chips';
-import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -88,7 +74,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     DashboardComponent,
     HeaderComponent,
     RelevanceComponent,
-    CoursesComponent,
     TrainerComponent,
     ShopComponent,
     CartComponent,
@@ -96,15 +81,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     ForgotPasswordComponent,
     SignUpComponent,
     CourseDetailsComponent,
-    RelevanceDataComponent,
     SeeallcategoriesComponent,
-    SeealltrainerComponent,
     GalleryComponent,
-    AdminDashboardComponent,
     AdminDashboardCategoriesComponent,
-    AdminHomeComponent,
-    AdminCoursesComponent,
-    InstructorComponent,
+   
     TrainerHomeComponent,
     CourseenrollComponent,
     EnrollNowComponent,
@@ -119,13 +99,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     EditCategoryComponent,
     UpdateProductComponent,
     UpdateEventComponent,
-    UpdateCourseComponent,
-    LoginComponent,
-    StudentRegisterComponent,
-    StudentHomeComponent,
-    StudentCourseComponent,
+    
     TrainerMyhomeComponent,
-    StudentDashboardComponent,
+   
     UsersideProductComponent,
     FooterComponent,
     UserEventComponent,
@@ -142,13 +118,11 @@ import { NavbarComponent } from './navbar/navbar.component';
     EditProfilePictureComponent,
     PrivacyPolicyComponent,
     LinkedinAuthCallbackComponent,
-    ResetPasswordComponent,
     ContactComponent,
     ForumComponent,
     ForumDetailsComponent,
     BreadcrumbComponent,
     ForumAddPageComponent,
-    NavbarComponent,
     
   ],
   imports: [

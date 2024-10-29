@@ -44,7 +44,7 @@
     object-fit: cover !important;
   }
 
-  .card > img {
+  .card > img ,.card {
     height: 250px !important;
     object-fit: cover !important;
     display: block !important;

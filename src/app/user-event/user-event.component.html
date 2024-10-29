@@ -4,7 +4,11 @@
    <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-4 gy-2 mt-3">
     <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-4 mb-3">
       <div class="card" routerLink="/eventdetails/{{Event._id}}">
-        <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid"  alt="..." style="height: 208px !important;">
+        <img *ngIf="Event.event_thumbnail; else dummyImage" src="{{Event?.event_thumbnail}}" class="card-img-top img-fluid"  alt="..." style="height: 208px !important;">
+      <ng-template #dummyImage>
+        <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="card-img-top img-fluid position-relative opacity-75">
+        <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 22%;left: 30%;font-size: 30px;">{{Event.event_name}}</h5>
+      </ng-template>
         <span class="onproducthoverflag rounded px-2">{{Event.event_flag}}</span>
         <div class="card-body text">
           <div class="d-flex align-items-center justify-content-between gap-1">

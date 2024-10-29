@@ -10,16 +10,8 @@ import { Observable } from 'rxjs';
 export class DashboardService {
 
    
-  private beforelogin ="http://localhost:1000/beforeLogin";
+  // private API_URL ="https://demo-eosin-psi.vercel.app";
 
-    // private beforelogin ="http://192.168.0.14:1000/beforeLogin";
-
-
-  private Enroll ="http://localhost:1000/enrollcourse";
-
-  private SEOkeyword="http://localhost:1000/footer";
-
-  private Search_API="http://localhost:1000/search/global?q=";
 
   private API_URL="http://localhost:1000"
 
@@ -30,46 +22,43 @@ export class DashboardService {
   constructor(private http:HttpClient) { }
 
           getcategoryname():Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allcategory`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
           }
 
           getcouserdata(page: number, limit: number):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allcourses?page=${page}&limit=${limit}`)
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/allcourses?page=${page}&limit=${limit}`)
           }
 
           getcouserdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            let url = `http://localhost:1000/filter/courses?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
-            return this.http.get<any>(url);
+            return this.http.get<any>(`${this.API_URL}/filter/courses?categories=${categories}&page=${page}&limit=${limit}`);
           }
 
           gethomedatauser(page: number, limit: number):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/home?page=${page}&limit=${limit}`)
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/home?page=${page}&limit=${limit}`)
           }
 
           getcouserdatabyID(id:any):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/course/${id}`)
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/course/${id}`)
           }
 
           gettrainerdata(page: number, limit: number):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/trainers?page=${page}&limit=${limit}`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/trainers?page=${page}&limit=${limit}`);
            }
 
            getTrainerdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            let url = `http://localhost:1000/trainers/filter?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
-            return this.http.get<any>(url);
+            return this.http.get<any>(`${this.API_URL}/trainers/filter?categories=${categories}&page=${page}&limit=${limit}`);
           }
 
            productdata(page: number, limit: number):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allproduct?page=${page}&limit=${limit}`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/allproduct?page=${page}&limit=${limit}`);
            }
 
            getproductdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            let url = `http://localhost:1000/product/filter/product?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
-            return this.http.get<any>(url);
+            return this.http.get<any>(`${this.API_URL}/product/filter/product?categories=${categories}&page=${page}&limit=${limit}`);
           }
 
            productdatabyID(id:any):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/product/${id}`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/product/${id}`);
            }
 
            GetCourseReview(id:string,page: number, limit: number):Observable<any>{
@@ -77,16 +66,15 @@ export class DashboardService {
            }
 
            Eventdata(page: number, limit: number):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/allevents?page=${page}&limit=${limit}`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/allevents?page=${page}&limit=${limit}`);
            }
 
            getEventdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            let url = `http://localhost:1000/event/filter/event?categories=${categories}&page=${page}&limit=${limit}`;  // Fixed typo
-            return this.http.get<any>(url);
+            return this.http.get<any>(`${this.API_URL}/event/filter/event?categories=${categories}&page=${page}&limit=${limit}`);
           }
 
            EventdatabyID(id:any):Observable<any>{
-            return this.http.get<any>(`${this.beforelogin}/event/${id}`);
+            return this.http.get<any>(`${this.API_URL}/beforeLogin/event/${id}`);
            }
 
            postreviewEvent(data:any):Observable<any>{
@@ -98,7 +86,7 @@ export class DashboardService {
            }
 
            courseenroll(data:{course_id: any}): Observable<any> {
-            return this.http.post<any>(`${this.Enroll}`, data);
+            return this.http.post<any>(`${this.API_URL}/enrollcourse`, data);
           }
 
           postreviewProduct(data:any):Observable<any>{
@@ -114,11 +102,11 @@ export class DashboardService {
           }
 
           SEOkeywords():Observable<any>{
-            return this.http.get<any>(this.SEOkeyword);
+            return this.http.get<any>(`${this.API_URL}/footer`);
           }
 
           search(query: string):Observable<any>{
-            return this.http.get<any>(`${this.Search_API}${query}`)
+            return this.http.get<any>(`${this.API_URL}/search/global?q=${query}`)
           }
 
           postEnquiry(data:any):Observable<any>{
@@ -158,8 +146,7 @@ export class DashboardService {
           }
          
           blogdatabyID(id: string): Observable<any> {
-            const url = `http://localhost:1000/blog/${id}`;  // Adjust the API endpoint
-            return this.http.get<any>(url);
+            return this.http.get<any>(`${this.API_URL}/blog/${id}`);
           }
 
           getDashboardData(): Observable<any> {
