@@ -32,6 +32,11 @@ export class DashboardComponent implements OnInit {
     return name.length > 18 ? name.slice(0, 15) + '...' : name;
   }
 
+  showFullcategorytitle = false;
+  truncatecategorytitle(name: string): string {
+    return name.length > 40 ? name.slice(0, 35) + '...' : name;
+  }
+
   visibleCategories() {
     return this.showAll ? this.showCategorydata : this.showCategorydata.slice(0, 9);
   }

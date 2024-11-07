@@ -117,6 +117,15 @@
 }
 
 
+.suggestions-list h6 {
+  margin: 0;
+  padding: 0.2rem 0;
+  padding-left: 5px;
+  font-family: 200;
+  color: var(--TextColor); /* Change to your preferred color */
+}
+
+
 
 
 /* Whatapps icon css */

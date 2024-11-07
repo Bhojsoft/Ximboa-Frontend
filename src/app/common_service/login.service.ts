@@ -11,11 +11,11 @@ export class LoginService {
 //********************** Trainer LOGIN API **********************
 
 
-    private register ='http://localhost:1000/registration';
+    private register ='https://demo-eosin-psi.vercel.app/registration';
 
-    private institute="http://localhost:1000/institute";
+    private institute="https://demo-eosin-psi.vercel.app/institute";
 
-    private APIURL ="http://localhost:1000/notifications";
+    private APIURL ="https://demo-eosin-psi.vercel.app/notifications";
   
 
   constructor(private http:HttpClient, private router: Router){ }

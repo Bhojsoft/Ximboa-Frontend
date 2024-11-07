@@ -83,9 +83,8 @@ const routes: Routes = [
   //  Routing For User Dashboard
   { path: "", component: DashboardComponent },
   { path: "Home", component: DashboardComponent},
-  { path: "seeallcategories", component: SeeallcategoriesComponent},
   { path: "coursedetails/:id", component: CourseDetailsComponent },
-  { path: "shop/:id", component: ShopComponent ,data: { breadcrumb: 'Product Details' }},
+  { path: "productdetails/:id", component: ShopComponent ,data: { breadcrumb: 'Product Details' }},
   { path: "eventdetails/:id", component: UserEventDetailsComponent,data: { breadcrumb: 'Events Details' } },
   { path: "cart", component: CartComponent },
   { path: "gallery", component: GalleryComponent },
@@ -94,10 +93,10 @@ const routes: Routes = [
     children: [
       // {path:"",component:RelevanceDataComponent},
       { path: "", component: SeeallcategoriesComponent },
-      { path: "seeallcategory", component: SeeallcategoriesComponent,data: { breadcrumb: 'All Courses' } },
-      { path: "trainer", component: TrainerComponent ,data: { breadcrumb: 'All Trainer' } },
-      { path: "userproduct", component: UsersideProductComponent ,data: { breadcrumb: 'All Product' } },
-      { path: "userevent", component: UserEventComponent ,data: { breadcrumb: 'All Events' } },
+      { path: "Allcourses", component: SeeallcategoriesComponent,data: { breadcrumb: 'All Courses' } },
+      { path: "alltrainer", component: TrainerComponent ,data: { breadcrumb: 'All Trainer' } },
+      { path: "allproducts", component: UsersideProductComponent ,data: { breadcrumb: 'All Product' } },
+      { path: "allevents", component: UserEventComponent ,data: { breadcrumb: 'All Events' } },
     ]
   },
 

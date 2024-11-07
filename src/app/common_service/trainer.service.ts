@@ -9,7 +9,8 @@ export class TrainerService {
 
  private  Trainer_APIURL ="http://localhost:1000/trainerbyid";
   
-  private APIURL = "http://localhost:1000";
+  // private APIURL = "http://localhost:1000";
+  private APIURL = "https://demo-eosin-psi.vercel.app";
 
 
 

@@ -7,15 +7,15 @@ import { Observable, retry } from 'rxjs';
 })
 export class AdminService {
 
-  private APIURL="http://localhost:1000/trainer";
+  private APIURL="https://demo-eosin-psi.vercel.app/trainer";
 
-  private CategoryURL="http://localhost:1000/category";
+  private CategoryURL="https://demo-eosin-psi.vercel.app/category";
 
-  private dashboard="http://localhost:1000/beforeLogin/allcategory"
+  private dashboard="https://demo-eosin-psi.vercel.app/beforeLogin/allcategory"
 
-  private Cousers_API="http://localhost:1000/course";
+  private Cousers_API="https://demo-eosin-psi.vercel.app/course";
 
-  private trainer_API="http://localhost:1000/registration"
+  private trainer_API="https://demo-eosin-psi.vercel.app/registration"
 
 
 

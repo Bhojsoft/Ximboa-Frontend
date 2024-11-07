@@ -1,7 +1,6 @@
 <div class="container-fluid" style="background-color: var(--bodyColor);">
   <div class="row">
     <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-      
       <div *ngFor="let trainer of filteredtrainer | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-6 col-lg-3  mb-3" >
         <div class="card trainercard " style="margin-top: 40%;border: none;" routerLink="/coursedetails/{{trainer.t_id}}" >
           <div class="text-center mt-3" style="position: relative;" >

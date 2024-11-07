@@ -59,7 +59,7 @@ export class LinkedinAuthCallbackComponent implements OnInit{
         (response: any) => {
           console.log('Access token received', response);
           localStorage.setItem('linkedin_access_token', response.access_token);
-          this.router.navigate(['/trainer']); // Redirect to another page
+          this.router.navigate(['/alltrainer']); // Redirect to another page
         },
         (error) => {
           console.error('Error fetching access token', error);

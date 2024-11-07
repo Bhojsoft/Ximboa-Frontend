@@ -1,17 +1,15 @@
 <div class="container-fluid">
 
   <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-3 gx-4 gy-2   mt-3">
-    <div
-      *ngFor="let allcourses of filteredCourses  | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }"
+    <div  *ngFor="let allcourses of filteredCourses  | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }"
       class="col-sm-12 col-md-6 col-lg-4 mb-3">
       <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
         <!-- <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
         <img src="../../assets/gallery-small-img.jpg" alt=""> -->
         <img *ngIf="allcourses.thumbnail_image; else dummyImage" [src]="allcourses.thumbnail_image"
-          class="card-img-top img-fluid" alt="Image">
+          class="card-img-top img-fluid" alt="Course Image">
         <ng-template #dummyImage>
-          <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="card-img-top img-fluid position-relative opacity-75">
-          <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 22%;left: 30%;font-size: 30px;">Java Full Stack Provided by Bhojsoft Solutions</h5>
+          <img src="../../assets/courses dummy.jpg" alt="Course Image" class="card-img-top img-fluid">
         </ng-template>
         <div class="card-body mb-0 pb-0">
           <div class="d-flex align-items-center justify-content-between">

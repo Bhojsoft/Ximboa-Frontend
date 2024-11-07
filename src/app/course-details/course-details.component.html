@@ -1,44 +1,46 @@
 <div *ngIf="showprofile" class="container-fluid " style="background-color: #F5F5F5;">
 
-       <div class="row mb-0 pt-1">
+       <div class="row g-2 mb-0 pt-1">
         <div class="col-sm-12 col-md-6 col-lg-10 ">
-            <div class="row ">
-                <div class="col-sm-12 col-md-2 col-lg-3" >
+            <div class="row g-2">
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-2" >
                     <img [src]="showprofile?.gallarys?.[0]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'"  alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
                 
-                <div class="col-sm-12 col-md-2 col-lg-3" >
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-2" >
                     <img [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
-                <div class="col-sm-12 col-md-2 col-lg-3" >
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-2" >
                     <img [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
-                <div class="col-sm-12 col-md-2 col-lg-3" >
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-2" >
                     <img [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[3].photos : 'assets/gallery-small-img.jpg'" alt="Gallery Image" class="object-fit-cover img-fluid rounded">
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-2">
-            <div class="row">
-                <div class="col-sm-12 col-md-6 col-lg-6 mb-2" >
-                    <img [src]="showprofile?.gallarys?.[5]?.photos ? showprofile.gallarys[5].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover" height="95px" width="114px" alt="Gallery Image">
+            <div class="row g-2">
+                <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  mb-2" >
+                    <img [src]="showprofile?.gallarys?.[5]?.photos ? showprofile.gallarys[5].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover img-fluid"  alt="Gallery Image">
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6" >
-                    <img [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover" height="95px" width="114px" alt="Gallery Image">
+                <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  mb-2" >
+                    <img [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'" class="rounded object-fit-cover img-fluid"  alt="Gallery Image">
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 position-relative" data-bs-toggle="modal" data-bs-target="#gallery" >
-                    <img [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'" height="95px" width="114px" class="rounded object-fit-cover opacity-25 " alt="Gallery Image">
+                <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  position-relative mb-2" data-bs-toggle="modal" data-bs-target="#gallery" >
+                    <img [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'"  class="rounded object-fit-cover opacity-25 img-fluid" alt="Gallery Image">
                     <span class="position-absolute top-50 start-50 translate-middle fw-bold text-dark p-2">View More</span>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-6" >
-                    <img [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'" height="95px" width="114px" class="rounded object-fit-cover" alt="Gallery Image">
+                <div class="col-sm-6 col-md-6 col-lg-6 galleryimg " >
+                    <img [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'"  class="rounded object-fit-cover img-fluid" alt="Gallery Image">
                 </div>
             </div>
         </div>
     </div>
     
     <div class="row mt-3 ">
-        <ul class="srolltabs" >
+      <div class="table-responsive">
+        <div class="d-flex flex-wrap justify-content-start">
+        <ul class="srolltabs " >
           <li *ngIf="showprofile?.skills[0]" class="btn btn-sm btn-outline-primary" href="#Skills"
             (click)="scrollToSection($event, 'Skills')"
             routerLinkActive="active-link"
@@ -47,7 +49,7 @@
             <li *ngIf="showprofile.About[0]?.about_us" class="btn btn-sm btn-outline-primary" href="#About" 
             (click)="scrollToSection($event, 'About')"
             routerLinkActive="active-link"
-            [routerLinkActiveOptions]="{exact: true}">About Me</li>
+            [routerLinkActiveOptions]="{exact: true}">About&nbsp;us</li>
 
             <li *ngIf="showprofile.About[0]?.our_services" class="btn btn-sm btn-outline-primary" href="#Services"
             (click)="scrollToSection($event, 'Services')"
@@ -91,6 +93,8 @@
             [routerLinkActiveOptions]="{exact: true}">Reviews</li>
             
         </ul>
+      </div>  
+      </div>
     </div>
 
     
@@ -138,8 +142,8 @@
             <div class="d-flex align-items-center gap-3 ">
                 <button class="btn btn-phone d-flex align-items-center gap-2"><i class="fa-solid fa-mobile-screen"></i>
                     {{showprofile.trainer.mobile_number}}</button>
-                <a class="btn border-dark d-flex align-items-center gap-2" (click)="handleWhatsAppClick()"> <i
-                        class="fa-brands fa-whatsapp fw-bold fs-4" style="color: #30d14e;"></i> Whatsapp</a>
+                <button class="btn border-dark d-flex align-items-center gap-2" (click)="handleWhatsAppClick()"> <i
+                        class="fa-brands fa-whatsapp fw-bold fs-4" style="color: #30d14e;"></i> Whatsapp</button>
             <!-- share button scetion -->
                 <div >
                     <button (click)="shareicon()" class="btn share-button"><i class="fas fa-share-alt"></i> Share</button>
@@ -530,9 +534,9 @@
                 <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
                     <div *ngFor="let product of products" class="col-sm-12 col-md-3 col-lg-4 mb-3">
                       <div class="card productcard">
-                        <img src="{{product.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
+                        <img src="{{product.product_image}}" routerLink="/productdetails/{{product._id}}" class="card-img-top img-fluid"
                           alt="...">
-                          <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+                          <button routerLink="/productdetails/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
                           <!-- <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span> -->
                         <div class="card-body text-center mb-0 pt-0">
                           <div class="d-flex align-items-center justify-content-between mt-1">

@@ -1,6 +1,5 @@
-<div class="container-fluid " style="background-color: var(--bodyColor);">
+<!-- <div class="container-fluid " style="background-color: var(--bodyColor);">
   <div class="row">
-    <!-- carousel -->
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0"
@@ -56,8 +55,60 @@
 
     </div>
   </div>
-</div>
+</div> -->
+<div class="container-fluid" style="background-color: var(--bodyColor);">
+  <div class="row">
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" class="bg-dark" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" class="bg-dark" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner ">
 
+        <!-- Slide 1 -->
+        <div class="carousel-item active" style="background-image: url('../../assets/img1.jpg');" data-bs-interval="5000">
+          <div class="container  d-flex align-items-center">
+            <div class="row w-100">
+              <div class="col-8 col-md-7 col-lg-5  text-md-start  text-dark">
+                <p class=" mb-2 " style="color: #265BBD;">CONNECT. SHARE. GROW</p>
+                <h1 class="display-6 ">NETWORK WITH EXPERTS, GAIN INSIGHT</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item" style="background-image: url('../../assets/img2.jpg');" data-bs-interval="4000">
+          <div class="container  d-flex align-items-center">
+            <div class="row w-100">
+              <div class="col-8 col-md-7 col-lg-5   text-md-start px-3 text-dark">
+                <p class=" ">
+                  <span class=" heading">EMPOWER</span> <br>
+                  <span class=" subheading">YOUR EXPERTISE,</span><br>
+                  <span class=" heading">AMPLIFY</span><br>
+                  <span class=" subheading">YOUR IMPACT</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item" style="background-image: url('../../assets/img3.jpg');">
+          <div class="container  d-flex align-items-center">
+            <div class="row w-100">
+              <div class="col-8 col-md-7 col-lg-5  text-md-start px-3 text-dark">
+                <p class="display-6">JOIN FOR A BETTER FUTURE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Top category -->
 <div class="container-fluid " style="background-color: var(--WhiteColor);">
   <div class="container mt-5">
@@ -75,7 +126,7 @@
           <img src="{{category.category_image}}" alt="">
           <div>
             <p class="m-0 categoryheading">{{category?.category_name}}</p>
-            <p class="m-0 categorysubtitle">{{category?.Sub_title}}</p>
+            <p class="m-0 categorysubtitle">{{truncatecategorytitle(category?.Sub_title)}}</p>
           </div>
         </div>
       </div>
@@ -161,7 +212,7 @@
 
 
     <div class="text-end">
-      <p routerLink="/relevance/trainer" class="me-3 my-0 pb-3 cursor-pointer ViewmoreArrow">View More <i
+      <p routerLink="/relevance/alltrainer" class="me-3 my-0 pb-3 cursor-pointer ViewmoreArrow">View More <i
           class="fa-solid fa-arrow-right"></i> </p>
     </div>
 
@@ -187,7 +238,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 col-md-5 col-lg-1 me-3">
+      <div  class="col-sm-12 col-md-5 col-lg-1 me-3 workflowhide">
         <svg stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 550 300">
           <path id="line-1" fill="none" stroke="white" stroke-width="14" stroke-dasharray="1000"
             stroke-dashoffset="1000" d="M18.9 128.6c62 33 186 99 311.3 28.5 37.3-21 77.3-108-81.2-92.3-175.5 17.3-6 116.6 54.4 132.5 
@@ -198,6 +249,10 @@
         </svg>
       </div>
 
+      <div class="downarrowhide text-center">
+        <i class="fa-solid fa-down-long" style="color: var(--WhiteColor);"></i>
+      </div>
+
       <div
         class="col-sm-12 col-md-5 col-lg-2 my-3  d-flex align-items-center justify-content-center py-4 rounded" style="background-color: #ffffff;">
         <div class="text-center">
@@ -206,7 +261,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 col-md-5 col-lg-1 me-3">
+      <div class="col-sm-12 col-md-5 col-lg-1 me-3 workflowhide">
         <svg stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 550 300">
           <path id="line-2" fill="none" stroke="white" stroke-width="14" stroke-dasharray="1000"
             stroke-dashoffset="1000" d="M18.9 128.6c62 33 186 99 311.3 28.5 37.3-21 77.3-108-81.2-92.3-175.5 17.3-6 116.6 54.4 132.5 
@@ -217,6 +272,10 @@
         </svg>
       </div>
 
+      <div class="downarrowhide text-center">
+        <i class="fa-solid fa-down-long" style="color: var(--WhiteColor);"></i>
+      </div>
+
       <div
         class="col-sm-12 col-md-5 col-lg-2 my-3  d-flex align-items-center justify-content-center py-4 rounded" style="background-color: #ffffff;">
         <div class="text-center">
@@ -225,7 +284,7 @@
         </div>
       </div>
 
-      <div class="col-sm-12 col-md-5 col-lg-1 me-3">
+      <div class="col-sm-12 col-md-5 col-lg-1 me-3 workflowhide">
         <svg stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 550 300">
           <path id="line-3" fill="none" stroke="white" stroke-width="14" stroke-dasharray="1000"
             stroke-dashoffset="1000" d="M18.9 128.6c62 33 186 99 311.3 28.5 37.3-21 77.3-108-81.2-92.3-175.5 17.3-6 116.6 54.4 132.5 
@@ -234,6 +293,10 @@
             <path id="arrow-3" fill="white" d="M0 0 l47.1 6 -29.8 33.3 -17.3 -39.3z" />
           </g>
         </svg>
+      </div>
+
+      <div class="downarrowhide text-center">
+        <i class="fa-solid fa-down-long" style="color: var(--WhiteColor);"></i>
       </div>
 
       <div
@@ -261,8 +324,7 @@
             <!-- <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid"  alt="..." > -->
             <img *ngIf="allcourses.thumbnail_image; else dummyImage" src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="Image">
           <ng-template #dummyImage>
-            <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="card-img-top img-fluid position-relative opacity-75">
-            <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 22%;left: 30%;font-size: 30px;">{{allcourses.course_name}}</h5>
+            <img src="../../assets/courses dummy.jpg" alt="Dummy Image" class="card-img-top img-fluid ">
           </ng-template>
             <div class="card-body mb-0 pb-0 ">
               <div class="d-flex align-items-center justify-content-between ">
@@ -296,7 +358,7 @@
         </div>
       </div>
       <div class="text-end">
-        <p routerLink="/relevance/seeallcategory" class="me-3 ViewmoreArrow">View More <i
+        <p routerLink="/relevance/Allcourses" class="me-3 ViewmoreArrow">View More <i
             class="fa-solid fa-arrow-right "></i> </p>
       </div>
   </div>
@@ -343,7 +405,7 @@
         </div>
       </div>
       <div class="text-end">
-        <p routerLink="/relevance/userproduct" class="me-3 ViewmoreArrow">View More <i
+        <p routerLink="/relevance/allproducts" class="me-3 ViewmoreArrow">View More <i
             class="fa-solid fa-arrow-right "></i> </p>
       </div>
 
@@ -367,8 +429,7 @@
           <div class="card" routerLink="/eventdetails/{{Event._id}}">
             <img *ngIf="Event.eventImage; else dummyImage" src="{{Event.eventImage}}" class="card-img-top img-fluid"  alt="..." >
             <ng-template #dummyImage>
-              <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="card-img-top img-fluid position-relative opacity-75">
-              <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 22%;left: 30%;font-size: 30px;">{{Event.eventName}}</h5>
+              <img src="../../assets/event dummy.jpg" alt="Dummy Image" class="card-img-top img-fluid">
             </ng-template>
             <span class="onproducthoverflag rounded px-2">{{Event.identityFlag}}</span>
             <div class="card-body text">
@@ -408,7 +469,7 @@
         </div>
       </div>
       <div class="text-end">
-        <p routerLink="/relevance/userevent" class="me-3 ViewmoreArrow">View More <i
+        <p routerLink="/relevance/allevents" class="me-3 ViewmoreArrow">View More <i
             class="fa-solid fa-arrow-right "></i> </p>
       </div>
     </div>

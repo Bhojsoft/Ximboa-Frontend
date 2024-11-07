@@ -24,19 +24,19 @@ export class RelevanceComponent implements OnInit {
     switch (selectedValue) {
       case 'Courses':
         this.inputPlaceholder = 'Search Courses';
-        this.router.navigate(['/relevance/seeallcategory']); 
+        this.router.navigate(['/relevance/Allcourses']); 
         break;
       case 'Trainers':
         this.inputPlaceholder = 'Search Trainers';
-        this.router.navigate(['/relevance/trainer']); 
+        this.router.navigate(['/relevance/alltrainer']); 
         break;
       case 'Products':
         this.inputPlaceholder = 'Search Products';
-        this.router.navigate(['/relevance/userproduct']); 
+        this.router.navigate(['/relevance/allproducts']); 
         break;
       case 'Events':
         this.inputPlaceholder = 'Search Events';
-        this.router.navigate(['/relevance/userevent']); 
+        this.router.navigate(['/relevance/allevents']); 
         break;
     }
   }

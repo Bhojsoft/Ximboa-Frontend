@@ -108,7 +108,7 @@ export class UsersideProductComponent implements OnInit {
 
   fetchProducts(): void {
     if (this.searchTerm) {
-      this.http.get<any>(`http://localhost:1000/search/products?product_name=${this.searchTerm}`)
+      this.http.get<any>(`https://demo-eosin-psi.vercel.app/search/products?product_name=${this.searchTerm}`)
         .subscribe(
           response => {
             this.showproductdata = response.data; // Update showproductdata with search results

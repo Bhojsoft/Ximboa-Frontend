@@ -21,43 +21,43 @@ export class AppComponent {
     });
   }
 
- ngOnInit() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const breadcrumbs = this.createBreadcrumbs(this.router.routerState.root);
-        this.breadcrumbService.setBreadcrumbs(breadcrumbs);
-      });
-  }
+//  ngOnInit() {
+//     this.router.events
+//       .pipe(filter(event => event instanceof NavigationEnd))
+//       .subscribe(() => {
+//         const breadcrumbs = this.createBreadcrumbs(this.router.routerState.root);
+//         this.breadcrumbService.setBreadcrumbs(breadcrumbs);
+//       });
+//   }
 
-  private createBreadcrumbs(route: ActivatedRoute, breadcrumbs: Array<{ label: string, url: string }> = [], url: string = ''): Array<{ label: string, url: string }> {
-    const children: ActivatedRoute[] = route.children;
+//   private createBreadcrumbs(route: ActivatedRoute, breadcrumbs: Array<{ label: string, url: string }> = [], url: string = ''): Array<{ label: string, url: string }> {
+//     const children: ActivatedRoute[] = route.children;
   
-    if (children.length === 0) {
-      return breadcrumbs;
-    }
+//     if (children.length === 0) {
+//       return breadcrumbs;
+//     }
   
-    for (const child of children) {
-      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      if (routeURL !== '') {
-        url += `/${routeURL}`;
-      }
+//     for (const child of children) {
+//       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+//       if (routeURL !== '') {
+//         url += `/${routeURL}`;
+//       }
   
-      const breadcrumbLabel = child.snapshot.data['breadcrumb'];
-      if (breadcrumbLabel) {
-        breadcrumbs.push({ label: breadcrumbLabel, url });
-      }
+//       const breadcrumbLabel = child.snapshot.data['breadcrumb'];
+//       if (breadcrumbLabel) {
+//         breadcrumbs.push({ label: breadcrumbLabel, url });
+//       }
   
-      return this.createBreadcrumbs(child, breadcrumbs, url);
-    }
+//       return this.createBreadcrumbs(child, breadcrumbs, url);
+//     }
     
-    // Example of adding static breadcrumbs that don't correspond to any route
-    if (route.routeConfig?.path === 'someStaticPath') {
-      breadcrumbs.push({ label: 'Static Breadcrumb', url: '/static-path' });
-    }
+//     // Example of adding static breadcrumbs that don't correspond to any route
+//     if (route.routeConfig?.path === 'someStaticPath') {
+//       breadcrumbs.push({ label: 'Static Breadcrumb', url: '/static-path' });
+//     }
   
-    return breadcrumbs;
-  }
+//     return breadcrumbs;
+//   }
   
 
 }

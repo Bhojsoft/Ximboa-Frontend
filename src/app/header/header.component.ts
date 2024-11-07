@@ -41,8 +41,7 @@ export class HeaderComponent {
   query: string = '';
   results: any;
   searchitemresult:any[] = [];
-  suggestions: any[] = [];
- 
+  suggestions: any[] = []; 
   
 
 
@@ -115,12 +114,14 @@ export class HeaderComponent {
     }
   }
 
+  
+
   onSelectSuggestion(suggestion: any) {
     const enteredKeyword = this.query;
     this.suggestions = [];
 
     if (suggestion.type === 'course') {
-      this.route.navigate(['/relevance/seeallcategory'], {
+      this.route.navigate(['/relevance/Allcourses'], {
         queryParams: {
           category: suggestion.category_name || 'defaultCategory',  // For courses
           id: suggestion.id,
@@ -129,7 +130,7 @@ export class HeaderComponent {
         }
       });
     } else if (suggestion.type === 'category') {
-      this.route.navigate(['/relevance/seeallcategory'], {
+      this.route.navigate(['/relevance/Allcourses'], {
         queryParams: {
           category: suggestion.name || 'defaultCategory',
           id: suggestion.id,
@@ -138,7 +139,7 @@ export class HeaderComponent {
         }
       });
     } else if (suggestion.type === 'product') {
-      this.route.navigate(['/relevance/userproduct'], {
+      this.route.navigate(['/relevance/allproducts'], {
         queryParams: {
           category: suggestion.category || 'defaultCategory', // For products
           id: suggestion.id,
@@ -147,7 +148,7 @@ export class HeaderComponent {
         }
       });
     } else if (suggestion.type === 'event') {
-      this.route.navigate(['/relevance/userevent'], {
+      this.route.navigate(['/relevance/allevents'], {
         queryParams: {
           category: suggestion.events_category || 'defaultCategory',
           id: suggestion.id,
@@ -161,7 +162,7 @@ export class HeaderComponent {
       const trainerCategory = suggestion.trainer_categories.length > 0 ? suggestion.trainer_categories[0] : 'defaultCategory';
       console.log(trainerCategory);
       
-      this.route.navigate(['/relevance/trainer'], {
+      this.route.navigate(['/relevance/alltrainer'], {
         queryParams: {
           category: trainerCategory,
           id: suggestion.id,
@@ -172,6 +173,15 @@ export class HeaderComponent {
       });
       console.log(trainerCategory);
     }
+
+    else if (suggestion.type === 'institute') {
+      this.route.navigate(['/coursedetails'], {
+        queryParams: {
+          id: suggestion.id // Pass the ID as a query parameter
+        }
+      });
+    }
+  
   }
 
   formatSearchResults(result: any): any[] {
@@ -230,13 +240,27 @@ export class HeaderComponent {
       })));
     }
 
-   
+    if (result.institute) {
+      formattedResults.push(...result.institute.map((institute: any) => ({
+        type: 'institute',
+        name: institute.institute_name,
+        id: institute._id
+      })));
+    }
 
+    if (result.InstituteDummy) {
+      formattedResults.push(...result.InstituteDummy.map((institute: any) => ({
+        type: 'institute',
+        name: institute.institute_name,
+        id: institute._id
+      })));
+    }
     return formattedResults;
   }
 
   
 
+  
   onsearch() {
     if (this.query) {
       this.dservice.search(this.query).subscribe(
@@ -252,8 +276,39 @@ export class HeaderComponent {
     }
   }
 
+  groupedSuggestions(): Record<string, any[]> {
+    return this.suggestions.reduce((groups: Record<string, any[]>, suggestion) => {
+      const { type } = suggestion;
+      if (!groups[type]) {
+        groups[type] = [];
+      }
+      groups[type].push(suggestion);
+      return groups;
+    }, {});
+  }
   
- 
+  navigateBasedOnGroup(groupKey: string) {
+    switch (groupKey) {
+      case 'course':
+        this.route.navigate(['/relevance/Allcourses']);
+        break;
+      case 'trainer':
+        this.route.navigate(['/relevance/alltrainer']);
+        break;
+      case 'product':
+        this.route.navigate(['/relevance/allproducts']);
+        break;
+      case 'event':
+        this.route.navigate(['/relevance/allevents']);
+        break;
+      case 'institute':
+          this.route.navigate(['/relevance/alltrainer']);
+          break;
+      // Add more cases as needed
+      default:
+        console.log('No route defined for this group');
+    }
+  }
 
   logout() {
     this.authService.logout();

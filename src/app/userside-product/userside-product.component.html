@@ -4,8 +4,8 @@
   
     <div *ngFor="let product of filteredProducts | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-4 mb-3">
       <div class="card productcard">
-        <img src="{{product?.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"  alt="...">
-          <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+        <img src="{{product?.product_image}}" routerLink="/productdetails/{{product._id}}" class="card-img-top img-fluid"  alt="...">
+          <button routerLink="/productdetails/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
           <span class="onproducthoverflag rounded px-2">{{product.identityFlag}}</span>
         <div class="card-body text-center mb-0 pt-0">
           <div class="d-flex align-items-center justify-content-between mt-1">
