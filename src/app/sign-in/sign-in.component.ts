@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit {
       error: () => { 
         this.message = 'An error occurred';
         //alert("Invalid credentials. Please try again");
-        Swal.fire('Error', 'Please Enter Valid Details.', 'error');
+        Swal.fire('Error', 'Your email or password is incorrect. Try again...', 'error');
 
       }
     });
