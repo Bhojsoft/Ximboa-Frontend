@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../common_service/login.service';
 import { DashboardService } from '../common_service/dashboard.service';
 import { TrainerService } from '../common_service/trainer.service';
+import Swal from 'sweetalert2';
+
+declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-header',
@@ -327,19 +331,55 @@ export class HeaderComponent {
     }
   }
 
-  sendRequest(){
+  // sendRequest(){
 
+  //   this.requst.postrequest(this.role).subscribe({
+  //     next : (response) =>{
+  //       // alert("Request Sent For Self Expert.!!!");
+  //       Swal.fire('Congratulations..!', 'Your request has been successfully submitted to the admin. You can expect access to the Self Expert role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.', 'success');
+  //       // window.location.reload();
+  //     },
+  //     error: (error)=>{
+  //       console.log(alert("Error"),error);
+  //     }
+  //   })
+
+  // }
+
+
+  sendRequest() {
     this.requst.postrequest(this.role).subscribe({
-      next : (response) =>{
-        alert("Request Sent For Self Expert.!!!")
-        // window.location.reload();
+      next: (response) => {
+        Swal.fire(
+          'Congratulations..!',
+          'Your request has been successfully submitted to the admin. You can expect access to the Self Expert role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.',
+          'success'
+        );
+        this.closeModal();
       },
-      error: (error)=>{
-        console.log(alert("Error"),error);
+      error: (error) => {
+        console.error("Error:", error);
+  
+        // Check for specific error message and status code in the nested error response
+        if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
+          Swal.fire(
+            'Request Already Submitted',
+            'Your request for access to the Self Expert role has already been submitted. Please allow up to 24 hours for processing. If you have any questions or concerns, feel free to contact us at contact@ximboa.io.',
+            'error'
+          );
+        } else {
+          // Show a generic error message for other cases
+          Swal.fire(
+            'Request Failed',
+            'An unexpected error occurred. Please try again later.',
+            'error'
+          );
+        }
       }
-    })
-
+    });
   }
+  
+  
 
   addinstitute(){
     const payload = {
@@ -400,6 +440,12 @@ onRoleChange() {
   console.log('Selected Role:', this.role.requested_Role);
 }  
 
-
+closeModal() {
+  const modalElement = document.getElementById('exampleModalExpert');
+  const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
+  if (modalInstance) {
+    modalInstance.hide(); // Hides the modal
+  }
+}
 
 }

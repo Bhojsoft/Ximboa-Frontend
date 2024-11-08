@@ -142,7 +142,7 @@ export class EdittrainerComponent implements OnInit {
       this.service.updatetrainerDetails(formData).subscribe({
         next: response => {
           console.log(response);
-          Swal.fire('Ohh...!', 'Your Profile Updated Successfully..!', 'success');
+          Swal.fire('Ohh...!', 'Your profile has been updated successfully..!', 'success');
         },
         error: error => {
           console.log(error);
