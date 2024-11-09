@@ -17,18 +17,38 @@
             </div>
         </div>
 
-      <section class="p-3 rounded">
-        <div *ngFor="let Data of Shownotification | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="row mb-2 border d-flex align-items-center p-2">
-                <div class="col-sm-12 col-md-3 col-lg-9">
-                    <h6 class="m-0" style="color: var(--btndarkColor);">{{Data.activityType}}</h6>
-                    <p  class="m-0" style="color: var(--te);">{{Data.message}}</p>
+        <section class="p-3 rounded">
+            <div *ngFor="let Data of Shownotification | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" 
+                 class="row mb-3 border rounded shadow-sm p-3 align-items-center"
+             >
+                
+                <div class="col-12 col-md-9">
+                    <!-- Activity Type and Message Styles Based on isSeen -->
+                    <h6 class="m-0" [ngClass]="{'text-muted': Data.isSeen, 'fw-bold': !Data.isSeen}" 
+                        style="color: var(--btndarkColor);">
+                        {{ Data.activityType }}
+                    </h6>
+                    <p class="m-0 mt-1" [ngClass]="{'text-muted': Data.isSeen, 'text-dark fw-bold': !Data.isSeen}" style="font-size: 0.9rem;">
+                        {{ Data.message }}
+                    </p>
                 </div>
-                <div class="col-sm-12 col-md-3 col-lg-3 text-end">
-                    <label><i class="fa-solid fa-clock"></i> {{Data.createdAt | date}}</label>
+                
+                <div class="col-12 col-md-3 text-md-end mt-2 mt-md-0">
+                    <div class="d-flex align-items-center justify-content-md-end text-muted" style="gap: 10px;">
+                        <span class="d-flex align-items-center" style="font-size: 0.85rem;">
+                            <i class="fa-solid fa-calendar-alt me-1 pe-1"></i>
+                            {{ Data.createdAt }}
+                        </span>
+                        <span class="d-flex align-items-center" style="font-size: 0.85rem;">
+                            {{ Data.createdAtTime }}
+                        </span>
+                    </div>
                 </div>
-         </div>
-         <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
+            </div>
+            
+            <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
         </section>
+        
     </div>
 </div>
 </div>

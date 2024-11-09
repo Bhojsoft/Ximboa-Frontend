@@ -79,12 +79,23 @@
 
           <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
             <div class="form-check pt-3">
-              <input class="form-check-input border-dark" type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="flexCheckDefault">
+              <input
+                class="form-check-input border-dark"
+                type="checkbox"
+                [(ngModel)]="rememberMe"
+                name="rememberMe"
+                id="flexCheckDefault"
+                required
+                #rememberMeField="ngModel"
+              />
               <label class="form-check-label" for="flexCheckDefault">
                 <span>I accept the</span>
                 <span style="color: #6149CD; margin-left: 5px;">Terms & Conditions</span>
               </label>
-            </div>            
+            </div>
+            <div *ngIf="rememberMeField.invalid && rememberMeField.touched" style="color: red;">
+              Please accept the terms and conditions to continue.
+            </div>
           </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
