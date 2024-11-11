@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  loginUrl="http://localhost:1000"
+  loginUrl="https://demo-eosin-psi.vercel.app"
 
   constructor(private http:HttpClient) { }
 
