@@ -72,7 +72,7 @@
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
               <div *ngIf="password.errors?.['required']">Password is required.</div>
               <div *ngIf="password.errors?.['pattern']">
-                Your password must be at least [X characters] and include [criteria, e.g., letters, numbers, and special characters].
+                Your password must be at least 8 characters and include letters, numbers, and special characters.
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@
               />
               <label class="form-check-label" for="flexCheckDefault">
                 <span>I accept the</span>
-                <span style="color: #6149CD; margin-left: 5px;">Terms & Conditions</span>
+                <span style="color: var(--TextColor); margin-left: 5px;">Terms & Conditions</span>
               </label>
             </div>
             <div *ngIf="rememberMeField.invalid && rememberMeField.touched" style="color: red;">

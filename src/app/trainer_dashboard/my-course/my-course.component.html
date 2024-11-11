@@ -18,7 +18,7 @@
         </div>
         
         <div *ngIf="showcoursedata && showcoursedata.length > 0" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-          <div *ngFor="let allcourses of showcoursedata" class="col-sm-12 col-md-6 col-lg-3 mb-3">
+          <div *ngFor="let allcourses of showcoursedata" class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <div class="card">
               <img routerLink="/couserenroll/{{allcourses._id}}" src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
               <div class="card-body ">
@@ -56,7 +56,7 @@
 <mat-tab *ngIf="isUser" label="Enrolled Courses">
      <!-- My Courses For Trainer -->
     <div *ngIf="showcoursedatastudent && showcoursedatastudent.length > 0" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-      <div *ngFor="let allcourses of showcoursedatastudent" class="col-sm-12 col-md-6 col-lg-3 mb-3">
+      <div *ngFor="let allcourses of showcoursedatastudent" class="col-sm-12 col-md-6 col-lg-4 mb-3">
         <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
           <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
           <div class="card-body ">
