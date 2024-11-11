@@ -42,7 +42,15 @@ export class LoginService {
     }
 
     getrolerequest():Observable<any>{
-      return this.http.get<any>(`${this.register}/all-rolechange-request`)
+      return this.http.get<any>(`${this.register}/all-pending-request`)
+    }
+
+    getroleApprovedrequest():Observable<any>{
+      return this.http.get<any>(`${this.register}/all-approved-request`)
+    }
+
+    getRejectRequest():Observable<any>{
+      return this.http.get<any>(`${this.register}/all-rejected-request`)
     }
 
     RoleChange(data: { userid: string, approved: number }): Observable<any> {

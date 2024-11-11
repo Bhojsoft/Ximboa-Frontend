@@ -11,19 +11,33 @@ import Swal from 'sweetalert2';
 export class SuperAdminComponent  implements OnInit{
 
   getrequest:any[]=[];
+  getapprovedrequest:any;
+  getRejectedrequest:any;
 
     constructor(private role:LoginService){}
 
     ngOnInit(): void {
        this.getallrequest();
+
+       this.role.getroleApprovedrequest().subscribe(result =>{
+          this.getapprovedrequest = result.data;
+          console.log(result,"approved"); 
+       });
+
+       this.role.getRejectRequest().subscribe(result =>{
+        this.getRejectedrequest = result.data;
+        console.log(result,"Rejected"); 
+     });
     }
 
     getallrequest(){
       this.role.getrolerequest().subscribe(data =>{
-        console.log(data);
-        this.getrequest = data;
+        console.log(data,"request");
+        this.getrequest = data.data;
       })
     }
+
+    
 
 
   //   handleApproval(userid: string, approved: number) {
