@@ -2,7 +2,6 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RelevanceComponent } from './relevance/relevance.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
@@ -44,17 +43,17 @@ import { ContactComponent } from './contact/contact.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
 
   { path: "signin", component: SignInComponent },
   { path: "signup", component: SignUpComponent },
-  { path: "forgotfassword", component: ForgotPasswordComponent },
   { path: "auth/linkedin", component: LinkedinAuthCallbackComponent },
 
   // Routing For Super Admin Dashboard
   { path: "superadmin", component: SuperAdminComponent },
-
+  { path: "reset-password",component:ResetPasswordComponent},
   { path: "editcategory/:_id", component: EditCategoryComponent },
   { path: "Notification", component: NotificationComponent },
   { path: "editprofilepicture", component: EditProfilePictureComponent },
