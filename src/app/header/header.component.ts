@@ -30,12 +30,13 @@ export class HeaderComponent {
 
 
   role = {
-    requested_Role : ' '
+    requested_Role : '',
+    business_Name  : '',
   }
 
   institute = {
-    business_Name  : ' ',
-    address_1:' ',
+    business_Name  : '',
+    address_1:'',
   }
 
   TrainerundersInstitute = {

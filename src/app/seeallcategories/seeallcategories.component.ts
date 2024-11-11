@@ -23,6 +23,7 @@ export class SeeallcategoriesComponent implements OnInit {
   term:any;
   courses: any[] = [];
   searchTerm: string = '';
+  noCategoryFound: boolean = false; 
 
   constructor(private service: DashboardService, private filter: FilterService,
     private http:HttpClient, private searchService: SearchService ) {}
@@ -70,12 +71,7 @@ export class SeeallcategoriesComponent implements OnInit {
       );
     }
   
-    // Apply category filter (if any categories are selected)
-    // if (this.selectedCategories.length > 0) {
-    //   this.filteredCourses = this.filteredCourses.filter(course =>
-    //     this.selectedCategories.includes(course.category_name)
-    //   );
-    // }
+    
 
     if (this.selectedCategories.length > 0) {
       this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
@@ -91,6 +87,7 @@ export class SeeallcategoriesComponent implements OnInit {
     // this.totalItems = this.filteredCourses.length;
 
     console.log('Filtered Courses:', this.filteredCourses);  // Log filtered courses for debugging
+      
   }
   
   

@@ -24,6 +24,7 @@ export class MyCourseComponent implements OnInit {
   maxWidth = 100; // Maximum width in pixels
   maxHeight = 100;
 
+
   checkUserRole() {
     const role = this.auth.getUserRole();
     // console.log(role);
@@ -47,21 +48,21 @@ export class MyCourseComponent implements OnInit {
   thumbnail_image: File | null = null;
 
   Courses = {
-    course_name:' ',
-    category_id:' ',
-    online_offline:' ',
-    price:' ',
-    offer_prize:' ',
-    start_date:' ',
-    end_date:' ',
-    start_time:' ',
-    end_time:' ',
-    tags:' ',
-    course_information:' ',
-    course_brief_info:' ',
-    thumbnail_image:' ',
-    gallary_image:' ',
-    trainer_materialImage:' ',
+    course_name:'',
+    category_id:'',
+    online_offline:'',
+    price:'',
+    offer_prize:'',
+    start_date:'',
+    end_date:'',
+    start_time:'',
+    end_time:'',
+    tags:[],
+    course_information:'',
+    course_brief_info:'',
+    thumbnail_image:'',
+    gallary_image:'',
+    trainer_materialImage:'',
   };
 
   constructor(private admin:AdminService, 
@@ -90,69 +91,83 @@ export class MyCourseComponent implements OnInit {
 
   }
 
-    onsubmit(): void {
+  onsubmit(): void {
     const formData = new FormData();
-    for (const key in this.Courses) {
+  
+    // Loop through the keys of the Courses object
+    for (const key of Object.keys(this.Courses) as (keyof typeof this.Courses)[]) {
       if (this.Courses.hasOwnProperty(key)) {
-        formData.append(key, (this.Courses as any)[key]);
+        // Check if the key is 'tags' and handle it as an array
+        if (key === 'tags' && Array.isArray(this.Courses[key])) {
+          // Join the tags array into a single string, with a delimiter (e.g., comma)
+          formData.append('tags', (this.Courses[key] as string[]).join(','));
+        } else {
+          // For all other fields, append them as string values
+          formData.append(key, this.Courses[key] as string);
+        }
       }
     }
+  
+    // Append the thumbnail image if it exists
     if (this.thumbnail_image) {
       formData.append('thumbnail_image', this.thumbnail_image);
     }
-
+  
+    // Post the form data
     this.admin.postcoursesdata(formData).subscribe({
       next: (response) => {
         Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success').then(() => {
-                // Close the modal
-                const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
-                if (modalCloseButton) {
-                  modalCloseButton.click();
-                }
-                window.location.reload();               
-              });
+          // Close the modal
+          const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
+          if (modalCloseButton) {
+            modalCloseButton.click();
+          }
+          window.location.reload();
+        });
       },
       error: (error) => {
-        console.error("Error", error);
-        Swal.fire('Error', 'Please fill the datails', 'error');
+        console.error('Error', error);
+        Swal.fire('Error', 'Please fill the details', 'error');
       }
-    }); 
-   }
+    });
+  }
+  
+  
+
+  //   onsubmit(): void {
+      
+  //   const formData = new FormData();
+  //   for (const key in this.Courses) {
+  //     if (this.Courses.hasOwnProperty(key)) {
+  //       formData.append(key, (this.Courses as any)[key]);
+  //     }
+  //   }
+  //   if (this.thumbnail_image) {
+  //     formData.append('thumbnail_image', this.thumbnail_image);
+  //   }
+
+  //   this.admin.postcoursesdata(formData).subscribe({
+  //     next: (response) => {
+  //       Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success').then(() => {
+  //               // Close the modal
+  //               const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
+  //               if (modalCloseButton) {
+  //                 modalCloseButton.click();
+  //               }
+  //               window.location.reload();               
+  //             });
+  //     },
+  //     error: (error) => {
+  //       console.error("Error", error);
+  //       Swal.fire('Error', 'Please fill the datails', 'error');
+  //     }
+  //   }); 
+  //  }
 
    onFileSelected(event: any): void {
     this.thumbnail_image = event.target.files[0] || null;
   
-    // Ensure thumbnail_image is not null before proceeding
-    if (this.thumbnail_image) {
-      // File Size Check
-      if (this.thumbnail_image.size > this.maxSize) {
-        alert('File size exceeds 5MB.');
-        return;
-      }
-  
-      // Check Image Dimensions
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const image = new Image();
-        image.src = e.target.result;
-        image.onload = () => {
-          const width = image.width;
-          const height = image.height;
-  
-          if (width > this.maxWidth || height > this.maxHeight) {
-            alert(`Image dimensions exceed ${this.maxWidth}x${this.maxHeight}px.`);
-          } else {
-            // Proceed with upload or further operations
-            console.log('Image is valid. Proceed with upload.');
-          }
-        };
-      };
-  
-      reader.readAsDataURL(this.thumbnail_image);  // No error, since thumbnail_image is checked
-    } else {
-      alert('No image file selected.');
-    }
-  }
+   }
   
     
 

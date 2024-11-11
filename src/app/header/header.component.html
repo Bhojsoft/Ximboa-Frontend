@@ -253,6 +253,12 @@
             </select>
           </div>
 
+          <div *ngIf="role.requested_Role === 'SELF_EXPERT'" class="mt-2">
+            <div class="form-group mb-2">
+              <label for="field1">Business Name</label>
+              <input type="text" id="business_Name" class="form-control" name="business_Name" [(ngModel)]="role.business_Name">
+            </div>
+          </div>
           <!-- Additional fields for INSTITUTE role -->
           <div *ngIf="role.requested_Role === 'INSTITUTE'" class="mt-2">
             <div class="form-group mb-2">

@@ -97,7 +97,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form (ngSubmit)="onsubmit()">
+      <!-- <form (ngSubmit)="onsubmit()">
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
@@ -162,7 +162,6 @@
 
             <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
               <label for="thumbnail_image" class="col-form-label">Upload Course Image</label><br />
-              <!-- <input type="file" name="thumbnail_image" id="thumbnail_image" (change)="onFileSelected($event)" /> -->
               <input type="file" (change)="onFileSelected($event)" accept="image/*" />
             </div>
 
@@ -183,7 +182,260 @@
                 [(ngModel)]="Courses.course_brief_info" name="course_brief_info"></textarea>
             </div>
 
-            <!-- <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+              <label for="gallary_image" class="col-form-label">Upload Gallary Image</label><br />
+              <input type="file" name="gallary_image" id="gallary_image" (change)="onFileSelected($event)" />
+            </div>
+
+            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+              <label for="trainer_materialImage" class="col-form-label">Upload Course Material</label><br />
+              <input type="file" name="trainer_materialImage" id="trainer_materialImage"
+                (change)="onFileSelected($event)" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add Course</button>
+        </div>
+      </form> -->
+    
+      <form (ngSubmit)="onsubmit()" #courseForm="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <!-- Course Name -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="course_name" class="col-form-label">Course Name <sup>*</sup></label>
+              <input
+                type="text"
+                class="form-control"
+                id="course_name"
+                [(ngModel)]="Courses.course_name"
+                name="course_name"
+                #courseName="ngModel"
+                required
+                minlength="3"
+              />
+              <div *ngIf="courseName.invalid && courseName.touched" class="text-danger">
+                <small *ngIf="courseName.errors?.['required']">Course Name is required.</small>
+                <small *ngIf="courseName.errors?.['minlength']">Must be at least 3 characters.</small>
+              </div>
+            </div>
+      
+            <!-- Category -->
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <label for="category_id" class="col-form-label">Select Categories <sup>*</sup></label>
+              <select
+                class="form-select"
+                id="category_id"
+                [(ngModel)]="Courses.category_id"
+                name="category_id"
+                #category="ngModel"
+                required
+              >
+                <option value="" disabled selected>Select Categories</option>
+                <option *ngFor="let category of showCategorydata" [value]="category._id">{{ category.category_name }}</option>
+              </select>
+              <div *ngIf="category.invalid && category.touched" class="text-danger">
+                <small>Select a category.</small>
+              </div>
+            </div>
+      
+            <!-- Mode -->
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <label for="online_offline" class="col-form-label">Mode Online/Offline <sup>*</sup></label>
+              <select
+                class="form-select"
+                id="online_offline"
+                [(ngModel)]="Courses.online_offline"
+                name="online_offline"
+                #mode="ngModel"
+                required
+              >
+                <option value="" disabled selected>Select Mode</option>
+                <option value="Online">Online</option>
+                <option value="Offline">Offline</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+              <div *ngIf="mode.invalid && mode.touched" class="text-danger">
+                <small>Select a mode.</small>
+              </div>
+            </div>
+      
+            <!-- Price -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="price" class="col-form-label">Price <sup>*</sup></label>
+              <input
+                type="text"
+                class="form-control"
+                id="price"
+                [(ngModel)]="Courses.price"
+                name="price"
+                #price="ngModel"
+                required
+                pattern="^[0-9]+$"
+              />
+              <div *ngIf="price.invalid && price.touched" class="text-danger">
+                <small *ngIf="price.errors?.['required']">Price is required.</small>
+                <small *ngIf="price.errors?.['pattern']">Enter a valid price (numbers only).</small>
+              </div>
+            </div>
+      
+            <!-- Offer Price -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="offer_prize" class="col-form-label">Offer Price <sup>*</sup></label>
+              <input
+                type="text"
+                class="form-control"
+                id="offer_prize"
+                [(ngModel)]="Courses.offer_prize"
+                name="offer_prize"
+                #offerPrice="ngModel"
+                required
+                pattern="^[0-9]+$"
+              />
+              <div *ngIf="offerPrice.invalid && offerPrice.touched" class="text-danger">
+                <small *ngIf="offerPrice.errors?.['required']">Offer Price is required.</small>
+                <small *ngIf="offerPrice.errors?.['pattern']">Enter a valid offer price (numbers only).</small>
+              </div>
+            </div>
+      
+            <!-- Start Date -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="start_date" class="col-form-label">Start Date <sup>*</sup></label>
+              <input
+                type="date"
+                class="form-control"
+                id="start_date"
+                [(ngModel)]="Courses.start_date"
+                name="start_date"
+                #startDate="ngModel"
+                required
+              />
+              <div *ngIf="startDate.invalid && startDate.touched" class="text-danger">
+                <small>Start Date is required.</small>
+              </div>
+            </div>
+      
+            <!-- End Date -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="end_date" class="col-form-label">End Date <sup>*</sup></label>
+              <input
+                type="date"
+                class="form-control"
+                id="end_date"
+                [(ngModel)]="Courses.end_date"
+                name="end_date"
+                #endDate="ngModel"
+                required
+              />
+              <div *ngIf="endDate.invalid && endDate.touched" class="text-danger">
+                <small>End Date is required.</small>
+              </div>
+            </div>
+      
+            <!-- Start Time -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="start_time" class="col-form-label">Start Time <sup>*</sup></label>
+              <input
+                type="time"
+                class="form-control"
+                id="start_time"
+                [(ngModel)]="Courses.start_time"
+                name="start_time"
+                #startTime="ngModel"
+                required
+              />
+              <div *ngIf="startTime.invalid && startTime.touched" class="text-danger">
+                <small>Start Time is required.</small>
+              </div>
+            </div>
+      
+            <!-- End Time -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="end_time" class="col-form-label">End Time <sup>*</sup></label>
+              <input
+                type="time"
+                class="form-control"
+                id="end_time"
+                [(ngModel)]="Courses.end_time"
+                name="end_time"
+                #endTime="ngModel"
+                required
+              />
+              <div *ngIf="endTime.invalid && endTime.touched" class="text-danger">
+                <small>End Time is required.</small>
+              </div>
+            </div>
+
+             <!-- Tags -->
+             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="tags" class="col-form-label">Tags <sup>*</sup> </label><br>
+              <tag-input 
+                  [(ngModel)]="Courses.tags" 
+                  [editable]="true" id="tags" name="tags" 
+                  class="border rounded" #tags="ngModel"  required>
+              </tag-input>
+              <small>Type Tag then press Enter button.</small>
+              <div *ngIf="tags.invalid && tags.touched" class="text-danger">
+                  Please add at least one Tags.
+              </div>
+          </div>
+
+          
+             <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="tags" class="col-form-label">Tags <sup>*</sup></label>
+              <input type="text"  class="form-control" id="tags"
+                [(ngModel)]="Courses.tags" name="tags" #tags="ngModel"  required/>
+              <div *ngIf="tags.invalid && tags.touched" class="text-danger">
+                <small>Tags are required.</small>
+              </div>
+            </div> -->
+
+            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+              <label for="thumbnail_image" class="col-form-label">Upload Course Image</label><br />
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+            </div>
+      
+            <!-- Course Information -->
+            <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
+              <label for="course_information" class="col-form-label">Course Short Description <sup>*</sup></label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="course_information"
+                [(ngModel)]="Courses.course_information"
+                name="course_information"
+                #courseInfo="ngModel"
+                required
+              ></textarea>
+              <div *ngIf="courseInfo.invalid && courseInfo.touched" class="text-danger">
+                <small>Course Short Description is required.</small>
+              </div>
+            </div>
+      
+           
+      
+            <!-- Course Brief Information -->
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+              <label for="course_brief_info" class="col-form-label">Course Details Description <sup>*</sup></label>
+              <textarea
+                type="text"
+                class="form-control"
+                id="course_brief_info"
+                [(ngModel)]="Courses.course_brief_info"
+                name="course_brief_info"
+                #briefInfo="ngModel"
+                required
+              ></textarea>
+              <div *ngIf="briefInfo.invalid && briefInfo.touched" class="text-danger">
+                <small>Course Details Description is required.</small>
+              </div>
+            </div>
+
+              <!-- <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
               <label for="gallary_image" class="col-form-label">Upload Gallary Image</label><br />
               <input type="file" name="gallary_image" id="gallary_image" (change)="onFileSelected($event)" />
             </div> -->
@@ -193,17 +445,21 @@
               <input type="file" name="trainer_materialImage" id="trainer_materialImage"
                 (change)="onFileSelected($event)" />
             </div> -->
+
+
           </div>
         </div>
+      
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Add Course</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">Add Course</button>
         </div>
       </form>
+      
+      
       
       </div>
     </div>
   </div>
 </div>
+
