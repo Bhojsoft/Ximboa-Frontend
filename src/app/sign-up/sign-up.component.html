@@ -40,7 +40,7 @@
               [(ngModel)]="userData.email_id" name="email_id" required email #email="ngModel">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
               <div *ngIf="email.errors?.['required']">Email is required.</div>
-              <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
+              <div *ngIf="email.errors?.['email']">Please enter a valid email address, such as name@example.com.</div>
             </div>
           </div>
 
@@ -72,18 +72,30 @@
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
               <div *ngIf="password.errors?.['required']">Password is required.</div>
               <div *ngIf="password.errors?.['pattern']">
-                Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character.
+                Your password must be at least [X characters] and include [criteria, e.g., letters, numbers, and special characters].
               </div>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <div class="form-check pt-3">
-                <input class="form-check-input border-dark" type="checkbox" [(ngModel)]="rememberMe" name="rememberMe"
-                  id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">I accept the</label> &nbsp;
-                <label style="color: #6149CD;">Terms and Conditions</label>
-              </div>
+            <div class="form-check pt-3">
+              <input
+                class="form-check-input border-dark"
+                type="checkbox"
+                [(ngModel)]="rememberMe"
+                name="rememberMe"
+                id="flexCheckDefault"
+                required
+                #rememberMeField="ngModel"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                <span>I accept the</span>
+                <span style="color: #6149CD; margin-left: 5px;">Terms & Conditions</span>
+              </label>
+            </div>
+            <div *ngIf="rememberMeField.invalid && rememberMeField.touched" style="color: red;">
+              Please accept the terms and conditions to continue.
+            </div>
           </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">

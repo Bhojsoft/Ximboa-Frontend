@@ -7,9 +7,8 @@ import { Observable, observable } from 'rxjs';
 })
 export class TrainerService {
 
- private  Trainer_APIURL ="http://localhost:1000/trainerbyid";
-  
-  // private APIURL = "http://localhost:1000";
+ private  Trainer_APIURL ="https://demo-eosin-psi.vercel.app/trainerbyid";
+
   private APIURL = "https://demo-eosin-psi.vercel.app";
 
 

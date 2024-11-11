@@ -28,31 +28,37 @@ export class SignUpComponent implements OnInit {
   }
   constructor(private loginservices:LoginService,private route:Router,private authService:AuthServiceService){ }
 
-      ngOnInit() { }
+  ngOnInit() {}
 
-      onSubmit(form: NgForm) {
-        if (form.valid) {
-          this.loginservices.postsignupdata(this.userData).subscribe({
-            next: (response) => {
-              sessionStorage.setItem("Authorization",response.token);
-              this.authService.login(response.token); // Set login state
-              Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-              this.route.navigate(['/trainer']);
-            },
-            error: (error)=>{
-              Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-            } 
-          });
-        } else {
-          console.log('Form is invalid');
-        }
-      }
-
-
-       // Hide And Show Password Logic
-       show: boolean = false; 
-       togglePassword() {
-        this.show = !this.show;
-      }
-
+  onSubmit(form: NgForm) {
+    if (form.valid && this.rememberMe) {
+      // Submit form if valid and checkbox is checked
+      this.loginservices.postsignupdata(this.userData).subscribe({
+        next: (response) => {
+          sessionStorage.setItem("Authorization", response.token);
+          this.authService.login(response.token); // Set login state
+          Swal.fire(
+            'Congratulations',
+            'Welcome to Ximbo! <br> We’re thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You have registered successfully!',
+            'success'
+          );
+          this.route.navigate(['/trainer']);
+        },
+        error: (error) => {
+          Swal.fire('Error', 'Please enter valid details.', 'error');
+        },
+      });
+    } else if (!this.rememberMe) {
+      // Show error if checkbox is unchecked
+      Swal.fire('Error', 'You must accept the Terms & Conditions to submit the form.', 'error');
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+  
+  // Hide And Show Password Logic
+  show: boolean = false;
+  togglePassword() {
+    this.show = !this.show;
+  }
 }
