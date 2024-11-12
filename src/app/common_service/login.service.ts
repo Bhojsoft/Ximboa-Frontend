@@ -17,6 +17,9 @@ export class LoginService {
 
     private APIURL ="https://demo-eosin-psi.vercel.app/notifications";
   
+    private apiUrl = 'https://demo-eosin-psi.vercel.app/notifications/view/'; 
+   
+
 
   constructor(private http:HttpClient, private router: Router){ }
 
@@ -70,6 +73,17 @@ export class LoginService {
     .set("Authorization", `Bearer ${sessionStorage.getItem('Authorization')}`)
     return this.http.get<any>(`${this.APIURL}/unseen?page=${page}&limit=${limit}`,{headers});
   }
+  // Method to update the notification status
+  updateNotificationStatus(notificationId: string, isSeen: boolean): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${notificationId}`, { isSeen });
+  }
+  // Mark all notifications as seen
+  markAllNotificationsAsSeen() {
+    return this.http.put<any>(`${this.APIURL}/markAllNotificationsAsSeen`, {});
+  }
+
+ 
+  
 }
   // getcouserdata(page: number, limit: number):Observable<any>{
   //   return this.http.get<any>(`${this.beforelogin}/allcourses?page=${page}&limit=${limit}`)
