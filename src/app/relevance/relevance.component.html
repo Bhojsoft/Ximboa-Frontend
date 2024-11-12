@@ -44,7 +44,7 @@
   </div>
 
   <div class="row ">
-    <div class="col-sm-12  col-lg-2 mt-1 pt-3 ps-4" style="background-color:#FFFFFF;height: 100vh;">
+    <div class="col-sm-12  col-lg-2 mt-1 pt-3 ps-4 rounded" style="background-color:#FFFFFF;">
       <h5>Categories</h5>
       <div class="form-check mb-2">
         <input class="form-check-input border border-dark" type="checkbox" id="selectAll" (change)="onSelectAll($event)" [checked]="areAllCategoriesSelected()">
@@ -59,7 +59,7 @@
     </div>
     
 
-    <div class="col-sm-12  col-lg-10">
+    <div class="col-sm-12 col-lg-10">
 
       <router-outlet></router-outlet>
 

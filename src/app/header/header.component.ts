@@ -1,5 +1,5 @@
 import { Component, Query } from '@angular/core';
-import {  ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../common_service/login.service';
@@ -17,69 +17,68 @@ declare var bootstrap: any;
 })
 export class HeaderComponent {
 
-  
 
-  Showcategorydata:any;
-  Institutedata:any;
+
+  Showcategorydata: any;
+  Institutedata: any;
   category: string = '';
   id: string = '';
-  type: string = '';  
+  type: string = '';
   keyword: string = '';
-  UserImage: string | null = null; 
+  UserImage: string | null = null;
 
 
 
   role = {
-    requested_Role : '',
-    business_Name  : '',
+    requested_Role: '',
+    business_Name: '',
   }
 
   institute = {
-    business_Name  : '',
-    address_1:'',
+    business_Name: '',
+    address_1: '',
   }
 
   TrainerundersInstitute = {
-     instituteId:''
+    instituteId: ''
   }
 
   query: string = '';
   results: any;
-  searchitemresult:any[] = [];
-  suggestions: any[] = []; 
-  
+  searchitemresult: any[] = [];
+  suggestions: any[] = [];
+
 
 
   // isTrainer: boolean = false;
   isUser: boolean = false;
   // isAdmin: boolean = false;
-  
+
   isLoggedIn$: Observable<boolean>;
   user$: Observable<string | null>;
-  id$:Observable<string | null>;
+  id$: Observable<string | null>;
 
   constructor(private authService: AuthServiceService,
-    private route:Router, 
-    private requst:LoginService, 
-    private dservice:DashboardService,
-    private service:TrainerService,
-    private router:ActivatedRoute) {
+    private route: Router,
+    private requst: LoginService,
+    private dservice: DashboardService,
+    private service: TrainerService,
+    private router: ActivatedRoute) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.user$ = this.authService.user$;
     this.id$ = this.authService.id$;
-    console.log("entered id",this.id$);
+    console.log("entered id", this.id$);
     this.router.queryParams.subscribe(params => {
-    this.category = params['category'];
-    this.id = params['id'];
-    this.type = params['type'];    // Retrieve the type (table source)
-    this.keyword = params['keyword']; // Retrieve the user-entered keyword
+      this.category = params['category'];
+      this.id = params['id'];
+      this.type = params['type'];    // Retrieve the type (table source)
+      this.keyword = params['keyword']; // Retrieve the user-entered keyword
     });
   }
 
   ngOnInit(): void {
-    
-    this.checkUserRole();
 
+    this.checkUserRole();
     this.dservice.getcategoryname().subscribe(data => {
       this.Showcategorydata = data;
     });
@@ -87,7 +86,7 @@ export class HeaderComponent {
     this.requst.GetInstitute().subscribe(response => {
       console.log(response);
       this.Institutedata = response?.data;
-      
+
     });
 
     this.loadTrainerData();
@@ -95,8 +94,8 @@ export class HeaderComponent {
 
   loadTrainerData(): void {
     this.service.gettrainerbyID().subscribe((data: any) => {
-      console.log("Trainer Details", data);     
-      this.UserImage = data.trainer_image; 
+      console.log("Trainer Details", data);
+      this.UserImage = data.trainer_image;
     });
   }
 
@@ -119,74 +118,74 @@ export class HeaderComponent {
     }
   }
 
-  
+
 
   onSelectSuggestion(suggestion: any) {
     const enteredKeyword = this.query;
     this.suggestions = [];
 
     if (suggestion.type === 'course') {
-      this.route.navigate(['/relevance/Allcourses'], {
-        queryParams: {
-          category: suggestion.category_name || 'defaultCategory',  // For courses
-          id: suggestion.id,
-          type: suggestion.type,
-          keyword: enteredKeyword
-        }
+      this.route.navigate([`/couserenroll/${suggestion.id}`], {
+        // queryParams: {
+        //   category: suggestion.category_name || 'defaultCategory',  // For courses
+        //   id: suggestion.id,
+        //   type: suggestion.type,
+        //   keyword: enteredKeyword
+        // }
       });
     } else if (suggestion.type === 'category') {
       this.route.navigate(['/relevance/Allcourses'], {
-        queryParams: {
-          category: suggestion.name || 'defaultCategory',
-          id: suggestion.id,
-          type: suggestion.type,
-          keyword: enteredKeyword
-        }
+        // queryParams: {
+        //   category: suggestion.name || 'defaultCategory',
+        //   id: suggestion.id,
+        //   type: suggestion.type,
+        //   keyword: enteredKeyword
+        // }
       });
     } else if (suggestion.type === 'product') {
-      this.route.navigate(['/relevance/allproducts'], {
-        queryParams: {
-          category: suggestion.category || 'defaultCategory', // For products
-          id: suggestion.id,
-          type: suggestion.type,
-          keyword: enteredKeyword
-        }
+      this.route.navigate([`/productdetails/${suggestion.id}`], {
+        // queryParams: {
+        //   category: suggestion.category || 'defaultCategory', // For products
+        //   id: suggestion.id,
+        //   type: suggestion.type,
+        //   keyword: enteredKeyword
+        // }
       });
     } else if (suggestion.type === 'event') {
-      this.route.navigate(['/relevance/allevents'], {
-        queryParams: {
-          category: suggestion.events_category || 'defaultCategory',
-          id: suggestion.id,
-          type: suggestion.type,
-          keyword: enteredKeyword
-        }
+      this.route.navigate([`/eventdetails/${suggestion.id}`], {
+        // queryParams: {
+        //   category: suggestion.events_category || 'defaultCategory',
+        //   id: suggestion.id,
+        //   type: suggestion.type,
+        //   keyword: enteredKeyword
+        // }
       });
     }
-   
+
     else if (suggestion.type === 'trainer') {
       const trainerCategory = suggestion.trainer_categories.length > 0 ? suggestion.trainer_categories[0] : 'defaultCategory';
       console.log(trainerCategory);
-      
-      this.route.navigate(['/relevance/alltrainer'], {
-        queryParams: {
-          category: trainerCategory,
-          id: suggestion.id,
-          type: suggestion.type,
-          keyword: enteredKeyword
-        }
-        
+
+      this.route.navigate([`/coursedetails/${suggestion.id}`], {
+        // queryParams: {
+        //   category: trainerCategory,
+        //   id: suggestion.id,
+        //   type: suggestion.type,
+        //   keyword: enteredKeyword
+        // }
+
       });
       console.log(trainerCategory);
     }
 
     else if (suggestion.type === 'institute') {
-      this.route.navigate(['/coursedetails'], {
-        queryParams: {
-          id: suggestion.id // Pass the ID as a query parameter
-        }
+      this.route.navigate([`/coursedetails/${suggestion.id}`], {
+        // queryParams: {
+        //   id: suggestion.id // Pass the ID as a query parameter
+        // }
       });
     }
-  
+
   }
 
   formatSearchResults(result: any): any[] {
@@ -263,9 +262,9 @@ export class HeaderComponent {
     return formattedResults;
   }
 
-  
 
-  
+
+
   onsearch() {
     if (this.query) {
       this.dservice.search(this.query).subscribe(
@@ -291,7 +290,7 @@ export class HeaderComponent {
       return groups;
     }, {});
   }
-  
+
   navigateBasedOnGroup(groupKey: string) {
     switch (groupKey) {
       case 'course':
@@ -307,8 +306,8 @@ export class HeaderComponent {
         this.route.navigate(['/relevance/allevents']);
         break;
       case 'institute':
-          this.route.navigate(['/relevance/alltrainer']);
-          break;
+        this.route.navigate(['/relevance/alltrainer']);
+        break;
       // Add more cases as needed
       default:
         console.log('No route defined for this group');
@@ -317,17 +316,17 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
-      this.route.navigate(['/']);
+    this.route.navigate(['/']);
   }
 
   onSubmit() {
     if (this.role.requested_Role === 'INSTITUTE') {
       this.addinstitute();
     }
-    else if(this.role.requested_Role === 'TRAINER'){
+    else if (this.role.requested_Role === 'TRAINER') {
       this.addtrainerunderinstitute();
     }
-     else {
+    else {
       this.sendRequest();
     }
   }
@@ -360,7 +359,7 @@ export class HeaderComponent {
       },
       error: (error) => {
         console.error("Error:", error);
-  
+
         // Check for specific error message and status code in the nested error response
         if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
           Swal.fire(
@@ -379,44 +378,44 @@ export class HeaderComponent {
       }
     });
   }
-  
-  
 
-  addinstitute(){
+
+
+  addinstitute() {
     const payload = {
-      ...this.role,               
-      ...this.institute            
+      ...this.role,
+      ...this.institute
     };
 
     console.log("Sending Institute Request:", payload); // Debugging: Check payload
 
     this.requst.postrequest(payload).subscribe({
-      next : (response) =>{
+      next: (response) => {
         alert("Request Sent For Institute.!!!")
         window.location.reload();
       },
-      error: (error)=>{
-        console.log(alert("Error"),error);
+      error: (error) => {
+        console.log(alert("Error"), error);
       }
     })
 
   }
 
-  addtrainerunderinstitute(){
+  addtrainerunderinstitute() {
     const payload = {
-      ...this.role,               
-      ...this.TrainerundersInstitute            
+      ...this.role,
+      ...this.TrainerundersInstitute
     };
 
     console.log("Sending Institute Request:", payload); // Debugging: Check payload
 
     this.requst.postrequest(payload).subscribe({
-      next : (response) =>{
+      next: (response) => {
         alert("Request Sent For Institute.!!!")
         window.location.reload();
       },
-      error: (error)=>{
-        console.log(alert("Error"),error);
+      error: (error) => {
+        console.log(alert("Error"), error);
       }
     })
 
@@ -434,19 +433,19 @@ export class HeaderComponent {
     this.isUser = role === 'USER';
 
     console.log('isUser:', this.isUser);
-}
-
-
-onRoleChange() {
-  console.log('Selected Role:', this.role.requested_Role);
-}  
-
-closeModal() {
-  const modalElement = document.getElementById('exampleModalExpert');
-  const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
-  if (modalInstance) {
-    modalInstance.hide(); // Hides the modal
   }
-}
+
+
+  onRoleChange() {
+    console.log('Selected Role:', this.role.requested_Role);
+  }
+
+  closeModal() {
+    const modalElement = document.getElementById('exampleModalExpert');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
+    if (modalInstance) {
+      modalInstance.hide(); // Hides the modal
+    }
+  }
 
 }

@@ -87,10 +87,9 @@ export class TrainerService {
         return this.http.put<any>(`${this.APIURL}/event/${_id}`,formData)
       }
 
-
   // *************** Product API *****************
       addProduct(productData: FormData): Observable<any> {
-        return this.http.post(this.APIURL, productData);
+        return this.http.post(`${this.APIURL}/product`, productData);
       }
 
       deleteproductBYID(_id: string):Observable<any>{

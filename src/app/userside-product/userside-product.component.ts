@@ -38,6 +38,7 @@ export class UsersideProductComponent implements OnInit {
     this.filter.selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
       this.applyFilter(); // Re-filter when categories change
+      this.searchfilter();
     });
 
     // Subscribe to search term changes
@@ -55,26 +56,23 @@ export class UsersideProductComponent implements OnInit {
       this.filteredProducts = this.showproductdata;
       this.totalItems = data?.pagination.totalItems;
       this.applyFilter(); // Apply filter after fetching the product data
+      this.searchfilter();
     });
   }
 
-  applyFilter(): void {
-    // Start with all products
+  searchfilter(): void{
     this.filteredProducts = this.showproductdata;
 
-    // Apply search term filter
     if (this.searchTerm) {
       this.filteredProducts = this.filteredProducts.filter((product:any) =>
         product.products_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
+  }
 
-    // Apply category filter
-    // if (this.selectedCategories.length > 0) {
-    //   this.filteredProduct = this.filteredProduct.filter(product => 
-    //     this.selectedCategories.includes(product?.products_category)
-    //   );
-    // }
+  applyFilter(): void {
+    // Start with all products
+    this.filteredProducts = this.showproductdata;
 
     if (this.selectedCategories.length > 0) {
       this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
@@ -83,11 +81,27 @@ export class UsersideProductComponent implements OnInit {
           this.filteredProducts = result.data.filter((product:any) =>
             this.selectedCategories.includes(product.products_category)
           );
-        });
-    }
-  }
+          this.totalItems = result.pagination.totalItems;
+        // }, error => {
+        //     console.error('Error fetching category data:', error);
+        //     const selectedCategoryNamesProduct = this.selectedCategories.join(', ');
+        //     alert(`${selectedCategoryNamesProduct} category not found. Showing all Products.`);
+            // Reset to full data if there's an error
+            // this.filteredProducts = this.showproductdata;
+            // this.totalItems = this.filteredProducts.length;
 
-   // Handle page change for pagination
+        });
+    }else {
+      this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
+        this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
+        this.totalItems = data?.pagination.totalItems;
+       
+      });
+  }
+}
+
+  //  Handle page change for pagination
+  
    onPageChange(page: number): void {
     this.currentPage = page;
     this.loadProducts(this.currentPage, this.itemsPerPage); 
@@ -113,7 +127,8 @@ export class UsersideProductComponent implements OnInit {
           response => {
             this.showproductdata = response.data; // Update showproductdata with search results
             console.log('Fetched Products:', this.showproductdata); // Log fetched data
-            this.applyFilter(); // Apply filter after fetching products
+            this.searchfilter(); // Apply filter after fetching products
+            this.totalItems = response.pagination.totalItems;
           },
           error => {
             console.error('Error fetching products:', error);
@@ -124,7 +139,7 @@ export class UsersideProductComponent implements OnInit {
     }
   }
 
-  // conver Rupees K or laks
+// conver Rupees K or laks
   getFormattedPrice(price: number): string {
     if (price >= 100000) {
       return '₹' + (price / 100000).toFixed(1) + 'L';  // For lakhs

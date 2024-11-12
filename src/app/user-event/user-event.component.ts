@@ -19,8 +19,8 @@ export class UserEventComponent implements OnInit {
   filteredEvent: any[] = [];
   selectedCategories: any; 
   p: number = 1;    
-  searchTerm: string = ''; // New property for search term
   term:any;
+  searchTerm: string = ''; // New property for search term
   constructor(private Dservice: DashboardService, private filter: FilterService, private http: HttpClient, private searchService: SearchService) { }
 
   ngOnInit(): void {
@@ -30,6 +30,7 @@ export class UserEventComponent implements OnInit {
     this.filter.selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
       this.filterEvents(); // Re-filter on category selection
+      this.searchFilter();
     });
 
     // Subscribe to search term changes
@@ -47,10 +48,14 @@ export class UserEventComponent implements OnInit {
       this.filteredEvent = this.showeventdata;
       this.totalItems = Response.pagination.totalItems;
       this.filterEvents(); // Initial filter
+      this.searchFilter();
+
     });
   }
 
-  filterEvents(): void {
+
+  searchFilter(): void{
+    // First, reset to full data
     this.filteredEvent = this.showeventdata;
 
     // Apply search term filter
@@ -59,13 +64,11 @@ export class UserEventComponent implements OnInit {
         event.event_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
+  }
 
-    // Apply category filter
-    // if (this.selectedCategories.length > 0) {
-    //   this.filteredEvent = this.filteredEvent.filter(event =>
-    //     this.selectedCategories.includes(event?.event_category)
-    //   );
-    // }
+  filterEvents(): void {
+    this.filteredEvent = this.showeventdata;
+
     if (this.selectedCategories.length > 0) {
       this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
         .subscribe(result => {
@@ -73,8 +76,23 @@ export class UserEventComponent implements OnInit {
           this.filteredEvent = result.data.filter((event:any) =>
             this.selectedCategories.includes(event.event_category)
           );
+          this.totalItems = result.pagination.totalItems;
+        // }, error => {
+        //     console.error('Error fetching category data:', error);
+        //     const selectedCategoryNamesEvents = this.selectedCategories.join(', ');
+        //     alert(`${selectedCategoryNamesEvents} category not found. Showing all Events.`);
+        //     // Reset to full data if there's an error
+        //     this.filteredEvent = this.showeventdata;
+        //     this.totalItems = this.filteredEvent.length;
         });
+    }else {
+        this.Dservice.Eventdata(this.currentPage, this.itemsPerPage).subscribe(Response => {
+        console.log(Response);
+        this.showeventdata = Response.data;
+        this.totalItems = Response.pagination.totalItems;
+      });
     }
+    
 
     // console.log('Filtered Events:', this.filteredEvent); // Log filtered events for debugging
   }
@@ -93,7 +111,8 @@ export class UserEventComponent implements OnInit {
           (response) => {
             this.showeventdata = response.data; // Update showeventdata with search results
             console.log('Fetched Events:', this.showeventdata); // Log fetched data
-            this.filterEvents(); // Apply filter after fetching events
+            this.searchFilter(); // Apply filter after fetching events
+            this.totalItems = response.pagination.totalItems;
           },
           (error) => {
             console.error('Error fetching events:', error);
