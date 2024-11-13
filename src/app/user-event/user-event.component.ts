@@ -106,7 +106,7 @@ export class UserEventComponent implements OnInit {
 
   fetchEvents(): void {
     if (this.searchTerm) {
-      this.http.get<any>(`https://demo-eosin-psi.vercel.app/search/events?event_name=${this.searchTerm}`)
+      this.http.get<any>(`http://13.203.89.189/api/search/events?event_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
             this.showeventdata = response.data; // Update showeventdata with search results
