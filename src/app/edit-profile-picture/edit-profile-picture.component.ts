@@ -42,7 +42,7 @@ export class EditProfilePictureComponent implements OnInit {
 
       // Check file format
       if (!this.allowedFileTypes.includes(file.type)) {
-        Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, PNG, or GIF image.', 'error');
+        Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, PNG, or JPEG image.', 'error');
         return;
       }
 
@@ -104,4 +104,6 @@ export class EditProfilePictureComponent implements OnInit {
       }
     });
   }
+
+  
 }

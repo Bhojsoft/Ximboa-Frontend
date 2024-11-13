@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../common_service/login.service';
+import { Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-notification',
@@ -17,6 +19,7 @@ export class NotificationComponent implements OnInit {
   p: number = 1;
 
   notificationsToDisplay: any[] = []; // Notifications to display
+  unseenCount = 0; // Count for unseen notifications
 
   constructor(private service: LoginService) {}
 
@@ -34,6 +37,9 @@ export class NotificationComponent implements OnInit {
       this.unreadNotifications = this.Shownotification.filter((notif: any) => !notif.isSeen);
       this.readNotifications = this.Shownotification.filter((notif: any) => notif.isSeen);
 
+      // Calculate unseen count
+      this.unseenCount = this.unreadNotifications.length;
+
       // By default, show all notifications
       this.notificationsToDisplay = this.Shownotification;
     });
@@ -50,31 +56,29 @@ export class NotificationComponent implements OnInit {
       const notification = this.Shownotification.find((notif: any) => notif._id === notificationId);
       if (notification) {
         notification.isSeen = !isSeen;
+        this.unseenCount = this.unreadNotifications.length; // Update unseen count
       }
     });
   }
 
-  // Mark all notifications as seen and display only read notifications
   markAllNotificationsAsSeen() {
     this.Shownotification.forEach((notif: any) => {
       if (!notif.isSeen) {
         this.service.updateNotificationStatus(notif._id, true).subscribe(response => {
-          notif.isSeen = true;  // Update the status locally after the API call
+          notif.isSeen = true;
+          this.unseenCount = 0; // Reset unseen count
         });
       }
     });
 
-    // Filter and show only read notifications
-    this.notificationsToDisplay = this.readNotifications;  // Update the displayed notifications
+    this.notificationsToDisplay = this.readNotifications;
   }
 
-  // Show all notifications
   showAllNotifications() {
-    this.notificationsToDisplay = this.Shownotification;  // Display all notifications
+    this.notificationsToDisplay = this.Shownotification;
   }
 
-  // Show only unread notifications
   showUnreadNotifications() {
-    this.notificationsToDisplay = this.unreadNotifications;  // Display only unread notifications
+    this.notificationsToDisplay = this.unreadNotifications;
   }
 }
