@@ -11,13 +11,13 @@ export class LoginService {
 //********************** Trainer LOGIN API **********************
 
 
-    private register ='https://demo-eosin-psi.vercel.app/registration';
+    private register ='http://13.203.89.189/api/registration';
 
-    private institute="https://demo-eosin-psi.vercel.app/institute";
+    private institute="http://13.203.89.189/api/institute";
 
-    private APIURL ="https://demo-eosin-psi.vercel.app/notifications";
+    private APIURL ="http://13.203.89.189/api/notifications";
   
-    private apiUrl = 'https://demo-eosin-psi.vercel.app/notifications/view/'; 
+    private apiUrl = 'http://13.203.89.189/api/notifications/view/'; 
    
 
 

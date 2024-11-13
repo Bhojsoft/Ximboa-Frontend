@@ -26,15 +26,9 @@
       </div>
       
       
-      <div class="row g-1 align-items-center mt-3">
-        <!-- <div class="col-sm-12 col-md-3 col-lg-3 ">
-          <button  class="btn border-primary">Add to Wishlist</button>
-        </div> -->
-        <div class="col-sm-12 col-md-3 col-lg-3">
-          <button  routerLink="/coursedetails/{{Showproductdata?.traienrid}}" class="btn btn-outline-primary" >View Trainer Profile</button>
-        </div>
-<!-- share button scetion -->
-        <div class="col-sm-12 col-md-3 col-lg-2 ">
+      <div class="mt-3">
+        
+          <button  routerLink="/coursedetails/{{Showproductdata?.traienrid}}" class="btn btn-outline-primary me-3" >View Trainer Profile</button>
           <button  (click)="shareicon()" class="btn text-white   px-2" style="background-color: #307DFF;"><i class="fas fa-share-alt fs-5"></i> Share</button>
           <div class="share-container">
               <div *ngIf="showshare" class="share-options gap-4 p-2">
@@ -50,7 +44,6 @@
               </div>
           </div>
       </div>
-    </div>
 
       <div class="mt-3 " style="cursor: pointer;">
         <b class="me-2">Tags:</b>

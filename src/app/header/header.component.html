@@ -93,17 +93,15 @@
         </ul>
       </div>
       <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
-    </div>
-
-    
-
- 
+    </div> 
 </div> -->
 
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid ms-0 ps-0">
-    <a class="navbar-brand ms-0 ps-0" routerLink="/"><img src="../../assets/Ximboa-Logo.jpg" class="LOGO" height="60px" alt=""></a>
+    <a class="navbar-brand ms-0 ps-0" routerLink="/"><img src="../../assets/Ximboa-Logo.png" class="XIMBOA LOGO" height="60px" alt=""></a>
+    
     <img src="../../assets/beta.png" height="50px" width="50px" alt="Beta Version">
     <div class="category-dropdown">
       <div class="dropdown ">
@@ -122,7 +120,7 @@
         </ul>
       </div>
     </div> 
-       <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -144,7 +142,7 @@
         </li>
       </ul>
     </div>
-        <!-- <div class="d-flex align-items-center justify-content-between inputContainer1  position-relative globale-search">
+        <div class="d-flex align-items-center justify-content-between inputContainer1  position-relative globale-search">
           <input type="text" [(ngModel)]="query" (keyup)="searchitem($event)" class="form-control form-control-lg searchinput "
             placeholder="Search courses or instructor">
           <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo" (click)="onsearch()" style="color: #307DFF;"></i>
@@ -155,7 +153,7 @@
               </li>
             </ul>
           </div>
-        </div>         -->
+        </div>        
 
         <div class="d-flex align-items-center justify-content-between inputContainer1 position-relative globale-search">
           <input
@@ -163,11 +161,11 @@
             [(ngModel)]="query"
             (keyup)="searchitem($event)"
             class="form-control form-control-lg searchinput"
-            placeholder="Search courses or instructor"
+            placeholder="Search for Courses, Instructor, Product & Event"
           />
           <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo" (click)="onsearch()" style="color: #307DFF;"></i>
         
-          <!-- <div *ngIf="suggestions.length" class="suggestions-list">
+          <div *ngIf="suggestions.length" class="suggestions-list">
             <div *ngFor="let group of (groupedSuggestions() | keyvalue)">
               <h6 routerLink=""> {{ group.key ? (group.key | titlecase) : 'Unknown Type' }} listed ({{ group.value.length }}) with {{ query }}</h6>
               <ul>
@@ -176,7 +174,7 @@
                 </li>
               </ul>
             </div>
-          </div> -->
+          </div>
           <div *ngIf="suggestions.length" class="suggestions-list">
             <div *ngFor="let group of (groupedSuggestions() | keyvalue)">
               <h6 (click)="navigateBasedOnGroup(group.key)" style="cursor: pointer;">
@@ -191,33 +189,27 @@
           </div>
         </div>
 
-        
-        
-        
-        
-        
-        
         <div class="mx-2 pt-1" >
-          <i routerLink="/cart" class="fa-solid fa-cart-plus mx-2 fs-3 cart-icon"></i>
+          <i routerLink="/cart" class="fa-solid fa-cart-plus mx-2 fs-4 cart-icon"></i>
         </div>
     
     
-        <div *ngIf="!(isLoggedIn$ | async)" class="sign-in-up mt-2 text-end d-flex gap-2 justify-content-end ">
-          <button routerLink="/signin" class="btn btn-primary rounded samllpoppins">Sign In</button>
-          <button routerLink="/signup" class="btn btn-light rounded border samllpoppins">Sign Up</button>
+        <div *ngIf="!(isLoggedIn$ | async)" class="sign-in-up mt-2 text-end d-flex gap-2 align-items-center justify-content-end ">
+          <button routerLink="/signin" class="btn btn-sm btn-primary rounded samllpoppins">Sign In</button>
+          <button routerLink="/signup" class="btn btn-sm btn-light rounded border samllpoppins">Sign Up</button>
         </div>
     
-        <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up ps-3 d-flex align-items-center justify-content-end">
+        <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up  d-flex align-items-center justify-content-end">
           <button *ngIf="isUser" class="btn btn-sm btn-primary main-button " data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
             Become an Expert
           </button>
           <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
-            <!-- <h1 class="my-3 text-primary "><i class="fa-solid fa-bell position-relative"><span class="position-absolute badge rounded-pill bg-danger " style="font-size: x-small;top: -10px;left: 20px;">
-                {{totalItems}} +
-              </span></i> Notification  </h1> -->
+           <i class="fa-regular fa-bell position-relative me-4 fs-3 Notification-icon"><span class="position-absolute badge rounded-pill bg-danger " style="font-size: xx-small;top: -2px;left: 26px;">
+                22 +
+              </span></i> 
           <div class="dropdown">
-              <!-- <img *ngIf="UserImage" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
-              <i  class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i> -->
+              <img *ngIf="UserImage" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" alt="Trainer Image" height="40" width="40" />
+              <i  class="fa-solid fa-user icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
               <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"
                 class="rounded-circle object-fit-cover" height="40" width="40" />
               <ng-template #noImageIcon>
@@ -234,6 +226,124 @@
           <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
         </div>
   </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid ms-0 ps-0">
+    <a class="navbar-brand ms-0 ps-0 " routerLink="/">
+      <img src="../../assets/Ximboa-Logo.png" class="" height="60px" alt="XIMBOA LOGO">
+    </a>
+    <!-- <a class="navbar-brand ms-0 ps-0 d-none d-lg-block d-md-block" routerLink="/">
+      <img src="../../assets/Ximboa-Logo.png" class="" height="60px" alt="XIMBOA LOGO">
+    </a> -->
+    <!-- <a class="navbar-brand ms-0 ps-0 d-block d-lg-none d-md-none" routerLink="/">
+      <img src="../../assets/Ximboa-2-Logo.png" height="60px" alt="XIMBOA LOGO">
+    </a> -->
+    
+    <img src="../../assets/beta.png" height="50px" width="50px" alt="Beta Version">
+
+    <!-- Category Dropdown -->
+    <div class="category-dropdown d-none d-lg-block">
+      <div class="dropdown">
+        <div class="btn dropdown-toggle border p-2 d-flex align-items-center justify-content-between samllpoppins" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span>
+            <i class="fa-brands fa-pix"></i> Category
+          </span>
+        </div>
+        <ul class="dropdown-menu w-100">
+          <li *ngFor="let category of Showcategorydata" [routerLink]="['/relevance']" [queryParams]="{ category: category.category_name }">
+            <a class="dropdown-item">{{ category.category_name }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Navbar Toggler for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+      <ul class="navbar-nav ps-3 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active"><span  routerLink="/Home" routerLinkActive="active-link" style="cursor: pointer;">Home</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/Allcourses" routerLinkActive="active-link" style="cursor: pointer;">Courses</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/alltrainer" routerLinkActive="active-link" style="cursor: pointer;">Trainer</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/allproducts" routerLinkActive="active-link" style="cursor: pointer;">Product</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><span  routerLink="/relevance/allevents" routerLinkActive="active-link" style="cursor: pointer;">Event</span></a>
+        </li>
+      </ul>
+    </div>
+      <!-- Search Bar -->
+      <div class="d-flex align-items-center justify-content-between inputContainer1 position-relative globale-search ">
+        <input
+          type="text"
+          [(ngModel)]="query"
+          (keyup)="searchitem($event)"
+          class="form-control form-control-lg searchinput "
+          placeholder="Search for Courses, Instructor, Product & Event"
+        />
+        <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo" (click)="onsearch()" style="color: #307DFF;"></i>
+        
+        <div *ngIf="suggestions.length" class="suggestions-list">
+          <div *ngFor="let group of (groupedSuggestions() | keyvalue)">
+            <h6 (click)="navigateBasedOnGroup(group.key)" style="cursor: pointer;">
+              {{ group.key ? (group.key | titlecase) : 'Unknown Type' }} listed ({{ group.value.length }}) with {{ query }}
+            </h6>
+            <ul>
+              <li *ngFor="let item of group.value" (click)="onSelectSuggestion(item)">
+                <a style="text-decoration: none; color: black;">{{ item.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cart Icon -->
+      <div class="mx-2 pt-1">
+        <i routerLink="/cart" class="fa-solid fa-cart-plus mx-2 fs-4 cart-icon d-none d-lg-block"></i>
+      </div>
+
+      <!-- Sign In / Sign Up (conditionally based on user login status) -->
+      <div *ngIf="!(isLoggedIn$ | async)" class="sign-in-up mt-2 text-end d-flex gap-2 align-items-center justify-content-end">
+        <button routerLink="/signin" class="btn btn-sm btn-primary rounded samllpoppins">Sign In</button>
+        <button routerLink="/signup" class="btn btn-sm btn-light rounded border samllpoppins">Sign Up</button>
+      </div>
+
+      <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up d-flex align-items-center justify-content-end">
+        <button *ngIf="isUser" class="btn btn-sm btn-primary main-button" data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
+          Become an Expert
+        </button>
+        <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
+
+        <!-- User Profile Dropdown -->
+        <div class="dropdown">
+          <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false" class="rounded-circle object-fit-cover" height="40" width="40" />
+          <ng-template #noImageIcon>
+            <i class="fa-solid fa-user icon" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          </ng-template>
+          <ul class="dropdown-menu dropdown-menu-start">
+            <li><a class="dropdown-item">{{ (user$ | async) }}</a></li>
+            <li><a class="dropdown-item" routerLink="/editprofilepicture">Change Profile Image<i class="fa-solid fa-user-pen"></i></a></li>
+            <li><a class="dropdown-item" routerLink="/edittrainer">Edit Profile <i class="fa-solid fa-user-pen"></i></a></li>
+            <li><a class="dropdown-item" routerLink="/Notification">Notification <i class="fa-solid fa-bell"></i></a></li>
+            <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
+          </ul>
+        </div>
+
+        <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3"></i>
+      </div>
+    </div>
 </nav>
 
 

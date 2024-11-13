@@ -9,7 +9,8 @@
   padding-left: 40px;
   font-size: var(--Poppins14);
   height: 40px;
-  width: 300px;
+  width: 350px;
+  font-size: small;
 }
 
 .icon {
@@ -220,6 +221,11 @@
   .cart-icon{
     width: 20px;
   }
+
+  .searchinput{
+    width: 350px;
+  }
+
  
 }
 
