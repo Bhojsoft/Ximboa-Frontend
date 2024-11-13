@@ -18,6 +18,8 @@ export class LoginService {
     private APIURL ="http://13.203.89.189/api/notifications";
   
     private apiUrl = 'http://13.203.89.189/api/notifications/view/'; 
+
+    private unseen = 'http://13.203.89.189/api'
    
 
 
@@ -80,6 +82,10 @@ export class LoginService {
   // Mark all notifications as seen
   markAllNotificationsAsSeen() {
     return this.http.put<any>(`${this.APIURL}/markAllNotificationsAsSeen`, {});
+  }
+
+  unseenNotification():Observable<any>{
+    return this.http.get<any>(`${this.unseen}/notifications/unseen-count`)
   }
 
  

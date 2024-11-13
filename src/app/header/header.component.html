@@ -324,7 +324,10 @@
         <button *ngIf="isUser" class="btn btn-sm btn-primary main-button" data-bs-toggle="modal" data-bs-target="#exampleModalExpert" style="font-size: x-small;">
           Become an Expert
         </button>
-        <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i>
+        <!-- <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i> -->
+        <i routerLink="/Notification" class="fa-regular fa-bell position-relative me-4 fs-3 Notification-icon"> <span *ngIf="unseennotificationcount > 0" class="position-absolute badge rounded-pill bg-danger " style="font-size: xx-small;top: -2px;left: 26px;">
+          {{unseennotificationcount}}
+        </span></i> 
 
         <!-- User Profile Dropdown -->
         <div class="dropdown">

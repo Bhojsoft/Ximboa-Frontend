@@ -27,6 +27,8 @@ export class HeaderComponent {
   keyword: string = '';
   UserImage: string | null = null;
 
+  unseennotificationcount: any;
+
 
 
   role = {
@@ -90,6 +92,16 @@ export class HeaderComponent {
     });
 
     this.loadTrainerData();
+
+    this.unseenNotification();
+    
+  }
+
+  unseenNotification(): void{
+    this.requst.unseenNotification().subscribe(response => {
+      this.unseennotificationcount = response.unseenCount;
+      console.log(response,"notification unseen");
+    });
   }
 
   loadTrainerData(): void {
