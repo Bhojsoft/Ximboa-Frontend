@@ -9,7 +9,7 @@
   padding-left: 40px;
   font-size: var(--Poppins14);
   height: 40px;
-  width: 350px;
+  width: 335px;
   font-size: small;
 }
 
@@ -231,12 +231,20 @@
 
 /* Tablets (601px to 1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
-  /* Styles for tablets */
+  
 }
 
 /* Desktop/Laptops (1025px and above) */
 @media (min-width: 1025px) {
   .category-dropdown{
     width: 200px;
+  }
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    height: 60px;
   }
 }

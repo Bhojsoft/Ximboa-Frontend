@@ -53,7 +53,7 @@
               <button routerLink="/coursedetails/{{Showcoursedetails?.trainer_id}}" class="btn text-white px-2 me-3 mb-2" style="background-color: #265BBD;">View Trainer Profile</button>
             
     <!-- share button scetion -->
-            
+            <span>
               <button  (click)="shareicon()" class="btn text-white   px-2 mb-2" style="background-color: #307DFF;"><i class="fas fa-share-alt fs-5"></i> Share</button>
               <div class="share-container">
                   <div *ngIf="showshare" class="share-options  p-3 shadow bg-body-tertiary rounded">
@@ -71,6 +71,7 @@
                       </a>
                   </div>
               </div>
+            </span>
           </div>
       
     </div>
@@ -269,8 +270,8 @@
           </div>
   
           <div class="pt-5 mb-3 text-center">
-            <button type="submit" class="btn sign-in-btn rounded-pill "
-              [disabled]="!signUpForm.form.valid" style="width: 25%;">Sign up</button>
+            <button type="submit" class="btn sign-in-btn rounded-pill px-5"
+              [disabled]="!signUpForm.form.valid" >Sign up</button>
           </div>
         </div>
       </form>
