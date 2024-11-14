@@ -3,6 +3,58 @@
         <img class="img-fluid rounded"
             src="../../../assets/trainer_home_banner.png" alt>
     </div>
+    <div class="row my-4 pb-3">
+        <!-- <div class="col-sm-6 col-md-3 ">
+            <div class="card card-style" style="height: 212px;"></div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-style" style="height: 212px;">
+
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="card card-style" style="height: 212px;"></div>
+        </div> -->
+        <div class="col-sm-12 col-md-6 col-lg-7 ">
+            <div id="donutChart" class="text-center ms-5">
+                <apx-chart
+                  [series]="donutChartOptions.series"
+                  [chart]="donutChartOptions.chart"
+                  [labels]="donutChartOptions.labels"
+                  [responsive]="donutChartOptions.responsive"
+                ></apx-chart>
+              </div>
+              
+        </div>
+
+        <div class="col-sm-12 col-md-5 col-lg-5">
+            <!-- <div class="d-flex flex-column card-style" style="border: none;">
+                <button class="btn border mb-3 py-2"
+                    style="border-radius: 20px;"> <i
+                        class="fa-solid fa-plus px-2 text-primary"></i>Add
+                    Course</button>
+                <button class="btn mb-3 border py-2 "
+                    style="border-radius: 20px;"> <i
+                        class="fa-solid fa-plus px-2 text-primary"></i>Add
+                    Product</button>
+                <button class="btn mb-3 border py-2"
+                    style="border-radius: 20px;"><i
+                        class="fa-solid fa-plus px-2 text-primary"></i>Add
+                    event</button>
+            </div> -->
+            <div id="areaChart" class="text-center ms-5">
+                <apx-chart
+                  [series]="areaChartOptions.series"
+                  [chart]="areaChartOptions.chart"
+                  [xaxis]="areaChartOptions.xaxis"
+                  [stroke]="areaChartOptions.stroke"
+                  [tooltip]="areaChartOptions.tooltip"
+                  [dataLabels]="areaChartOptions.dataLabels"
+                ></apx-chart>
+              </div>
+        </div>
+    </div>
+
     <div *ngIf="showDashboardata" class="row mt-5">
 
         <div class="col-md-3 col-sm-6 mb-4">
@@ -95,33 +147,5 @@
         </div>
     </div>
 
-    <div class="row my-4 pb-3">
-        <div class="col-sm-6 col-md-3 ">
-            <div class="card card-style" style="height: 212px;"></div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="card card-style" style="height: 212px;">
-
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="card card-style" style="height: 212px;"></div>
-        </div>
-        <div class="col-sm-6 col-md-3  ">
-            <div class="d-flex flex-column card-style" style="border: none;">
-                <button class="btn border mb-3 py-2"
-                    style="border-radius: 20px;"> <i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    Course</button>
-                <button class="btn mb-3 border py-2 "
-                    style="border-radius: 20px;"> <i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    Product</button>
-                <button class="btn mb-3 border py-2"
-                    style="border-radius: 20px;"><i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    event</button>
-            </div>
-        </div>
-    </div>
+   
 </div>

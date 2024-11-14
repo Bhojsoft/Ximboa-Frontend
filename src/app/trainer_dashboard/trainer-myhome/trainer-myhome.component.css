@@ -43,3 +43,28 @@
         text-align: center;
     }
 }
+
+
+#chart {
+    max-width: 380px;
+    /* margin: 15px auto; */
+    padding: 0;
+  }
+
+
+  .chart-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  #donutChart{
+    margin-top: 50px;
+  }
+
+  #donutChart, #areaChart {
+    max-width: 380px;
+    padding: 0;
+    margin: auto;
+  }
+  
+  
+  

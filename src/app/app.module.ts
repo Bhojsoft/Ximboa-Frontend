@@ -65,6 +65,7 @@ import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component
 import { TagInputModule } from 'ngx-chips';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 
@@ -136,7 +137,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     MatTabsModule,
     OAuthModule.forRoot(),
     NgxEditorModule,
-    TagInputModule
+    TagInputModule,
+    NgApexchartsModule 
     
    
   ],
