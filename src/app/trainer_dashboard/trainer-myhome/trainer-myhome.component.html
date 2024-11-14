@@ -1,80 +1,63 @@
 <div class="container-fluid" style="background-color: #F3F3F3;">
     <div class="trainer_home mb-2">
-        <img class="img-fluid rounded"
-            src="../../../assets/trainer_home_banner.png" alt>
+        <img class="img-fluid rounded" src="../../../assets/trainer_home_banner.png" alt>
     </div>
-    <div class="row my-4 pb-3">
-        <!-- <div class="col-sm-6 col-md-3 ">
-            <div class="card card-style" style="height: 212px;"></div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="card card-style" style="height: 212px;">
 
+   
+
+
+
+
+    <div class="row my-4 pb-3">
+        <!-- Button Group: Flexbox for alignment and spacing -->
+        <div class="d-flex flex-wrap justify-content-center my-3">
+            <button class="btn border mb-3 mx-2 py-2" style="border-radius: 20px; background-color: #007bff; color: white;">
+                <i class="fa-solid fa-plus px-1"></i>Add Course
+            </button>
+            <button class="btn mb-3 border py-2 mx-2" style="border-radius: 20px; background-color: #007bff; color: white;">
+                <i class="fa-solid fa-plus px-1"></i>Add Product
+            </button>
+            <button class="btn mb-3 border py-2 mx-2" style="border-radius: 20px; background-color: #007bff; color: white;">
+                <i class="fa-solid fa-plus px-1"></i>Add Event
+            </button>
+        </div>
+    
+        <!-- Chart Sections: Use responsive grid system for proper alignment on all devices -->
+        <div class="col-12 col-md-6 col-lg-7">
+            <div id="donutChart" class="text-center ms-5">
+                <apx-chart [series]="donutChartOptions.series" [chart]="donutChartOptions.chart"
+                    [labels]="donutChartOptions.labels" [responsive]="donutChartOptions.responsive"></apx-chart>
             </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="card card-style" style="height: 212px;"></div>
-        </div> -->
-        <div class="col-sm-12 col-md-6 col-lg-7 ">
-            <div id="donutChart" class="text-center ms-5">
-                <apx-chart
-                  [series]="donutChartOptions.series"
-                  [chart]="donutChartOptions.chart"
-                  [labels]="donutChartOptions.labels"
-                  [responsive]="donutChartOptions.responsive"
-                ></apx-chart>
-              </div>
-              
-        </div>
-
-        <div class="col-sm-12 col-md-5 col-lg-5">
-            <!-- <div class="d-flex flex-column card-style" style="border: none;">
-                <button class="btn border mb-3 py-2"
-                    style="border-radius: 20px;"> <i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    Course</button>
-                <button class="btn mb-3 border py-2 "
-                    style="border-radius: 20px;"> <i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    Product</button>
-                <button class="btn mb-3 border py-2"
-                    style="border-radius: 20px;"><i
-                        class="fa-solid fa-plus px-2 text-primary"></i>Add
-                    event</button>
-            </div> -->
-            <div id="areaChart" class="text-center ms-5">
-                <apx-chart
-                  [series]="areaChartOptions.series"
-                  [chart]="areaChartOptions.chart"
-                  [xaxis]="areaChartOptions.xaxis"
-                  [stroke]="areaChartOptions.stroke"
-                  [tooltip]="areaChartOptions.tooltip"
-                  [dataLabels]="areaChartOptions.dataLabels"
-                ></apx-chart>
-              </div>
+    
+        <div class="col-12 col-md-6 col-lg-5">
+            <div id="areaChart" class="text-center">
+                <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart"
+                    [xaxis]="areaChartOptions.xaxis" [stroke]="areaChartOptions.stroke"
+                    [tooltip]="areaChartOptions.tooltip" [dataLabels]="areaChartOptions.dataLabels"></apx-chart>
+            </div>
         </div>
     </div>
+    
 
     <div *ngIf="showDashboardata" class="row mt-5">
 
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card card-style">
                 <div class="d-flex gap-3 align-items-center">
-                    <div class="icon border p-1 px-3 "
-                        style="background-color: #C0D7FF;border-radius: 20px;">
+                    <div class="icon border p-1 px-3 " style="background-color: #C0D7FF;border-radius: 20px;">
                         <i class="fas fa-file-alt text-muted    "></i>
                     </div>
                     <div>
                         <p class="mb-0 text-muted">Total Course</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalCourses < 10 ? "0"+ showDashboardata.data.totalCourses : showDashboardata.data.totalCourses }}
-                        </h3>
+                            {{showDashboardata.data.totalCourses < 10 ? "0" + showDashboardata.data.totalCourses :
+                                showDashboardata.data.totalCourses }} </h3>
                     </div>
 
                 </div>
                 <hr>
-                <a href="#"
-                    class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -83,20 +66,18 @@
         <div class="col-md-3 col-sm-6 mb-4">
             <div class="card card-style">
                 <div class="d-flex gap-3 align-items-center">
-                    <div class="icon px-3 p-1 text-muted"
-                        style="background-color: #C0D7FF;border-radius: 20px;">
+                    <div class="icon px-3 p-1 text-muted" style="background-color: #C0D7FF;border-radius: 20px;">
                         <i class="fas fa-cube"></i>
                     </div>
                     <div>
                         <p class="mb-0 text-muted">Total Events</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalEvents <10 ? "0"+ showDashboardata.data.totalEvents: showDashboardata.data.totalEvents }}
-                        </h3>
+                            {{showDashboardata.data.totalEvents <10 ? "0" + showDashboardata.data.totalEvents:
+                                showDashboardata.data.totalEvents }} </h3>
                     </div>
                 </div>
                 <hr>
-                <a href="#"
-                    class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -106,20 +87,19 @@
             <div class="card card-style">
                 <div class="d-flex gap-3 align-items-center">
 
-                    <div class="icon p-1 px-3 text-muted"
-                        style="background-color: #C0D7FF;border-radius: 20px;">
+                    <div class="icon p-1 px-3 text-muted" style="background-color: #C0D7FF;border-radius: 20px;">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                     <div>
                         <p class="mb-0 text-muted">Total Products</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalProducts <10 ? "0"+ showDashboardata.data.totalProducts: showDashboardata.data.totalProducts }}</h3>
+                            {{showDashboardata.data.totalProducts <10 ? "0" + showDashboardata.data.totalProducts:
+                                showDashboardata.data.totalProducts }}</h3>
                     </div>
 
                 </div>
                 <hr>
-                <a href="#"
-                    class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -138,8 +118,7 @@
 
                 </div>
                 <hr>
-                <a href="#"
-                    class="text-light  d-flex justify-content-between align-items-center"
+                <a href="#" class="text-light  d-flex justify-content-between align-items-center"
                     style="text-decoration: none;">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
@@ -147,5 +126,5 @@
         </div>
     </div>
 
-   
+
 </div>

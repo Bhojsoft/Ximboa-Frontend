@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
 
    
-  private API_URL ="https://demo-eosin-psi.vercel.app";
+  private API_URL ="http://13.203.89.189/api";
 
   
 

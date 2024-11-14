@@ -1,73 +1,73 @@
-<div class="container-fluid" style="background-color: #f3f3f3;">
+<div class="container-fluid" style="background-color: var(--bodyColor);">
     <div class="row ">
 
         <div class="col-lg-2 rounded-end pt-1 sidebarlgscreen" >
-            <div class="ms-2  bg-light rounded ">
+            <div class="ms-2 rounded" style="background-color: var(--WhiteColor);">
             <ul class="list ">
                 <!-- Dashboard: Visible to USER, TRAINER, ADMIN -->
-                <li *ngIf="isUser" routerLink="/trainer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class=" " style="font-size: 20px;margin-top: 10px !important;">
-                    <i class="fa-solid fa-house pt-2  " style="font-size: 21px;"></i> Home
+                <li *ngIf="isUser" routerLink="/trainer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class=" " style="margin-top: 10px !important;">
+                    <i class="fa-solid fa-house pt-2" ></i> Home
                 </li>
             
                 <!-- Request: Visible only to ADMIN & Institute -->
-                <li *ngIf="isAdmin || isInstitute" routerLink="/trainer/superadmin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-house pt-2 " style="font-size: 21px;"></i> Request
+                <li *ngIf="isAdmin || isInstitute" routerLink="/trainer/superadmin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-house pt-2 " ></i> Request
                 </li>
             
                 <!-- Category: Visible only to ADMIN -->
-                <li *ngIf="isAdmin" routerLink="/trainer/admincategory" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-house pt-2 " style="font-size: 21px;"></i> Category
+                <li *ngIf="isAdmin" routerLink="/trainer/admincategory" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-house pt-2 " ></i> Category
                 </li>
             
                 <!-- Course: Visible to USER, TRAINER,SELF_EXPRT, INSTITUTE, ADMIN -->
-                <li *ngIf="isUser" routerLink="/trainer/mycourse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-cart-shopping pt-2 " style="font-size: 21px;"></i> Course
+                <li *ngIf="isUser" routerLink="/trainer/mycourse" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-cart-shopping pt-2 " ></i> Course
                 </li>
             
                 <!-- Product: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isUser" routerLink="/trainer/product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-square-check pt-2 " style="font-size: 21px;"></i> Product
+                <li *ngIf="isUser" routerLink="/trainer/product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-square-check pt-2 " ></i> Product
                 </li>
             
                 <!-- Event: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isUser" routerLink="/trainer/event" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-calendar-days pt-2 " style="font-size: 21px;"></i> Event
+                <li *ngIf="isUser" routerLink="/trainer/event" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-calendar-days pt-2 " ></i> Event
                 </li>
             
                 <!-- Enquiry: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/enquiry" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-envelope pt-2 " style="font-size: 21px;"></i> Enquiry
+                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/enquiry" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-envelope pt-2 " ></i> Enquiry
                 </li>
             
                 <!-- Appointment: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/appointment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-circle-user pt-2 " style="font-size: 21px;"></i> Appointment
+                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/appointment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-circle-user pt-2 " ></i> Appointment
                 </li>
             
                 <!-- Question: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/question" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-circle-user pt-2 " style="font-size: 21px;"></i> Question
+                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/trainer/question" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                 <i class="fa-solid fa-circle-question pt-2"></i> Question
                 </li>
             
                 <!-- Review: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isInstitute || isSELF_EXPERT" routerLink="/trainer/review" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover" style="font-size: 20px;">
-                    <i class="fa-solid fa-circle-user pt-2 " style="font-size: 21px;"></i> Review
+                <li *ngIf="isTrainer || isInstitute || isSELF_EXPERT" routerLink="/trainer/review" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                    <i class="fa-solid fa-circle-user pt-2 " ></i> Review
                 </li>
                 
             
                 <!-- Message: Visible only to USER and ADMIN -->
-                <!-- <li *ngIf="isUser" routerLink="er" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  style="font-size: 20px;" class=" hover">
-                    <i class="fa-solid fa-clock-rotate-left pt-2 " style="font-size: 21px;"></i> Message
+                <!-- <li *ngIf="isUser" routerLink="er" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  class=" hover">
+                    <i class="fa-solid fa-clock-rotate-left pt-2 " ></i> Message
                 </li> -->
                 
                 <hr class="my-4">
-               <li style="font-size: 20px;">
+               <li>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
                 </div>
                 Darkmode
             </li> 
-               <li (click)="logout()" style="font-size: 20px;"><i class=" fas fa-sign-out-alt pt-2  text-danger"></i> Logout</li> 
+               <li (click)="logout()"><i class=" fas fa-sign-out-alt pt-2  text-danger"></i> Logout</li> 
             </ul>
         </div>
             

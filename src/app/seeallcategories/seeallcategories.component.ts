@@ -145,7 +145,7 @@ export class SeeallcategoriesComponent implements OnInit {
 
   fetchCourses() {
     if (this.searchTerm) {
-      this.http.get<any>(`https://demo-eosin-psi.vercel.app/search/courses?course_name=${this.searchTerm}`)
+      this.http.get<any>(`http://13.203.89.189/api/search/courses?course_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
             this.ShowCourseData = response.data;  // Store the received data in ShowCourseData
