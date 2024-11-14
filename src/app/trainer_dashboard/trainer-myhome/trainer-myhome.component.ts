@@ -33,7 +33,7 @@ export class TrainerMyhomeComponent implements OnInit {
   @ViewChild("donutChart") donutChart!: ChartComponent;
   @ViewChild("areaChart") areaChart!: ChartComponent;
 
-  public donutChartOptions: Partial<DonutChartOptions>;
+  public chartOptions: Partial<DonutChartOptions>;
   public areaChartOptions: Partial<AreaChartOptions>;
 
   constructor(
@@ -42,26 +42,27 @@ export class TrainerMyhomeComponent implements OnInit {
     private http: HttpClient
   ) {
     // Initialize Donut Chart Options
-    this.donutChartOptions = {
-      series: [15, 10, 7],
-      chart: {
-        type: "donut"
-      },
-      labels: ["Course", "Events", "Products"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
+  // Initialize chartOptions with default values
+  this.chartOptions = {
+    series: [0, 0, 0],  // Placeholder values
+    chart: {
+      type: "donut"
+    },
+    labels: ["Course", "Events", "Products"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: "bottom"
           }
         }
-      ]
-    };
+      }
+    ]
+  };
 
     // Initialize Area Chart Options
     this.areaChartOptions = {
@@ -109,6 +110,15 @@ export class TrainerMyhomeComponent implements OnInit {
     this.service.getDashboardData().subscribe(result => {
       console.log(result);
       this.showDashboardata = result;
+
+      // Update chart series with dynamic values
+      if (this.showDashboardata && this.showDashboardata.data) {
+        this.chartOptions.series = [
+          this.showDashboardata.data.totalCourses || 0,
+          this.showDashboardata.data.totalEvents || 0,
+          this.showDashboardata.data.totalProducts || 0
+        ];
+      }
     });
   }
 
