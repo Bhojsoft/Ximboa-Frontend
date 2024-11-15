@@ -21,7 +21,7 @@ export class LoginService {
 
     private unseen = 'http://13.203.89.189/api'
    
-
+private userdetail ='http://localhost:1000/api/registration/get-user-info'
 
   constructor(private http:HttpClient, private router: Router){ }
 
@@ -86,6 +86,10 @@ export class LoginService {
 
   unseenNotification():Observable<any>{
     return this.http.get<any>(`${this.unseen}/notifications/unseen-count`)
+  }
+
+  getuserdetail(id:string):Observable<any>{
+    return this.http.get<any>(`${this.userdetail}/${id}`)
   }
 
  

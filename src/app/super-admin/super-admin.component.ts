@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../common_service/login.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,13 +11,24 @@ import Swal from 'sweetalert2';
 })
 export class SuperAdminComponent  implements OnInit{
 
+  id:any;
   getrequest:any[]=[];
   getapprovedrequest:any;
   getRejectedrequest:any;
+  UserDetailsinfo:any;
 
-    constructor(private role:LoginService){}
+    constructor(private role:LoginService,private router:ActivatedRoute)
+    {}
 
     ngOnInit(): void {
+
+      this.router.paramMap.subscribe(params => {
+        this.id = params.get('id');
+        if (this.id) {
+          this.UserDetails(); // Fetch user details when 'id' is available
+        }
+      });
+
        this.getallrequest();
 
        this.role.getroleApprovedrequest().subscribe(result =>{
@@ -28,6 +40,8 @@ export class SuperAdminComponent  implements OnInit{
         this.getRejectedrequest = result.data;
         console.log(result,"Rejected"); 
      });
+
+
     }
 
     getallrequest(){
@@ -65,8 +79,21 @@ export class SuperAdminComponent  implements OnInit{
   }
   
 
-
+UserDetails() {
+    if (this.id) {
+      this.role.getuserdetail(this.id).subscribe(result => {
+        this.UserDetailsinfo = result;
+        console.log("User Details:", this.UserDetailsinfo);
+      });
+    }
+  }
   
+  openUserDetailsModal(userId: string): void {
+    this.role.getuserdetail(userId).subscribe(result => {
+      this.UserDetailsinfo = result;
+      console.log("Fetched User Details:", this.UserDetailsinfo); // Debugging
+    });
+  }
   
   
 }
