@@ -219,11 +219,16 @@ export class CourseDetailsComponent implements OnInit {
   token = sessionStorage.getItem('Authorization');
 
   enquiry = {
-    description:' ',
-    trainerid:' ',
+    description:'',
+    trainerid:'',
   }
   
   postEnquiry(){
+    if (!this.enquiry.description || this.enquiry.description.trim().length < 10) {
+      Swal.fire('Sorry', 'Please enter a Enquiry that is at least 10 characters long to proceed.', 'warning');
+      return;
+    }
+
     if(this.token){
     this.dashboard.postEnquiry(this.enquiry).subscribe({
       next: (Response) =>{
@@ -244,14 +249,19 @@ export class CourseDetailsComponent implements OnInit {
   
 
   question = {
-    question:' ',
-    trainerid:' ',
+    question:'',
+    trainerid:'',
   }
   postquestion(){
+    if (!this.question.question || this.question.question.trim().length < 10) {
+      Swal.fire('Sorry', 'Please enter a question that is at least 10 characters long to proceed.', 'warning');
+      return;
+    }
+
     if(this.token){
     this.dashboard.postquestions(this.question).subscribe({
       next : (response) => {
-        Swal.fire('Ohh...!', 'You are Question send Successfully..!', 'success');
+        Swal.fire('Success', 'Your question has been submitted successfully!', 'success');
       },
       error : (Error) =>{
         Swal.fire('Error', 'sorry..!', 'error');
@@ -280,11 +290,15 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   review = {
-    review: ' ',
+    review: '',
     star_count: 0,
-    t_id:' ',
+    t_id:'',
   }
   postreview(){
+    if (!this.review.review || !this.review.star_count) {
+      Swal.fire('Sorry', 'Please provide both a review and a star rating to submit your feedback.', 'warning');
+      return;
+    }
     if(this.token){
       this.review.star_count = this.rating;
     this.dashboard.postreview(this.review).subscribe({
@@ -305,12 +319,16 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   Appoinment = {
-    date: ' ',
-    time:' ',
-    t_id:' ',
+    date: '',
+    time:'',
+    t_id:'',
   }
 
   BookAppoinment(){
+    if (!this.Appoinment.date || !this.Appoinment.time) {
+      Swal.fire('Sorry', 'Please select both a date and a time to proceed with your appointment.', 'warning');
+      return;
+    }
     if(this.token){
     this.dashboard.BookApnmt(this.Appoinment).subscribe({
       next : (Response) =>{

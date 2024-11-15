@@ -7,6 +7,9 @@ import { StudentService } from 'src/app/common_service/student.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
+declare var bootstrap: any;
+
+
 @Component({
   selector: 'app-my-course',
   templateUrl: './my-course.component.html',
@@ -73,11 +76,7 @@ export class MyCourseComponent implements OnInit {
 
   ngOnInit(): void{
     this.checkUserRole();
-    this.service.gettrainerdatabyID().subscribe((result:any) =>{
-      console.log("Show course Data",result);
-      this.showcoursedata = result?.coursesWithFullImageUrl;
-      })
-
+    this.getallcourses();
     this.admin.getcategorydata().subscribe( data =>{
       // console.log("data",data)
       this.showCategorydata = data;  
@@ -91,39 +90,39 @@ export class MyCourseComponent implements OnInit {
 
   }
 
+  getallcourses(){
+    this.service.gettrainerdatabyID().subscribe((result:any) =>{
+      console.log("Show course Data",result);
+      this.showcoursedata = result?.coursesWithFullImageUrl;
+      });
+  }
+
   onsubmit(): void {
     const formData = new FormData();
   
-    // Loop through the keys of the Courses object
     for (const key of Object.keys(this.Courses) as (keyof typeof this.Courses)[]) {
       if (this.Courses.hasOwnProperty(key)) {
-        // Check if the key is 'tags' and handle it as an array
         if (key === 'tags' && Array.isArray(this.Courses[key])) {
-          // Join the tags array into a single string, with a delimiter (e.g., comma)
-          formData.append('tags', (this.Courses[key] as string[]).join(','));
+          const tagsArray = this.Courses[key] as any[];
+          const formattedTags = tagsArray.map(tag =>
+            typeof tag === 'object' ? (tag.name || tag.toString()) : tag
+          );
+          formData.append('tags', formattedTags.join(','));
         } else {
-          // For all other fields, append them as string values
           formData.append(key, this.Courses[key] as string);
         }
       }
     }
   
-    // Append the thumbnail image if it exists
     if (this.thumbnail_image) {
       formData.append('thumbnail_image', this.thumbnail_image);
     }
   
-    // Post the form data
     this.admin.postcoursesdata(formData).subscribe({
       next: (response) => {
-        Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success').then(() => {
-          // Close the modal
-          const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
-          if (modalCloseButton) {
-            modalCloseButton.click();
-          }
-          window.location.reload();
-        });
+        Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success')
+        this.getallcourses();
+        this.closeModal();
       },
       error: (error) => {
         console.error('Error', error);
@@ -171,18 +170,52 @@ export class MyCourseComponent implements OnInit {
   
     
 
+    // onDelete(id: string): void {
+    //   this.service.deleteCoursebyID(id).subscribe(
+    //     response => {
+    //       // console.log('Data deleted successfully', response);
+    //       Swal.fire("Course deleted successfully");
+    //       this.getallcourses();
+    //     },
+    //     error => {
+    //       // console.error('Error deleting data', error);
+    //       alert("Error");
+    //     }
+    //   );
+    // }
+
     onDelete(id: string): void {
-      this.service.deleteCoursebyID(id).subscribe(
-        response => {
-          // console.log('Data deleted successfully', response);
-          alert("Course deleted successfully");
-          window.location.reload();
-        },
-        error => {
-          // console.error('Error deleting data', error);
-          alert("Error");
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to delete this course? This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.service.deleteCoursebyID(id).subscribe(
+            response => {
+              Swal.fire('Deleted!','The course has been deleted successfully.','success' );
+              this.getallcourses();
+            },
+            error => {
+              Swal.fire('Error!', 'An error occurred while deleting the course.','error');
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Cancelled','The course is safe :)', 'info');
         }
-      );
+      });
+    }
+    
+
+
+    closeModal() {
+      const modalElement = document.getElementById('AddcourseModal');
+      const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
+      if (modalInstance) {
+        modalInstance.hide(); // Hides the modal
+      }
     }
 
 

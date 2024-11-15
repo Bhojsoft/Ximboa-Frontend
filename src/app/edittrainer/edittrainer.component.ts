@@ -65,6 +65,17 @@ export class EdittrainerComponent implements OnInit {
   selectedFiles: any[] = [];
 
 
+  onCheckboxChange(event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      const mobileNumber = this.myForm.get('mobile_number')?.value;
+      this.myForm.get('whatsapp_no')?.setValue(mobileNumber);
+    } else {
+      this.myForm.get('whatsapp_no')?.setValue('');
+    }
+  }
+
+
   constructor(private service: TrainerService, private router: ActivatedRoute, private fromb: FormBuilder, private auth: AuthServiceService) { this.id = this.router.snapshot.paramMap.get('id'); }
 
   onFileSelected(event: any) {
@@ -121,6 +132,8 @@ export class EdittrainerComponent implements OnInit {
       });
     });
   }
+
+
 
   onSubmit() {
     this.myForm.markAllAsTouched();

@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 
 
 
+
 @Component({
   selector: 'app-courseenroll',
   templateUrl: './courseenroll.component.html',
@@ -30,20 +31,34 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
     routeSub: Subscription = new Subscription();
 
 
-    constructor(private dservice:DashboardService,private router:ActivatedRoute, private route:Router,private loginservices:LoginService,private authService:AuthServiceService)
+    constructor(private dservice:DashboardService,private router:ActivatedRoute, private route:Router,
+      private loginservices:LoginService,private authService:AuthServiceService)
     {this.id=this.router.snapshot.paramMap.get('id');}
-
+    
     ngOnInit(): void {
-
-      this.routeSub = this.router.params.subscribe(params => {
-        this.id = params['id']; 
-        this.loadCourseDetails(this.id);
-      });
-      
-        this.loadreview(this.currentPage,this.itemsPerPage)
-          
+      this.id = this.router.snapshot.paramMap.get('id');
+      if (this.id) {
+        this.loadCourseDetails(this.id); // Load course details
+        this.loadreview(this.currentPage, this.itemsPerPage); // Load reviews
         this.review.courseid = this.id;
+      }
+    
+      this.routeSub = this.router.params.subscribe((params) => {
+        const newId = params['id'];
+        if (newId !== this.id) {
+          this.id = newId;
+          
+          this.currentPage = 1;
+          this.ShowCourseReview = [];
+          this.totalItems = 0;
+    
+          this.loadCourseDetails(this.id);
+          this.loadreview(this.currentPage, this.itemsPerPage);
+        }
+      });
     }
+    
+    
 
     loadCourseDetails(id: string): void {
       // console.log("Course ID:", this.id);
@@ -111,17 +126,22 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
   }
 
   review = {
-    review: ' ',
+    review: '',
     star_count: 0,
-    courseid:' ',
+    courseid:'',
   }
 
   postreviewCourse(){
+    if (!this.review.review || !this.review.star_count) {
+      Swal.fire('Sorry', 'Please provide both a review and a star rating to submit your feedback.', 'warning');
+      return;
+    }
     if(this.token){
       this.review.star_count = this.rating;
     this.dservice.postreviewCourse(this.review).subscribe({
       next : (Response) =>{
         Swal.fire('Ohh...!', 'You are Review Add Successfully..!', 'success');
+        this.loadreview(this.currentPage, this.itemsPerPage);
         this.resetForm();
       },
       error : (Error) => {

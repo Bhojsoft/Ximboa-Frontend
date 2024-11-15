@@ -37,7 +37,7 @@
             </div>
           </div>
       
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+          <!-- <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <label for="recipient-name" class="col-form-label">Mobile Number <sup>*</sup></label>
             <input type="number" class="form-control" id="recipient-name" formControlName="mobile_number" required>
             <div *ngIf="myForm.get('mobile_number')?.invalid && (myForm.get('mobile_number')?.touched || myForm.get('mobile_number')?.dirty)" class="text-danger">
@@ -51,9 +51,32 @@
             <div *ngIf="myForm.get('whatsapp_no')?.invalid && (myForm.get('whatsapp_no')?.touched || myForm.get('whatsapp_no')?.dirty)" class="text-danger">
               <small *ngIf="myForm.get('whatsapp_no')?.errors?.['required']">Whatsapp Number is required.</small>
             </div>
+          </div> -->
+
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
+            <label for="mobile-number" class="col-form-label">Mobile Number <sup>*</sup></label>
+            <input type="number" class="form-control" id="mobile-number" formControlName="mobile_number" required>
+            <div *ngIf="myForm.get('mobile_number')?.invalid && (myForm.get('mobile_number')?.touched || myForm.get('mobile_number')?.dirty)" class="text-danger">
+              <small *ngIf="myForm.get('mobile_number')?.errors?.['required']">Mobile Number is required.</small>
+            </div>
           </div>
+          
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
+            <label for="whatsapp-number" class="col-form-label">WhatsApp Number <sup>*</sup></label>
+            <input type="number" class="form-control" id="whatsapp-number" formControlName="whatsapp_no" required>
+            <div class="d-flex flex-column flex-sm-row">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="same-as-mobile" (change)="onCheckboxChange($event)">
+              <small class="form-check-label me-2" for="same-as-mobile" style="font-size: small;">Same as Mobile Number</small>
+            </div>
+            <div *ngIf="myForm.get('whatsapp_no')?.invalid && (myForm.get('whatsapp_no')?.touched || myForm.get('whatsapp_no')?.dirty)" class="text-danger">
+              <small *ngIf="myForm.get('whatsapp_no')?.errors?.['required']" style="font-size: small;">WhatsApp Number is required.</small>
+            </div>
+          </div>
+          </div>
+          
       
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
             <label for="recipient-name" class="col-form-label">Date of Birth <sup>*</sup></label>
             <input type="date" class="form-control" id="recipient-name" formControlName="date_of_birth" required>
             <div *ngIf="myForm.get('date_of_birth')?.invalid && (myForm.get('date_of_birth')?.touched || myForm.get('date_of_birth')?.dirty)" class="text-danger">

@@ -2,102 +2,115 @@
   <div class="row">
     <img class="img-fluid rounded" src="../../../assets/trainer_home_mycourses.png" alt="" />
   </div>
-  
+
   <mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab *ngIf="isTrainer || isSELF_EXPERT " label="My Courses" >
-      <div class="row">
-        <div  class="col-sm-12 col-sm-12 col-lg-12 d-flex gap-5 justify-content-end mb-3">
-          <button class="btn rounded-pill text-light" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo" style="background-color: #3078ff;" >
+    <mat-tab *ngIf="isTrainer || isSELF_EXPERT " label="My Courses">
+      
+        <div class="col-12 d-flex flex-wrap gap-3 justify-content-start justify-content-md-end mt-2">
+          <button class="btn btn-sm rounded-pill text-light px-3" data-bs-toggle="modal"
+            data-bs-target="#AddcourseModal" data-bs-whatever="@mdo" style="background-color: #3078ff;">
             Add New Course
           </button>
-          <button (click)="toggleIcon()" class="btn rounded-pill text-light"
+          <button (click)="toggleIcon()" class="btn btn-sm px-3 rounded-pill text-light"
             style="background-color: #f96d63;">
             Update/Delete Course
           </button>
         </div>
-        
-        <div *ngIf="showcoursedata && showcoursedata.length > 0" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+
+
+
+        <div *ngIf="showcoursedata && showcoursedata.length > 0"
+          class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
           <div *ngFor="let allcourses of showcoursedata" class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <div class="card">
-              <img routerLink="/couserenroll/{{allcourses._id}}" src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
+              <img routerLink="/couserenroll/{{allcourses._id}}" src="{{allcourses.thumbnail_image}}"
+                class="card-img-top img-fluid" alt="...">
               <div class="card-body ">
                 <div class="d-flex align-items-center justify-content-between">
                   <h5 class="card-title">{{allcourses.course_name}}</h5>
                   <small>{{allcourses.online_offline}}</small>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center gap-2 ">
-                       <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt=""></p>
-                      <p>{{allcourses.business_Name }}</p>
-                    </div>
-                 <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+                  <div class="d-flex align-items-center gap-2 ">
+                    <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
+                    </p>
+                    <p>{{allcourses.business_Name }}</p>
+                  </div>
+                  <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                  </p>
                 </div>
                 <button class="left-side-top rounded-pill">{{allcourses.category_name}}</button>
               </div>
               <div class="card-footer d-flex align-items-center justify-content-between">
-                  <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
-                  <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{ getFormattedPrice(allcourses.course_price) }}</p>
+                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+                <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
+                  getFormattedPrice(allcourses.course_price) }}</p>
               </div>
-              <i routerLink="/editcourse/{{ allcourses._id }}" *ngIf="showIcon" class="fa-solid fa-edit right-side-top"></i>
-              <i (click)="onDelete(allcourses._id)" *ngIf="showIcon" class="fa-solid fa-trash right-side-top-delete"></i>
+              <i routerLink="/editcourse/{{ allcourses._id }}" *ngIf="showIcon"
+                class="fa-solid fa-edit right-side-top"></i>
+              <i (click)="onDelete(allcourses._id)" *ngIf="showIcon"
+                class="fa-solid fa-trash right-side-top-delete"></i>
             </div>
-            
+
           </div>
         </div>
-        <div *ngIf="!showcoursedata || showcoursedata.length === 0" class="col-12 text-center">
-          <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
-      </div>
+        <div *ngIf="!showcoursedata || showcoursedata.length === 0" class="col-12 text-center pt-3">
+          <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
+            alt="">
+        </div>
 
-        
 
-      </div>
-</mat-tab>
-<mat-tab *ngIf="isUser" label="Enrolled Courses">
-     <!-- My Courses For Trainer -->
-    <div *ngIf="showcoursedatastudent && showcoursedatastudent.length > 0" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-      <div *ngFor="let allcourses of showcoursedatastudent" class="col-sm-12 col-md-6 col-lg-4 mb-3">
-        <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
-          <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
-          <div class="card-body ">
-            <div class="d-flex align-items-center justify-content-between">
-              <h5 class="card-title">{{allcourses.course_name}}</h5>
-              <small>{{allcourses.online_offline}}</small>
-            </div>
-            <div class="d-flex align-items-center justify-content-between">
+
+    </mat-tab>
+    <mat-tab *ngIf="isUser" label="Enrolled Courses">
+      <!-- My Courses For Trainer -->
+      <div *ngIf="showcoursedatastudent && showcoursedatastudent.length > 0"
+        class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+        <div *ngFor="let allcourses of showcoursedatastudent" class="col-sm-12 col-md-6 col-lg-4 mb-3">
+          <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
+            <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
+            <div class="card-body ">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="card-title">{{allcourses.course_name}}</h5>
+                <small>{{allcourses.online_offline}}</small>
+              </div>
+              <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2 ">
-                   <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt=""></p>
+                  <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
+                  </p>
                   <p>{{allcourses.business_Name }}</p>
                 </div>
-             <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+                <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+              </div>
+              <button class="left-side-top rounded-pill">{{allcourses.category_name}}</button>
             </div>
-            <button class="left-side-top rounded-pill">{{allcourses.category_name}}</button>
-          </div>
-          <div class="card-footer d-flex align-items-center justify-content-between">
+            <div class="card-footer d-flex align-items-center justify-content-between">
               <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
-              <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{ getFormattedPrice(allcourses.course_price) }}</p>
+              <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
+                getFormattedPrice(allcourses.course_price) }}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="!showcoursedatastudent || showcoursedatastudent.length === 0" class="col-12 text-center">
-      <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
-  </div>
-</mat-tab>
+      <div *ngIf="!showcoursedatastudent || showcoursedatastudent.length === 0" class="col-12 text-center pt-3">
+        <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
+          alt="">
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>
 
 
 <!-- Model For Add New Courses -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" >
+<div class="modal fade" id="AddcourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Courses</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Course</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-      <!-- <form (ngSubmit)="onsubmit()">
+      <div class="modal-body px-4 pt-1">
+        <!-- <form (ngSubmit)="onsubmit()">
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
@@ -201,59 +214,39 @@
           <button type="submit" class="btn btn-primary">Add Course</button>
         </div>
       </form> -->
-    
-      <form (ngSubmit)="onsubmit()" #courseForm="ngForm">
-        <div class="modal-body">
+
+        <form (ngSubmit)="onsubmit()" #courseForm="ngForm">
           <div class="row">
             <!-- Course Name -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="course_name" class="col-form-label">Course Name <sup>*</sup></label>
-              <input
-                type="text"
-                class="form-control"
-                id="course_name"
-                [(ngModel)]="Courses.course_name"
-                name="course_name"
-                #courseName="ngModel"
-                required
-                minlength="3"
-              />
+              <input type="text" class="form-control" id="course_name" [(ngModel)]="Courses.course_name"
+                name="course_name" #courseName="ngModel" required minlength="3" />
               <div *ngIf="courseName.invalid && courseName.touched" class="text-danger">
                 <small *ngIf="courseName.errors?.['required']">Course Name is required.</small>
                 <small *ngIf="courseName.errors?.['minlength']">Must be at least 3 characters.</small>
               </div>
             </div>
-      
+
             <!-- Category -->
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="category_id" class="col-form-label">Select Categories <sup>*</sup></label>
-              <select
-                class="form-select"
-                id="category_id"
-                [(ngModel)]="Courses.category_id"
-                name="category_id"
-                #category="ngModel"
-                required
-              >
+              <select class="form-select" id="category_id" [(ngModel)]="Courses.category_id" name="category_id"
+                #category="ngModel" required>
                 <option value="" disabled selected>Select Categories</option>
-                <option *ngFor="let category of showCategorydata" [value]="category._id">{{ category.category_name }}</option>
+                <option *ngFor="let category of showCategorydata" [value]="category._id">{{ category.category_name }}
+                </option>
               </select>
               <div *ngIf="category.invalid && category.touched" class="text-danger">
                 <small>Select a category.</small>
               </div>
             </div>
-      
+
             <!-- Mode -->
-            <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="online_offline" class="col-form-label">Mode Online/Offline <sup>*</sup></label>
-              <select
-                class="form-select"
-                id="online_offline"
-                [(ngModel)]="Courses.online_offline"
-                name="online_offline"
-                #mode="ngModel"
-                required
-              >
+              <select class="form-select" id="online_offline" [(ngModel)]="Courses.online_offline" name="online_offline"
+                #mode="ngModel" required>
                 <option value="" disabled selected>Select Mode</option>
                 <option value="Online">Online</option>
                 <option value="Offline">Offline</option>
@@ -263,129 +256,89 @@
                 <small>Select a mode.</small>
               </div>
             </div>
-      
+
             <!-- Price -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="price" class="col-form-label">Price <sup>*</sup></label>
-              <input
-                type="text"
-                class="form-control"
-                id="price"
-                [(ngModel)]="Courses.price"
-                name="price"
-                #price="ngModel"
-                required
-                pattern="^[0-9]+$"
-              />
+              <input type="text" class="form-control" id="price" [(ngModel)]="Courses.price" name="price"
+                #price="ngModel" required pattern="^[0-9]+$" />
               <div *ngIf="price.invalid && price.touched" class="text-danger">
                 <small *ngIf="price.errors?.['required']">Price is required.</small>
                 <small *ngIf="price.errors?.['pattern']">Enter a valid price (numbers only).</small>
               </div>
             </div>
-      
+
             <!-- Offer Price -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="offer_prize" class="col-form-label">Offer Price <sup>*</sup></label>
-              <input
-                type="text"
-                class="form-control"
-                id="offer_prize"
-                [(ngModel)]="Courses.offer_prize"
-                name="offer_prize"
-                #offerPrice="ngModel"
-                required
-                pattern="^[0-9]+$"
-              />
+              <input type="text" class="form-control" id="offer_prize" [(ngModel)]="Courses.offer_prize"
+                name="offer_prize" #offerPrice="ngModel" required pattern="^[0-9]+$" />
               <div *ngIf="offerPrice.invalid && offerPrice.touched" class="text-danger">
                 <small *ngIf="offerPrice.errors?.['required']">Offer Price is required.</small>
                 <small *ngIf="offerPrice.errors?.['pattern']">Enter a valid offer price (numbers only).</small>
               </div>
             </div>
-      
+
             <!-- Start Date -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="start_date" class="col-form-label">Start Date <sup>*</sup></label>
-              <input
-                type="date"
-                class="form-control"
-                id="start_date"
-                [(ngModel)]="Courses.start_date"
-                name="start_date"
-                #startDate="ngModel"
-                required
-              />
+              <input type="date" class="form-control" id="start_date" [(ngModel)]="Courses.start_date" name="start_date"
+                #startDate="ngModel" required />
               <div *ngIf="startDate.invalid && startDate.touched" class="text-danger">
                 <small>Start Date is required.</small>
               </div>
             </div>
-      
+
             <!-- End Date -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="end_date" class="col-form-label">End Date <sup>*</sup></label>
-              <input
-                type="date"
-                class="form-control"
-                id="end_date"
-                [(ngModel)]="Courses.end_date"
-                name="end_date"
-                #endDate="ngModel"
-                required
-              />
+              <input type="date" class="form-control" id="end_date" [(ngModel)]="Courses.end_date" name="end_date"
+                #endDate="ngModel" required />
               <div *ngIf="endDate.invalid && endDate.touched" class="text-danger">
                 <small>End Date is required.</small>
               </div>
             </div>
-      
+
             <!-- Start Time -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="start_time" class="col-form-label">Start Time <sup>*</sup></label>
-              <input
-                type="time"
-                class="form-control"
-                id="start_time"
-                [(ngModel)]="Courses.start_time"
-                name="start_time"
-                #startTime="ngModel"
-                required
-              />
+              <input type="time" class="form-control" id="start_time" [(ngModel)]="Courses.start_time" name="start_time"
+                #startTime="ngModel" required />
               <div *ngIf="startTime.invalid && startTime.touched" class="text-danger">
                 <small>Start Time is required.</small>
               </div>
             </div>
-      
+
             <!-- End Time -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="end_time" class="col-form-label">End Time <sup>*</sup></label>
-              <input
-                type="time"
-                class="form-control"
-                id="end_time"
-                [(ngModel)]="Courses.end_time"
-                name="end_time"
-                #endTime="ngModel"
-                required
-              />
+              <input type="time" class="form-control" id="end_time" [(ngModel)]="Courses.end_time" name="end_time"
+                #endTime="ngModel" required />
               <div *ngIf="endTime.invalid && endTime.touched" class="text-danger">
                 <small>End Time is required.</small>
               </div>
             </div>
 
-             <!-- Tags -->
-             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+            <!-- Tags -->
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="tags" class="col-form-label">Tags <sup>*</sup> </label><br>
-              <tag-input 
+              <!-- <tag-input 
                   [(ngModel)]="Courses.tags" 
                   [editable]="true" id="tags" name="tags" 
                   class="border rounded" #tags="ngModel"  required>
+              </tag-input> -->
+              <tag-input [(ngModel)]="Courses.tags" [editable]="true" id="tags" name="tags" [displayBy]="'name'"
+                [identifyBy]="'name'" class="border rounded" #tags="ngModel" required>
               </tag-input>
+
               <small>Type Tag then press Enter button.</small>
               <div *ngIf="tags.invalid && tags.touched" class="text-danger">
-                  Please add at least one Tags.
+                Please add at least one Tags.
               </div>
-          </div>
+            </div>
 
-          
-             <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+
+            <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="tags" class="col-form-label">Tags <sup>*</sup></label>
               <input type="text"  class="form-control" id="tags"
                 [(ngModel)]="Courses.tags" name="tags" #tags="ngModel"  required/>
@@ -398,44 +351,31 @@
               <label for="thumbnail_image" class="col-form-label">Upload Course Image</label><br />
               <input type="file" (change)="onFileSelected($event)" accept="image/*" />
             </div>
-      
+
             <!-- Course Information -->
             <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
               <label for="course_information" class="col-form-label">Course Short Description <sup>*</sup></label>
-              <textarea
-                type="text"
-                class="form-control"
-                id="course_information"
-                [(ngModel)]="Courses.course_information"
-                name="course_information"
-                #courseInfo="ngModel"
-                required
-              ></textarea>
+              <textarea type="text" class="form-control" id="course_information"
+                [(ngModel)]="Courses.course_information" name="course_information" #courseInfo="ngModel"
+                required></textarea>
               <div *ngIf="courseInfo.invalid && courseInfo.touched" class="text-danger">
                 <small>Course Short Description is required.</small>
               </div>
             </div>
-      
-           
-      
+
+
+
             <!-- Course Brief Information -->
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
               <label for="course_brief_info" class="col-form-label">Course Details Description <sup>*</sup></label>
-              <textarea
-                type="text"
-                class="form-control"
-                id="course_brief_info"
-                [(ngModel)]="Courses.course_brief_info"
-                name="course_brief_info"
-                #briefInfo="ngModel"
-                required
-              ></textarea>
+              <textarea type="text" class="form-control" id="course_brief_info" [(ngModel)]="Courses.course_brief_info"
+                name="course_brief_info" #briefInfo="ngModel" required></textarea>
               <div *ngIf="briefInfo.invalid && briefInfo.touched" class="text-danger">
                 <small>Course Details Description is required.</small>
               </div>
             </div>
 
-              <!-- <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
+            <!-- <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
               <label for="gallary_image" class="col-form-label">Upload Gallary Image</label><br />
               <input type="file" name="gallary_image" id="gallary_image" (change)="onFileSelected($event)" />
             </div> -->
@@ -448,18 +388,15 @@
 
 
           </div>
-        </div>
-      
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">Add Course</button>
-        </div>
-      </form>
-      
-      
-      
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">Add Course</button>
+          </div>
+        </form>
+
+
+
       </div>
     </div>
   </div>
 </div>
-

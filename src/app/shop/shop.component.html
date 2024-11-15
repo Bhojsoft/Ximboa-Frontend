@@ -91,11 +91,16 @@
                       <span class="border px-2">{{ rating }}</span>
                   </div>
                   <div class="my-3">
-                      <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
-                          name="review" id="review"></textarea>
+                      <!-- <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
+                          name="review" id="review"></textarea> -->
+                          <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
+                          name="review" id="review" #reviewField="ngModel" required></textarea>
+                          <div *ngIf="reviewField.invalid && (reviewField.touched || reviewForm.submitted)" class="text-danger">
+                            <small *ngIf="reviewField.errors?.['required']">Review is required.</small>
+                          </div>
                   </div>
                   <div>
-                      <button type="submit" class="btn btnq" [disabled]="!reviewForm.valid">Submit you'r Review</button>
+                      <button type="submit" class="btn btnq">Submit you'r Review</button>
                   </div>
               </form>
           </div>

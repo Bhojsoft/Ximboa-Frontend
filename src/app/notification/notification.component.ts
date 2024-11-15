@@ -15,7 +15,7 @@ export class NotificationComponent implements OnInit {
   readNotifications: any[] = [];  // Read notifications
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 100;
+  itemsPerPage = 7;
   p: number = 1;
 
   notificationsToDisplay: any[] = []; // Notifications to display
