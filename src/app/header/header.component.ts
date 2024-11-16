@@ -1,4 +1,4 @@
-import { Component, Query } from '@angular/core';
+import { ChangeDetectorRef, Component, Query } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Observable } from 'rxjs';
@@ -65,6 +65,7 @@ export class HeaderComponent {
     private requst: LoginService,
     private dservice: DashboardService,
     private service: TrainerService,
+    private cdr: ChangeDetectorRef,
     private router: ActivatedRoute) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.user$ = this.authService.user$;
@@ -80,7 +81,8 @@ export class HeaderComponent {
 
   ngOnInit(): void {
 
-    this.checkUserRole();
+      this.checkUserRole();
+
     this.dservice.getcategoryname().subscribe(data => {
       this.Showcategorydata = data;
     });
@@ -447,7 +449,7 @@ export class HeaderComponent {
     console.log('isUser:', this.isUser);
   }
 
-
+ 
   onRoleChange() {
     console.log('Selected Role:', this.role.requested_Role);
   }

@@ -93,15 +93,17 @@
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="address2" class="col-form-label">Address Line 2</label>
-            <input type="text" class="form-control" id="address2" formControlName="address2" required>
+            <label for="address2" class="col-form-label">Address Line 2 </label>
+            <input type="text" class="form-control" id="address2" formControlName="address2">
+            
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <label for="recipient-name" class="col-form-label">Pincode <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="pincode" required>
+            <input type="text" class="form-control" id="recipient-name" formControlName="pincode" maxlength="6" required>
             <div *ngIf="myForm.get('pincode')?.invalid && (myForm.get('pincode')?.touched || myForm.get('pincode')?.dirty)" class="text-danger">
               <small *ngIf="myForm.get('pincode')?.errors?.['required']">Pincode is required.</small>
+              <small *ngIf="myForm.get('pincode')?.errors?.['maxlength']">Pincode is 6 Digit.</small>
             </div>
           </div>
       
@@ -213,41 +215,7 @@
             </div>
         </div>
     </form>
-    
-    
-        <!-- <form (ngSubmit)="onEducation()">
-        <div class="12">
-            <h2>Educational Information</h2>
-        </div>
-       <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="school" class="col-form-label">School Name</label>
-             <input type="text" class="form-control" id="school" [(ngModel)]="education.school" name="school">  
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="college" class="col-form-label">College Name</label>
-             <input type="text" class="form-control" id="college" [(ngModel)]="education.college" name="college">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="degree" class="col-form-label">Degree</label>
-             <input type="text" class="form-control" id="degree" [(ngModel)]="education.degree" name="degree">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="university" class="col-form-label">University Name</label>
-             <input type="text" class="form-control" id="university" [(ngModel)]="education.university" name="university">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="other_details" class="col-form-label">Other Details</label>
-             <input type="text" class="form-control" id="other_details" [(ngModel)]="education.other_details" name="other_details">    
-        </div>
-       
-        <div class="d-flex align-items-center justify-content-between">
-            <button (click)="previousRow()" class="btn nextbtn">Back</button>
-            <button type="submit" class="btn submitbtn">Submit</button>
-            <button (click)="nextRow()" class="btn nextbtn">Next</button>
-        </div>
-    </div>
-    </form> -->
+  
     </div>
 
     <div *ngIf="currentRow === 2" class="row mt-4">

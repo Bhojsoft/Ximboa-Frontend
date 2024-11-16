@@ -86,7 +86,7 @@
           <div class="row">
             <!-- Product Name -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="product_name" class="col-form-label">Product Name:</label>
+              <label for="product_name" class="col-form-label">Product Name<sup>*</sup></label>
               <input class="form-control" type="text" id="product_name" [(ngModel)]="product.product_name"
                 name="product_name" required #productName="ngModel" />
               <div *ngIf="productName.invalid && productName.touched" class="text-danger">
@@ -96,7 +96,7 @@
         
             <!-- Product Prize -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="product_prize" class="col-form-label">Product Prize:</label>
+              <label for="product_prize" class="col-form-label">Product Prize<sup>*</sup></label>
               <input class="form-control" type="number" id="product_prize" [(ngModel)]="product.product_prize"
                 name="product_prize" required #productPrize="ngModel" />
               <div *ngIf="productPrize.invalid && productPrize.touched" class="text-danger">
@@ -106,7 +106,7 @@
         
             <!-- Product Selling Prize -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="product_selling_prize" class="col-form-label">Product Selling Prize:</label>
+              <label for="product_selling_prize" class="col-form-label">Product Selling Prize<sup>*</sup></label>
               <input class="form-control" type="number" id="product_selling_prize" [(ngModel)]="product.product_selling_prize"
                 name="product_selling_prize" required #productSellingPrize="ngModel" />
               <div *ngIf="productSellingPrize.invalid && productSellingPrize.touched" class="text-danger">
@@ -116,7 +116,7 @@
         
             <!-- Category Selection -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="categoryid" class="col-form-label">Select Categories</label>
+              <label for="categoryid" class="col-form-label">Select Categories<sup>*</sup></label>
               <select class="form-select" id="categoryid" [(ngModel)]="product.categoryid" name="categoryid" required #categoryId="ngModel">
                 <option selected disabled>Select Categories</option>
                 <option *ngFor="let category of showCategorydata" [value]="category._id">
@@ -151,7 +151,7 @@
         
             <!-- Product Short Info -->
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-              <label for="products_info" class="col-form-label">Product Short Information:</label>
+              <label for="products_info" class="col-form-label">Product Short Information<sup>*</sup></label>
               <textarea class="form-control" id="products_info" [(ngModel)]="product.products_info" name="products_info"
                 required #productshortinfo="ngModel"></textarea>
               <div *ngIf="productshortinfo.invalid && productshortinfo.touched" class="text-danger">
@@ -161,7 +161,7 @@
         
             <!-- Product Description -->
             <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-              <label for="products_description" class="col-form-label">Product Details Information:</label>
+              <label for="products_description" class="col-form-label">Product Details Information<sup>*</sup></label>
               <textarea class="form-control" id="products_description" [(ngModel)]="product.products_description"
                 name="products_description" required #productdetailinfo="ngModel"></textarea>
               <div *ngIf="productdetailinfo.invalid && productdetailinfo.touched" class="text-danger">
