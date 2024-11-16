@@ -10,7 +10,7 @@ export class TrainerService {
  private  Trainer_APIURL ="http://13.203.89.189/api/trainerbyid";
 
   private APIURL = "http://13.203.89.189/api";
-
+  private apiUrl = 'http://13.203.89.189/api/event/get/my-registered-events';
 
 
   constructor(private http:HttpClient) { }
@@ -87,6 +87,10 @@ export class TrainerService {
         return this.http.put<any>(`${this.APIURL}/event/${_id}`,formData)
       }
 
+      getRegisteredEvents(): Observable<any> {
+        return this.http.get<any>(this.apiUrl);
+      }
+
   // *************** Product API *****************
       addProduct(productData: FormData): Observable<any> {
         return this.http.post(`${this.APIURL}/product`, productData);
@@ -110,6 +114,11 @@ export class TrainerService {
         return this.http.delete<any>(`${this.APIURL}/enquiries/${_id}`)
       }    
 
+
+      GetEnquiry(page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/enquiries/trainer?page=${page}&limit=${limit}`);
+       }
+
   // *************** Appointment *****************
       deleteAppointmentbyID(_id: string):Observable<any>{
         return this.http.delete<any>(`${this.APIURL}/appointment/${_id}`);
@@ -126,4 +135,8 @@ export class TrainerService {
       getprofile(id:string):Observable<any>{
         return this.http.get<any>(`${this.APIURL}/trainerbyid/${id}`);
       }
+
+      GetAppointment(page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/appointment/trainer?page=${page}&limit=${limit}`);
+       }
 }

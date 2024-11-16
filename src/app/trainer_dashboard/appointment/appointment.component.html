@@ -15,8 +15,8 @@
             </tr>
             </thead>
             <tbody *ngIf="showAppointmentData && showAppointmentData.length > 0">
-                <tr *ngFor="let Apmt of showAppointmentData">
-                    <td>Sagar Singh</td>
+                <tr *ngFor="let Apmt of showAppointmentData | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }">
+                    <td>{{Apmt.user_name}}</td>
                     <td>{{Apmt.date}}</td>
                     <td>{{Apmt.time}}</td>
                     <td><button (click)="onDelete(Apmt._id)" class="btn btn-primary">Delete</button></td>
@@ -26,7 +26,7 @@
                 <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
             </div>
         </table>
-        
+        <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
     </div>
     </div>
 </div>

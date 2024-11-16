@@ -15,7 +15,7 @@ export class EventComponent  implements OnInit{
   showeventdata:any;
   showCategorydata:any;
   selectedFile: File | null = null;
-
+  showeventdatastudent:any[]=[];
 
   showIcon = false;
   toggleIcon() {
@@ -73,6 +73,11 @@ export class EventComponent  implements OnInit{
         // console.log("data",data)
         this.showCategorydata = data;
       });
+
+      this.service.getRegisteredEvents().subscribe((result:any) =>{
+        console.log("Show My Events",result);
+        this.showeventdatastudent = result.data;      
+      })
   }
 
   
