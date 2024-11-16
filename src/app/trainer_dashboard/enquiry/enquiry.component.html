@@ -14,9 +14,9 @@
             </tr>
             </thead>
             <tbody *ngIf="showenquirydata && showenquirydata.length > 0">
-                <tr *ngFor="let enquiry of showenquirydata">
-                    <td>Sagar Singh</td>
-                    <td>24/07/2024</td>
+                <tr *ngFor="let enquiry of showenquirydata | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }">
+                    <td>{{enquiry.user_name}}</td>
+                    <td>{{enquiry.date}}</td>
                     <td>{{enquiry.description}}</td>
                     <td><button (click)="onDelete(enquiry._id)" class="btn btn-primary">Delete</button></td>
                 </tr>
@@ -27,4 +27,5 @@
         </table>
     </div>
     </div>
+    <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
 </div>
