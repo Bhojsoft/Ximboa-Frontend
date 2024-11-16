@@ -322,11 +322,6 @@
             <!-- Tags -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="tags" class="col-form-label">Tags <sup>*</sup> </label><br>
-              <!-- <tag-input 
-                  [(ngModel)]="Courses.tags" 
-                  [editable]="true" id="tags" name="tags" 
-                  class="border rounded" #tags="ngModel"  required>
-              </tag-input> -->
               <tag-input [(ngModel)]="Courses.tags" [editable]="true" id="tags" name="tags" [displayBy]="'name'"
                 [identifyBy]="'name'" class="border rounded" #tags="ngModel" required>
               </tag-input>
