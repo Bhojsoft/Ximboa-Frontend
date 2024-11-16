@@ -12,7 +12,7 @@ export class EnquiryComponent implements OnInit {
   p: number = 1;
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 5;
 
   constructor(private service:TrainerService){}
 
@@ -23,7 +23,7 @@ export class EnquiryComponent implements OnInit {
 
     loadAllEnquiry(page: number, limit: number){
       this.service.GetEnquiry(page, limit).subscribe(data => {            
-        this.showenquirydata = data.Enquirys;
+        this.showenquirydata = data.data;
         console.log(this.showenquirydata);
         this.totalItems = data.pagination.totalItems;
       })
@@ -34,7 +34,7 @@ export class EnquiryComponent implements OnInit {
     onDelete(id: string): void {
       Swal.fire({
         title: 'Are you sure?',
-        text: 'Do you want to delete this course? This action cannot be undone!',
+        text: 'Do you want to delete this Enquiry? This action cannot be undone!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
@@ -42,15 +42,15 @@ export class EnquiryComponent implements OnInit {
         if (result.isConfirmed) {
           this.service.deleteEnquiryBYID(id).subscribe(
             response => {
-              Swal.fire('Deleted!','The course has been deleted successfully.','success' );
+              Swal.fire('Deleted!','The Enquiry has been deleted successfully.','success' );
               this.loadAllEnquiry(this.currentPage, this.itemsPerPage);
             },
             error => {
-              Swal.fire('Error!', 'An error occurred while deleting the course.','error');
+              Swal.fire('Error!', 'An error occurred while deleting the Enquiry.','error');
             }
           );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire('Cancelled','The course is safe :)', 'info');
+          Swal.fire('Cancelled','The Enquiry is safe :)', 'info');
         }
       });
     }

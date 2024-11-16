@@ -35,7 +35,7 @@ export class AppointmentComponent implements OnInit {
       onDelete(id: string): void {
         Swal.fire({
           title: 'Are you sure?',
-          text: 'Do you want to delete this course? This action cannot be undone!',
+          text: 'Do you want to delete this Appointment? This action cannot be undone!',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
@@ -43,15 +43,15 @@ export class AppointmentComponent implements OnInit {
           if (result.isConfirmed) {
             this.service.deleteAppointmentbyID(id).subscribe(
               response => {
-                Swal.fire('Deleted!','The course has been deleted successfully.','success' );
+                Swal.fire('Deleted!','The Appointment has been deleted successfully.','success' );
                 this.loadAllAppointment(this.currentPage, this.itemsPerPage);
               },
               error => {
-                Swal.fire('Error!', 'An error occurred while deleting the course.','error');
+                Swal.fire('Error!', 'An error occurred while deleting the Appointment.','error');
               }
             );
           } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled','The course is safe :)', 'info');
+            Swal.fire('Cancelled','The Appointment is safe :)', 'info');
           }
         });
       }

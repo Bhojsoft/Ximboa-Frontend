@@ -16,7 +16,7 @@
             <tbody *ngIf="showenquirydata && showenquirydata.length > 0">
                 <tr *ngFor="let enquiry of showenquirydata | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }">
                     <td>{{enquiry.user_name}}</td>
-                    <td>{{enquiry.date}}</td>
+                    <td>{{enquiry.createdAt}}</td>
                     <td>{{enquiry.description}}</td>
                     <td><button (click)="onDelete(enquiry._id)" class="btn btn-primary">Delete</button></td>
                 </tr>

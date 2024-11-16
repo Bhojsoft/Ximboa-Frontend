@@ -139,4 +139,17 @@ export class TrainerService {
       GetAppointment(page: number, limit: number):Observable<any>{
         return this.http.get<any>(`${this.APIURL}/appointment/trainer?page=${page}&limit=${limit}`);
        }
+
+
+      //  ****************** 	Question ********************* 
+      
+      GetQuestion(page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/questions/trainer?page=${page}&limit=${limit}`);
+       }
+      
+       deleteQuestionBYID(_id: string):Observable<any>{
+        return this.http.delete<any>(`${this.APIURL}/questions/${_id}`)
+      }  
+
+
 }

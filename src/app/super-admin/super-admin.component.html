@@ -101,6 +101,7 @@
         <div class="modal-content" >
             <div class="modal-header">
                 <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Courses</h1> -->
+                <h3 class="info-title text-center">Personal Information</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -113,22 +114,23 @@
                     </div>
 
 
-                    <div class="user-info-card mx-auto mt-4">
-                        <h3 class="info-title text-center mb-4">Personal Information</h3>
-                        <div class="user-detail-section d-flex flex-wrap ">
-                            <div class="info-column">
+                    <div class="user-info-card  mt-4">
+                       
+                        <div class="user-detail-section d-flex flex-wrap  ">
+                            <div class="info-column "style="margin-left: 150px;" >
                                 <p><span class="info-heading">Mobile:</span> {{UserDetailsinfo.mobile_number}}</p>
-                                <p><span class="info-heading">Email:</span>{{UserDetailsinfo.email_id}}</p>
-                                <p><span class="info-heading">Address1:</span>{{UserDetailsinfo.address1}}</p>
+                                <p><span class="info-heading">Email:</span>  {{UserDetailsinfo.email_id}}</p>
+                                <p><span class="info-heading">Address1:</span>  {{UserDetailsinfo.address1}}</p>
                                 <p><span class="info-heading">City:</span> {{UserDetailsinfo.city}}</p>
                                 <p><span class="info-heading">State:</span> {{UserDetailsinfo.state}}</p>
+                                <p><span class="info-heading">Role:</span> {{UserDetailsinfo.requested_Role}}</p>
                             </div>
-                            <div class="info-column">
-                                <p><span class="info-heading">WhatsApp:</span>{{UserDetailsinfo.whatsapp_no}}</p>
+                            <div class="info-column" style="margin-left: 150px;">
+                                <p><span class="info-heading">WhatsApp:</span>  {{UserDetailsinfo.whatsapp_no}}</p>
                                 <p><span class="info-heading">Date of Birth:</span> {{UserDetailsinfo.date_of_birth}}</p>
                                 <p><span class="info-heading">Address2:</span> {{UserDetailsinfo.address2}}</p>
                                 <p><span class="info-heading">Country:</span> {{UserDetailsinfo.country}}</p>
-                                <p><span class="info-heading">Pincode:</span>{{UserDetailsinfo.pincode}}</p>
+                                <p><span class="info-heading">Pincode:</span>  {{UserDetailsinfo.pincode}}</p>
                             </div>
                         </div>
                     </div>
