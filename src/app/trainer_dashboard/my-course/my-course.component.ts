@@ -122,7 +122,7 @@ export class MyCourseComponent implements OnInit {
       next: (response) => {
         Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success')
         this.getallcourses();
-        this.closeModal();
+        bootstrap.Modal.getInstance(document.getElementById('AddcourseModal'))?.hide();
       },
       error: (error) => {
         console.error('Error', error);
@@ -133,35 +133,7 @@ export class MyCourseComponent implements OnInit {
   
   
 
-  //   onsubmit(): void {
-      
-  //   const formData = new FormData();
-  //   for (const key in this.Courses) {
-  //     if (this.Courses.hasOwnProperty(key)) {
-  //       formData.append(key, (this.Courses as any)[key]);
-  //     }
-  //   }
-  //   if (this.thumbnail_image) {
-  //     formData.append('thumbnail_image', this.thumbnail_image);
-  //   }
-
-  //   this.admin.postcoursesdata(formData).subscribe({
-  //     next: (response) => {
-  //       Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success').then(() => {
-  //               // Close the modal
-  //               const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
-  //               if (modalCloseButton) {
-  //                 modalCloseButton.click();
-  //               }
-  //               window.location.reload();               
-  //             });
-  //     },
-  //     error: (error) => {
-  //       console.error("Error", error);
-  //       Swal.fire('Error', 'Please fill the datails', 'error');
-  //     }
-  //   }); 
-  //  }
+ 
 
    onFileSelected(event: any): void {
     this.thumbnail_image = event.target.files[0] || null;
@@ -170,19 +142,6 @@ export class MyCourseComponent implements OnInit {
   
     
 
-    // onDelete(id: string): void {
-    //   this.service.deleteCoursebyID(id).subscribe(
-    //     response => {
-    //       // console.log('Data deleted successfully', response);
-    //       Swal.fire("Course deleted successfully");
-    //       this.getallcourses();
-    //     },
-    //     error => {
-    //       // console.error('Error deleting data', error);
-    //       alert("Error");
-    //     }
-    //   );
-    // }
 
     onDelete(id: string): void {
       Swal.fire({
@@ -208,17 +167,6 @@ export class MyCourseComponent implements OnInit {
       });
     }
     
-
-
-    closeModal() {
-      const modalElement = document.getElementById('AddcourseModal');
-      const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
-      if (modalInstance) {
-        modalInstance.hide(); // Hides the modal
-      }
-    }
-
-
       // conver Rupees K or laks
   getFormattedPrice(price: number): string {
     if (price >= 100000) {
