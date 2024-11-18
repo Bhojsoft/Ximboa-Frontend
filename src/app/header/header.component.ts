@@ -6,6 +6,7 @@ import { LoginService } from '../common_service/login.service';
 import { DashboardService } from '../common_service/dashboard.service';
 import { TrainerService } from '../common_service/trainer.service';
 import Swal from 'sweetalert2';
+import { NgForm } from '@angular/forms';
 
 
 declare var bootstrap: any;
@@ -35,11 +36,28 @@ export class HeaderComponent {
   role = {
     requested_Role: '',
     business_Name: '',
+    address_1:'',
+    mobile_number:'',
+    whatsapp_no:'',
+    date_of_birth:'',
+    address2:'',
+    pincode:'',
+    city:'',
+    state:'',
+    country:'',
   }
 
   institute = {
     business_Name: '',
     address_1: '',
+    mobile_number:'',
+    whatsapp_no:'',
+    date_of_birth:'',
+    address2: '',
+    city:'',
+    state:'',
+    country:'',
+    pincode:'',
   }
 
   TrainerundersInstitute = {
@@ -335,7 +353,22 @@ export class HeaderComponent {
     this.route.navigate(['/']);
   }
 
-  onSubmit() {
+  onSubmit(form: NgForm) {
+
+    if (!form.valid) {
+      // If the form is not valid, show an error or return early
+      Swal.fire('Form Invalid', 'Please fill out all required fields.', 'error');
+      return;
+    }
+
+    if (this.role.requested_Role === 'SELF_EXPERT') {
+      this.markAllTouched(form, ['business_Name']);
+    } else if (this.role.requested_Role === 'INSTITUTE') {
+      this.markAllTouched(form, ['business_Name', 'mobileNo', 'address_1', 'address_2', 'state', 'contry', 'pincode']);
+    } else if (this.role.requested_Role === 'TRAINER') {
+      this.markAllTouched(form, ['instituteId']);
+    }
+    
     if (this.role.requested_Role === 'INSTITUTE') {
       this.addinstitute();
     }
@@ -347,20 +380,15 @@ export class HeaderComponent {
     }
   }
 
-  // sendRequest(){
-
-  //   this.requst.postrequest(this.role).subscribe({
-  //     next : (response) =>{
-  //       // alert("Request Sent For Self Expert.!!!");
-  //       Swal.fire('Congratulations..!', 'Your request has been successfully submitted to the admin. You can expect access to the Self Expert role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.', 'success');
-  //       // window.location.reload();
-  //     },
-  //     error: (error)=>{
-  //       console.log(alert("Error"),error);
-  //     }
-  //   })
-
-  // }
+  markAllTouched(form: NgForm, fields: string[]) {
+    fields.forEach(field => {
+      const control = form.controls[field];
+      if (control) {
+        control.markAsTouched();
+        control.updateValueAndValidity();
+      }
+    });
+  }
 
 
   sendRequest() {
@@ -376,7 +404,6 @@ export class HeaderComponent {
       error: (error) => {
         console.error("Error:", error);
 
-        // Check for specific error message and status code in the nested error response
         if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
           Swal.fire(
             'Request Already Submitted',
@@ -384,7 +411,6 @@ export class HeaderComponent {
             'error'
           );
         } else {
-          // Show a generic error message for other cases
           Swal.fire(
             'Request Failed',
             'An unexpected error occurred. Please try again later.',
@@ -417,7 +443,6 @@ export class HeaderComponent {
       error: (error) => {
         console.error("Error:", error);
 
-        // Check for specific error message and status code in the nested error response
         if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
           Swal.fire(
             'Request Already Submitted',
@@ -425,7 +450,6 @@ export class HeaderComponent {
             'error'
           );
         } else {
-          // Show a generic error message for other cases
           Swal.fire(
             'Request Failed',
             'An unexpected error occurred. Please try again later.',

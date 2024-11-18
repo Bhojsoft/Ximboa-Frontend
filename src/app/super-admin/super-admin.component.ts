@@ -29,17 +29,13 @@ export class SuperAdminComponent  implements OnInit{
         }
       });
 
-       this.getallrequest();
+      this.getallrequest();
 
-       this.role.getroleApprovedrequest().subscribe(result =>{
-          this.getapprovedrequest = result.data;
-          console.log(result,"approved"); 
-       });
+      this.getallApprovalreuest();
 
-       this.role.getRejectRequest().subscribe(result =>{
-        this.getRejectedrequest = result.data;
-        console.log(result,"Rejected"); 
-     });
+      this.getAllRejectRequest();
+
+      
 
 
     }
@@ -51,32 +47,89 @@ export class SuperAdminComponent  implements OnInit{
       })
     }
 
+    getallApprovalreuest(){
+      this.role.getroleApprovedrequest().subscribe(result =>{
+        this.getapprovedrequest = result.data;
+        console.log(result,"approved"); 
+     });
+    }
+
+    getAllRejectRequest(){
+      this.role.getRejectRequest().subscribe(result =>{
+        this.getRejectedrequest = result.data;
+        console.log(result,"Rejected"); 
+     });
+    }
+
+
+  // handleApproval(userid: string, approved: number) {
+  //   const data = { userid, approved };
+  //   console.log("view data", data);
     
-
-
-  //   handleApproval(userid: string, approved: number) {
-  //     const data = { userid, approved };
-  //     console.log("view data",data)
-  //     this.role.RoleChange(data).subscribe(response => {
-  //         alert("Role Has been Changed.!!!")
-  //     });
+  //   this.role.RoleChange(data).subscribe(response => {
+  //     if (data.approved === 1) {
+  //       console.log("check approved",approved);
+  //       Swal.fire('Request Approved','The user’s role has been successfully updated.','success');
+  //       this.getallrequest();
+  //     } else if (data.approved === 0) {
+  //       Swal.fire('Request Rejected','The user’s request has been successfully deleted.','success');
+  //       this.getallrequest();
+  //     }
+  //   });
   // }
 
   handleApproval(userid: string, approved: number) {
     const data = { userid, approved };
     console.log("view data", data);
     
-    this.role.RoleChange(data).subscribe(response => {
-      if (data.approved === 1) {
-        console.log("check approved",approved);
-        Swal.fire('Request Approved','The user’s role has been successfully updated.','success');
+    if (data.approved === 0) {
+      // Add confirmation dialog before rejection
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you really want to reject this request? This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reject it',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // User confirmed, proceed with the rejection logic
+          this.role.RoleChange(data).subscribe(response => {
+            Swal.fire('Request Rejected', 'The user’s request has been successfully deleted.', 'success');
+            this.getallrequest();
+            this.getallApprovalreuest();
+          });
+        }
+      });
+    } else if (data.approved === 1) {
+      this.role.RoleChange(data).subscribe(response => {
+        console.log("check approved", approved);
+        Swal.fire('Request Approved', 'The user’s role has been successfully updated.', 'success');
         this.getallrequest();
-      } else if (data.approved === 0) {
-        Swal.fire('Request Rejected','The user’s request has been successfully deleted.','success');
-        this.getallrequest();
-      }
-    });
+        this.getAllRejectRequest();
+      });
+    }
   }
+  
+
+  
+    // Swal.fire({
+    //   title: 'Are you sure?',
+    //   text: 'Do you want to delete this Category? This action cannot be undone!',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
+    // }).then(data.approved === 0) {
+    //   Swal.fire('Request Rejected','The user’s request has been successfully deleted.','success');
+    //   this.getallrequest();
+    //   } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //     Swal.fire('Cancelled','The category is safe :)', 'info');
+    //   }
+    // });
+  
+  
+
+  
   
 
 UserDetails() {

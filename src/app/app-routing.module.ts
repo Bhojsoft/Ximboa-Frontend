@@ -54,7 +54,8 @@ const routes: Routes = [
   // Routing For Super Admin Dashboard
   { path: "superadmin", component: SuperAdminComponent },
   { path: "reset-password",component:ResetPasswordComponent},
-  { path: "editcategory/:_id", component: EditCategoryComponent },
+  // { path: "editcategory/:_id", component: EditCategoryComponent },
+  { path: "editcategory/:_id",component:EditCategoryComponent},
   { path: "Notification", component: NotificationComponent },
   { path: "editprofilepicture", component: EditProfilePictureComponent },
 
