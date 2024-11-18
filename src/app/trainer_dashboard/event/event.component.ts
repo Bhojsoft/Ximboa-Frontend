@@ -4,6 +4,8 @@ import { AuthServiceService } from 'src/app/common_service/auth-service.service'
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
+declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-event',
@@ -39,20 +41,23 @@ export class EventComponent  implements OnInit{
   }
 
   event = {
-    event_name: ' ',
-    event_type: ' ',
-    event_category: ' ',
+    event_name: '',
+    event_type: '',
+    event_category: '',
     event_info:'',
-    event_description:' ',
-    event_date:' ',
-    event_start_time: ' ',
-    event_end_time: ' ',
-    event_location:' ',
-     event_languages: '',
-    estimated_seats:' ',
+    event_description:'',
+    event_date:'',
+    event_start_time: '',
+    event_end_time: '',
+    event_location:'',
+    event_languages: '',
+    estimated_seats:'',
 
     event_thumbnail:null,
   };
+
+  formSubmitted: boolean = false;
+
 
   constructor(private service:TrainerService, private admin:AdminService, private auth: AuthServiceService){}
 
@@ -64,10 +69,7 @@ export class EventComponent  implements OnInit{
       
     this.checkUserRole();
 
-      this.service.gettrainerdatabyID().subscribe(data=>{
-        // console.log(data);
-        this.showeventdata = data.eventsWithThumbnailUrl;
-      });
+    this.LoadMyEvent();
 
       this.admin.getcategorydata().subscribe( data =>{
         // console.log("data",data)
@@ -80,8 +82,21 @@ export class EventComponent  implements OnInit{
       })
   }
 
-  
-  onSubmit() {
+      LoadMyEvent(){
+        this.service.gettrainerdatabyID().subscribe(data=>{
+          // console.log(data);
+          this.showeventdata = data.eventsWithThumbnailUrl;
+        });
+      }
+      
+  onSubmit(eventForm: any) {
+
+    this.formSubmitted = true;
+    if (eventForm.invalid) {
+      Swal.fire('Validation Error', 'Please ensure all required fields are filled out correctly before submitting.', 'warning');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('event_name', this.event.event_name.trim());
     formData.append('event_type', this.event.event_type.trim());
@@ -103,7 +118,8 @@ export class EventComponent  implements OnInit{
     this.service.AddEvent(formData).subscribe({
       next: (response) => {
         Swal.fire('Ohh...!', 'Event Added Successfully..!', 'success');
-        window.location.reload();
+        this.LoadMyEvent();        
+        bootstrap.Modal.getInstance(document.getElementById('AddEventModal'))?.hide();
       },
       error: (error) => {
         console.error("Error:", error);
@@ -112,20 +128,28 @@ export class EventComponent  implements OnInit{
     });
   }
   
-  
-
   onDelete(id: string): void {
-    this.service.deleteEvent(id).subscribe(
-      response => {
-        // console.log('Data deleted successfully', response);
-        alert("Event deleted successfully");
-        window.location.reload();
-      },
-      error => {
-        // console.error('Error deleting data', error);
-        alert("Error");
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this Event? This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.deleteEvent(id).subscribe(
+          response => {
+            Swal.fire('Deleted!','The event has been deleted successfully.','success' );
+            this.LoadMyEvent();
+          },
+          error => {
+            Swal.fire('Error!', 'An error occurred while deleting the course.','error');
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled','The event is safe :)', 'info');
       }
-    );
-
+    });
   }
+  
 }

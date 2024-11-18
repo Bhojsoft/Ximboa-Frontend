@@ -85,7 +85,6 @@ export class ProductComponent implements OnInit {
 
 
 
-
   onSubmit(productForm: any) {
 
     this.formSubmitted = true;

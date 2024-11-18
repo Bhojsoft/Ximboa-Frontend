@@ -99,10 +99,10 @@ export class EdittrainerComponent implements OnInit {
   ngOnInit(): void {
     this.checkUserRole();
     this.myForm = this.fromb.group({
-      f_Name: [' '],
-      l_Name: [' '],
-      email_id: [' '],
-      mobile_number: [' '],
+      f_Name: [''],
+      l_Name: [''],
+      email_id: [''],
+      mobile_number: [''],
       trainer_image: [''],
       date_of_birth: [''],
       whatsapp_no: [''],
