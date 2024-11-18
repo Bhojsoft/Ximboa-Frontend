@@ -140,7 +140,10 @@ export class MyCourseComponent implements OnInit {
   
    }
   
-    
+   showcourseName = false;
+   truncatecourseName(name: string): string {
+    return name.length > 18 ? name.slice(0, 12) + '...' : name;
+  }
 
 
     onDelete(id: string): void {

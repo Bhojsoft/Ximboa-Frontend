@@ -223,18 +223,38 @@
 }
 
 /* Tablet view (between 576px and 768px) */
-@media (min-width: 576px) and (max-width: 768px) {
+@media (min-width: 576px) and (max-width: 1024px) {
   .galleryimg > img {
-    height: 95px !important; /* Fixed height */
-    width: 114px !important; /* Fixed width */
+    height: auto !important; /* Maintain natural height */
+    width: auto !important; /* Maintain natural width */
   }
 }
 
 /* Larger screens (768px and up) */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .galleryimg > img {
     height: 95px !important; /* Fixed height */
     width: 114px !important; /* Fixed width */
   }
 }
 
+
+
+.trainer-name-container {
+  position: relative;
+  display: inline-block;
+}
+
+.full-name {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  font-size: small;
+  padding: 5px;
+  z-index: 1;
+}
+
+.trainer-name-container:hover .full-name {
+  display: block;
+}

@@ -1,9 +1,9 @@
 <div class="container-fluid" style="background-color: var(--bodyColor);">
     <div class="row ">
 
-        <div class="col-lg-2 rounded-end pt-1 sidebarlgscreen" >
-            <div class="ms-2 rounded" style="background-color: var(--WhiteColor);">
-            <ul class="list ">
+        <div class="col-lg-2 rounded-end pt-1 sidebarlgscreen me-0 pe-0" >
+            <div class="rounded" style="background-color: var(--WhiteColor);">
+            <ul class="list ps-4 pt-2 pb-3">
                 <!-- Dashboard: Visible to USER, TRAINER, ADMIN -->
                 <li *ngIf="isUser" routerLink="/trainer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class=" " style="margin-top: 10px !important;">
                     <i class="fa-solid fa-house pt-2" ></i> Home

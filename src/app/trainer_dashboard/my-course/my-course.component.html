@@ -26,8 +26,14 @@
               <img routerLink="/couserenroll/{{allcourses._id}}" src="{{allcourses.thumbnail_image}}"
                 class="card-img-top img-fluid" alt="...">
               <div class="card-body ">
-                <div class="d-flex align-items-center justify-content-between">
-                  <h5 class="card-title">{{allcourses.course_name}}</h5>
+                <div class="d-flex align-items-center trainer-name-container justify-content-between">
+                  <h5 class="card-title  text-capitalize"
+                   (mouseenter)="showcourseName = true"
+                    (mouseleave)="showcourseName = false">
+                    {{ truncatecourseName(allcourses.course_name) }}
+                  </h5>
+                  <h5 *ngIf="showcourseName" class="card-title full-name rounded"
+                    style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
                   <small>{{allcourses.online_offline}}</small>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">

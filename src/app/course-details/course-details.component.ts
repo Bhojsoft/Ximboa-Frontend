@@ -28,7 +28,7 @@ export class CourseDetailsComponent implements OnInit {
   currentPageOfflineEvents: number = 1;
   currentPageProducts: number = 1;
 
-  itemsPerPage: number = 3; 
+  itemsPerPage: number = 2; 
 
   constructor(private serive:TrainerService,private router:ActivatedRoute,private authService:AuthServiceService,
     private dashboard:DashboardService,private loginservices:LoginService,private route:Router)
@@ -434,4 +434,22 @@ export class CourseDetailsComponent implements OnInit {
   }
   
   
+  showcourseName = false;
+  truncatecourseName(name: string): string {
+   return name.length > 18 ? name.slice(0, 16) + '...' : name;
+ }
+ showbusinessName = false;
+ trunbusinessName(name: string): string { 
+  return name.length > 18 ? name.slice(0, 18) + '...' : name;
+}
+  
+showupcommingName = false;
+truncateupcomingName(name: string): string {
+ return name.length > 18 ? name.slice(0, 16) + '...' : name;
+}
+showupcommingbusinessName = false;
+trunupcommingbusinessName(name: string): string { 
+return name.length > 18 ? name.slice(0, 18) + '...' : name;
+}
+
 }
