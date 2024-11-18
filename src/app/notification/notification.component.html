@@ -28,22 +28,19 @@
           <!-- Buttons Section -->
           <div class="d-flex gap-3 mt-3 mt-sm-0">
             <!-- Button to show all notifications -->
-            <button class="btn btn-sm" style="color: var(--WhiteColor); background-color: var(--btndarkColor);" (click)="showAllNotifications()">All</button>
+            <button (click)="loadNotifications(currentPage, itemsPerPage)" class="btn btn-sm" style="color: var(--WhiteColor); background-color: var(--btndarkColor);" >All</button>
             
             <!-- Button to show only unread notifications -->
-            <button class="btn btn-sm" style="color: var(--WhiteColor); background-color: var(--btndarkColor);" (click)="showUnreadNotifications()">Unread</button>
-            
-            <!-- Button to mark all as completed -->
-            <!-- <button class="btn btn-sm" style="color: var(--WhiteColor); background-color: var(--TextColor);" (click)="markAllNotificationsAsSeen()">Mark all as completed</button> -->
+            <button (click)="showUnreadNotifications()" class="btn btn-sm" style="color: var(--WhiteColor); background-color: var(--btndarkColor);" >Unread</button>            
           </div>
         </div>
       </div>
       
       <section class="p-3 rounded">
         <!-- Display all notifications -->
-        <div *ngFor="let Data of notificationsToDisplay | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" 
+        <div *ngFor="let Data of Shownotification | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" 
              class="row mb-3 border rounded shadow-sm p-3 align-items-center" 
-             (click)="toggleNotificationSeen(Data._id, Data.isSeen)" style="cursor: pointer;">
+             (click)="markNotificationAsSeen(Data._id)" style="cursor: pointer;">
           <div class="col-12 col-md-9">
             <h6 class="m-0" [ngClass]="{'text-muted': Data.isSeen, 'fw-bold': !Data.isSeen}" style="color: var(--btndarkColor);">
               {{ Data.activityType }}
@@ -64,7 +61,6 @@
             </div>
           </div>
         </div>
-  
         <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
       </section>
     </div>

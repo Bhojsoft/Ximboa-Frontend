@@ -17,7 +17,6 @@ export class LoginService {
 
     private APIURL ="http://13.203.89.189/api/notifications";
   
-    private apiUrl = 'http://13.203.89.189/api/notifications/view/'; 
 
     private unseen = 'http://13.203.89.189/api'
    
@@ -69,33 +68,42 @@ export class LoginService {
     return this.http.get<any>(`${this.institute}/get-institutes`);
    }
 
-   Notification(page: number, limit: number):Observable<any>{
+  Notification(page: number, limit: number):Observable<any>{
     let headers = new HttpHeaders()
     .set("Authorization", `Bearer ${sessionStorage.getItem('Authorization')}`)
     return this.http.get<any>(`${this.APIURL}/unseen?page=${page}&limit=${limit}`,{headers});
   }
+
+
+  showunseennotification(page: number, limit: number):Observable<any>{
+    return this.http.get<any>(`${this.APIURL}/Allunseen?page=${page}&limit=${limit}`);
+  }
+
   // Method to update the notification status
-  updateNotificationStatus(notificationId: string, isSeen: boolean): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}${notificationId}`, { isSeen });
+  // updateNotificationStatus(notificationId: string): Observable<any> {
+  //   return this.http.put<any>(`${this.APIURL}/view/${notificationId}`);
+  // }
+
+  updateNotificationStatus(notificationId: string): Observable<any> {
+    return this.http.put<any>(`${this.APIURL}/view/${notificationId}`,{});
   }
+
   // Mark all notifications as seen
-  markAllNotificationsAsSeen() {
-    return this.http.put<any>(`${this.APIURL}/markAllNotificationsAsSeen`, {});
-  }
+  // markAllNotificationsAsSeen() {
+  //   return this.http.put<any>(`${this.APIURL}/markAllNotificationsAsSeen`, {});
+  // }
+
+
 
   unseenNotification():Observable<any>{
     return this.http.get<any>(`${this.unseen}/notifications/unseen-count`)
   }
 
+  // Show User Details when Super Admin view
   getuserdetail(id:string):Observable<any>{
     return this.http.get<any>(`${this.unseen}/registration/get-user-info/${id}`)
   }
 
- 
-  
+
 }
-  // getcouserdata(page: number, limit: number):Observable<any>{
-  //   return this.http.get<any>(`${this.beforelogin}/allcourses?page=${page}&limit=${limit}`)
-  // }
-
-
+ 

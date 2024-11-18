@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ChartComponent } from "ng-apexcharts";
 import { ApexNonAxisChartSeries, ApexResponsive, ApexChart, ApexAxisChartSeries, ApexXAxis, ApexDataLabels, ApexTooltip, ApexStroke } from "ng-apexcharts";
+import { AuthServiceService } from 'src/app/common_service/auth-service.service';
 
 export type DonutChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -28,6 +29,14 @@ export type AreaChartOptions = {
   styleUrls: ['./trainer-myhome.component.css']
 })
 export class TrainerMyhomeComponent implements OnInit {
+
+
+  isTrainer: boolean = false;
+  isUser: boolean = false;
+  isAdmin: boolean = false;
+  isInstitute: boolean = false;
+  isSELF_EXPERT: boolean = false
+
   showDashboardata: any;
 
   @ViewChild("donutChart") donutChart!: ChartComponent;
@@ -39,7 +48,8 @@ export class TrainerMyhomeComponent implements OnInit {
   constructor(
     private service: DashboardService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth: AuthServiceService
   ) {
     // Initialize Donut Chart Options
   // Initialize chartOptions with default values
@@ -107,6 +117,9 @@ export class TrainerMyhomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.checkUserRole();
+
     this.service.getDashboardData().subscribe(result => {
       console.log(result);
       this.showDashboardata = result;
@@ -138,5 +151,18 @@ export class TrainerMyhomeComponent implements OnInit {
         console.error('Error fetching profile', error);
       }
     );
+  }
+
+  checkUserRole() {
+    const role = this.auth.getUserRole();
+    console.log('User Role:', role);
+
+    this.isAdmin = role === 'SUPER_ADMIN';
+    this.isTrainer = role === 'TRAINER';
+    this.isInstitute = role === 'INSTITUTE';
+    this.isSELF_EXPERT = role == 'SELF_EXPERT'; 
+    this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'INSTITUTE' || role === 'SELF_EXPERT';
+
+    console.log("user fetch role",'isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
   }
 }
