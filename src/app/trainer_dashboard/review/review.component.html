@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <div *ngIf="showReview && showReview.length > 0">
-        <div *ngFor="let review of showReview | paginate: { itemsPerPage: 4, currentPage: p}" class="row g-0 border rounded mb-4 p-3">
+        <div *ngFor="let review of showReview | paginate: { itemsPerPage: 4, currentPage: p}" class="row g-0 border rounded mb-4 p-3 mt-2">
             <div class="d-flex justify-content-between">
                 <div class="d-flex gap-3">
                     <img src="{{review.trainer_image}}" class="img-resize" alt="">

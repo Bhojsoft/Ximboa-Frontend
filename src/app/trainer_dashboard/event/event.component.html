@@ -90,9 +90,9 @@
                   <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px" width="30px" alt="">
                   <label class="p-2 border rounded-circle"> +35</label>
                 </div>
-                <div class="d-flex align-items-center justify-content-between mt-2">
-                  <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
-                  <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                  <!-- <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button> -->
+                  <button routerLink="/eventdetails/{{Event._id}}" class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
                 </div>
               </div>
               <i routerLink="/editevent/{{ Event._id }}" *ngIf="showIcon" class="fa-solid fa-edit right-side-top"></i>
@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!showeventdata || showeventdata.length === 0" class="col-12 text-center">
+      <div *ngIf="!showeventdatastudent || showeventdatastudent.length === 0" class="col-12 text-center">
         <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
     </div>
     </mat-tab>

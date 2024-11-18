@@ -58,6 +58,15 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
       });
     }
     
+
+    showcourseName = false;
+    truncatecourseName(name: string): string {
+     return name.length > 18 ? name.slice(0, 12) + '...' : name;
+   }
+   showbusinessName = false;
+  trunbusinessName(name: string): string {
+   return name.length > 18 ? name.slice(0, 13) + '...' : name;
+ }
     
 
     loadCourseDetails(id: string): void {

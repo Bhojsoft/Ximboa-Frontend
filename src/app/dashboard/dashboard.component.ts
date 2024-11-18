@@ -32,6 +32,22 @@ export class DashboardComponent implements OnInit {
     return name.length > 18 ? name.slice(0, 15) + '...' : name;
   }
 
+  showcourseName = false;
+   truncatecourseName(name: string): string {
+    return name.length > 18 ? name.slice(0, 10) + '...' : name;
+  }
+  showbusinessName = false;
+  trunbusinessName(name: string): string {
+   return name.length > 18 ? name.slice(0, 15) + '...' : name;
+ }
+ 
+ showeventName = false;
+ truneventName(name: string): string {
+  return name.length > 18 ? name.slice(0, 3) + '...' : name;
+}
+
+
+
   showFullcategorytitle = false;
   truncatecategorytitle(name: string): string {
     return name.length > 40 ? name.slice(0, 35) + '...' : name;
