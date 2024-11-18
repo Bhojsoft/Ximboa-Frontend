@@ -399,7 +399,7 @@
 <!-- Modal -->
 <div class="modal" id="exampleModalExpert" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog"
   aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl ">
     <div class="modal-content p-4">
       <!-- <form (ngSubmit)="onSubmit()" >
         <div class="modal-body">
@@ -473,6 +473,7 @@
         <div class="modal-body">
 
           <!-- Role Selection -->
+           <div class="col-sm-12 col-md-6 col-lg-6">
           <label for="roleSelect">Select Role<sup>*</sup></label>
           <select class="form-select" aria-label="Default select example" [(ngModel)]="role.requested_Role"
             name="requested_Role" (change)="onRoleChange()" #roleSelect="ngModel" required>
@@ -485,10 +486,11 @@
             [ngClass]="{'text-danger': roleSelect.errors?.['required']}">
             Role is required
           </small>
+        </div>
 
           <!-- SELF_EXPERT Fields -->
-          <div *ngIf="role.requested_Role === 'SELF_EXPERT'" class="mt-2">
-            <div class="form-group mb-2">
+          <div *ngIf="role.requested_Role === 'SELF_EXPERT'" class="row mt-3">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="business_Name">Business Name<sup>*</sup></label>
               <input type="text" id="business_Name" class="form-control" name="business_Name"
                 [(ngModel)]="role.business_Name" required>
@@ -498,7 +500,7 @@
                 <small *ngIf="form.controls['business_Name']?.errors?.['required']">Business Name is required</small>
               </div>
             </div>
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="whatsapp_no">Whatsapp No<sup>*</sup></label>
               <input type="text" id="whatsapp_no" class="form-control" name="whatsapp_no" [(ngModel)]="role.whatsapp_no"
                 required>
@@ -508,7 +510,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="date_of_birth">Date of Birth<sup>*</sup></label>
               <input type="date" id="date_of_birth" class="form-control" name="date_of_birth" [(ngModel)]="role.date_of_birth"
                 required>
@@ -518,7 +520,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="address_1">Address Line 1<sup>*</sup></label>
               <input type="text" id="address_1" class="form-control" name="address_1" [(ngModel)]="role.address_1"
                 required>
@@ -528,7 +530,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="address2">Address Line 2<sup>*</sup></label>
               <input type="text" id="address2" class="form-control" name="address2" [(ngModel)]="role.address2"
                 required>
@@ -538,7 +540,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="city">State<sup>*</sup></label>
               <input type="text" id="city" class="form-control" name="city" [(ngModel)]="role.city" required>
               <div *ngIf="form.submitted || form.controls['city']?.touched || form.controls['city']?.dirty"
@@ -547,7 +549,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="state">State<sup>*</sup></label>
               <input type="text" id="state" class="form-control" name="state" [(ngModel)]="role.state" required>
               <div *ngIf="form.submitted || form.controls['state']?.touched || form.controls['state']?.dirty"
@@ -556,7 +558,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="country">Country<sup>*</sup></label>
               <input type="text" id="country" class="form-control" name="country" [(ngModel)]="role.country" required>
               <div *ngIf="form.submitted || form.controls['country']?.touched || form.controls['country']?.dirty"
@@ -565,7 +567,7 @@
               </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
               <label for="pincode">Pincode<sup>*</sup></label>
               <input type="text" id="pincode" class="form-control" name="pincode" [(ngModel)]="role.pincode"
                 required>
@@ -577,7 +579,8 @@
           </div>
 
           <!-- INSTITUTE Fields -->
-          <div *ngIf="role.requested_Role === 'INSTITUTE'" class="mt-2">
+          <div *ngIf="role.requested_Role === 'INSTITUTE'" class="row mt-3">
+            <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="business_Name">INSTITUTE Name<sup>*</sup></label>
               <input type="text" id="business_Name" class="form-control" name="business_Name"
@@ -588,7 +591,9 @@
                 <small *ngIf="form.controls['business_Name']?.errors?.['required']">Institute Name is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="mobile_number">Mobile No<sup>*</sup></label>
               <input type="text" id="mobile_number" class="form-control" name="mobile_number" [(ngModel)]="institute.mobile_number"
@@ -598,7 +603,9 @@
                 <small *ngIf="form.controls['mobile_number']?.errors?.['required']">Mobile No is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="whatsapp_no">Whatsapp No<sup>*</sup></label>
               <input type="text" id="whatsapp_no" class="form-control" name="whatsapp_no" [(ngModel)]="institute.whatsapp_no"
@@ -608,7 +615,9 @@
                 <small *ngIf="form.controls['whatsapp_no']?.errors?.['required']">Mobile No is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="date_of_birth">Date of Birth<sup>*</sup></label>
               <input type="date" id="date_of_birth" class="form-control" name="date_of_birth" [(ngModel)]="institute.date_of_birth"
@@ -618,7 +627,9 @@
                 <small *ngIf="form.controls['date_of_birth']?.errors?.['required']">Mobile No is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="address_1">Address Line 1<sup>*</sup></label>
               <input type="text" id="address_1" class="form-control" name="address_1" [(ngModel)]="institute.address_1"
@@ -628,7 +639,9 @@
                 <small *ngIf="form.controls['address_1']?.errors?.['required']">Address Line 1 is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="address2">Address Line 2<sup>*</sup></label>
               <input type="text" id="address2" class="form-control" name="address2" [(ngModel)]="institute.address2"
@@ -638,7 +651,9 @@
                 <small *ngIf="form.controls['address2']?.errors?.['required']">Address Line 2 is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="city">City<sup>*</sup></label>
               <input type="text" id="city" class="form-control" name="city" [(ngModel)]="institute.city" required>
@@ -647,7 +662,9 @@
                 <small *ngIf="form.controls['city']?.errors?.['required']">State is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="state">State<sup>*</sup></label>
               <input type="text" id="state" class="form-control" name="state" [(ngModel)]="institute.state" required>
@@ -656,7 +673,9 @@
                 <small *ngIf="form.controls['state']?.errors?.['required']">State is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="country">Country<sup>*</sup></label>
               <input type="text" id="country" class="form-control" name="country" [(ngModel)]="institute.country" required>
@@ -665,7 +684,9 @@
                 <small *ngIf="form.controls['country']?.errors?.['required']">Country is required</small>
               </div>
             </div>
+          </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6">
             <div class="form-group mb-2">
               <label for="pincode">Pincode<sup>*</sup></label>
               <input type="text" id="pincode" class="form-control" name="pincode" [(ngModel)]="institute.pincode"
@@ -676,9 +697,10 @@
               </div>
             </div>
           </div>
+          </div>
 
           <!-- TRAINER Fields -->
-          <div *ngIf="role.requested_Role === 'TRAINER'" class="mt-2">
+          <div *ngIf="role.requested_Role === 'TRAINER'" class="mt-3">
             <label for="roleSelect">Select Institute<sup>*</sup></label>
             <select class="form-select" aria-label="Default select example"
               [(ngModel)]="TrainerundersInstitute.instituteId" name="instituteId" required>

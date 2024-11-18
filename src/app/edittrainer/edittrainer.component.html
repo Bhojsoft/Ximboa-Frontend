@@ -93,9 +93,11 @@
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="address2" class="col-form-label">Address Line 2 </label>
-            <input type="text" class="form-control" id="address2" formControlName="address2">
-            
+            <label for="address2" class="col-form-label">Address Line 2 <sup>*</sup></label>
+            <input type="text" class="form-control" id="address2" formControlName="address2" required>
+            <div *ngIf="myForm.get('address2')?.invalid && (myForm.get('address2')?.touched || myForm.get('address2')?.dirty)" class="text-danger">
+              <small *ngIf="myForm.get('address2')?.errors?.['required']">Address Line 2 is required.</small>
+            </div>
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
