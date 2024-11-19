@@ -126,12 +126,12 @@ export class TrainerService {
 
    // Function to approve an appointment
   approveAppointment(id: string): Observable<any> {
-    return this.http.put<any>(`http://localhost:1000/api/appointment/${id}/approve`, {});
+    return this.http.put<any>(`${this.APIURL}/appointment/${id}/approve`, {});
   }
 
   // Function to reject an appointment
   rejectAppointment(id: string,rejectionReason: string): Observable<any> {
-    return this.http.put<any>(`http://localhost:1000/api/appointment/${id}/reject`,{ reason: rejectionReason });
+    return this.http.put<any>(`${this.APIURL}/appointment/${id}/reject`,{ reason: rejectionReason });
   }
 
   
