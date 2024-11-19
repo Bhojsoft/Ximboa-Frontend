@@ -253,6 +253,7 @@ export class CourseDetailsComponent implements OnInit {
     trainerid:'',
   }
   postquestion(){
+    
     if (!this.question.question || this.question.question.trim().length < 10) {
       Swal.fire('Sorry', 'Please enter a question that is at least 10 characters long to proceed.', 'warning');
       return;

@@ -20,6 +20,9 @@ export class UsersideProductComponent implements OnInit {
   p: number = 1;
   term:any;
   products: any[] = [];
+
+  currentSortOption: string = '';
+
  
   starsArray: number[] = [1, 2, 3, 4, 5]; // 5 stars total
   searchTerm: string = ''; // New property for search term
@@ -46,6 +49,13 @@ export class UsersideProductComponent implements OnInit {
       this.searchTerm = term;
       console.log('Received search term in UsersideProductComponent:', this.searchTerm);
       this.fetchProducts(); // Fetch products based on search term
+    });
+
+    this.searchService.sortOption$.subscribe(option => {
+      this.currentSortOption = option;
+      console.log('Received Sort Option:', this.currentSortOption);
+      // Apply logic based on the received sort option
+      this.applyFilter();
     });
   }
 
@@ -74,30 +84,31 @@ export class UsersideProductComponent implements OnInit {
     // Start with all products
     this.filteredProducts = this.showproductdata;
 
-    if (this.selectedCategories.length > 0) {
-      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+    if (this.selectedCategories && this.selectedCategories.length > 0) {
+      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories,this.currentSortOption)
         .subscribe(result => {
           console.log("filtered category wise product", result);  
           this.filteredProducts = result.data.filter((product:any) =>
             this.selectedCategories.includes(product.products_category)
           );
           this.totalItems = result.pagination.totalItems;
-        // }, error => {
-        //     console.error('Error fetching category data:', error);
-        //     const selectedCategoryNamesProduct = this.selectedCategories.join(', ');
-        //     alert(`${selectedCategoryNamesProduct} category not found. Showing all Products.`);
-            // Reset to full data if there's an error
-            // this.filteredProducts = this.showproductdata;
-            // this.totalItems = this.filteredProducts.length;
-
         });
     }else {
-      this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
-        this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
-        this.totalItems = data?.pagination.totalItems;
-       
+
+      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
+      .subscribe(result => {
+        console.log("Products with sort option only:", result);
+        this.showproductdata = result.data;
+        this.filteredProducts = this.showproductdata;
+        this.totalItems = result.pagination.totalItems;
       });
-  }
+
+  //     this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
+  //       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
+  //       this.totalItems = data?.pagination.totalItems;
+       
+  //     });
+   }
 }
 
   //  Handle page change for pagination

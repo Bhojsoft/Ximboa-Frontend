@@ -401,6 +401,10 @@
   aria-hidden="true">
   <div class="modal-dialog modal-xl ">
     <div class="modal-content p-4">
+      <div class="text-end">
+        <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Course</h1> -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <!-- <form (ngSubmit)="onSubmit()" >
         <div class="modal-body">
           <label for="exampleFormControlInput1" class="form-label">Select Expert Type</label>
@@ -506,7 +510,7 @@
                 required>
               <div *ngIf="form.submitted || form.controls['whatsapp_no']?.touched || form.controls['whatsapp_no']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['whatsapp_no']?.errors?.['required']">Mobile No is required</small>
+                <small *ngIf="form.controls['whatsapp_no']?.errors?.['required']">Whatsapp No is required</small>
               </div>
             </div>
 
@@ -541,11 +545,11 @@
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6 form-group mb-2">
-              <label for="city">State<sup>*</sup></label>
+              <label for="city">City<sup>*</sup></label>
               <input type="text" id="city" class="form-control" name="city" [(ngModel)]="role.city" required>
               <div *ngIf="form.submitted || form.controls['city']?.touched || form.controls['city']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['city']?.errors?.['required']">State is required</small>
+                <small *ngIf="form.controls['city']?.errors?.['required']">City is required</small>
               </div>
             </div>
 
@@ -573,7 +577,7 @@
                 required>
               <div *ngIf="form.submitted || form.controls['pincode']?.touched || form.controls['pincode']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['pincode']?.errors?.['required']">Zip-code is required</small>
+                <small *ngIf="form.controls['pincode']?.errors?.['required']">Pincode is required</small>
               </div>
             </div>
           </div>
@@ -612,7 +616,7 @@
                 required>
               <div *ngIf="form.submitted || form.controls['whatsapp_no']?.touched || form.controls['whatsapp_no']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['whatsapp_no']?.errors?.['required']">Mobile No is required</small>
+                <small *ngIf="form.controls['whatsapp_no']?.errors?.['required']">Whatsapp No is required</small>
               </div>
             </div>
           </div>
@@ -624,7 +628,7 @@
                 required>
               <div *ngIf="form.submitted || form.controls['date_of_birth']?.touched || form.controls['date_of_birth']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['date_of_birth']?.errors?.['required']">Mobile No is required</small>
+                <small *ngIf="form.controls['date_of_birth']?.errors?.['required']">Date of Birth is required</small>
               </div>
             </div>
           </div>
@@ -659,7 +663,7 @@
               <input type="text" id="city" class="form-control" name="city" [(ngModel)]="institute.city" required>
               <div *ngIf="form.submitted || form.controls['city']?.touched || form.controls['city']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['city']?.errors?.['required']">State is required</small>
+                <small *ngIf="form.controls['city']?.errors?.['required']">City is required</small>
               </div>
             </div>
           </div>
@@ -693,7 +697,7 @@
                 required>
               <div *ngIf="form.submitted || form.controls['pincode']?.touched || form.controls['pincode']?.dirty"
                 class="text-danger">
-                <small *ngIf="form.controls['pincode']?.errors?.['required']">Zip-code is required</small>
+                <small *ngIf="form.controls['pincode']?.errors?.['required']">Pincode is required</small>
               </div>
             </div>
           </div>

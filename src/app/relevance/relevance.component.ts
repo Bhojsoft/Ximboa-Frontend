@@ -15,6 +15,7 @@ export class RelevanceComponent implements OnInit {
   filteredCategoryData: any[] = [];  
   selectedCategories: string[] = [];
   category: string = '';
+  selectedSortOption: string = 'Sort By';
 
   inputPlaceholder: string = 'Search';
 
@@ -125,6 +126,13 @@ export class RelevanceComponent implements OnInit {
     const searchTerm = event.target.value;
     console.log('Search Term:', searchTerm);  // Log search term
     this.searchService.changeSearchData(searchTerm);  // Update the search term in the service
+  }
+
+  onSortOptionChange(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.selectedSortOption = selectedValue;
+    console.log('Selected Sort Option:', this.selectedSortOption);
+    this.searchService.setSortOption(this.selectedSortOption);
   }
   
 }
