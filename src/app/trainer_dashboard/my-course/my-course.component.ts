@@ -145,6 +145,15 @@ export class MyCourseComponent implements OnInit {
     return name.length > 18 ? name.slice(0, 12) + '...' : name;
   }
 
+  showcourse1Name = false;
+  truncatecourseName1(name: string): string {
+   return name.length > 18 ? name.slice(0, 12) + '...' : name;
+ }
+
+ showbusinessName = false;
+ trunbusinessName(name: string): string {
+  return name.length > 18 ? name.slice(0, 13) + '...' : name;
+}
 
     onDelete(id: string): void {
       Swal.fire({

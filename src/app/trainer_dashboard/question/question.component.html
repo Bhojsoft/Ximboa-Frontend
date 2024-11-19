@@ -11,7 +11,9 @@
                         <th scope="col">User Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Question</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile Number</th>
+                        <!-- <th scope="col" class="text-center">Action</th> -->
                     </tr>
                 </thead>
                 <tbody *ngIf="ShowQuestion && ShowQuestion.length > 0">
@@ -19,14 +21,16 @@
                         <td>{{ question.user_name }}</td>
                         <td>{{ question.createdAt  }}</td>
                         <td style="word-break: break-word;">{{ question.question }}</td>
-                        <td class="text-center">
+                        <td>{{ question.email_id}}</td>
+                        <td>{{ question.mobile_number }}</td>
+                        <!-- <td class="text-center">
                             <button 
                                 (click)="onDelete(question._id)" 
                                 class="btn btn-primary btn-sm d-md-inline d-block mx-auto"
                                 style="min-width: 80px;">
                                 Delete
                             </button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>

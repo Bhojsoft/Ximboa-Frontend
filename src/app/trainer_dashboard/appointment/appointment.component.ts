@@ -13,6 +13,9 @@ export class AppointmentComponent implements OnInit {
       totalItems = 0;
       currentPage = 1;
       itemsPerPage = 10;
+
+      rejectionReason: string = ''; // To store the rejection reason
+      selectedAppointmentId: string = ''; // To store the selected appointment ID for rejection
       
       constructor(private service:TrainerService){}
 
@@ -51,10 +54,14 @@ export class AppointmentComponent implements OnInit {
               }
             );
           } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire('Cancelled','The Appointment is safe :)', 'info');
+            Swal.fire('Cancelled','The Appointment is safe :', 'info');
           }
         });
       }
+
+      // onApprove(){
+      //   Swal.fire('confirmed','The Appointment is Approve :', 'success');
+      // }
 
 
 
@@ -63,4 +70,49 @@ export class AppointmentComponent implements OnInit {
         this.p = page;
         this.loadAllAppointment(this.currentPage, this.itemsPerPage); 
       }
+
+      rejectAppointment(appointmentId: string): void {
+        this.selectedAppointmentId = appointmentId;
+        console.log("select APMT ID",appointmentId);
+        
+      }
+    
+      // Submit the rejection with the reason
+      submitRejection(): void {
+        if (this.rejectionReason) {
+          this.service.rejectAppointment(this.selectedAppointmentId, this.rejectionReason).subscribe(
+            (response) => {
+              console.log('Appointment rejected', response);
+              Swal.fire('Rejected','The Appointment is Rejected :', 'success');
+              this.loadAllAppointment(this.currentPage, this.itemsPerPage);
+              this.rejectionReason = '';
+              this.selectedAppointmentId = '';
+            },
+            (error) => {
+              console.error('Error rejecting appointment', error);
+            }
+          );
+        }
+      }
+
+      
+      
+    
+
+
+      approveAppointment(id: string): void {
+        this.service.approveAppointment(id).subscribe(
+          (response) => {
+            Swal.fire('Confirmed', 'The appointment has been approved.', 'success');
+            console.log(response);
+          },
+          (error) => {
+            console.error(error);
+            Swal.fire('Error', 'There was an issue approving the appointment.', 'error');
+          }
+        );
+      }
+
+      
+
 }

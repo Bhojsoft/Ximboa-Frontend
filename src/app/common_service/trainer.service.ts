@@ -124,11 +124,23 @@ export class TrainerService {
         return this.http.delete<any>(`${this.APIURL}/appointment/${_id}`);
       }
 
+   // Function to approve an appointment
+  approveAppointment(id: string): Observable<any> {
+    return this.http.put<any>(`http://localhost:1000/api/appointment/${id}/approve`, {});
+  }
+
+  // Function to reject an appointment
+  rejectAppointment(id: string,rejectionReason: string): Observable<any> {
+    return this.http.put<any>(`http://localhost:1000/api/appointment/${id}/reject`,{ reason: rejectionReason });
+  }
+
+  
   // *************** Appointment *****************
 
       deletequestionbyID(_id: string):Observable<any>{
         return this.http.delete<any>(`${this.APIURL}/${_id}`);
       }
+
 
 
   // ****************** Trainer Profile *********************    
