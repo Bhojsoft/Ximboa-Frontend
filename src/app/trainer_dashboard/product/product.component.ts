@@ -154,4 +154,10 @@ export class ProductComponent implements OnInit {
   }
 
 
+  showproductName = false;
+trunproductName(name: string): string {
+ return name.length > 18 ? name.slice(0, 3) + '...' : name;
+}
+
+
 }
