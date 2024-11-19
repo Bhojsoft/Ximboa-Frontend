@@ -32,8 +32,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allcourses?page=${page}&limit=${limit}`)
           }
 
-          getcouserdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/filter/courses?categories=${categories}&page=${page}&limit=${limit}`);
+          getcouserdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/filter/courses?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
           gethomedatauser(page: number, limit: number):Observable<any>{
@@ -56,8 +56,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allproduct?page=${page}&limit=${limit}`);
            }
 
-           getproductdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/product/filter/product?categories=${categories}&page=${page}&limit=${limit}`);
+           getproductdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/product/filter/product?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
            productdatabyID(id:any):Observable<any>{
@@ -72,8 +72,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allevents?page=${page}&limit=${limit}`);
            }
 
-           getEventdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/event/filter/event?categories=${categories}&page=${page}&limit=${limit}`);
+           getEventdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/event/filter/event?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
            EventdatabyID(id:any):Observable<any>{

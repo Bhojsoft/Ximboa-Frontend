@@ -21,6 +21,9 @@ export class UserEventComponent implements OnInit {
   p: number = 1;    
   term:any;
   searchTerm: string = ''; // New property for search term
+  currentSortOption: string = '';
+
+
   constructor(private Dservice: DashboardService, private filter: FilterService, private http: HttpClient, private searchService: SearchService) { }
 
   ngOnInit(): void {
@@ -38,6 +41,13 @@ export class UserEventComponent implements OnInit {
       this.searchTerm = term;
       console.log('Received search term in UserEventComponent:', this.searchTerm);
       this.fetchEvents(); // Fetch events based on search term
+    });
+
+    this.searchService.sortOption$.subscribe(option => {
+      this.currentSortOption = option;
+      console.log('Received Sort Option:', this.currentSortOption);
+      // Apply logic based on the received sort option
+      this.filterEvents();
     });
   }
 
@@ -69,8 +79,8 @@ export class UserEventComponent implements OnInit {
   filterEvents(): void {
     this.filteredEvent = this.showeventdata;
 
-    if (this.selectedCategories.length > 0) {
-      this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+    if (this.selectedCategories && this.selectedCategories.length > 0) {
+      this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories,this.currentSortOption)
         .subscribe(result => {
           console.log("filtered category wise Events", result);  
           this.filteredEvent = result.data.filter((event:any) =>
@@ -86,11 +96,20 @@ export class UserEventComponent implements OnInit {
         //     this.totalItems = this.filteredEvent.length;
         });
     }else {
-        this.Dservice.Eventdata(this.currentPage, this.itemsPerPage).subscribe(Response => {
-        console.log(Response);
-        this.showeventdata = Response.data;
-        this.totalItems = Response.pagination.totalItems;
+
+      this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
+      .subscribe(result => {
+        console.log("Events with sort option only:", result);
+        this.showeventdata = result.data;
+        this.filteredEvent = this.showeventdata;
+        this.totalItems = result.pagination.totalItems;
       });
+
+      //   this.Dservice.Eventdata(this.currentPage, this.itemsPerPage).subscribe(Response => {
+      //   console.log(Response);
+      //   this.showeventdata = Response.data;
+      //   this.totalItems = Response.pagination.totalItems;
+      // });
     }
     
 

@@ -9,6 +9,13 @@ export class SearchService {
   private searchData = new BehaviorSubject<string>('');  // This will store the search term
   currentSearchData = this.searchData.asObservable();
 
+  private sortOptionSubject = new BehaviorSubject<string>('Sort By');
+  sortOption$ = this.sortOptionSubject.asObservable();
+
+  setSortOption(option: string): void {
+    this.sortOptionSubject.next(option);
+  }
+
   constructor() {}
 
   changeSearchData(data: string) {
