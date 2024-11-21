@@ -46,6 +46,11 @@ export class DashboardComponent implements OnInit {
   return name.length > 18 ? name.slice(0, 3) + '...' : name;
 }
 
+showproductName = false;
+trunproductName(name: string): string {
+ return name.length > 18 ? name.slice(0, 3) + '...' : name;
+}
+
 
 
   showFullcategorytitle = false;

@@ -104,6 +104,7 @@ export class AppointmentComponent implements OnInit {
         this.service.approveAppointment(id).subscribe(
           (response) => {
             Swal.fire('Confirmed', 'The appointment has been approved.', 'success');
+            this.loadAllAppointment(this.currentPage, this.itemsPerPage);
             console.log(response);
           },
           (error) => {

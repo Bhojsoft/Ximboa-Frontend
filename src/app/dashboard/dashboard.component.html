@@ -389,7 +389,7 @@
             <img src="{{product.productImage}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"  alt="..." >
             <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
             <span class="onproducthoverflag rounded px-2">{{product.identityFlag}}</span>
-            <div class="card-body text-center mb-0 pt-0">
+            <div class="card-body text-center mb-0 pt-0 trainer-name-container">
               <div class="d-flex align-items-center justify-content-between mt-1">
                 <p class="m-0 p-0 text-end w-25"></p>
                 <div class="w-50 text-center">
@@ -400,7 +400,13 @@
                 </div>
                 <small class="m-0 p-0 text-end w-25">{{product.productFlag || "virtual"}}</small>
               </div>
-              <h5 class="card-title">{{product.productName}}</h5>
+              <h5 class="card-title  text-capitalize" 
+              (mouseenter)="showproductName = true" 
+              (mouseleave)="showproductName = false">
+              {{ trunproductName(product.productName) }}
+            </h5>
+           <p *ngIf="showproductName" class=" full-name rounded" style="font-size: 13px;" >{{product.productName }}</p>
+              <!-- <h5 class="card-title">{{product.productName}}</h5> -->
               <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.categoryName}}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
