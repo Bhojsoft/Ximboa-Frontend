@@ -116,8 +116,8 @@ export class ShopComponent {
       })
     }
     else {
-      console.log(quantity);
-      console.log(productId);
+      // console.log(quantity);
+      // console.log(productId);
       sessionStorage.setItem('productId',productId);
       sessionStorage.setItem('quantity',quantity.toString());
             
@@ -127,6 +127,14 @@ export class ShopComponent {
         modal.show();
       }
     }
+  }
+
+  register() {
+    const productId=this.id; 
+    this.dservice.registerProduct(productId).subscribe({
+      // next: (response) => console.log('Product registered successfully:', response),
+      // error: (error) => console.error('Error registering product:', error),
+    });
   }
 
 

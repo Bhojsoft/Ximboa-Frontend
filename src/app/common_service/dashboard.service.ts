@@ -132,6 +132,10 @@ export class DashboardService {
             return this.http.post<any>(`${this.API_URL}/appointment`,data)
           }
 
+          registerProduct(id: string): Observable<any> {
+            return this.http.post(`${this.API_URL}/product/registerproduct`, id);
+          }
+
           Addtocart(cart:{productId:any, quantity:any}):Observable<any>{
             return this.http.post<any>(`${this.API_URL}/cart/add`,cart)
           }

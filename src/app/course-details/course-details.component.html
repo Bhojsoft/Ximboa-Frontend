@@ -117,18 +117,18 @@
         </h5>
       </div>
       <div class="d-flex align-items-center gap-3">
-        <i class="fa-solid fa-user card-user"></i>
+        <i class="fa-solid fa-user card-user"> </i>
         <h6 class="mt-1 text-capitalize"> {{showprofile.trainer?.f_Name + " " + showprofile.trainer?.l_Name}} </h6>
       </div>
 
-      <div>
-        <span style="border:solid 1px black;padding: 0px 8px 0px 8px;">5</span> &nbsp;
-        <span class="fa fa-star fs-6 checked"></span>
-        <span class="ms-2 fa fa-star fs-6 checked"></span>
-        <span class="ms-2 fa fa-star fs-6 checked"></span>
-        <span class="ms-2 fa fa-star fs-6 "></span>
-        <span class="ms-2 fa fa-star fs-6 "></span>&nbsp;
-        <!-- <span>{{showprofile.reviews.length}}</span> -->
+      <div class="d-flex align-items-center gap-2">
+        <span class="border" style="padding: 0px 5px;">{{showprofile.trainer?.ratings}}</span> 
+        <span>
+      <ng-container *ngFor="let star of starsArray; let i = index">
+        <i class="fa-solid fa-star"
+          [ngStyle]="{ 'color': i < (showprofile.trainer?.ratings ) ? '#FFAE06' : '#d3d3d3' }"></i>
+      </ng-container>
+    </span>
       </div>
 
       <div>
@@ -394,7 +394,7 @@
                   </h5>
                   <h5 *ngIf="showcourseName" class="card-title full-name rounded"
                     style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
-                  <small>{{allcourses.online_offline || 'N/A'}}</small>
+                  <small>{{allcourses.online_offline }}</small>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center gap-2  trainer-name-container">
@@ -407,13 +407,13 @@
                     <p *ngIf="showbusinessName" class=" full-name rounded" style="font-size: 13px; margin-top: 79px;">
                       {{allcourses.business_Name }}</p>
                   </div>
-                  <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                  <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
                   </p>
                 </div>
-                <button class="left-side-top rounded-pill">{{allcourses.category_name ||'N/A'}}</button>
+                <button class="left-side-top rounded-pill">{{allcourses.category_name }}</button>
               </div>
               <div class="card-footer d-flex align-items-center justify-content-between">
-                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
                 <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
                   getFormattedPrice(allcourses.course_price) }}</p>
               </div>
@@ -445,7 +445,7 @@
                   </h5>
                   <h5 *ngIf="showupcommingName" class="card-title full-name rounded"
                     style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
-                  <small>{{allcourses.online_offline || 'N/A'}}</small>
+                  <small>{{allcourses.online_offline }}</small>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center gap-2  trainer-name-container">
@@ -458,13 +458,13 @@
                     <p *ngIf="showupcommingbusinessName" class=" full-name rounded"
                       style="font-size: 13px; margin-top: 79px;">{{allcourses.business_Name }}</p>
                   </div>
-                  <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                  <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
                   </p>
                 </div>
-                <button class="left-side-top rounded-pill">{{allcourses.category_name ||'N/A'}}</button>
+                <button class="left-side-top rounded-pill">{{allcourses.category_name }}</button>
               </div>
               <div class="card-footer d-flex align-items-center justify-content-between">
-                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
                 <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
                   getFormattedPrice(allcourses.course_price) }}</p>
               </div>
@@ -620,10 +620,10 @@
                   <div class="w-50 text-center">
                     <ng-container *ngFor="let star of starsArray; let i = index">
                       <i class="fa-solid fa-star"
-                        [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"></i>
+                        [ngStyle]="{ 'color': i < (product.products_rating ) ? '#FFAE06' : '#d3d3d3' }"></i>
                     </ng-container>
                   </div>
-                  <small class="m-0 p-0 text-end w-25">{{product.product_flag || "virtual"}}</small>
+                  <small class="m-0 p-0 text-end w-25">{{product.product_flag }}</small>
                 </div>
                 <h5 class="card-title">{{product.products_name}}</h5>
                 <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.products_category}}</p>
