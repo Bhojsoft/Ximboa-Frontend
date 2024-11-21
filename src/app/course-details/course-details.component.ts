@@ -30,6 +30,11 @@ export class CourseDetailsComponent implements OnInit {
 
   itemsPerPage: number = 2; 
 
+  makeCall() {
+    const phoneNumber = this.showprofile.trainer.mobile_number;
+    window.location.href = `tel:${phoneNumber}`;
+  }
+
   constructor(private serive:TrainerService,private router:ActivatedRoute,private authService:AuthServiceService,
     private dashboard:DashboardService,private loginservices:LoginService,private route:Router)
   {this.id=this.router.snapshot.paramMap.get('id');}

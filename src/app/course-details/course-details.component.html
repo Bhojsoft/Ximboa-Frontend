@@ -56,8 +56,8 @@
 
   <div class="row mt-3 ">
     <div class="table-responsive">
-      <div class="d-flex flex-wrap justify-content-start">
-        <ul class="srolltabs ">
+      <div class="d-flex  justify-content-start">
+        <ul class="srolltabs pe-3">
           <li *ngIf="showprofile?.skills[0]" class="btn btn-sm btn-outline-primary" href="#Skills"
             (click)="scrollToSection($event, 'Skills')" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Skills</li>
@@ -122,7 +122,7 @@
       </div>
 
       <div class="d-flex align-items-center gap-2">
-        <span class="border" style="padding: 0px 5px;">{{showprofile.trainer?.ratings}}</span> 
+        <span class="border rounded" style="padding: 0px 5px;">{{showprofile.trainer?.ratings}}</span> 
         <span>
       <ng-container *ngFor="let star of starsArray; let i = index">
         <i class="fa-solid fa-star"
@@ -148,7 +148,7 @@
 
       </div>
 
-      <div class="d-flex align-items-center gap-2 ">
+      <!-- <div class="d-flex align-items-center gap-2 ">
         <button class="btn btn-phone d-flex align-items-center gap-2"><i class="fa-solid fa-mobile-screen"></i>
           {{showprofile.trainer.mobile_number}}</button>
         <button class="btn border-dark d-flex align-items-center gap-2" (click)="handleWhatsAppClick()"> <i
@@ -169,7 +169,35 @@
             </div>
           </div>
         </div>
+      </div> -->
+
+      <div class="d-flex flex-wrap align-items-center gap-2 responsive-container">
+        <button class="btn btn-phone d-flex align-items-center gap-2" (click)="makeCall()">
+          <i class="fa-solid fa-mobile-screen"></i> {{showprofile.trainer.mobile_number}}
+        </button>
+        <button class="btn border-dark d-flex align-items-center gap-2" (click)="handleWhatsAppClick()">
+          <i class="fa-brands fa-whatsapp fw-bold fs-4" style="color: #30d14e;"></i> WhatsApp
+        </button>
+        <div class="share-wrapper">
+          <button (click)="shareicon()" class="btn share-button">
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+          <div class="share-container">
+            <div *ngIf="showshare" class="share-options gap-4 p-2">
+              <a (click)="shareOnFacebook()" class="share-option p-1">
+                <i class="fab fa-facebook fs-1" style="color: #0976e4;"></i>
+              </a>
+              <a (click)="shareOnWhatsApp()" class="share-option p-1">
+                <i class="fab fa-whatsapp fs-1" style="color: #30d14e;"></i>
+              </a>
+              <a (click)="copyLink()" class="share-option p-1">
+                <i class="fas fa-link fs-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+      
 
       <hr>
 
@@ -197,29 +225,28 @@
 
 
 
-        <div
-          *ngIf="showprofile.Educations[0]?.school && showprofile.Educations[0]?.college && showprofile.Educations[0]?.degree">
+        <div *ngIf="showprofile.Educations[0]?.school && showprofile.Educations[0]?.college && showprofile.Educations[0]?.degree">
           <h5 class="text-color" id="Education">Education</h5>
           <table>
             <tbody>
               <tr *ngIf="showprofile.Educations[0]?.school">
-                <td>School : </td>
+                <th>School : </th>
                 <td>{{showprofile.Educations[0].school}}</td>
               </tr>
               <tr *ngIf="showprofile.Educations[0]?.college">
-                <td>College :</td>
+                <th>College :</th>
                 <td>{{showprofile.Educations[0].college}}</td>
               </tr>
               <tr *ngIf="showprofile.Educations[0]?.degree">
-                <td>Degree :</td>
+                <th>Degree :</th>
                 <td>{{showprofile.Educations[0].degree}}</td>
               </tr>
               <tr *ngIf="showprofile.Educations[0]?.university">
-                <td>University :</td>
+                <th>University :</th>
                 <td>{{showprofile.Educations[0].university}}</td>
               </tr>
               <tr *ngIf="showprofile.Educations[0]?.other_details">
-                <td>Other Deatils : </td>
+                <th>Other Deatils :</th>
                 <td>{{showprofile.Educations[0].other_details}}</td>
               </tr>
             </tbody>
@@ -655,10 +682,10 @@
         <div class="col-sm-12 col-lg-12  pt-2">
           <h5 class="text-color">Reviews & Ratings</h5>
           <div class="d-flex align-items-center gap-3 mt-1">
-            <h6 class="p-2 rounded" style="background-color: var(--btndarkColor);color: white;">4.5</h6>
-            <div>
-              <p class="m-0">{{showreviewdata.length}}</p>
-              <p class="m-0">rating index based on {{showreviewdata.length}} ratings across the web</p>
+            <h6 class="mt-1 p-2 rounded" style="background-color: var(--btndarkColor);color: white;">{{showprofile.trainer?.ratings}}</h6>
+            <div style="font-size: small;">
+              <p class="m-0 p-0">{{showreviewdata.length}} Reviews</p>
+              <p class="m-0 p-0">rating index based on {{showreviewdata.length}} ratings across the web.</p>
             </div>
           </div>
 

@@ -15,12 +15,7 @@
             Update/Delete Product
           </button>
         </div>
-        <!-- <div class="col-sm-12 col-lg-12 d-flex gap-5 justify-content-end ">
-          <button class="btn rounded-pill text-light " data-bs-toggle="modal" data-bs-target="#exampleModal"
-            data-bs-whatever="@mdo" style="background-color: #3078ff;">Add New Product</button>
-          <button (click)="toggleIcon()" class="btn rounded-pill text-light "
-            style="background-color: #F96D63;">Update/Delete Product</button>
-        </div> -->
+     
         <div *ngIf="showproductdata && showproductdata.length > 0"
           class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
           <div *ngFor="let product of showproductdata" class="col-sm-12 col-md-3 col-lg-4 mb-3">
@@ -70,7 +65,7 @@
         </div>
     </mat-tab>
     <mat-tab *ngIf="isUser" label="Purchase Products">
-      <div *ngIf="showproductdata && showproductdatauser"
+      <div *ngIf="showproductdata && showproductdatauser.length > 0"
         class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
         <div *ngFor="let product of showproductdatauser" class="col-sm-12 col-md-3 col-lg-4 mb-3">
           <div class="card productcard">
@@ -85,7 +80,7 @@
                 <div class="w-50 text-center">
                   <ng-container *ngFor="let star of starsArray; let i = index">
                     <i class="fa-solid fa-star"
-                      [ngStyle]="{ 'color': i < (product.products_rating ) ? '#FFAE06' : '#d3d3d3' }"></i>
+                      [ngStyle]="{ 'color': i < (product.product_rating ) ? '#FFAE06' : '#d3d3d3' }"></i>
                   </ng-container>
                 </div>
                 <small class="m-0 p-0 text-end w-25">{{product.product_flag }}</small>
@@ -97,12 +92,12 @@
               {{ trunproductName1(product.product_name) }}
             </h5>
            <p *ngIf="showproductName1" class=" full-name rounded" style="font-size: 13px;" >{{product.product_name }}</p>
-              <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.products_category}}</p>
+              <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.category }}</p>
               <div class="d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
                 <span class="d-flex align-items-center gap-2">
-                  <small class="text-decoration-line-through">₹ {{product.products_price}}</small>
-                  <b>₹ {{product.products_selling_price}}</b>
+                  <small class="text-decoration-line-through">₹ {{product.product_prize }}</small>
+                  <b>₹ {{product.product_selling_prize}}</b>
                 </span>
                 <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
               </div>
@@ -113,10 +108,10 @@
           </div>
         </div>
       </div>
-      <!-- <div *ngIf="!showproductdata || showproductdata.length === 0" class="col-12 text-center">
+      <div *ngIf="!showproductdatauser || showproductdatauser.length === 0" class="col-12 text-center">
         <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
           alt="">
-      </div> -->
+      </div>
 
     </mat-tab>
   </mat-tab-group>

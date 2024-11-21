@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
     product_selling_prize: '',
     categoryid: '',
     product_flag: '',
-    tags: [{ name: '' }],
+    tags: [],
     products_info: '',
     products_description: '',
     product_image: null,
@@ -113,9 +113,9 @@ export class ProductComponent implements OnInit {
     formData.append('products_description', this.product.products_description);
     formData.append('product_flag', this.product.product_flag);
 
-    if (this.product.tags && Array.isArray(this.product.tags)) {
-      const tagsArray = this.product.tags.map(tag => tag.name);  
-      formData.append('tags', JSON.stringify(tagsArray)); 
+    if (Array.isArray(this.product.tags)) {
+      const tagsArray = this.product.tags.map((tag: any) => tag.name); // Extract 'name' from each object
+      formData.append('tags', tagsArray.join(', ')); // Join into a comma-separated string
     }
 
 

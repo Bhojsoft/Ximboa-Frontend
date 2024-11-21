@@ -108,6 +108,7 @@ export class ShopComponent {
       this.dservice.Addtocart(cart).subscribe({
         next: (Response) =>{
           Swal.fire('Ohh...!', 'Added to cart..!', 'success');
+          this.register(productId); // Call register with the product ID
           this.route.navigate(['/cart'])
         },
         error : (error)=>{
@@ -129,11 +130,15 @@ export class ShopComponent {
     }
   }
 
-  register() {
-    const productId=this.id; 
-    this.dservice.registerProduct(productId).subscribe({
-      // next: (response) => console.log('Product registered successfully:', response),
-      // error: (error) => console.error('Error registering product:', error),
+  register(productId: string) {
+    const product = { product_id: productId }; // Corrected to send product ID properly
+    this.dservice.registerProduct(product).subscribe({
+      next: (response) => {
+        console.log('Product registered successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error registering product:', error);
+      }
     });
   }
 

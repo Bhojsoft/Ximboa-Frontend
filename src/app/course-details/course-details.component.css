@@ -20,25 +20,14 @@
   justify-content: center;
   gap: 10px;
 
-  /* ::after{
-    content: '|';
-    margin-left: 15px;
-  } */
 
   li{
-    /* text-decoration: none; */
     list-style: none;
     cursor: pointer;
-    /* padding: 3px 5px; */
-  
   }
 }
 
-/* .srolltabs > li:hover {
-  color: var(--WhiteColor);
-  background-color: var(--TextColor);
-  border-radius: 5px;
-} */
+
 
 .ViewmoreArrow{
   cursor: pointer;

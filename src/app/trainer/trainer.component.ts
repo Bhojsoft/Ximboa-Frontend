@@ -17,7 +17,7 @@ export class TrainerComponent implements OnInit {
   p: number = 1;
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 8; 
+  itemsPerPage = 9; 
   
   constructor(private service: DashboardService, private filter: FilterService,
     private http: HttpClient, private searchService: SearchService
