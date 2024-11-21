@@ -10,13 +10,22 @@
       </ng-template>
         <span class="onproducthoverflag rounded px-2">{{Event.event_flag}}</span>
         <div class="card-body text">
-          <div class="d-flex align-items-center justify-content-between gap-1">
+          <div class="d-flex align-items-center justify-content-between gap-1 trainer-name-container">
             <span>
               <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |  date: 'MMM'}}</label><br>
               <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date |  date: 'dd'}}</span>
             </span>
-            <span>
+            <!-- <span>
               <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
+            </span> -->
+
+            <span class="">
+              <p class="card-title poppins-semibold-italic text-center  text-capitalize"
+                (mouseenter)="showeventName = true" (mouseleave)="showeventName = false">
+                {{ truneventName(Event.event_name) }}
+              </p>
+              <p *ngIf="showeventName" class="card-title full-name rounded" style="font-size: 14px; ">
+                {{Event.event_name}}</p>
             </span>
             <span class="text-center">
               <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>

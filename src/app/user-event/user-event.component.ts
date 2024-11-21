@@ -141,6 +141,11 @@ export class UserEventComponent implements OnInit {
       this.loadEvents(this.currentPage,this.itemsPerPage);
     }
   }
+  showeventName = false;
+  truneventName(name: string): string {
+   return name.length > 14 ? name.slice(0, 12) + '...' : name;
+ }
+
 }
 
 
