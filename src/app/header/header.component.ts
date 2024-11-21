@@ -159,6 +159,7 @@ export class HeaderComponent {
     this.suggestions = [];
 
     if (suggestion.type === 'course') {
+      
       this.route.navigate([`/couserenroll/${suggestion.id}`], {
         // queryParams: {
         //   category: suggestion.category_name || 'defaultCategory',  // For courses
@@ -227,7 +228,7 @@ export class HeaderComponent {
     if (result.Courses) {
       formattedResults.push(...result.Courses.map((course: any) => ({
         type: 'course',
-        name: course.course_name,
+        name: `${course.course_name} (${course.business_Name})`,
         category_name: course.category_name,  // Add category_name for courses
         id: course._id
       })));
@@ -236,7 +237,7 @@ export class HeaderComponent {
     if (result.Products) {
       formattedResults.push(...result.Products.map((product: any) => ({
         type: 'product',
-        name: product.product_name,
+        name: `${product.product_name} (${product.business_Name})`,
         category: product.category,  // categoryid contains category_name
         id: product._id
       })));
