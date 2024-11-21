@@ -124,7 +124,7 @@
                         <ng-container *ngFor="let star of starsArray; let i = index">
                           <i
                             class="fa-solid fa-star"
-                            [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"
+                            [ngStyle]="{ 'color': i < (product.avgRating ) ? '#FFAE06' : '#d3d3d3' }"
                           ></i>
                         </ng-container>
                       </div>
