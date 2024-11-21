@@ -10,7 +10,7 @@
 
     <div class="row my-4 pb-3">
         <!-- Button Group: Flexbox for alignment and spacing -->
-        <div *ngIf="isTrainer || isSELF_EXPERT" class="d-flex flex-wrap  my-3">
+        <div *ngIf="isTrainer || isSELF_EXPERT " class="d-flex flex-wrap  my-3">
             <button routerLink="/trainer/mycourse" class="btn border btn-sm mb-3 px-3 me-3 " style="border-radius: 20px; background-color: #007bff; color: white;">
                 <i class="fa-solid fa-plus px-1"></i>Add Course
             </button>
@@ -21,7 +21,10 @@
                 <i class="fa-solid fa-plus px-1"></i>Add Event
             </button>
         </div>
-    
+
+    </div>
+
+    <div class="row">    
         <!-- Chart Sections: Use responsive grid system for proper alignment on all devices -->
         <div class="col-12 col-md-6 col-lg-7">
             <div id="donutChart" class="text-center ms-5">
@@ -38,6 +41,7 @@
             </div>
         </div>
     </div>
+
     
 
     <div *ngIf="showDashboardata" class="row mt-5">
@@ -51,8 +55,8 @@
                     <div>
                         <p class="mb-0 text-muted">Total Course</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalCourses < 10 ? "0" + showDashboardata.data.totalCourses :
-                                showDashboardata.data.totalCourses }} </h3>
+                            {{showDashboardata.totalCourses < 10 ? "0" + showDashboardata.totalCourses :
+                                showDashboardata.totalCourses }} </h3>
                     </div>
 
                 </div>
@@ -72,8 +76,8 @@
                     <div>
                         <p class="mb-0 text-muted">Total Events</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalEvents <10 ? "0" + showDashboardata.data.totalEvents:
-                                showDashboardata.data.totalEvents }} </h3>
+                            {{showDashboardata.totalEvents <10 ? "0" + showDashboardata.totalEvents:
+                                showDashboardata.totalEvents }} </h3>
                     </div>
                 </div>
                 <hr>
@@ -93,8 +97,8 @@
                     <div>
                         <p class="mb-0 text-muted">Total Products</p>
                         <h3 class="fw-bold">
-                            {{showDashboardata.data.totalProducts <10 ? "0" + showDashboardata.data.totalProducts:
-                                showDashboardata.data.totalProducts }}</h3>
+                            {{showDashboardata.totalProducts <10 ? "0" + showDashboardata.totalProducts:
+                                showDashboardata.totalProducts }}</h3>
                     </div>
 
                 </div>

@@ -52,27 +52,27 @@ export class TrainerMyhomeComponent implements OnInit {
     private auth: AuthServiceService
   ) {
     // Initialize Donut Chart Options
-  // Initialize chartOptions with default values
-  this.chartOptions = {
-    series: [0, 0, 0],  // Placeholder values
-    chart: {
-      type: "donut"
-    },
-    labels: ["Course", "Events", "Products"],
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: "bottom"
+    // Initialize chartOptions with default values
+    this.chartOptions = {
+      series: [0, 0, 0],  // Placeholder values
+      chart: {
+        type: "donut"
+      },
+      labels: ["Course", "Events", "Products"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
           }
         }
-      }
-    ]
-  };
+      ]
+    };
 
     // Initialize Area Chart Options
     this.areaChartOptions = {
@@ -120,38 +120,44 @@ export class TrainerMyhomeComponent implements OnInit {
 
     this.checkUserRole();
 
+    if (this.isAdmin) {
+      this.AdminCount(); // Call AdminCount if the role is SUPER_ADMIN
+    } else {
+      this.loadCount(); // Call loadCount for other roles
+    }
+  }
+  
+
+  loadCount(){
     this.service.getDashboardData().subscribe(result => {
       console.log(result);
-      this.showDashboardata = result;
-
-      // Update chart series with dynamic values
-      if (this.showDashboardata && this.showDashboardata.data) {
+      this.showDashboardata = result.data;
+      if (this.showDashboardata) {
         this.chartOptions.series = [
-          this.showDashboardata.data.totalCourses || 0,
-          this.showDashboardata.data.totalEvents || 0,
-          this.showDashboardata.data.totalProducts || 0
+          this.showDashboardata.totalCourses || 0,
+          this.showDashboardata.totalEvents || 0,
+          this.showDashboardata.totalProducts || 0
         ];
       }
     });
   }
 
-  fetchUserProfile(token: string) {
-    const apiUrl = 'http://localhost:1000/api/linkedin/userinfo';
-    
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-
-    this.http.get(apiUrl, { headers }).subscribe(
-      (response: any) => {
-        console.log(response);
-      },
-      (error) => {
-        console.error('Error fetching profile', error);
-      }
-    );
+  AdminCount(){
+    this.service.getDashboardDataAdmin().subscribe(response =>{
+        this.showDashboardata = response.data;
+        console.log("Admin count" ,response);
+        
+        if (this.showDashboardata ) {
+          this.chartOptions.series = [
+            this.showDashboardata.totalCourses || 0,
+            this.showDashboardata.totalEvents || 0,
+            this.showDashboardata.totalProducts || 0
+          ];
+        }
+    })
   }
+
+  
 
   checkUserRole() {
     const role = this.auth.getUserRole();
@@ -160,9 +166,28 @@ export class TrainerMyhomeComponent implements OnInit {
     this.isAdmin = role === 'SUPER_ADMIN';
     this.isTrainer = role === 'TRAINER';
     this.isInstitute = role === 'INSTITUTE';
-    this.isSELF_EXPERT = role == 'SELF_EXPERT'; 
+    this.isSELF_EXPERT = role == 'SELF_EXPERT';
     this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'INSTITUTE' || role === 'SELF_EXPERT';
 
-    console.log("user fetch role",'isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
+    console.log("user fetch role", 'isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
   }
+
+  // fetchUserProfile(token: string) {
+  //   const apiUrl = 'http://localhost:1000/api/linkedin/userinfo';
+
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //     'Content-Type': 'application/json'
+  //   });
+
+  //   this.http.get(apiUrl, { headers }).subscribe(
+  //     (response: any) => {
+  //       console.log(response);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching profile', error);
+  //     }
+  //   );
+  // }
+
 }
