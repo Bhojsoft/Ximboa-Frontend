@@ -156,6 +156,10 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/dashboard`);
           }
 
+          getDashboardDataAdmin(): Observable<any> {
+            return this.http.get<any>(`http://localhost:1000/api/admin/s/dashboard-counts`);
+          }
+
           GetAllForum(): Observable<any>{
             return this.http.get<any>(`${this.API_URL}/forum`)          
           }
