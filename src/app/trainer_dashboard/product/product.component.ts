@@ -21,7 +21,7 @@ export class ProductComponent implements OnInit {
   isInstitute: boolean = false;
   isAdmin: boolean = false;
 
-
+  showproductdatauser:any;
   showproductdata: any;
   selectedProduct: any;
   showCategorydata: any;
@@ -69,6 +69,7 @@ export class ProductComponent implements OnInit {
 
     this.checkUserRole();
     this.loadproduct();
+    this.loadpurchaseProduct();
 
     this.admin.getcategorydata().subscribe(data => {
       // console.log("data",data)
@@ -81,6 +82,13 @@ export class ProductComponent implements OnInit {
     this.service.gettrainerdatabyID().subscribe(data => {
       this.showproductdata = data?.productsWithFullImageUrl;
     });
+  }
+
+  loadpurchaseProduct(){
+    this.service.getproductdatabyID().subscribe((result:any) =>{
+      console.log("Show My product Data",result);
+      this.showproductdatauser = result.data;      
+    })
   }
 
 
@@ -156,6 +164,10 @@ export class ProductComponent implements OnInit {
 
   showproductName = false;
 trunproductName(name: string): string {
+ return name.length > 18 ? name.slice(0, 3) + '...' : name;
+}
+showproductName1 = false;
+trunproductName1(name: string): string {
  return name.length > 18 ? name.slice(0, 3) + '...' : name;
 }
 

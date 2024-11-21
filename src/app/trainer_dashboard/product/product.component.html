@@ -36,10 +36,10 @@
                   <div class="w-50 text-center">
                     <ng-container *ngFor="let star of starsArray; let i = index">
                       <i class="fa-solid fa-star"
-                        [ngStyle]="{ 'color': i < (product.products_rating || 4) ? '#FFAE06' : '#d3d3d3' }"></i>
+                        [ngStyle]="{ 'color': i < (product.products_rating ) ? '#FFAE06' : '#d3d3d3' }"></i>
                     </ng-container>
                   </div>
-                  <small class="m-0 p-0 text-end w-25">{{product.product_flag || "virtual"}}</small>
+                  <small class="m-0 p-0 text-end w-25">{{product.product_flag }}</small>
                 </div>
                 <!-- <h5 class="card-title">{{product.products_name}}</h5> -->
                 <h5 class="card-title  text-capitalize" 
@@ -70,6 +70,54 @@
         </div>
     </mat-tab>
     <mat-tab *ngIf="isUser" label="Purchase Products">
+      <div *ngIf="showproductdata && showproductdatauser"
+        class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+        <div *ngFor="let product of showproductdatauser" class="col-sm-12 col-md-3 col-lg-4 mb-3">
+          <div class="card productcard">
+            <img src="{{product.product_image}}" routerLink="/productdetails/{{product._id}}"
+              class="card-img-top img-fluid" alt="...">
+            <button routerLink="/productdetails/{{product._id}}" class="btn btn-light rounded onproducthover">Add to
+              cart</button>
+            <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span>
+            <div class="card-body text-center mb-0 pt-0 trainer-name-container">
+              <div class="d-flex align-items-center justify-content-between mt-1">
+                <p class="m-0 p-0 text-end w-25"></p>
+                <div class="w-50 text-center">
+                  <ng-container *ngFor="let star of starsArray; let i = index">
+                    <i class="fa-solid fa-star"
+                      [ngStyle]="{ 'color': i < (product.products_rating ) ? '#FFAE06' : '#d3d3d3' }"></i>
+                  </ng-container>
+                </div>
+                <small class="m-0 p-0 text-end w-25">{{product.product_flag }}</small>
+              </div>
+              <!-- <h5 class="card-title">{{product.products_name}}</h5> -->
+              <h5 class="card-title  text-capitalize" 
+              (mouseenter)="showproductName1 = true" 
+              (mouseleave)="showproductName1 = false">
+              {{ trunproductName1(product.product_name) }}
+            </h5>
+           <p *ngIf="showproductName1" class=" full-name rounded" style="font-size: 13px;" >{{product.product_name }}</p>
+              <p class="text-muted poppins-regular" style="font-size: 12px;">{{product.products_category}}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <i class="fa-solid fa-cart-shopping fs-5" style="color: #417CE8;"></i>
+                <span class="d-flex align-items-center gap-2">
+                  <small class="text-decoration-line-through">₹ {{product.products_price}}</small>
+                  <b>₹ {{product.products_selling_price}}</b>
+                </span>
+                <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
+              </div>
+              <i routerLink="/editproduct/{{product._id}}" *ngIf="showIcon "
+                class="fa-solid fa-edit right-side-top"></i>
+              <i (click)="onDelete(product._id)" *ngIf="showIcon" class="fa-solid fa-trash right-side-top-delete"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div *ngIf="!showproductdata || showproductdata.length === 0" class="col-12 text-center">
+        <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
+          alt="">
+      </div> -->
+
     </mat-tab>
   </mat-tab-group>
 

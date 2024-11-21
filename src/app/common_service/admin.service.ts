@@ -15,7 +15,8 @@ export class AdminService {
 
   private Cousers_API="http://13.203.89.189/api/course";
 
-  private trainer_API="http://13.203.89.189/api/registration"
+  private trainer_API="http://13.203.89.189/api/registration";
+
 
 
 
@@ -52,6 +53,8 @@ export class AdminService {
       updateData(id: string, updatedData: FormData): Observable<any> {
         return this.http.put(`${this.CategoryURL}/update/${id}`, updatedData);
       }
+
+      
 
   // Category API Code End here
 

@@ -108,6 +108,10 @@ export class TrainerService {
         return this.http.put<any>(`${this.APIURL}/product/${_id}`,formData)
       }
 
+      getproductdatabyID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/product/get/my-registered-product`);
+      }
+
   // *************** Enquiry API *****************
 
       deleteEnquiryBYID(_id: string):Observable<any>{

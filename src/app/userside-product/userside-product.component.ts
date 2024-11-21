@@ -161,6 +161,16 @@ export class UsersideProductComponent implements OnInit {
     }
   }
 
+  // showproductName = false;
+  // trunproductName(name: string): string {
+  //  return name.length > 18 ? name.slice(0, 5) + '...' : name;
+  // }
+  showproductName = false;
+  trunproductName(name: string): string {
+    return name.length > 10 ? name.slice(0, 12) + '...' : name;
+  }
+
+  
  
 }
 

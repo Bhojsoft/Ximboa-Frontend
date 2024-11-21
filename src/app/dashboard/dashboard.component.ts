@@ -43,12 +43,12 @@ export class DashboardComponent implements OnInit {
  
  showeventName = false;
  truneventName(name: string): string {
-  return name.length > 18 ? name.slice(0, 3) + '...' : name;
+  return name.length > 14 ? name.slice(0, 12) + '...' : name;
 }
 
 showproductName = false;
 trunproductName(name: string): string {
- return name.length > 18 ? name.slice(0, 3) + '...' : name;
+ return name.length > 10 ? name.slice(0, 3) + '...' : name;
 }
 
 
