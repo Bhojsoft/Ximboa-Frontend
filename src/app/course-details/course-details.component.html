@@ -39,10 +39,10 @@
             class="rounded object-fit-cover img-fluid" alt="Gallery Image">
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  position-relative mb-2" data-bs-toggle="modal"
-          data-bs-target="#gallery">
+          data-bs-target="#gallery" style="cursor: pointer;">
           <img
             [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'"
-            class="rounded object-fit-cover opacity-25 img-fluid" alt="Gallery Image">
+            class="rounded object-fit-cover opacity-25 img-fluid cursor-pointer" alt="Gallery Image" >
           <span class="position-absolute top-50 start-50 translate-middle fw-bold text-dark p-2">View More</span>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg ">
