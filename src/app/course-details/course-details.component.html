@@ -83,15 +83,15 @@
             (click)="scrollToSection($event, 'Testimonials')" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Testimonials</li>
 
-          <li *ngIf="currentBatches.length > 0" class="btn btn-sm btn-outline-primary" href="#Courses"
+          <li *ngIf="AllCourses.length > 0" class="btn btn-sm btn-outline-primary" href="#Courses"
             (click)="scrollToSection($event, 'Courses')" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Courses</li>
 
-          <li *ngIf="onlineEvents.length > 0" class="btn btn-sm btn-outline-primary" href="#Events"
+          <li *ngIf="AllEvents.length > 0" class="btn btn-sm btn-outline-primary" href="#Events"
             (click)="scrollToSection($event, 'Events')" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Events</li>
 
-          <li *ngIf="products.length > 0" class="btn btn-sm btn-outline-primary" href="#Products"
+          <li *ngIf="AllProducts.length > 0" class="btn btn-sm btn-outline-primary" href="#Products"
             (click)="scrollToSection($event, 'Products')" routerLinkActive="active-link"
             [routerLinkActiveOptions]="{exact: true}">Products</li>
 
@@ -144,6 +144,9 @@
               class="fa-brands fa-youtube ms-2 fs-4"></i></a>
           <a class="text-dark" href="{{showprofile.SocialMedias?.Linkdein}}"><i
               class="fa-brands fa-linkedin ms-2 fs-4"></i></a>
+          <a class="text-dark" href="{{showprofile.SocialMedias?.website}}">
+            <i class="fa-solid fa-globe ms-2 fs-4"></i></a>
+              
         </div>
 
       </div>
@@ -406,11 +409,11 @@
 
     <!-- Second Row code start hrer -->
     <div class="col-sm-12 col-lg-7 border-start px-3" id="Courses">
-      <!-- current batches -->
-      <div *ngIf="currentBatches.length > 0" class="pt-3">
-        <h5 class="text-color">Current Batches</h5>
+      <!-- All Courses -->
+      <div *ngIf="AllCourses.length > 0" class="pt-3">
+        <h5 class="text-color">All Courses</h5>
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-          <div *ngFor="let allcourses of currentBatches" class="col-sm-12 col-md-6 col-lg-6 mb-3">
+          <div *ngFor="let allcourses of AllCourses" class="col-sm-12 col-md-6 col-lg-6 mb-3">
             <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
               <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
               <div class="card-body ">
@@ -448,77 +451,124 @@
           </div>
         </div>
         <div class="text-end ">
-          <button class="border border-0  me-2" (click)="previousPageBatches()" [disabled]="currentPageBatches === 1"><i
-              class="fa-solid fa-angles-left text-primary"></i></button>
-          <span>Page {{currentPageBatches}} of {{totalPagesBatches()}}</span>
-          <button class="border border-0 ms-2" (click)="nextPageBatches()"
-            [disabled]="currentPageBatches === totalPagesBatches()"><i
-              class="fa-solid fa-angles-right text-primary"></i></button>
+            <button class="border border-0  me-2" (click)="AllCoursespreviousPageBatches()" [disabled]="currentPage === 1"><i
+                class="fa-solid fa-angles-left text-primary"></i></button>
+                <span>Page {{ currentPage }} of {{ totalPagescourses() }}</span>
+            <button class="border border-0 ms-2" (click)="AllCoursesnextPageBatches()" 
+            [disabled]="currentPage >= totalPagescourses()">
+            <i class="fa-solid fa-angles-right text-primary"></i></button>
         </div>
         <hr>
       </div>
-      <!-- upcoming batches -->
-      <div *ngIf="upcomingBatches.length > 0" class="mt-3">
-        <h5 class="text-color">Upcoming Batches</h5>
-        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-3 gx-3 mt-3">
-          <div *ngFor="let allcourses of upcomingBatches" class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
-              <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
-              <div class="card-body ">
-                <div class="d-flex align-items-center trainer-name-container justify-content-between">
-                  <h5 class="card-title  text-capitalize" (mouseenter)="showupcommingName = true"
-                    (mouseleave)="showupcommingName = false">
-                    {{ truncateupcomingName(allcourses.course_name) }}
-                  </h5>
-                  <h5 *ngIf="showupcommingName" class="card-title full-name rounded"
-                    style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
-                  <small>{{allcourses.online_offline }}</small>
-                </div>
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center gap-2  trainer-name-container">
-                    <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
-                    </p>
-                    <p class="card-title  text-capitalize" (mouseenter)="showupcommingbusinessName = true"
-                      (mouseleave)="showupcommingbusinessName = false">
-                      {{ trunupcommingbusinessName(allcourses.business_Name) }}
-                    </p>
-                    <p *ngIf="showupcommingbusinessName" class=" full-name rounded"
-                      style="font-size: 13px; margin-top: 79px;">{{allcourses.business_Name }}</p>
+      <!-- current batches -->
+          <!-- <div *ngIf="currentBatches.length > 0" class="pt-3">
+            <h5 class="text-color">Current Batches</h5>
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+              <div *ngFor="let allcourses of currentBatches" class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
+                  <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
+                  <div class="card-body ">
+                    <div class="d-flex align-items-center trainer-name-container justify-content-between">
+                      <h5 class="card-title  text-capitalize" (mouseenter)="showcourseName = true"
+                        (mouseleave)="showcourseName = false">
+                        {{ truncatecourseName(allcourses.course_name) }}
+                      </h5>
+                      <h5 *ngIf="showcourseName" class="card-title full-name rounded"
+                        style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
+                      <small>{{allcourses.online_offline }}</small>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2  trainer-name-container">
+                        <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
+                        </p>
+                        <p class="card-title  text-capitalize" (mouseenter)="showbusinessName = true"
+                          (mouseleave)="showbusinessName = false">
+                          {{ trunbusinessName(allcourses.business_Name) }}
+                        </p>
+                        <p *ngIf="showbusinessName" class=" full-name rounded" style="font-size: 13px; margin-top: 79px;">
+                          {{allcourses.business_Name }}</p>
+                      </div>
+                      <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                      </p>
+                    </div>
+                    <button class="left-side-top rounded-pill">{{allcourses.category_name }}</button>
                   </div>
-                  <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
-                  </p>
+                  <div class="card-footer d-flex align-items-center justify-content-between">
+                    <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
+                    <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
+                      getFormattedPrice(allcourses.course_price) }}</p>
+                  </div>
                 </div>
-                <button class="left-side-top rounded-pill">{{allcourses.category_name }}</button>
-              </div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
-                <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
-                  getFormattedPrice(allcourses.course_price) }}</p>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- <div class="text-end">
-                    <p class="me-3 ViewmoreArrow">View More <i class="fa-solid fa-arrow-right "></i> </p>
-                  </div> -->
-        <div class="pagination-controls text-end">
-          <button class="border border-0 me-2" (click)="previousPageUpcomingBatches()"
-            [disabled]="currentPageUpcomingBatches === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
-          <span>Page {{currentPageUpcomingBatches}} of {{totalPagesUpcomingBatches()}}</span>
-          <button class="border border-0 ms-2" (click)="nextPageUpcomingBatches()"
-            [disabled]="currentPageUpcomingBatches === totalPagesUpcomingBatches()"><i
-              class="fa-solid fa-angles-right text-primary"></i></button>
-        </div>
-        <hr>
-      </div>
+            <div class="text-end ">
+              <button class="border border-0  me-2" (click)="previousPageBatches()" [disabled]="currentPageBatches === 1"><i
+                  class="fa-solid fa-angles-left text-primary"></i></button>
+              <span>Page {{currentPageBatches}} of {{totalPagesBatches()}}</span>
+              <button class="border border-0 ms-2" (click)="nextPageBatches()"
+                [disabled]="currentPageBatches === totalPagesBatches()"><i
+                  class="fa-solid fa-angles-right text-primary"></i></button>
+            </div>
+            <hr>
+          </div> -->
+      <!-- upcoming batches -->
+          <!-- <div *ngIf="upcomingBatches.length > 0" class="mt-3">
+            <h5 class="text-color">Upcoming Batches</h5>
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-3 gx-3 mt-3">
+              <div *ngFor="let allcourses of upcomingBatches" class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                <div class="card" routerLink="/couserenroll/{{allcourses._id}}">
+                  <img src="{{allcourses.thumbnail_image}}" class="card-img-top img-fluid" alt="...">
+                  <div class="card-body ">
+                    <div class="d-flex align-items-center trainer-name-container justify-content-between">
+                      <h5 class="card-title  text-capitalize" (mouseenter)="showupcommingName = true"
+                        (mouseleave)="showupcommingName = false">
+                        {{ truncateupcomingName(allcourses.course_name) }}
+                      </h5>
+                      <h5 *ngIf="showupcommingName" class="card-title full-name rounded"
+                        style="font-size: 14px; margin-top: 70px;">{{allcourses.course_name}}</h5>
+                      <small>{{allcourses.online_offline }}</small>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2  trainer-name-container">
+                        <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
+                        </p>
+                        <p class="card-title  text-capitalize" (mouseenter)="showupcommingbusinessName = true"
+                          (mouseleave)="showupcommingbusinessName = false">
+                          {{ trunupcommingbusinessName(allcourses.business_Name) }}
+                        </p>
+                        <p *ngIf="showupcommingbusinessName" class=" full-name rounded"
+                          style="font-size: 13px; margin-top: 79px;">{{allcourses.business_Name }}</p>
+                      </div>
+                      <p>{{allcourses.course_rating }} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                      </p>
+                    </div>
+                    <button class="left-side-top rounded-pill">{{allcourses.category_name }}</button>
+                  </div>
+                  <div class="card-footer d-flex align-items-center justify-content-between">
+                    <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
+                    <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
+                      getFormattedPrice(allcourses.course_price) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination-controls text-end">
+              <button class="border border-0 me-2" (click)="previousPageUpcomingBatches()"
+                [disabled]="currentPageUpcomingBatches === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
+              <span>Page {{currentPageUpcomingBatches}} of {{totalPagesUpcomingBatches()}}</span>
+              <button class="border border-0 ms-2" (click)="nextPageUpcomingBatches()"
+                [disabled]="currentPageUpcomingBatches === totalPagesUpcomingBatches()"><i
+                  class="fa-solid fa-angles-right text-primary"></i></button>
+            </div>
+            <hr>
+          </div> -->
 
 
-
-      <!-- Online Events -->
-      <div *ngIf="onlineEvents.length > 0" class="mb-2" id="Events">
+      <!-- All Events     -->
+      <div *ngIf="AllEvents.length > 0" class="mb-2" id="Events">
         <h5 class="text-color">Online Events</h5>
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-          <div *ngFor="let Event of onlineEvents" class="col-sm-12 col-md-3 col-lg-6 mb-3">
+          <div *ngFor="let Event of AllEvents" class="col-sm-12 col-md-3 col-lg-6 mb-3">
             <div class="card" routerLink="/eventdetails/{{Event._id}}">
               <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
               <div class="card-body text">
@@ -560,81 +610,134 @@
           </div>
         </div>
         <div class="pagination-controls text-end">
-          <button class="border border-0 me-2" (click)="previousPageOnlineEvents()"
-            [disabled]="currentPageOnlineEvents === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
-          <span>Page {{currentPageOnlineEvents}} of {{totalPagesOnlineEvents()}}</span>
-          <button class="border border-0 ms-2" (click)="nextPageOnlineEvents()"
-            [disabled]="currentPageOnlineEvents === totalPagesOnlineEvents()"><i
-              class="fa-solid fa-angles-right text-primary"></i></button>
+          <button class="border border-0  me-2" (click)="AllEventspreviousPageBatches()" [disabled]="currentPage === 1"><i
+            class="fa-solid fa-angles-left text-primary"></i></button>
+            <span>Page {{ currentPage }} of {{ totalPagesEvents() }}</span>
+        <button class="border border-0 ms-2" (click)="AllEventsnextPageBatches()" 
+        [disabled]="currentPage >= totalPagesEvents()">
+        <i class="fa-solid fa-angles-right text-primary"></i></button>
         </div>
-        <!-- <div class="text-end">
-                    <p class="me-3 ViewmoreArrow">View More <i class="fa-solid fa-arrow-right "></i> </p>
-                  </div> -->
         <hr>
       </div>
 
-      <!-- Offline Events -->
-      <div *ngIf="offlineEvents.length > 0">
-        <h5 class="text-color">Offline Events</h5>
-        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-          <div *ngFor="let Event of offlineEvents" class="col-sm-12 col-md-3 col-lg-6 mb-3">
-            <div class="card" routerLink="/eventdetails/{{Event._id}}">
-              <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
-              <div class="card-body text">
-                <div class="d-flex align-items-center justify-content-between gap-1">
-                  <span>
-                    <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |
-                      date: 'MMM'}}</label><br>
-                    <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date | date:
-                      'dd'}}</span>
-                  </span>
-                  <span>
-                    <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
-                  </span>
-                  <span class="text-center">
-                    <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>
-                    <i *ngIf="Event.event_type === 'Online'" class="fas fa-circle-play text-muted"></i>
-                    <i *ngIf="Event.event_type === 'Offline'" class="fas fa-location-dot"></i>
-                  </span>
-                </div>
-                <div class="d-flex align-items-center gap-2 justify-content-center">
-                  <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
-                    width="30px" alt="">
-                  <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
-                    width="30px" alt="">
-                  <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
-                    width="30px" alt="">
-                  <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
-                    width="30px" alt="">
-                  <label class="p-2 border rounded-circle"> +35</label>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mt-2">
-                  <button class="btn  rounded  text-light poppins-regular"
-                    style="font-size: 12px;background-color: var(--TextColor);">Book Seat</button>
-                  <button class="btn  rounded  text-light poppins-regular"
-                    style="font-size: 12px;background-color: var(--btndarkColor);">View More</button>
+      <!-- Online Events -->
+          <!-- <div *ngIf="onlineEvents.length > 0" class="mb-2" id="Events">
+            <h5 class="text-color">Online Events</h5>
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+              <div *ngFor="let Event of onlineEvents" class="col-sm-12 col-md-3 col-lg-6 mb-3">
+                <div class="card" routerLink="/eventdetails/{{Event._id}}">
+                  <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
+                  <div class="card-body text">
+                    <div class="d-flex align-items-center justify-content-between gap-1">
+                      <span>
+                        <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |
+                          date: 'MMM'}}</label><br>
+                        <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date | date:
+                          'dd'}}</span>
+                      </span>
+                      <span>
+                        <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
+                      </span>
+                      <span class="text-center">
+                        <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>
+                        <i *ngIf="Event.event_type === 'Online'" class="fas fa-circle-play text-muted"></i>
+                        <i *ngIf="Event.event_type === 'Offline'" class="fas fa-location-dot"></i>
+                      </span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 justify-content-center">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <label class="p-2 border rounded-circle"> +35</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-2">
+                      <button class="btn  rounded  text-light poppins-regular"
+                        style="font-size: 12px;background-color: var(--TextColor);">Book Seat</button>
+                      <button class="btn  rounded  text-light poppins-regular"
+                        style="font-size: 12px;background-color: var(--btndarkColor);">View More</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="pagination-controls text-end">
-          <button class="border border-0 me-2" (click)="previousPageOfflineEvents()"
-            [disabled]="currentPageOfflineEvents === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
-          <span>Page {{currentPageOfflineEvents}} of {{totalPagesOfflineEvents()}}</span>
-          <button class="border border-0 ms-2" (click)="nextPageOfflineEvents()"
-            [disabled]="currentPageOfflineEvents === totalPagesOfflineEvents()"><i
-              class="fa-solid fa-angles-right text-primary"></i></button>
-        </div>
-        <hr>
-      </div>
+            <div class="pagination-controls text-end">
+              <button class="border border-0 me-2" (click)="previousPageOnlineEvents()"
+                [disabled]="currentPageOnlineEvents === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
+              <span>Page {{currentPageOnlineEvents}} of {{totalPagesOnlineEvents()}}</span>
+              <button class="border border-0 ms-2" (click)="nextPageOnlineEvents()"
+                [disabled]="currentPageOnlineEvents === totalPagesOnlineEvents()"><i
+                  class="fa-solid fa-angles-right text-primary"></i></button>
+            </div>
+            <hr>
+          </div> -->
+
+      <!-- Offline Events -->
+          <!-- <div *ngIf="offlineEvents.length > 0">
+            <h5 class="text-color">Offline Events</h5>
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+              <div *ngFor="let Event of offlineEvents" class="col-sm-12 col-md-3 col-lg-6 mb-3">
+                <div class="card" routerLink="/eventdetails/{{Event._id}}">
+                  <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
+                  <div class="card-body text">
+                    <div class="d-flex align-items-center justify-content-between gap-1">
+                      <span>
+                        <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |
+                          date: 'MMM'}}</label><br>
+                        <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date | date:
+                          'dd'}}</span>
+                      </span>
+                      <span>
+                        <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
+                      </span>
+                      <span class="text-center">
+                        <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>
+                        <i *ngIf="Event.event_type === 'Online'" class="fas fa-circle-play text-muted"></i>
+                        <i *ngIf="Event.event_type === 'Offline'" class="fas fa-location-dot"></i>
+                      </span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 justify-content-center">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <img src="../../assets/Rohit sharma.jpg" class="rounded-circle object-fit-cover" height="30px"
+                        width="30px" alt="">
+                      <label class="p-2 border rounded-circle"> +35</label>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mt-2">
+                      <button class="btn  rounded  text-light poppins-regular"
+                        style="font-size: 12px;background-color: var(--TextColor);">Book Seat</button>
+                      <button class="btn  rounded  text-light poppins-regular"
+                        style="font-size: 12px;background-color: var(--btndarkColor);">View More</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pagination-controls text-end">
+              <button class="border border-0 me-2" (click)="previousPageOfflineEvents()"
+                [disabled]="currentPageOfflineEvents === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
+              <span>Page {{currentPageOfflineEvents}} of {{totalPagesOfflineEvents()}}</span>
+              <button class="border border-0 ms-2" (click)="nextPageOfflineEvents()"
+                [disabled]="currentPageOfflineEvents === totalPagesOfflineEvents()"><i
+                  class="fa-solid fa-angles-right text-primary"></i></button>
+            </div>
+            <hr>
+          </div> -->
 
 
       <!-- Products -->
-      <div *ngIf="products.length > 0" class="" id="Products">
+      <div *ngIf="AllProducts.length > 0" class="" id="Products">
         <h5 class="text-color">Our Products</h5>
         <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
-          <div *ngFor="let product of products" class="col-sm-12 col-md-3 col-lg-6 mb-3">
+          <div *ngFor="let product of AllProducts" class="col-sm-12 col-md-3 col-lg-6 mb-3">
             <div class="card productcard">
               <img src="{{product.product_image}}" routerLink="/productdetails/{{product._id}}"
                 class="card-img-top img-fluid" alt="...">
@@ -667,13 +770,12 @@
           </div>
         </div>
         <div class="pagination-controls text-end">
-          <button class="border border-0 me-2" (click)="previousPageProducts()"
-            [disabled]="currentPageProducts === 1"><i class="fa-solid fa-angles-left text-primary"></i></button>
-          <span>Page {{currentPageProducts}} of {{totalPagesProducts()}}</span>
-          <button class="border border-0 ms-2" (click)="nextPageProducts()"
-            [disabled]="currentPageProducts === totalPagesProducts()"><i
-              class="fa-solid fa-angles-right text-primary"></i></button>
-        </div>
+          <button class="border border-0  me-2" (click)="AllProductspreviousPage()" [disabled]="currentPage === 1"><i
+            class="fa-solid fa-angles-left text-primary"></i></button>
+            <span>Page {{ currentPage }} of {{ totalPagesProducts() }}</span>
+        <button class="border border-0 ms-2" (click)="AllProductsnextPage()" 
+        [disabled]="currentPage >= totalPagesProducts()">
+        <i class="fa-solid fa-angles-right text-primary"></i></button>        </div>
 
       </div>
 

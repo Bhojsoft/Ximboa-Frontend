@@ -147,9 +147,22 @@ export class TrainerService {
 
 
 
-  // ****************** Trainer Profile *********************    
+  // ****************** Trainer Profile *********************   
+
       getprofile(id:string):Observable<any>{
         return this.http.get<any>(`${this.APIURL}/trainerbyid/${id}`);
+      }
+
+      GetAllCoursesonprofilepage(id:string,page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/trainer/courses/${id}?page=${page}&limit=${limit}`)
+      }
+
+      GetAllEventsonprofilepage(id:string,page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/event/bytrainer/${id}?page=${page}&limit=${limit}`)
+      }
+
+      GetAllProductonprofilepage(id:string,page: number, limit: number):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/product/bytrainer/${id}?page=${page}&limit=${limit}`)
       }
 
       GetAppointment(page: number, limit: number):Observable<any>{
