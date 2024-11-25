@@ -46,13 +46,13 @@
                     <p *ngIf="showbusiness1Name" class=" full-name rounded" style="font-size: 13px; margin-top: 79px;">
                       {{allcourses.business_Name }}</p>
                   </div>
-                  <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
+                  <p>{{allcourses.course_rating}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i>
                   </p>
                 </div>
                 <button class="left-side-top rounded-pill">{{allcourses.category_name}}</button>
               </div>
               <div class="card-footer d-flex align-items-center justify-content-between">
-                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+                <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
                 <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
                   getFormattedPrice(allcourses.course_price) }}</p>
               </div>
@@ -100,12 +100,12 @@
                   <p *ngIf="showbusinessName" class=" full-name rounded" style="font-size: 13px; margin-top: 79px;">
                     {{allcourses.business_Name }}</p>
                 </div>
-                <p>{{allcourses.course_rating || 4.5}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
+                <p>{{allcourses.course_rating}} <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i></p>
               </div>
               <button class="left-side-top rounded-pill">{{allcourses.category_name}}</button>
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-              <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration || 2}} Weeks</p>
+              <p><i class="fa-solid fa-list-ul"></i> Duration : {{allcourses.course_duration }} Weeks</p>
               <p style="font-family: Poppins;font-weight: bold;color: var(--TextColor);font-size: 20px;">{{
                 getFormattedPrice(allcourses.course_price) }}</p>
             </div>

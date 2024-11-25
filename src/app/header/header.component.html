@@ -92,7 +92,7 @@
           <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
         </ul>
       </div>
-      <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
+      <i routerLink="/dashboard" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
     </div> 
 </div> -->
 
@@ -223,7 +223,7 @@
               <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
             </ul>
           </div>
-          <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
+          <i routerLink="/dashboard" class="fa-solid fa-bars text-primary fs-4 ms-3 " ></i>
         </div>
   </div>
 </nav> -->
@@ -314,7 +314,7 @@
 
 
     <!-- Cart Icon -->
-    <i routerLink="/cart" class="fa-solid fa-cart-plus mx-2 pt-1 fs-4 cart-icon d-none d-lg-block"></i>
+    <i routerLink="/cart"  class="fa-solid fa-cart-plus mx-2 pt-1 fs-4 cart-icon d-none d-lg-block"></i>
 
     <!-- Sign In / Sign Up (conditionally based on user login status) -->
     <div *ngIf="!(isLoggedIn$ | async)"
@@ -335,8 +335,8 @@
           {{unseennotificationcount}}
         </span></i>
 
-           <!-- <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3"></i> -->
-      <img routerLink="/trainer" src="../../assets/Dashboard icon.png" height="32px" width="32px" alt="" >
+           <!-- <i routerLink="/dashboard" class="fa-solid fa-bars text-primary fs-4 ms-3"></i> -->
+      <img routerLink="/dashboard" src="../../assets/Dashboard icon.png" height="32px" width="32px" alt="" >
       <!-- User Profile Dropdown -->
       <div class="dropdown">
         <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"

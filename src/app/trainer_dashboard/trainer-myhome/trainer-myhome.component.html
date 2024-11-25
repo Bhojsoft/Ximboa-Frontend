@@ -11,13 +11,13 @@
     <div class="row my-4 pb-3">
         <!-- Button Group: Flexbox for alignment and spacing -->
         <div *ngIf="isTrainer || isSELF_EXPERT " class="d-flex flex-wrap  my-3">
-            <button routerLink="/trainer/mycourse" class="btn border btn-sm mb-3 px-3 me-3 " style="border-radius: 20px; background-color: #007bff; color: white;">
+            <button routerLink="/dashboard/mycourse" class="btn border btn-sm mb-3 px-3 me-3 " style="border-radius: 20px; background-color: #007bff; color: white;">
                 <i class="fa-solid fa-plus px-1"></i>Add Course
             </button>
-            <button routerLink="/trainer/product" class="btn mb-3 btn-sm border  px-3 me-3" style="border-radius: 20px; background-color: #007bff; color: white;">
+            <button routerLink="/dashboard/product" class="btn mb-3 btn-sm border  px-3 me-3" style="border-radius: 20px; background-color: #007bff; color: white;">
                 <i class="fa-solid fa-plus px-1"></i>Add Product
             </button>
-            <button routerLink="/trainer/event" class="btn mb-3 btn-sm border  px-3 me-3" style="border-radius: 20px; background-color: #007bff; color: white;">
+            <button routerLink="/dashboard/event" class="btn mb-3 btn-sm border  px-3 me-3" style="border-radius: 20px; background-color: #007bff; color: white;">
                 <i class="fa-solid fa-plus px-1"></i>Add Event
             </button>
         </div>
@@ -61,7 +61,7 @@
 
                 </div>
                 <hr>
-                <a href="#" routerLink="/trainer/mycourse" class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" routerLink="/dashboard/mycourse" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <hr>
-                <a href="#" routerLink="/trainer/event" class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" routerLink="/dashboard/event" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -103,7 +103,7 @@
 
                 </div>
                 <hr>
-                <a href="#"  routerLink="/trainer/product"  class="see-details d-flex justify-content-between align-items-center">
+                <a href="#"  routerLink="/dashboard/product"  class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
