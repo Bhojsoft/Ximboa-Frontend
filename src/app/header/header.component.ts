@@ -7,6 +7,8 @@ import { DashboardService } from '../common_service/dashboard.service';
 import { TrainerService } from '../common_service/trainer.service';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
+import { RealoadServiceService } from '../common_service/reaload-service.service';
+
 
 
 declare var bootstrap: any;
@@ -85,7 +87,8 @@ export class HeaderComponent {
     private dservice: DashboardService,
     private service: TrainerService,
     private cdr: ChangeDetectorRef,
-    private router: ActivatedRoute) {
+    private router: ActivatedRoute,
+    private reloadservice: RealoadServiceService) {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.user$ = this.authService.user$;
     this.id$ = this.authService.id$;
@@ -100,7 +103,17 @@ export class HeaderComponent {
 
   ngOnInit(): void {
 
+    this.reloadservice.reloadHeader$.subscribe(() => {
       this.checkUserRole();
+      this.loadTrainerData();
+      this.unseenNotification();
+      this.cdr.detectChanges();
+    });
+
+      this.checkUserRole();
+      this.loadTrainerData();
+      this.unseenNotification();
+      
 
     this.dservice.getcategoryname().subscribe(data => {
       this.Showcategorydata = data;
@@ -112,9 +125,7 @@ export class HeaderComponent {
 
     });
 
-    this.loadTrainerData();
-
-    this.unseenNotification();
+    
     
   }
 
