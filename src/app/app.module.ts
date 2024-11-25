@@ -66,6 +66,7 @@ import { TagInputModule } from 'ngx-chips';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 import { NgApexchartsModule } from "ng-apexcharts";
+import { SpinnerComponent } from './Loader/spinner/spinner.component';
 
 
 
@@ -124,6 +125,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
     BreadcrumbComponent,
     ForumAddPageComponent,
     ResetPasswordComponent,
+    SpinnerComponent,
     
   ],
   imports: [

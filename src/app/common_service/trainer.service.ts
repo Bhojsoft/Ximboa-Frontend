@@ -20,6 +20,7 @@ export class TrainerService {
         return this.http.get<any>(`${this.APIURL}/registration/trainer`);
       }
 
+
       updatetrainerDetails(formData:FormData):Observable<any>{
         return this.http.put<any>(`${this.APIURL}/registration/update`,formData)
       }
@@ -54,7 +55,6 @@ export class TrainerService {
         let headers = new HttpHeaders()
         .set("Authorization", `Bearer ${sessionStorage.getItem('Authorization')}`)
         return this.http.get<any>(`${this.APIURL}/trainers`,{headers});
-        
       }
 
       deleteCoursebyID(_id: string): Observable<any> {
@@ -134,8 +134,8 @@ export class TrainerService {
   }
 
   // Function to reject an appointment
-  rejectAppointment(id: string,rejectionReason: string): Observable<any> {
-    return this.http.put<any>(`${this.APIURL}/appointment/${id}/reject`,{ reason: rejectionReason });
+  rejectAppointment(id: string, rejectionReason: string): Observable<any> {
+    return this.http.put<any>(`${this.APIURL}/appointment/${id}/reject`,{ rejectionReason: rejectionReason });
   }
 
   

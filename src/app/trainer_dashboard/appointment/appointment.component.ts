@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
+
+declare var bootstrap: any;
+
+
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
@@ -84,13 +88,15 @@ export class AppointmentComponent implements OnInit {
             (response) => {
               console.log('Appointment rejected', response);
               Swal.fire('Rejected','The Appointment is Rejected :', 'success');
+              bootstrap.Modal.getInstance(document.getElementById('AddcourseModal'))?.hide();
               this.loadAllAppointment(this.currentPage, this.itemsPerPage);
               this.rejectionReason = '';
               this.selectedAppointmentId = '';
             },
             (error) => {
-              console.error('Error rejecting appointment', error);
-            }
+              Swal.fire(
+                'Technical Issue','We encountered a technical issue while processing your request. Please try again later.','error' );
+              }
           );
         }
       }

@@ -17,12 +17,7 @@ export class DashboardService {
   // private API_URL="http://localhost:1000"
 
  
-
-
-
-
-
-  constructor(private http:HttpClient) { }
+constructor(private http:HttpClient) { }
 
           getcategoryname():Observable<any>{
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
@@ -161,7 +156,7 @@ export class DashboardService {
           }
 
           getDashboardDataAdmin(): Observable<any> {
-            return this.http.get<any>(`http://localhost:1000/api/admin/s/dashboard-counts`);
+            return this.http.get<any>(`${this.API_URL}/admin/s/dashboard-counts`);
           }
 
           GetAllForum(): Observable<any>{

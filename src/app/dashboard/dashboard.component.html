@@ -186,11 +186,11 @@
           <button class="btn btn-sm rounded viewtrainerbtn">View Profile</button>
           <div class="card-body text-center">
             <button class="btn btn-sm TrainerFlag rounded ">{{trainer.flag}}</button><br>
-            <div class="trainer-name-container">
-              <p class="card-title trainernameheading text-capitalize" (mouseenter)="showFullName = true"
+            <div class="trainer-name-container pt-2">
+              <h5 class="card-title  text-capitalize" (mouseenter)="showFullName = true"
                 (mouseleave)="showFullName = false">
                 {{ truncateBusinessName(trainer.Business_Name) }}
-              </p>
+              </h5>
               <span *ngIf="showFullName" class="full-name rounded">{{ trainer.Business_Name }}</span>
             </div>
             <p class="text-capitalize"> {{trainer.f_Name || "John" }} {{trainer.l_Name || "Deo" }}</p>
@@ -389,9 +389,9 @@
       <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-5">
         <div *ngFor="let product of visibleProduct()" class="col-sm-12 col-md-3 col-lg-3 mb-3">
           <div class="card productcard">
-            <img src="{{product.productImage}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"
+            <img src="{{product.productImage}}" routerLink="/productdetails/{{product._id}}" class="card-img-top img-fluid"
               alt="...">
-            <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+            <button routerLink="/productdetails/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
             <span class="onproducthoverflag rounded px-2">{{product.identityFlag}}</span>
             <div class="card-body text-center mb-0 pt-0 trainer-name-container">
               <div class="d-flex align-items-center justify-content-between mt-1">
