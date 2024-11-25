@@ -21,9 +21,9 @@ export class SignUpComponent implements OnInit {
       f_Name:'',
       middle_Name:'',
       l_Name:'',
-      email_id:' ',
+      email_id:'',
       password:'',
-      mobile_number:' ',
+      mobile_number:'',
 
   }
   constructor(private loginservices:LoginService,private route:Router,private authService:AuthServiceService){ }
@@ -45,7 +45,13 @@ export class SignUpComponent implements OnInit {
           this.route.navigate(['/trainer']);
         },
         error: (error) => {
-          Swal.fire('Error', 'Please enter valid details.', 'error');
+            let errorMessage = 'Please enter valid details.';
+            if (error.error && typeof error.error === 'string') {
+              errorMessage = error.error;
+            } else if (error.error && error.error.message) {
+              errorMessage = error.error.message;
+            }
+            Swal.fire('Error', errorMessage, 'error');
         },
       });
     } else if (!this.rememberMe) {
@@ -56,9 +62,23 @@ export class SignUpComponent implements OnInit {
     }
   }
   
-  // Hide And Show Password Logic
+  // Hide And Show Password Logic  
   show: boolean = false;
   togglePassword() {
     this.show = !this.show;
   }
+
+  allowOnlyNumbers(event: KeyboardEvent): void {
+    const charCode = event.key.charCodeAt(0);
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+  
+  limitToTenDigits(): void {
+    if (this.userData.mobile_number.length > 10) {
+      this.userData.mobile_number = this.userData.mobile_number.slice(0, 10);
+    }
+  }
+  
 }

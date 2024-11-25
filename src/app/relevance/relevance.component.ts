@@ -15,7 +15,7 @@ export class RelevanceComponent implements OnInit {
   filteredCategoryData: any[] = [];  
   selectedCategories: string[] = [];
   category: string = '';
-  selectedSortOption: string = 'Sort By';
+  selectedSortOption: string = '';
 
   inputPlaceholder: string = 'Search';
 

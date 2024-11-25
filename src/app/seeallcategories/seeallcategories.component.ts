@@ -60,7 +60,7 @@ export class SeeallcategoriesComponent implements OnInit {
     this.service.getcouserdata(page, limit).subscribe(result => {
       console.log(result);
       
-      this.ShowCourseData = result.coursesWithFullImageUrl;
+      this.ShowCourseData = result?.coursesWithFullImageUrl;
       this.filteredCourses = this.ShowCourseData;
       this.totalItems = result.pagination.totalItems;
       this.applyFilter();  // Apply the filter after loading courses
@@ -148,7 +148,7 @@ export class SeeallcategoriesComponent implements OnInit {
       this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories, this.currentSortOption)
         .subscribe(result => {
           console.log("Filtered category-wise courses:", result);  
-          this.filteredCourses = result.data.filter((course: any) =>
+          this.filteredCourses = result?.data.filter((course: any) =>
             this.selectedCategories.includes(course.category_name)
           );
           this.totalItems = result.pagination.totalItems;
@@ -158,7 +158,7 @@ export class SeeallcategoriesComponent implements OnInit {
       this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
         .subscribe(result => {
           console.log("Courses with sort option only:", result);
-          this.ShowCourseData = result.data;
+          this.ShowCourseData = result?.data;
           this.filteredCourses = this.ShowCourseData;
           this.totalItems = result.pagination.totalItems;
         });

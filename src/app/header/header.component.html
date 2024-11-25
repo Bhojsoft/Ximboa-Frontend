@@ -229,7 +229,7 @@
 </nav> -->
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid ms-0 ps-0">
+  <div class="container-fluid mx-0 ps-0">
     <a class="navbar-brand m-0 p-0 " routerLink="/">
       <img src="../../assets/Ximboa-Logo.png" class="" height="60px" alt="XIMBOA LOGO">
     </a>
@@ -274,7 +274,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link"><span routerLink="/relevance/Allcourses" routerLinkActive="active-link"
-              style="cursor: pointer;">Courses</span></a>
+              style="cursor: pointer;">Course</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link"><span routerLink="/relevance/alltrainer" routerLinkActive="active-link"
@@ -323,22 +323,24 @@
       <button routerLink="/signup" class="btn btn-sm btn-light rounded border samllpoppins">Sign Up</button>
     </div>
 
-    <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up d-flex align-items-center justify-content-end">
+    <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up d-flex align-items-center justify-content-end gap-2">
       <button *ngIf="isUser" class="btn btn-sm btn-primary main-button" data-bs-toggle="modal"
         data-bs-target="#exampleModalExpert" style="font-size: x-small;">
         Become an Expert
       </button>
       <!-- <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i> -->
-      <i routerLink="/Notification" class="fa-regular fa-bell position-relative  fs-3 Notification-icon"> <span
+      <i routerLink="/Notification" class="fa-regular fa-bell position-relative z-3 fs-4 Notification-icon"> <span
           *ngIf="unseennotificationcount > 0" class="position-absolute badge rounded-pill bg-danger "
-          style="font-size: xx-small;top: -2px;left: 26px;">
+          style="font-size: xx-small;top: -2px;left: 22px;">
           {{unseennotificationcount}}
         </span></i>
 
+           <!-- <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3"></i> -->
+      <img routerLink="/trainer" src="../../assets/Dashboard icon.png" height="32px" width="32px" alt="" >
       <!-- User Profile Dropdown -->
       <div class="dropdown">
         <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"
-          class="rounded-circle object-fit-cover" height="40" width="40" />
+          class="rounded-circle object-fit-cover" height="35" width="35" />
         <ng-template #noImageIcon>
           <i class="fa-solid fa-user icon" data-bs-toggle="dropdown" aria-expanded="false"></i>
         </ng-template>
@@ -353,8 +355,6 @@
                 class="fa-solid fa-right-from-bracket"></i></a></li>
         </ul>
       </div>
-
-      <i routerLink="/trainer" class="fa-solid fa-bars text-primary fs-4 ms-3"></i>
     </div>
   </div>
 </nav>
@@ -379,15 +379,15 @@
           </li>
           <li class="nav-item">
             <a class="nav-link"><span routerLink="/relevance/alltrainer" routerLinkActive="active-link"
-                style="cursor: pointer;" data-bs-dismiss="offcanvas">Trainer</span></a>
+                style="cursor: pointer;" data-bs-dismiss="offcanvas">Trainers</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link"><span routerLink="/relevance/allproducts" routerLinkActive="active-link"
-                style="cursor: pointer;" data-bs-dismiss="offcanvas">Product</span></a>
+                style="cursor: pointer;" data-bs-dismiss="offcanvas">Products</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link"><span routerLink="/relevance/allevents" routerLinkActive="active-link"
-                style="cursor: pointer;" data-bs-dismiss="offcanvas">Event</span></a>
+                style="cursor: pointer;" data-bs-dismiss="offcanvas">Events</span></a>
           </li>
         </ul>
       </div>

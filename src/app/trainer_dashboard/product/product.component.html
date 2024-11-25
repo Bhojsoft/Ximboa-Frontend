@@ -4,7 +4,7 @@
   </div>
 
   <mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab *ngIf="isTrainer || isSELF_EXPERT " label="My Products">
+    <mat-tab *ngIf="isTrainer || isSELF_EXPERT || isInstitute " label="My Products">
         <div class="col-12 d-flex flex-wrap gap-3 justify-content-start justify-content-md-end mt-2">
           <button class="btn btn-sm rounded-pill text-light px-3" data-bs-toggle="modal" data-bs-target="#AddProductModal"
           data-bs-whatever="@mdo" style="background-color: #3078ff;">
