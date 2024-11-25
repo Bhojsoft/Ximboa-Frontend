@@ -193,7 +193,7 @@
               </h5>
               <span *ngIf="showFullName" class="full-name rounded">{{ trainer.Business_Name }}</span>
             </div>
-            <p class="text-capitalize"> {{trainer.f_Name || "John" }} {{trainer.l_Name || "Deo" }}</p>
+            <p class="text-capitalize"> {{trainer.f_Name}} {{trainer.l_Name }}</p>
             <div class="social-icons">
               <i href="https://www.facebook.com" class="fa-brands fa-facebook  rounded-pill social-icons1"></i>
               <i href="https://twitter.com" target="_blank" class="fab fa-twitter rounded-pill social-icons1"></i>
@@ -205,7 +205,7 @@
             </div>
           </div>
           <div class="card-footer d-flex justify-content-between trainercardfooter">
-            <p> <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i> {{trainer.ratings || 4.5}}</p>
+            <p> <i class="fa-solid fa-star fs-5" style="color: #FFAE06;"></i> {{trainer.ratings}}</p>
             <b>{{trainer.course_count}} Courses</b>
           </div>
         </div>
@@ -399,10 +399,10 @@
                 <div class="w-50 text-center">
                   <ng-container *ngFor="let star of starsArray; let i = index">
                     <i class="fa-solid fa-star"
-                      [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"></i>
+                      [ngStyle]="{ 'color': i < (product.avgRating ) ? '#FFAE06' : '#d3d3d3' }"></i>
                   </ng-container>
                 </div>
-                <small class="m-0 p-0 text-end w-25">{{product.productFlag || "virtual"}}</small>
+                <small class="m-0 p-0 text-end w-25">{{product.productFlag}}</small>
               </div>
               <h5 class="card-title  text-capitalize" (mouseenter)="showproductName = true"
                 (mouseleave)="showproductName = false">

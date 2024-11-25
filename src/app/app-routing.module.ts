@@ -62,7 +62,7 @@ const routes: Routes = [
 
   //  Routing For Trainer Dashboard
   {
-    path: "trainer", component: TrainerHomeComponent, canActivate: [authGuard],
+    path: "dashboard", component: TrainerHomeComponent, canActivate: [authGuard],
     children: [
       { path: "", component: TrainerMyhomeComponent, canActivate: [authGuard]},
       { path: "superadmin", component: SuperAdminComponent, canActivate: [authGuard]},

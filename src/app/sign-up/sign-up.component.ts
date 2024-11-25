@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit {
             'Welcome to Ximbo! <br> We’re thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You have registered successfully!',
             'success'
           );
-          this.route.navigate(['/trainer']);
+          this.route.navigate(['/dashboard']);
         },
         error: (error) => {
             let errorMessage = 'Please enter valid details.';

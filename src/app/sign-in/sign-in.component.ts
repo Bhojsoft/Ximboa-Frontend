@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
     this.loginService.login(token).subscribe({
       next: (response: any) => { 
         sessionStorage.setItem("Authorization",response.token);
-            this.route.navigate(['/trainer']);
+            this.route.navigate(['/dashboard']);
             this.authService.login(response.token); // Set login state
         Swal.fire('','We’re excited to see you again. Your login was successful, and you’re now ready to continue creating amazing learning experiences.', 'success');
       },
