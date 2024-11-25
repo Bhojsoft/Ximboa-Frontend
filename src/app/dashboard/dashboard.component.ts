@@ -88,12 +88,10 @@ trunproductName(name: string): string {
 
    ngOnInit(): void{
       this.Dservice.gethomedatauser(this.page, this.limit).subscribe( data =>{
-        console.log("category data",data);
         this.showCategorydata = data.categoriesWithFullImageUrl;
       });
 
       this.Dservice.getcategoryname().subscribe(response =>{
-        console.log(response);
         this.ShowAllCategory = response;
         this.ShowAllCategory.sort((a, b) => a.category_name.localeCompare(b.category_name));
       })
