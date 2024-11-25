@@ -58,7 +58,7 @@ export class TrainerMyhomeComponent implements OnInit {
       chart: {
         type: "donut"
       },
-      labels: ["Course", "Events", "Products"],
+      labels: ["Course", "Events", "Products", "Trainer"],
       responsive: [
         {
           breakpoint: 480,
@@ -151,7 +151,8 @@ export class TrainerMyhomeComponent implements OnInit {
           this.chartOptions.series = [
             this.showDashboardata.totalCourses || 0,
             this.showDashboardata.totalEvents || 0,
-            this.showDashboardata.totalProducts || 0
+            this.showDashboardata.totalProducts || 0,
+            this.showDashboardata.trainerCount || 0
           ];
         }
     })
@@ -171,6 +172,8 @@ export class TrainerMyhomeComponent implements OnInit {
 
     console.log("user fetch role", 'isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
   }
+
+
 
   // fetchUserProfile(token: string) {
   //   const apiUrl = 'http://localhost:1000/api/linkedin/userinfo';

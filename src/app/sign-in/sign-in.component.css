@@ -33,6 +33,11 @@
     margin-left: auto;
   }
 }
+@media only screen and (max-width: 800px) {
+  .desktop {
+  
+  }
+}
 
 @media only screen and (max-width: 1023px) {
   .login-img {

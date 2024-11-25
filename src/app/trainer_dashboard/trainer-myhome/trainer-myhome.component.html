@@ -10,7 +10,7 @@
 
     <div class="row my-4 pb-3">
         <!-- Button Group: Flexbox for alignment and spacing -->
-        <div *ngIf="isTrainer || isSELF_EXPERT " class="d-flex flex-wrap  my-3">
+        <div *ngIf="isTrainer || isSELF_EXPERT || isInstitute     " class="d-flex flex-wrap  my-3">
             <button routerLink="/trainer/mycourse" class="btn border btn-sm mb-3 px-3 me-3 " style="border-radius: 20px; background-color: #007bff; color: white;">
                 <i class="fa-solid fa-plus px-1"></i>Add Course
             </button>
@@ -103,7 +103,7 @@
 
                 </div>
                 <hr>
-                <a href="#"  routerLink="/trainer/product"  class="see-details d-flex justify-content-between align-items-center">
+                <a href="#" class="see-details d-flex justify-content-between align-items-center">
                     See Details <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
