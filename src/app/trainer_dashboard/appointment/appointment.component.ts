@@ -87,8 +87,8 @@ export class AppointmentComponent implements OnInit {
           this.service.rejectAppointment(this.selectedAppointmentId, this.rejectionReason).subscribe(
             (response) => {
               console.log('Appointment rejected', response);
-              Swal.fire('Rejected','The Appointment is Rejected :', 'success');
-              bootstrap.Modal.getInstance(document.getElementById('AddcourseModal'))?.hide();
+              Swal.fire('Rejected','The Appointment is Rejected', 'success');
+              bootstrap.Modal.getInstance(document.getElementById('rejectModal'))?.hide();
               this.loadAllAppointment(this.currentPage, this.itemsPerPage);
               this.rejectionReason = '';
               this.selectedAppointmentId = '';
