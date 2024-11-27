@@ -15,6 +15,11 @@
     /* align-items: flex-end; 
     overflow: hidden;  */
 }
+
+.counter{
+    font-size: 48px;
+     font-weight: 700;
+}
 .font{
     font-size: 59px;
     font-weight: 700; 
@@ -26,7 +31,9 @@ padding: 16px 48px;
 .Subscribe-section{
     padding: 0px 48px;
 }
-
+.maincontainer{
+    padding: 0 48px;
+}
 .subscribe{
     border-top-right-radius: 18px;
      border-bottom-right-radius: 18px;
@@ -58,6 +65,7 @@ padding: 16px 48px;
     font-weight: 700; 
     line-height: 45px;
 }
+
 
 /* Styling the card overlay */
 .overlay-card {
@@ -112,6 +120,29 @@ padding: 16px 48px;
     flex-direction: column; 
 }
 
+
+
+@media (max-width: 690px) {
+    .counter{
+        font-size: 18px;
+         font-weight: 550;
+    }
+    .overlay-card {
+        position: absolute;
+        bottom: 12px;
+        left: 88%;
+        transform: translateX(-50%);
+        background-color: white;
+        border-radius: 10px;
+        /* padding: 1px 25px; */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        z-index: 3;
+        width: auto;
+    }
+    .maincontainer{
+        padding: 0 10px;
+    }
+}
 
 
 
