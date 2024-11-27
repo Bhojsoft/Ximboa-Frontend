@@ -88,7 +88,13 @@ trunproductName(name: string): string {
 
    ngOnInit(): void{
       this.Dservice.gethomedatauser(this.page, this.limit).subscribe( data =>{
+        // console.log("All Data",data);
         this.showCategorydata = data.categoriesWithFullImageUrl;
+        this.Showcouserdata = data.coursesWithFullImageUrl;
+        this.showtrainerData=data.trainersWithFullImageUrl;
+        this.showproductdata=data.productDetails;
+        this.showeventdata = data.eventDetails;
+
       });
 
       this.Dservice.getcategoryname().subscribe(response =>{
@@ -96,21 +102,21 @@ trunproductName(name: string): string {
         this.ShowAllCategory.sort((a, b) => a.category_name.localeCompare(b.category_name));
       })
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(result => {
-        this.Showcouserdata = result.coursesWithFullImageUrl;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(result => {
+      //   this.Showcouserdata = result.coursesWithFullImageUrl;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
-        this.showtrainerData=data.trainersWithFullImageUrl;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
+      //   this.showtrainerData=data.trainersWithFullImageUrl;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
-          this.showproductdata=data.productDetails;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
+      //     this.showproductdata=data.productDetails;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(Response =>{
-           this.showeventdata = Response.eventDetails;
-      })
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(Response =>{
+      //      this.showeventdata = Response.eventDetails;
+      // })
    }
 
 

@@ -314,7 +314,7 @@
 
 
     <!-- Cart Icon -->
-    <i routerLink="/cart"  class="fa-solid fa-cart-plus mx-2 pt-1 fs-4 cart-icon d-none d-lg-block"></i>
+    <i routerLink="/cart"  class="fa-solid fa-cart-plus mx-2 pt-1 fs-4 cart-icon d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"  data-bs-title="Cart"></i>
 
     <!-- Sign In / Sign Up (conditionally based on user login status) -->
     <div *ngIf="!(isLoggedIn$ | async)"
@@ -329,14 +329,14 @@
         Become an Expert
       </button>
       <!-- <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i> -->
-      <i routerLink="/Notification" class="fa-regular fa-bell position-relative z-3 fs-4 Notification-icon"> <span
+      <i routerLink="/Notification" class="fa-regular fa-bell position-relative z-3 fs-4 Notification-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Notification"> <span
           *ngIf="unseennotificationcount > 0" class="position-absolute badge rounded-pill bg-danger "
           style="font-size: xx-small;top: -2px;left: 22px;">
           {{unseennotificationcount}}
         </span></i>
 
            <!-- <i routerLink="/dashboard" class="fa-solid fa-bars text-primary fs-4 ms-3"></i> -->
-      <img routerLink="/dashboard" src="../../assets/Dashboard icon.png" height="32px" width="32px" alt="" >
+      <img routerLink="/dashboard"  src="../../assets/Dashboard icon.png" height="32px" width="32px" alt=""  style="cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"  data-bs-title="Home">
       <!-- User Profile Dropdown -->
       <div class="dropdown">
         <img *ngIf="UserImage; else noImageIcon" [src]="UserImage" data-bs-toggle="dropdown" aria-expanded="false"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TrainerService } from '../common_service/trainer.service';
 import { FormGroup, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,8 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+  styleUrls: ['./course-details.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CourseDetailsComponent implements OnInit {
 
@@ -63,6 +64,13 @@ export class CourseDetailsComponent implements OnInit {
     this.question.trainerid = this.id;
     this.review.t_id=this.id;
     this.Appoinment.t_id=this.id;
+  }
+
+  ngAfterViewInit(): void {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
 
       GetAllCourses(page: number, limit: number){
