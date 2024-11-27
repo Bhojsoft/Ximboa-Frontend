@@ -19,8 +19,8 @@ export class EdittrainerComponent implements OnInit {
   isTrainer: boolean = false;
   isUser: boolean = false;
   isAdmin: boolean = false;
-  isSELF_EXPERT: boolean = false;
-
+  isInstitute: boolean = false;
+  isSELF_EXPERT: boolean = false
 
 
   currentRow = 0;
@@ -89,10 +89,11 @@ export class EdittrainerComponent implements OnInit {
 
     this.isAdmin = role === 'SUPER_ADMIN';
     this.isTrainer = role === 'TRAINER';
-    this.isSELF_EXPERT = role === 'SELF_EXPERT';
-    this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'SELF_EXPERT';
+    this.isInstitute = role === 'INSTITUTE';
+    this.isSELF_EXPERT = role == 'SELF_EXPERT';
+    this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'INSTITUTE' || role === 'SELF_EXPERT';
 
-    console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin,);
+    console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
   }
 
 

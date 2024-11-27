@@ -12,12 +12,6 @@ export class FilterService {
   private selectedCategoriesSubject = new BehaviorSubject<string[]>([]);
   selectedCategories$ = this.selectedCategoriesSubject.asObservable();
 
-  private selectedCategoriesSubjectProduct = new BehaviorSubject<string[]>([]);
-  selectedCategoryProduct$  = this.selectedCategoriesSubjectProduct.asObservable();
-
-  private selectedCategoriesSubjectEvent = new BehaviorSubject<string[]>([]);
-  selectedCategoryEvent$  = this.selectedCategoriesSubject.asObservable();
-
   updateSelectedCategories(categories: string[]) {
     this.selectedCategoriesSubject.next(categories);
   }

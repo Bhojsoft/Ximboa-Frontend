@@ -178,8 +178,8 @@
 }
 
 .dropdown-menu {
-  left: auto;     
-  right: 0; 
+  left: auto !important;     
+  right: 0 !important; 
   li:hover{
     cursor: pointer;
     background-color: var(--bodyColor);
