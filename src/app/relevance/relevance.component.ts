@@ -14,6 +14,7 @@ export class RelevanceComponent implements OnInit {
   Showcategorydata: any[] = [];
   filteredCategoryData: any[] = [];  
   selectedCategories: string[] = [];
+  
   category: string = '';
   selectedSortOption: string = '';
 
@@ -47,26 +48,22 @@ export class RelevanceComponent implements OnInit {
      private searchService:SearchService) {}
 
   ngOnInit(): void {
-    // Fetch category data
     this.service.getcategoryname().subscribe(data => {
       this.Showcategorydata = data;
-      console.log("name",data);
-      this.initializeSelectedCategory();  // Initialize category selection from query params
     });
 
-    // Subscribe to route query parameters to detect changes
     this.route.queryParams.subscribe(params => {
       this.category = params['category'] || '';  
-      console.log(this.category);
-      
-      this.initializeSelectedCategory();  // Apply category filter on route param change
     });
+
+    this.initializeSelectedCategory();  // Apply category filter on route param change
   }
 
   // Initialize selected category from query params
   initializeSelectedCategory(): void {
     if (this.category) {
       this.selectedCategories = [this.category];  
+      console.log("what are the category",this.selectedCategories);      
       this.filter.updateSelectedCategories(this.selectedCategories);  // Update FilterService with selected categories
       this.applyCategoryFilter();  // Apply the filter to the category data
     }
@@ -76,8 +73,7 @@ export class RelevanceComponent implements OnInit {
   applyCategoryFilter(): void {
     if (this.selectedCategories.length > 0) {
       this.filteredCategoryData = this.Showcategorydata.filter(cat =>
-        this.selectedCategories.includes(cat.category_name)
-      );
+        this.selectedCategories.includes(cat.category_name));
     } else {
       this.filteredCategoryData = this.Showcategorydata;
     }

@@ -33,14 +33,15 @@ export class UserEventComponent implements OnInit {
     this.filter.selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
       this.filterEvents(); // Re-filter on category selection
-      this.searchFilter();
+      
     });
 
     // Subscribe to search term changes
     this.searchService.currentSearchData.subscribe(term => {
       this.searchTerm = term;
       console.log('Received search term in UserEventComponent:', this.searchTerm);
-      this.fetchEvents(); // Fetch events based on search term
+      // this.fetchEvents(); // Fetch events based on search term
+      this.searchFilter();
     });
 
     this.searchService.sortOption$.subscribe(option => {
@@ -57,9 +58,6 @@ export class UserEventComponent implements OnInit {
       this.showeventdata = Response.data;
       this.filteredEvent = this.showeventdata;
       this.totalItems = Response.pagination.totalItems;
-      this.filterEvents(); // Initial filter
-      this.searchFilter();
-
     });
   }
 
@@ -95,7 +93,7 @@ export class UserEventComponent implements OnInit {
         //     this.filteredEvent = this.showeventdata;
         //     this.totalItems = this.filteredEvent.length;
         });
-    }else {
+    }else if (this.currentSortOption) {
 
       this.Dservice.getEventdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
       .subscribe(result => {
@@ -111,9 +109,12 @@ export class UserEventComponent implements OnInit {
       //   this.totalItems = Response.pagination.totalItems;
       // });
     }
-    
-
-    // console.log('Filtered Events:', this.filteredEvent); // Log filtered events for debugging
+    else {
+      // If no categories and no sort option selected, do nothing or show default data
+      console.log("No filter applied; showing default data.");
+      this.filteredEvent = this.showeventdata; // Default to unfiltered data
+      this.totalItems = this.showeventdata.length;
+    }  
   }
 
    // Handle page change for pagination

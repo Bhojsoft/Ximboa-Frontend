@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Query } from '@angular/core';
+import { ChangeDetectorRef, Component, Query, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Observable } from 'rxjs';
@@ -17,7 +17,8 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
 
@@ -538,6 +539,13 @@ export class HeaderComponent {
     if (modalInstance) {
       modalInstance.hide(); // Hides the modal
     }
+  }
+
+  ngAfterViewInit(): void {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
 
 }

@@ -7,7 +7,7 @@ import { SearchService } from '../search.service';
 @Component({
   selector: 'app-userside-product',
   templateUrl: './userside-product.component.html',
-  styleUrls: ['./userside-product.component.css']
+  styleUrls: ['./userside-product.component.css'],
 })
 export class UsersideProductComponent implements OnInit {
 
@@ -38,17 +38,17 @@ export class UsersideProductComponent implements OnInit {
     this.loadProducts(this.currentPage, this.itemsPerPage); // Load initial product data
 
     // Subscribe to category changes
-    this.filter.selectedCategories$.subscribe(categories => {
+    this.filter.selectedCategoryProduct$.subscribe(categories => {
       this.selectedCategories = categories;
       this.applyFilter(); // Re-filter when categories change
-      this.searchfilter();
     });
 
     // Subscribe to search term changes
     this.searchService.currentSearchData.subscribe(term => {
       this.searchTerm = term;
       console.log('Received search term in UsersideProductComponent:', this.searchTerm);
-      this.fetchProducts(); // Fetch products based on search term
+      // this.fetchProducts(); // Fetch products based on search term
+      this.searchfilter();
     });
 
     this.searchService.sortOption$.subscribe(option => {
@@ -65,8 +65,8 @@ export class UsersideProductComponent implements OnInit {
       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
       this.filteredProducts = this.showproductdata;
       this.totalItems = data?.pagination.totalItems;
-      this.applyFilter(); // Apply filter after fetching the product data
-      this.searchfilter();
+      // this.applyFilter(); // Apply filter after fetching the product data
+      // this.searchfilter();
     });
   }
 
@@ -93,7 +93,7 @@ export class UsersideProductComponent implements OnInit {
           );
           this.totalItems = result.pagination.totalItems;
         });
-    }else {
+    }else if (this.currentSortOption){
 
       this.service.getproductdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
       .subscribe(result => {
@@ -102,13 +102,18 @@ export class UsersideProductComponent implements OnInit {
         this.filteredProducts = this.showproductdata;
         this.totalItems = result.pagination.totalItems;
       });
-
   //     this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
   //       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
   //       this.totalItems = data?.pagination.totalItems;
        
   //     });
    }
+   else {
+    // If no categories and no sort option selected, do nothing or show default data
+    console.log("No filter applied; showing default data.");
+    this.filteredProducts = this.showproductdata; // Default to unfiltered data
+    this.totalItems = this.showproductdata.length;
+  }  
 }
 
   //  Handle page change for pagination

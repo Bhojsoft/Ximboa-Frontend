@@ -248,4 +248,7 @@
   display: block;
 }
 
-
+.custom-tooltip {
+  --bs-tooltip-bg: var(--TextColor); /* Replace var(--bd-violet-bg) with the actual color */
+  --bs-tooltip-color: #ffffff; /* Replace var(--bs-white) with the actual color */
+}

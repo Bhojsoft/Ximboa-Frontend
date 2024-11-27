@@ -11,14 +11,6 @@
               <small *ngIf="myForm.get('f_Name')?.errors?.['required']">First Name is required.</small>
             </div>
           </div>
-
-          <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="f_Name" class="col-form-label">First Name</label>
-            <input type="text" class="form-control" id="f_Name" formControlName="f_Name" required>
-            <div *ngIf="myForm.get('f_Name')?.invalid && (myForm.get('f_Name')?.touched || myForm.get('f_Name')?.dirty)" class="text-danger">
-              <small *ngIf="myForm.get('f_Name')?.errors?.['required']">First Name is required.</small>
-            </div>
-          </div> -->
           
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <label for="l_Name" class="col-form-label">Last Name</label>
@@ -37,22 +29,6 @@
             </div>
           </div>
       
-          <!-- <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="recipient-name" class="col-form-label">Mobile Number <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="mobile_number" required>
-            <div *ngIf="myForm.get('mobile_number')?.invalid && (myForm.get('mobile_number')?.touched || myForm.get('mobile_number')?.dirty)" class="text-danger">
-              <small *ngIf="myForm.get('mobile_number')?.errors?.['required']">Mobile Number is required.</small>
-            </div>
-          </div>
-      
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="recipient-name" class="col-form-label">Whatsapp Number <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="whatsapp_no" required>
-            <div *ngIf="myForm.get('whatsapp_no')?.invalid && (myForm.get('whatsapp_no')?.touched || myForm.get('whatsapp_no')?.dirty)" class="text-danger">
-              <small *ngIf="myForm.get('whatsapp_no')?.errors?.['required']">Whatsapp Number is required.</small>
-            </div>
-          </div> -->
-
           <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
             <label for="mobile-number" class="col-form-label">Mobile Number <sup>*</sup></label>
             <input type="number" class="form-control" id="mobile-number" formControlName="mobile_number" required>
