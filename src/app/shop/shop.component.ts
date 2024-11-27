@@ -289,5 +289,10 @@ export class ShopComponent {
   public onSave() {
     this.closebutton.nativeElement.click();
   }
+  
+  showproductName = false;
+  trunproductName(name: string): string {
+    return name.length > 10 ? name.slice(0, 12) + '...' : name;
+  }
 
 }

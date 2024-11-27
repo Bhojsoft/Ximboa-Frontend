@@ -258,5 +258,10 @@ rememberMe: boolean = false;
       this.show = !this.show;
     }
 
+    showeventName = false;
+    truneventName(name: string): string {
+     return name.length > 14 ? name.slice(0, 12) + '...' : name;
+   }
+
 
 }

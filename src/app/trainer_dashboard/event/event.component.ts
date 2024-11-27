@@ -151,5 +151,14 @@ export class EventComponent  implements OnInit{
       }
     });
   }
+
+  showeventName = false;
+  truneventName(name: string): string {
+   return name.length > 14 ? name.slice(0, 12) + '...' : name;
+ }
+ showeventName1 = false;
+  truneventName1(name: string): string {
+   return name.length > 14 ? name.slice(0, 12) + '...' : name;
+ }
   
 }
