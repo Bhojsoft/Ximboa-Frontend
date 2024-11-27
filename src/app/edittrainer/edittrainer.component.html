@@ -111,7 +111,7 @@
       
           <div class="d-flex align-items-center justify-content-between mb-4">
             <button type="submit" class="btn submitbtn">Update Profile</button>
-            <button *ngIf="isTrainer || isAdmin || isSELF_EXPERT" (click)="nextRow()" class="btn nextbtn">Next</button>
+            <button *ngIf="isTrainer || isAdmin || isSELF_EXPERT || isInstitute" (click)="nextRow()" class="btn nextbtn">Next</button>
           </div>
         </div>   
       </form>
@@ -155,6 +155,7 @@
                 <input type="text" class="form-control" id="school" 
                     [(ngModel)]="education.school" name="school" 
                     #school="ngModel" (ngModelChange)="checkFields()">
+
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                 <label for="college" class="col-form-label">College Name</label>
@@ -181,10 +182,6 @@
                     #other_details="ngModel" (ngModelChange)="checkFields()">
             </div>
             <div *ngIf="isFormInvalid && educationForm.submitted" class="text-danger mb-3">At least one field is required</div>
-
-            <!-- <div *ngIf="!isAtLeastOneFieldFillededucation" class="text-danger mb-2">
-                At least one field is required.
-            </div> -->
     
             <div class="d-flex align-items-center justify-content-between">
                 <button (click)="previousRow()" class="btn nextbtn">Back</button>

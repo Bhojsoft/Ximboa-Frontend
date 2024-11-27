@@ -38,7 +38,7 @@ export class UsersideProductComponent implements OnInit {
     this.loadProducts(this.currentPage, this.itemsPerPage); // Load initial product data
 
     // Subscribe to category changes
-    this.filter.selectedCategoryProduct$.subscribe(categories => {
+    this.filter. selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
       this.applyFilter(); // Re-filter when categories change
     });
