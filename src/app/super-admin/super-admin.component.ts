@@ -97,7 +97,7 @@ export class SuperAdminComponent  implements OnInit{
           this.role.RoleChange(data).subscribe(response => {
             Swal.fire('Request Rejected', 'The user’s request has been successfully deleted.', 'success');
             this.getallrequest();
-            this.getallApprovalreuest();
+            this.getAllRejectRequest();
           });
         }
       });
@@ -106,7 +106,7 @@ export class SuperAdminComponent  implements OnInit{
         console.log("check approved", approved);
         Swal.fire('Request Approved', 'The user’s role has been successfully updated.', 'success');
         this.getallrequest();
-        this.getAllRejectRequest();
+        this.getallApprovalreuest();
       });
     }
   }

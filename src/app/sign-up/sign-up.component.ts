@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../common_service/auth-service.service';
+import { RealoadServiceService } from '../common_service/reaload-service.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class SignUpComponent implements OnInit {
       mobile_number:'',
 
   }
-  constructor(private loginservices:LoginService,private route:Router,private authService:AuthServiceService){ }
+  constructor(private loginservices:LoginService,private route:Router,private authService:AuthServiceService,private realoadservice: RealoadServiceService){ }
 
   ngOnInit() {}
 
@@ -36,13 +37,14 @@ export class SignUpComponent implements OnInit {
       this.loginservices.postsignupdata(this.userData).subscribe({
         next: (response) => {
           sessionStorage.setItem("Authorization", response.token);
+          this.route.navigate(['/dashboard']);
           this.authService.login(response.token); // Set login state
+          this.realoadservice.triggerReloadHeader();
           Swal.fire(
             'Congratulations',
             'Welcome to Ximbo! <br> We’re thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You have registered successfully!',
-            'success'
-          );
-          this.route.navigate(['/dashboard']);
+            'success');
+         
         },
         error: (error) => {
             let errorMessage = 'Please enter valid details.';
