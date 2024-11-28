@@ -42,3 +42,9 @@
     display: block;
   }
   
+  .coursename{
+    color: var(--TextColor);
+  }
+  .coursename:hover{
+    text-decoration: underline;
+  }

@@ -30,10 +30,11 @@ export class EdittrainerComponent implements OnInit {
 
   social = {
 
-    facebook: ' ',
-    instagram: ' ',
-    youtube: ' ',
-    Linkdein: ' ',
+    facebook: '',
+    instagram: '',
+    youtube: '',
+    Linkdein: '',
+    website: '',
   }
 
   education = {
@@ -179,7 +180,8 @@ export class EdittrainerComponent implements OnInit {
             facebook: this.social.facebook,
             instagram: this.social.instagram,
             youtube: this.social.youtube,
-            Linkdein: this.social.Linkdein
+            Linkdein: this.social.Linkdein,
+            website: this.social.website
           };
 
           if (this.isAtLeastOneFieldFilled()) {
@@ -204,7 +206,8 @@ export class EdittrainerComponent implements OnInit {
           this.social.facebook.trim() !== '' ||
           this.social.instagram.trim() !== '' ||
           this.social.youtube.trim() !== '' ||
-          this.social.Linkdein.trim() !== ''
+          this.social.Linkdein.trim() !== '' ||
+          this.social.website.trim() !==''
         );
       }
 

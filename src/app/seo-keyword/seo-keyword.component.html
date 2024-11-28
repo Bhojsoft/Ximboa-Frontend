@@ -1,6 +1,6 @@
 <hr class="m-0" >
 <div class="container py-3 ">
-    <div class="row">
+    <div class="row" style="font-size: small;">
         <div>
             <div class="mb-2">
                 <p class="m-0 keywordheading">Category</p>
@@ -10,7 +10,7 @@
         </div>
         <div class="mb-2">
             <p class="m-0 keywordheading">Courses</p>
-            <small class="tagname" *ngFor="let Cources of courses" routerLink="/couserenroll/{{Cources._id}}"><label>{{ Cources.course_name }}</label> | </small>
+            <small class="tagname" *ngFor="let Cources of courses" routerLink="/couserenroll/{{Cources._id}}" ><label>{{ Cources.course_name }}</label> | </small>
 
         </div>
 

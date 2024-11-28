@@ -1,6 +1,5 @@
-small{
-    font-size: small;  
-
+.tagname{
+    font-size: small !important;
     label{
         cursor: pointer;
     }
@@ -15,10 +14,7 @@ label:hover{
 }
 
 .keywordheading{
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
 }
 
-.tagname{
-    font-size: 16px;
-}

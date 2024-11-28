@@ -57,6 +57,19 @@ export class TrainerService {
         return this.http.get<any>(`${this.APIURL}/trainers`,{headers});
       }
 
+      getAllCourseRequest():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/admin/course/requests`)
+      }
+
+      ViewRequestCoursebyID(id:string):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/course/${id}`)
+      }
+
+      CourserequestchangeStatus(courseId:string,status:string):Observable<any>{
+        const body = { courseId, status };
+        return this.http.put<any>(`${this.APIURL}/admin/course/requests`,{courseId, status})
+      }
+
       deleteCoursebyID(_id: string): Observable<any> {
         return this.http.delete(`${this.APIURL}/course/${_id}`);
       }
@@ -92,6 +105,7 @@ export class TrainerService {
       }
 
   // *************** Product API *****************
+
       addProduct(productData: FormData): Observable<any> {
         return this.http.post(`${this.APIURL}/product`, productData);
       }
@@ -118,25 +132,27 @@ export class TrainerService {
         return this.http.delete<any>(`${this.APIURL}/enquiries/${_id}`)
       }    
 
-
       GetEnquiry(page: number, limit: number):Observable<any>{
         return this.http.get<any>(`${this.APIURL}/enquiries/trainer?page=${page}&limit=${limit}`);
        }
 
   // *************** Appointment *****************
-      deleteAppointmentbyID(_id: string):Observable<any>{
+
+    deleteAppointmentbyID(_id: string):Observable<any>{
         return this.http.delete<any>(`${this.APIURL}/appointment/${_id}`);
       }
 
    // Function to approve an appointment
-  approveAppointment(id: string): Observable<any> {
+  
+   approveAppointment(id: string): Observable<any> {
     return this.http.put<any>(`${this.APIURL}/appointment/${id}/approve`, {});
   }
 
   // Function to reject an appointment
-  rejectAppointment(id: string, rejectionReason: string): Observable<any> {
-    return this.http.put<any>(`${this.APIURL}/appointment/${id}/reject`,{ rejectionReason: rejectionReason });
-  }
+  
+    rejectAppointment(id: string, rejectionReason: string): Observable<any> {
+      return this.http.put<any>(`${this.APIURL}/appointment/${id}/reject`,{ rejectionReason: rejectionReason });
+    }
 
   
   // *************** Appointment *****************
