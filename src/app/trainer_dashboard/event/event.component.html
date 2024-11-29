@@ -115,15 +115,123 @@
         <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px" alt="">
     </div>
     </mat-tab>
+    <mat-tab *ngIf="isInstitute" label="Event Request">
+      <table class="table table-bordered text-center mt-2">
+        <thead class="mb-2">
+            <tr>
+                <th>Trainer Full Name</th>
+                <th>Event Name</th>
+                <th>STATUS</th>
+                <th>REQUEST DATE & Time</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of showpendingEvents">
+                <td>
+                    <i class="fa-solid fa-user mx-2 text-primary"></i>
+                    {{request.user_name}}
+                </td>
+                <td  (click)="openEventsDetailsModal(request.eventId)" data-bs-toggle="modal" data-bs-target="#Event" style="cursor: pointer;" class="coursename">{{request.eventName}}</td>
+                <td>{{request.status}}</td>
+                <td>{{request.date | date}} &nbsp; {{request.time}}</td>
+                <td>
+                     <button (click)="handleEventsApproval(request.eventId,  'approved')"
+                        class="btn text-light bg-success me-4">Approve</button>
+                    <button (click)="handleEventsApproval(request.eventId,  'rejected')"
+                        class="btn text-light bg-danger">Reject</button> 
+                </td>
+            </tr>
+        </tbody>
+        <div *ngIf="!showpendingEvents || showpendingEvents.length === 0" class="col-12 text-center mt-2">
+          <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
+            alt="">
+        </div>
+    </table>
+
+    </mat-tab>
    </mat-tab-group>
  
   
   
 </div>
 
+
+<!-- Modal For Event Deatils -->
+<div class="modal fade" id="Event" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Event Information</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <div *ngIf="ShowEvent" class="row gap-5">
+              <div class="col-sm-12 col-md-5 col-lg-8">
+                <div >
+                   <img *ngIf="ShowEvent.event_thumbnail; else dummyImage" src="{{ShowEvent.event_thumbnail}}" class="ThumbnailImage rounded img-fluid" alt="Event Thumbnail"> 
+                 <ng-template #dummyImage>
+                  <img src="../../assets/event dummy.jpg" alt="Dummy Image" class="ThumbnailImage img-fluid rounded">
+                </ng-template> 
+                </div>
+                <h5>Event Short Info</h5>
+                <p class="poppins-regular" style="text-align: justify;">{{ShowEvent.event_info}}</p>
+                <div class="mt-2">
+                  <h5>Description</h5>
+                  <p style="text-align: justify;">{{ShowEvent?.event_description}}</p>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-5 col-lg-3">
+                <div class="mt-5">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-ticket"></i> Tickets Price</small>
+                    <small>Free</small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-calendar"></i> Date </small>
+                    <small>{{ShowEvent.event_date | date}} </small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-clock"></i> Schedule </small>
+                    <small>{{ShowEvent.event_start_time}} To {{ShowEvent.event_end_time}}  </small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-clock"></i> Event Mode </small>
+                    <small>{{ShowEvent.event_type}} </small>
+                  </div>
+                  <div *ngIf="ShowEvent?.event_location"  class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-location-dot"></i> Location </small>
+                    <small> {{ShowEvent.event_location}} </small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-layer-group"></i> Category </small>
+                    <small>{{ShowEvent.event_category}} </small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <small><i class="fa-solid fa-globe"></i> Language </small>
+                    <small> {{ShowEvent.event_languages}}  </small>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between ">
+                    <small><i class="fa-regular fa-flag"></i> Estimated Seat </small>
+                    <small> {{ShowEvent.estimated_seats}} </small>
+                  </div>
+                </div>
+              </div>
+            
+           
+           
+          </div> 
+           
+          
+         
+        </div>
+    </div>
+  </div>
+</div>
+
 <!-- Model For Add New Courses -->
 
-<div class="modal fade" id="AddEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="AddEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable ">
     <div class="modal-content ">
       <div class="modal-header">
@@ -259,4 +367,9 @@
       </form>
     </div>
     </div>
-  </div>
+  </div> 
+
+
+
+
+

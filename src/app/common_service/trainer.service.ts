@@ -88,6 +88,19 @@ export class TrainerService {
         return this.http.post<any>(`${this.APIURL}/event`, eventData);
       }
 
+      getAllEventsRequest():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/admin/events/requests`)
+      }
+
+      ViewRequestEventsbyID(id:string):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/event/${id}`)
+      }
+
+      EventsrequestchangeStatus(eventId:string,status:string):Observable<any>{
+        const body = { eventId, status };
+        return this.http.put<any>(`${this.APIURL}/admin/events/requests`,{eventId, status})
+      }
+
       deleteEvent(_id:any):Observable<any>{
         return this.http.delete<any>(`${this.APIURL}/event/${_id}`)
       }
@@ -108,6 +121,19 @@ export class TrainerService {
 
       addProduct(productData: FormData): Observable<any> {
         return this.http.post(`${this.APIURL}/product`, productData);
+      }
+
+      getAllProductRequest():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/admin/product/requests`)
+      }
+
+      ViewRequestProductbyID(id:string):Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/product/${id}`)
+      }
+
+      ProductrequestchangeStatus(productId:string,status:string):Observable<any>{
+        const body = { productId, status };
+        return this.http.put<any>(`${this.APIURL}/admin/product/requests`,{productId, status})
       }
 
       deleteproductBYID(_id: string):Observable<any>{

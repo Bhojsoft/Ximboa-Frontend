@@ -85,7 +85,6 @@
                 </div>
                 <small class="m-0 p-0 text-end w-25">{{product.product_flag }}</small>
               </div>
-              <!-- <h5 class="card-title">{{product.products_name}}</h5> -->
               <h5 class="card-title  text-capitalize" 
               (mouseenter)="showproductName1 = true" 
               (mouseleave)="showproductName1 = false">
@@ -114,10 +113,82 @@
       </div>
 
     </mat-tab>
+    <mat-tab *ngIf="isInstitute" label="Product Request">
+      <table class="table table-bordered text-center mt-2">
+        <thead class="mb-2">
+            <tr>
+                <th>Trainer Full Name</th>
+                <th>Product Name</th>
+                <th>STATUS</th>
+                <th>REQUEST DATE & Time</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of showpendingProducts">
+                
+                <td>
+                    <i class="fa-solid fa-user mx-2 text-primary"></i>
+                    {{request.user_name}}
+                </td>
+                <td (click)="openProductDetailsModal(request.productId)" 
+                data-bs-toggle="modal" data-bs-target="#ProductDetails" style="cursor: pointer;" class="coursename">{{request.productName}}</td>
+                <td>{{request.status}}</td>
+                <td>{{request.date | date}} &nbsp; {{request.time}}</td>
+                <td>
+                     <button (click)="handleProductApproval(request.productId,  'approved')"
+                        class="btn text-light bg-success me-4">Approve</button>
+                    <button (click)="handleProductApproval(request.productId,  'rejected')"
+                        class="btn text-light bg-danger">Reject</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="!showpendingProducts || showpendingProducts.length === 0" class="col-12 text-center mt-2">
+      <img src="../../../assets/No data-Found.png" class="img-fluid object-fit-cover" height="300px" width="300px"
+        alt="">
+    </div>
+    </mat-tab>
   </mat-tab-group>
+</div>
 
 
-
+ <!-- Modal For Show Products Details -->
+ <div class="modal fade" id="ProductDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content" >
+          <div class="modal-header">
+              <h3 class="info-title text-center">Product Information</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div *ngIf="Showproductdata" class="row">
+              <div class="col-sm-12 col-md-12 col-lg-5 mt-3 ">
+                <img src="{{Showproductdata.product_image}}" class="ThumbnailImage img-fluid" alt="..." style="border-radius: 8px;">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-7  p-3" >
+                <div class="d-flex align-items-center gap-2 ">
+                  <p class="mb-3 poppins-semibold" style="font-size: 25px;">{{Showproductdata.product_name}}  </p>
+                  <p class="mt-2" style="font-size: small;">( Provide by {{Showproductdata.business_Name}} )</p>
+                </div>  
+          
+                <p class="poppins-regular" style="text-align: justify;">{{Showproductdata.products_info}}</p>
+                <p class="mb-1 poppins-semibold ">Price :  ₹ <span class="text-decoration-line-through">{{Showproductdata.product_prize}}</span></p>
+                <p class="mb-2 poppins-semibold" >Selling Prize : ₹ {{Showproductdata.product_selling_prize}}</p>
+                <p class="mb-2 poppins-semibold">Product Type : {{Showproductdata.product_flag}}</p>
+                <div class="mt-3 pb" style="cursor: pointer;">
+                  <b class="me-1">Tags: </b>
+                  <label *ngFor="let tag of Showproductdata.tags" class="border rounded py-1 px-2 me-2 mb-2"> {{tag }}</label>
+                </div>
+            </div>
+             </div>
+             <div>
+                <h5>Description</h5>
+                <p style="text-align: justify;">{{Showproductdata?.products_description}}</p>
+             </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 
@@ -231,3 +302,6 @@
     </div>
 
   </div>
+
+
+ 

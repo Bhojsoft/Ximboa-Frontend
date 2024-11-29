@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row mb-2">
     <img class="img-fluid rounded" src="../../../assets/trainer_home_mycourses.png" alt="" />
   </div>
 
@@ -162,112 +162,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body px-4 pt-1">
-        <!-- <form (ngSubmit)="onsubmit()">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="course_name" class="col-form-label">Course Name <sup>*</sup></label>
-              <input type="text" class="form-control" id="course_name" [(ngModel)]="Courses.course_name"
-                name="course_name" />
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <label for="category_id" class="col-form-label">Select Categories <sup>*</sup></label>
-              <select class="form-select" aria-label="Default select example" id="category_id"
-                [(ngModel)]="Courses.category_id" name="category_id">
-                <option selected>Select Categories</option>
-                <option *ngFor="let category of showCategorydata" [value]="category._id">
-                  {{ category.category_name }}
-                </option>
-              </select>
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <label for="online_offline" class="col-form-label">Mode Online/Offline <sup>*</sup></label>
-              <select class="form-select" aria-label="Default select example" id="online_offline"
-                [(ngModel)]="Courses.online_offline" name="online_offline">
-                <option selected>Select Mode</option>
-                <option value="Online">Online</option>
-                <option value="Offline">Offline</option>
-                <option value="Hybrid">Hybrid</option>
-              </select>
-            </div>
-
-
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="price" class="col-form-label">Prize <sup>*</sup></label>
-              <input type="text" class="form-control" id="price" [(ngModel)]="Courses.price" name="price" />
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="offer_prize" class="col-form-label">Offer Prize <sup>*</sup></label>
-              <input type="text" class="form-control" id="offer_prize" [(ngModel)]="Courses.offer_prize"
-                name="offer_prize" />
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="start_date" class="col-form-label">Start Date <sup>*</sup></label>
-              <input type="Date" class="form-control" id="start_date" [(ngModel)]="Courses.start_date"
-                name="start_date" />
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="end_date" class="col-form-label">End Date <sup>*</sup></label>
-              <input type="Date" class="form-control" id="end_date" [(ngModel)]="Courses.end_date" name="end_date" />
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="start_time" class="col-form-label">Start Time <sup>*</sup></label>
-              <input type="time" class="form-control" id="start_time" [(ngModel)]="Courses.start_time"
-                name="start_time" />
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="end_time" class="col-form-label">End Time <sup>*</sup></label>
-              <input type="time" class="form-control" id="end_time" [(ngModel)]="Courses.end_time" name="end_time" />
-            </div>
-
-            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-              <label for="thumbnail_image" class="col-form-label">Upload Course Image</label><br />
-              <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-            </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
-              <label for="course_information" class="col-form-label">Course Short Description <sup>*</sup></label>
-              <textarea type="text" class="form-control" id="course_information"
-                [(ngModel)]="Courses.course_information" name="course_information"></textarea>
-            </div>
-
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-              <label for="tags" class="col-form-label">tags <sup>*</sup></label>
-              <input type="text" class="form-control" id="tags" [(ngModel)]="Courses.tags" name="tags" />
-            </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-              <label for="course_brief_info" class="col-form-label">Course Details Description <sup>*</sup></label>
-              <textarea type="text" class="form-control" id="course_brief_info"
-                [(ngModel)]="Courses.course_brief_info" name="course_brief_info"></textarea>
-            </div>
-
-            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-              <label for="gallary_image" class="col-form-label">Upload Gallary Image</label><br />
-              <input type="file" name="gallary_image" id="gallary_image" (change)="onFileSelected($event)" />
-            </div>
-
-            <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
-              <label for="trainer_materialImage" class="col-form-label">Upload Course Material</label><br />
-              <input type="file" name="trainer_materialImage" id="trainer_materialImage"
-                (change)="onFileSelected($event)" />
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Add Course</button>
-        </div>
-      </form> -->
-
-        <form (ngSubmit)="onsubmit()" #courseForm="ngForm">
+         <form (ngSubmit)="onsubmit()" #courseForm="ngForm">
           <div class="row">
             <!-- Course Name -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
@@ -460,7 +355,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div *ngIf="Showcoursedetails" class="row pt-4">
+            <div *ngIf="Showcoursedetails" class="row px-1">
               <div class="col-sm-12 col-md-12 col-lg-5 ">
                 <div>
                   <img *ngIf="Showcoursedetails.thumbnail_image; else dummyImage" src="{{Showcoursedetails.thumbnail_image}}"
@@ -475,16 +370,9 @@
                     <i *ngIf="Showcoursedetails.online_offline === 'Online'" class="fas fa-circle-play text-muted m-0 p-0"></i>
                     <i *ngIf="Showcoursedetails.online_offline === 'Offline'" class="fas fa-location-dot m-0 p-0"></i>
                   </p>
-                  <!-- <div class="m-0 p-0 g-0" style="margin-top: -13px !important;">
-                    Rating
-                    <span *ngFor="let star of starsArray; let i = index"
-                      [ngClass]="{'fa fa-star checked': i < Showcoursedetails.course_rating, 'fa fa-star': i <= Showcoursedetails.course_rating }">
-                    </span>
-                  </div> -->
-          
                 </div>
               </div>
-              <div class="col-sm-12 col-md-12 col-lg-7  px-5 label-color">
+              <div class="col-sm-12 col-md-12 col-lg-7  px-2 label-color">
                 <div class="d-flex align-items-center gap-2">
                   <p class="mb-3 poppins-semibold" style="font-size: 20px;">{{Showcoursedetails.course_name}}</p>
                   <p class="mt-2" style="font-size: small;">(Provided By {{Showcoursedetails.business_Name}})</p>

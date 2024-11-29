@@ -92,7 +92,9 @@ export class MyCourseComponent implements OnInit {
       if (this.id) {
         this.CourseDetails(); // Fetch user details when 'id' is available
       }
-    });    this.admin.getcategorydata().subscribe( data =>{
+    });    
+    
+    this.admin.getcategorydata().subscribe( data =>{
       // console.log("data",data)
       this.showCategorydata = data;  
     });
@@ -115,7 +117,6 @@ export class MyCourseComponent implements OnInit {
   getPendingCourses(){
     this.service.getAllCourseRequest().subscribe(response => {
       console.log("requested courses",response);
-      
       this.showpendingCourses = response.data;
     })
   }
@@ -137,9 +138,6 @@ export class MyCourseComponent implements OnInit {
   }
 
   handleCourseApproval(Courseid: string, Status: string) {
-    // const data = { Courseid,  Status };
-    // console.log("view data", data);
-  
     if (Status === 'rejected') {
       Swal.fire({
         title: 'Are you sure?',
@@ -152,7 +150,8 @@ export class MyCourseComponent implements OnInit {
         if (result.isConfirmed) {
           this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
             (response) => {
-              Swal.fire('Request Rejected', 'The user’s request has been successfully deleted.', 'success');
+              this.getPendingCourses();
+              Swal.fire('Request Rejected', 'The Trainer Course request Status has been successfully Rejected.', 'success');
             },
             (error) => {
               Swal.fire('Error', 'Failed to reject the request. Please try again later.', 'error');
@@ -163,7 +162,8 @@ export class MyCourseComponent implements OnInit {
     } else if (Status === 'approved') {
       this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
         (response) => {
-          Swal.fire('Request Approved', 'The user’s role has been successfully updated.', 'success');
+          this.getPendingCourses();
+          Swal.fire('Request Approved', 'The Trainer Course Status has been successfully updated.', 'success');
         },
         (error) => {
           Swal.fire('Error', 'Failed to approve the request. Please try again later.', 'error');
