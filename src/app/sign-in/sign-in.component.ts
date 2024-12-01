@@ -4,6 +4,7 @@ import {  Router } from '@angular/router';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import Swal from 'sweetalert2';
 import { jwtDecode } from "jwt-decode";
+import { RealoadServiceService } from '../common_service/reaload-service.service';
 declare var bootstrap: any;
 
 
@@ -27,7 +28,8 @@ export class SignInComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private authService: AuthServiceService,
-    private route:Router
+    private route:Router,
+    private realoadservice: RealoadServiceService
   ) {}
 
   ngOnInit(): void {
@@ -43,8 +45,9 @@ export class SignInComponent implements OnInit {
     this.loginService.login(token).subscribe({
       next: (response: any) => { 
         sessionStorage.setItem("Authorization",response.token);
-            this.route.navigate(['/trainer']);
+            this.route.navigate(['/dashboard']);
             this.authService.login(response.token); // Set login state
+            this.realoadservice.triggerReloadHeader();
         Swal.fire('','We’re excited to see you again. Your login was successful, and you’re now ready to continue creating amazing learning experiences.', 'success');
       },
       error: () => { 
@@ -63,13 +66,27 @@ export class SignInComponent implements OnInit {
   forgotpwd() {
     this.loginService.forgotpassword(this.forget).subscribe({
       next: (response: any) => { 
-        Swal.fire('', 'Password Reset Link on your Email ID', 'success');  
-        // this.ngAfterViewInit();
+        Swal.fire('', 'Password Reset Link sent to your Email ID', 'success');  
         this.closeModal();
       },
-      error: () => { 
-        this.message = 'An error occurred';
-        Swal.fire('Error', 'Please Enter Valid Details.', 'error');
+      error: (error: any) => { 
+        // Check the error from backend and show appropriate message
+        if (error.status === 400) {
+          // Backend response for invalid email format or missing email
+          Swal.fire('Error', 'Please enter a valid email address, like name@example.com.', 'error');
+        } else if (error.status === 404) {
+          // Email not found in the system
+          Swal.fire('Error', 'Email Not Registered. If an account with this email exists, a password reset link has been sent.', 'error');
+        } else if (error.status === 429) {
+          // Rate limiting error (Too many requests)
+          Swal.fire('Error', 'Multiple requests detected. Please wait a few minutes before trying again.', 'error');
+        } else if (error.status === 410) {
+          // Expired or invalid reset link
+          Swal.fire('Error', 'This password reset link has expired or is invalid. Please request a new one.', 'error');
+        } else {
+          // General error (e.g., server issue)
+          Swal.fire('Error', 'An error occurred while processing your request. Please try again later or contact support.', 'error');
+        }
       }
     });
   }

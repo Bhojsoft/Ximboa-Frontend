@@ -52,17 +52,31 @@ export class ShopComponent {
       this.isLoggedIn = !!token; // Set true if token exists
     }
 
-  ngOnInit(): void {
 
-    this.routeSub = this.router.params.subscribe(params => {
-      this.id = params['id']; 
-      this.loadProducts(this.id);
+  ngOnInit(): void {
+    this.id = this.router.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.loadProducts(this.id); 
+      this.loadreview(this.currentPage, this.itemsPerPage); 
+      this.review.productid = this.id; 
+    }
+  
+    this.routeSub = this.router.params.subscribe((params) => {
+      const newId = params['id'];
+      
+      if (newId !== this.id) {
+        this.id = newId;
+        this.currentPage = 1; 
+        this.review.productid = this.id; 
+        this.ShowProductReview = []; 
+        this.totalItems = 0; 
+  
+        this.loadProducts(this.id);
+        this.loadreview(this.currentPage, this.itemsPerPage);
+      }
     });
-    
-    this.loadreview(this.currentPage,this.itemsPerPage);
-    
-    this.review.productid = this.id;
   }
+  
 
   loadProducts(id:string): void{
     // console.log("Course ID:", this.id);
@@ -94,6 +108,7 @@ export class ShopComponent {
       this.dservice.Addtocart(cart).subscribe({
         next: (Response) =>{
           Swal.fire('Ohh...!', 'Added to cart..!', 'success');
+          this.register(productId); // Call register with the product ID
           this.route.navigate(['/cart'])
         },
         error : (error)=>{
@@ -102,8 +117,8 @@ export class ShopComponent {
       })
     }
     else {
-      console.log(quantity);
-      console.log(productId);
+      // console.log(quantity);
+      // console.log(productId);
       sessionStorage.setItem('productId',productId);
       sessionStorage.setItem('quantity',quantity.toString());
             
@@ -113,6 +128,18 @@ export class ShopComponent {
         modal.show();
       }
     }
+  }
+
+  register(productId: string) {
+    const product = { product_id: productId }; // Corrected to send product ID properly
+    this.dservice.registerProduct(product).subscribe({
+      next: (response) => {
+        console.log('Product registered successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error registering product:', error);
+      }
+    });
   }
 
 
@@ -132,17 +159,22 @@ export class ShopComponent {
   }
 
   review = {
-    review: ' ',
+    review: '',
     star_count: 0,
-    productid:' ',
+    productid:'',
   }
 
   postreviewProduct(){
+    if (!this.review.review || !this.review.star_count) {
+      Swal.fire('Sorry', 'Please provide both a review and a star rating to submit your feedback.', 'warning');
+      return;
+    }
     if(this.token){
       this.review.star_count = this.rating;
     this.dservice.postreviewProduct(this.review).subscribe({
       next : (Response) =>{
         Swal.fire('Ohh...!', 'You are Review Add Successfully..!', 'success');
+        this.loadreview(this.currentPage, this.itemsPerPage);
         this.resetForm();
       },
       error : (Error) => {
@@ -161,7 +193,7 @@ export class ShopComponent {
   resetForm() {
     this.review = {
       star_count: 0,
-      review: '',
+      review: ' ',
       productid: this.review.productid 
     };
     this.rating = 0;  
@@ -256,6 +288,11 @@ export class ShopComponent {
 
   public onSave() {
     this.closebutton.nativeElement.click();
+  }
+  
+  showproductName = false;
+  trunproductName(name: string): string {
+    return name.length > 10 ? name.slice(0, 12) + '...' : name;
   }
 
 }

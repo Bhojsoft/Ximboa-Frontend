@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TrainerService } from '../common_service/trainer.service';
 import { FormGroup, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,8 @@ declare var bootstrap: any;
 @Component({
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+  styleUrls: ['./course-details.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CourseDetailsComponent implements OnInit {
 
@@ -22,13 +23,27 @@ export class CourseDetailsComponent implements OnInit {
   starsArray = Array(5).fill(0);
   id: any;
   p: number = 1;
+  totalItems = 0;
+  currentPage = 1;
   currentPageBatches: number = 1;  
   currentPageUpcomingBatches: number = 1;
   currentPageOnlineEvents: number = 1;
   currentPageOfflineEvents: number = 1;
   currentPageProducts: number = 1;
 
-  itemsPerPage: number = 3; 
+  itemsPerPage: number = 2; 
+  itemsPerPageAllcourses: number = 4; 
+
+
+
+  AllCourses:any;
+  AllEvents:any;
+  AllProducts:any;
+
+  makeCall() {
+    const phoneNumber = this.showprofile.trainer.mobile_number;
+    window.location.href = `tel:${phoneNumber}`;
+  }
 
   constructor(private serive:TrainerService,private router:ActivatedRoute,private authService:AuthServiceService,
     private dashboard:DashboardService,private loginservices:LoginService,private route:Router)
@@ -41,131 +56,202 @@ export class CourseDetailsComponent implements OnInit {
       this.showreviewdata = data?.reviews; // Bind reviews data to showreviewdata
     });
     
+    this.GetAllCourses(this.currentPage,this.itemsPerPageAllcourses)
+    this.GetAllEvents(this.currentPage,this.itemsPerPageAllcourses)
+    this.GetAllProducts(this.currentPage,this.itemsPerPage)
     
     this.enquiry.trainerid = this.id;
     this.question.trainerid = this.id;
     this.review.t_id=this.id;
     this.Appoinment.t_id=this.id;
-
-    console.log("ofline",this.offlineEvents);
-
   }
 
-    // Pagination methods for Current Batches
-  totalPagesBatches(): number {
-    return Math.ceil(this.showprofile.OnGoingBatches.length / this.itemsPerPage);
+  ngAfterViewInit(): void {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach((tooltipTriggerEl) => {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
 
-  nextPageBatches(): void {
-    if (this.currentPageBatches < this.totalPagesBatches()) {
-      this.currentPageBatches++;
+      GetAllCourses(page: number, limit: number){
+          this.serive.GetAllCoursesonprofilepage(this.id,page, limit).subscribe(Response => {
+            this.AllCourses = Response.data;
+            this.totalItems = Response.pagination.totalItems;
+            console.log("All Couese by id",Response);
+            
+          })
+      }
+
+    GetAllEvents(page: number, limit: number){
+        this.serive.GetAllEventsonprofilepage(this.id,page, limit).subscribe(Response => {
+          this.AllEvents = Response.data;
+          this.totalItems = Response.pagination.totalItems;
+          console.log("All Couese by id",Response);
+          
+        })
     }
-  }
 
-  previousPageBatches(): void {
-    if (this.currentPageBatches > 1) {
-      this.currentPageBatches--;
+    GetAllProducts(page: number, limit: number){
+      this.serive.GetAllProductonprofilepage(this.id,page, limit).subscribe(Response => {
+        this.AllProducts = Response.data;
+        this.totalItems = Response.pagination.totalItems;
+        console.log("All Couese by id",Response);
+        
+      })
     }
-  }
+
+// Pagination methods for All Courses
+    totalPagescourses(): number {
+      return Math.ceil(this.totalItems / this.itemsPerPageAllcourses);
+    }
+    
+    AllCoursesnextPageBatches(): void {
+      if (this.currentPage < this.totalPagescourses()) {
+        this.currentPage++;
+        this.GetAllCourses(this.currentPage, this.itemsPerPageAllcourses);
+      }
+    }
+    
+    AllCoursespreviousPageBatches(): void {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.GetAllCourses(this.currentPage, this.itemsPerPageAllcourses);
+      }
+    }
+// Pagination methods for All Events
+      totalPagesEvents(): number {
+        return Math.ceil(this.totalItems / this.itemsPerPageAllcourses);
+      }
+
+      AllEventsnextPageBatches(): void {
+        if (this.currentPage < this.totalPagesEvents()) {
+          this.currentPage++;
+          this.GetAllEvents(this.currentPage, this.itemsPerPageAllcourses);
+        }
+      }
+
+      AllEventspreviousPageBatches(): void {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.GetAllEvents(this.currentPage, this.itemsPerPageAllcourses);
+        }
+      }
+
+// Pagination methods for All Products
+
+      totalPagesProducts(): number {
+        return Math.ceil(this.totalItems / this.itemsPerPage);
+      }
+
+      AllProductsnextPage(): void {
+        if (this.currentPage < this.totalPagesProducts()) {
+          this.currentPage++;
+          this.GetAllProducts(this.currentPage, this.itemsPerPage);
+        }
+      }
+
+      AllProductspreviousPage(): void {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.GetAllProducts(this.currentPage, this.itemsPerPage);
+        }
+      }
+
+  
+  // Pagination methods for Current Batches
+      // totalPagesBatches(): number {
+      //   return Math.ceil(this.showprofile.OnGoingBatches.length / this.itemsPerPage);
+      // }
+
+      // nextPageBatches(): void {
+      //   if (this.currentPageBatches < this.totalPagesBatches()) {
+      //     this.currentPageBatches++;
+      //   }
+      // }
+
+      // previousPageBatches(): void {
+      //   if (this.currentPageBatches > 1) {
+      //     this.currentPageBatches--;
+      //   }
+      // }
 
   // Pagination methods for Upcoming Batches
-  totalPagesUpcomingBatches(): number {
-    return Math.ceil(this.showprofile.UpcomingBatches.length / this.itemsPerPage);
-  }
+      // totalPagesUpcomingBatches(): number {
+      //   return Math.ceil(this.showprofile.UpcomingBatches.length / this.itemsPerPage);
+      // }
 
-  nextPageUpcomingBatches(): void {
-    if (this.currentPageUpcomingBatches < this.totalPagesUpcomingBatches()) {
-      this.currentPageUpcomingBatches++;
-    }
-  }
+      // nextPageUpcomingBatches(): void {
+      //   if (this.currentPageUpcomingBatches < this.totalPagesUpcomingBatches()) {
+      //     this.currentPageUpcomingBatches++;
+      //   }
+      // }
 
-  previousPageUpcomingBatches(): void {
-    if (this.currentPageUpcomingBatches > 1) {
-      this.currentPageUpcomingBatches--;
-    }
-  }
+      // previousPageUpcomingBatches(): void {
+      //   if (this.currentPageUpcomingBatches > 1) {
+      //     this.currentPageUpcomingBatches--;
+      //   }
+      // }
 
   // Pagination methods for Online Events
-  totalPagesOnlineEvents(): number {
-    return Math.ceil(this.showprofile.onlineEventsThumbnailUrl.length / this.itemsPerPage);
-  }
+      // totalPagesOnlineEvents(): number {
+      //   return Math.ceil(this.showprofile.onlineEventsThumbnailUrl.length / this.itemsPerPage);
+      // }
 
-  nextPageOnlineEvents(): void {
-    if (this.currentPageOnlineEvents < this.totalPagesOnlineEvents()) {
-      this.currentPageOnlineEvents++;
-    }
-  }
+      // nextPageOnlineEvents(): void {
+      //   if (this.currentPageOnlineEvents < this.totalPagesOnlineEvents()) {
+      //     this.currentPageOnlineEvents++;
+      //   }
+      // }
 
-  previousPageOnlineEvents(): void {
-    if (this.currentPageOnlineEvents > 1) {
-      this.currentPageOnlineEvents--;
-    }
-  }
+      // previousPageOnlineEvents(): void {
+      //   if (this.currentPageOnlineEvents > 1) {
+      //     this.currentPageOnlineEvents--;
+      //   }
+      // }
 
   // Pagination methods for Offline Events
-  totalPagesOfflineEvents(): number {
-    return Math.ceil(this.showprofile.offlienEventsThumbnailUrl.length / this.itemsPerPage);
-  }
+        // totalPagesOfflineEvents(): number {
+        //   return Math.ceil(this.showprofile.offlienEventsThumbnailUrl.length / this.itemsPerPage);
+        // }
 
-  nextPageOfflineEvents(): void {
-    if (this.currentPageOfflineEvents < this.totalPagesOfflineEvents()) {
-      this.currentPageOfflineEvents++;
-    }
-  }
+        // nextPageOfflineEvents(): void {
+        //   if (this.currentPageOfflineEvents < this.totalPagesOfflineEvents()) {
+        //     this.currentPageOfflineEvents++;
+        //   }
+        // }
 
-  previousPageOfflineEvents(): void {
-    if (this.currentPageOfflineEvents > 1) {
-      this.currentPageOfflineEvents--;
-    }
-  }
+        // previousPageOfflineEvents(): void {
+        //   if (this.currentPageOfflineEvents > 1) {
+        //     this.currentPageOfflineEvents--;
+        //   }
+        // }
 
-  // Pagination methods for Products
-  totalPagesProducts(): number {
-    return Math.ceil(this.showprofile.productsWithFullImageUrl.length / this.itemsPerPage);
-  }
-
-  nextPageProducts(): void {
-    if (this.currentPageProducts < this.totalPagesProducts()) {
-      this.currentPageProducts++;
-    }
-  }
-
-  previousPageProducts(): void {
-    if (this.currentPageProducts > 1) {
-      this.currentPageProducts--;
-    }
-  }
-
+  
   // Get items for Current Batches
-  get currentBatches(): any[] {
-    const startIndex = (this.currentPageBatches - 1) * this.itemsPerPage;
-    return this.showprofile.OnGoingBatches.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+      // get currentBatches(): any[] {
+      //   const startIndex = (this.currentPageBatches - 1) * this.itemsPerPage;
+      //   return this.showprofile.OnGoingBatches.slice(startIndex, startIndex + this.itemsPerPage);
+      // }
 
   // Get items for Upcoming Batches
-  get upcomingBatches(): any[] {
-    const startIndex = (this.currentPageUpcomingBatches - 1) * this.itemsPerPage;
-    return this.showprofile.UpcomingBatches.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+      // get upcomingBatches(): any[] {
+      //   const startIndex = (this.currentPageUpcomingBatches - 1) * this.itemsPerPage;
+      //   return this.showprofile.UpcomingBatches.slice(startIndex, startIndex + this.itemsPerPage);
+      // }
 
   // Get items for Online Events
-  get onlineEvents(): any[] {
-    const startIndex = (this.currentPageOnlineEvents - 1) * this.itemsPerPage;
-    return this.showprofile.onlineEventsThumbnailUrl.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+      // get onlineEvents(): any[] {
+      //   const startIndex = (this.currentPageOnlineEvents - 1) * this.itemsPerPage;
+      //   return this.showprofile.onlineEventsThumbnailUrl.slice(startIndex, startIndex + this.itemsPerPage);
+      // }
 
   // Get items for Offline Events
-  get offlineEvents(): any[] {
-    const startIndex = (this.currentPageOfflineEvents - 1) * this.itemsPerPage;
-    return this.showprofile.offlienEventsThumbnailUrl.slice(startIndex, startIndex + this.itemsPerPage);
-  }
+      // get offlineEvents(): any[] {
+      //   const startIndex = (this.currentPageOfflineEvents - 1) * this.itemsPerPage;
+      //   return this.showprofile.offlienEventsThumbnailUrl.slice(startIndex, startIndex + this.itemsPerPage);
+      // }
   
 
-  // Get items for Products
-  get products(): any[] {
-    const startIndex = (this.currentPageProducts - 1) * this.itemsPerPage;
-    return this.showprofile.productsWithFullImageUrl.slice(startIndex, startIndex + this.itemsPerPage);
-  }
 
 
 
@@ -219,11 +305,16 @@ export class CourseDetailsComponent implements OnInit {
   token = sessionStorage.getItem('Authorization');
 
   enquiry = {
-    description:' ',
-    trainerid:' ',
+    description:'',
+    trainerid:'',
   }
   
   postEnquiry(){
+    if (!this.enquiry.description || this.enquiry.description.trim().length < 10) {
+      Swal.fire('Sorry', 'Please enter a Enquiry that is at least 10 characters long to proceed.', 'warning');
+      return;
+    }
+
     if(this.token){
     this.dashboard.postEnquiry(this.enquiry).subscribe({
       next: (Response) =>{
@@ -244,14 +335,20 @@ export class CourseDetailsComponent implements OnInit {
   
 
   question = {
-    question:' ',
-    trainerid:' ',
+    question:'',
+    trainerid:'',
   }
   postquestion(){
+    
+    if (!this.question.question || this.question.question.trim().length < 10) {
+      Swal.fire('Sorry', 'Please enter a question that is at least 10 characters long to proceed.', 'warning');
+      return;
+    }
+
     if(this.token){
     this.dashboard.postquestions(this.question).subscribe({
       next : (response) => {
-        Swal.fire('Ohh...!', 'You are Question send Successfully..!', 'success');
+        Swal.fire('Success', 'Your question has been submitted successfully!', 'success');
       },
       error : (Error) =>{
         Swal.fire('Error', 'sorry..!', 'error');
@@ -280,11 +377,15 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   review = {
-    review: ' ',
+    review: '',
     star_count: 0,
-    t_id:' ',
+    t_id:'',
   }
   postreview(){
+    if (!this.review.review || !this.review.star_count) {
+      Swal.fire('Sorry', 'Please provide both a review and a star rating to submit your feedback.', 'warning');
+      return;
+    }
     if(this.token){
       this.review.star_count = this.rating;
     this.dashboard.postreview(this.review).subscribe({
@@ -305,12 +406,16 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   Appoinment = {
-    date: ' ',
-    time:' ',
-    t_id:' ',
+    date: '',
+    time:'',
+    t_id:'',
   }
 
   BookAppoinment(){
+    if (!this.Appoinment.date || !this.Appoinment.time) {
+      Swal.fire('Sorry', 'Please select both a date and a time to proceed with your appointment.', 'warning');
+      return;
+    }
     if(this.token){
     this.dashboard.BookApnmt(this.Appoinment).subscribe({
       next : (Response) =>{
@@ -416,4 +521,22 @@ export class CourseDetailsComponent implements OnInit {
   }
   
   
+  showcourseName = false;
+  truncatecourseName(name: string): string {
+   return name.length > 18 ? name.slice(0, 16) + '...' : name;
+ }
+ showbusinessName = false;
+ trunbusinessName(name: string): string { 
+  return name.length > 18 ? name.slice(0, 18) + '...' : name;
+}
+  
+showupcommingName = false;
+truncateupcomingName(name: string): string {
+ return name.length > 18 ? name.slice(0, 16) + '...' : name;
+}
+showupcommingbusinessName = false;
+trunupcommingbusinessName(name: string): string { 
+return name.length > 18 ? name.slice(0, 18) + '...' : name;
+}
+
 }

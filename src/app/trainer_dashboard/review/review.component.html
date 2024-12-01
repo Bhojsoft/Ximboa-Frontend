@@ -1,8 +1,10 @@
 <div class="container">
+    <div class="col-12">
+        <img class="img-fluid rounded" src="../../../assets/reviews banner.jpg" alt="Appointment">
+    </div>
     <div class="row">
-        <h5 class="my-2">User Reviews </h5>
         <div *ngIf="showReview && showReview.length > 0">
-        <div *ngFor="let review of showReview | paginate: { itemsPerPage: 4, currentPage: p}" class="row g-0 border rounded mb-4 p-3">
+        <div *ngFor="let review of showReview | paginate: { itemsPerPage: 4, currentPage: p}" class="row g-0 border rounded mb-4 p-3 mt-2">
             <div class="d-flex justify-content-between">
                 <div class="d-flex gap-3">
                     <img src="{{review.trainer_image}}" class="img-resize" alt="">

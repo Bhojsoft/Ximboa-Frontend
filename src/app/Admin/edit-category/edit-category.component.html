@@ -1,29 +1,17 @@
-<div class="container">
-  <div class="row">
+<div class="container-fluid" style="background-color: #F9F8FF;">
+  <div class="container shadow-lg p-3 mb-5 bg-body-tertiary rounded border my-3">
+
+  <div class="row p-5">
     <div class="col-12">
       <h1 class="text-center">Update Category</h1>
-      <form [formGroup]="uploadform" (ngSubmit)="onSubmit()">
-        <div class="modal-body">
-          <!-- <div class="mb-3">
-            <label for="category_id" class="col-form-label">Category ID</label>
-            <input type="text" formControlName="_id" class="form-control" readonly>
-          </div> -->
-      
+      <form [formGroup]="uploadform" (ngSubmit)="onSubmit()">      
           <div class="mb-3">
-            <label for="category_name" class="col-form-label">Select Categories</label>
+            <label for="category_name" class="col-form-label">Select Categories<sup>*</sup></label>
             <input  type="text" formControlName="category_name" class="form-control" name="category_name" id="category_name" list="categoryName">
-            <!-- <datalist id="categoryName">
-              <option value="Fitness">Fitness</option>
-              <option value="Yoga">Yoga</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Development">Development</option>
-              <option value="Vocational">Vocational</option>
-            </datalist> -->
           </div>
 
           <div class=" mb-3">
-            <label for="sub_title" class="col-form-label">Sub Title</label>
+            <label for="sub_title" class="col-form-label">Sub Title<sup>*</sup></label>
             <input type="text" class="form-control" id="sub_title" name="category_name" formControlName="sub_title" />
           </div>
 
@@ -32,20 +20,14 @@
             <input type="file"  id="category_image" (change)="onFileSelected($event)"  required >
           </div>
 
-          <!-- <div class="mb-3">
-            <label for="category_image" class="col-form-label">Current Image</label>
-            <div *ngIf="uploadform.get('category_image')?.value">
-              <img [src]="uploadform.get('category_image')?.value" alt="Current Category Image" style="max-width: 200px; max-height: 200px;">
-            </div>
-          </div> -->
           
-        </div>
         <div class="text-center">
-          <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Close</button>
+          <button routerLink="/dashboard/admincategory" type="button" class="btn btn-secondary me-3" >Back</button>
           <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </form>
       
     </div>
+  </div>
   </div>
 </div>

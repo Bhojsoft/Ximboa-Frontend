@@ -7,7 +7,8 @@
 
 .fsize {
   font-size: 60px;
-  font-weight: 800}
+  font-weight: 800;
+}
 
 .fsizeblue {
   font-size: 35px;
@@ -41,7 +42,7 @@
   }
 }
 
-/* .box-hover {
+.box-hover {
   background: linear-gradient(to left, #ffffff 50%, #307DFF 50%);
   background-size: 200% 100%;
   background-position: right bottom;
@@ -53,7 +54,7 @@
     background-position: left bottom;
     color: white;
   }
-} */
+}
 
 
 
@@ -70,7 +71,7 @@
 .viewtrainerbtn {
   position: absolute;
   top: 0;
-  left: 35%;
+  left: 34%;
   background-color: transparent; 
   color: #f2f4f7; 
   border: none; 
@@ -164,6 +165,125 @@ svg {
 }
 
 
+/* Hide .workflowhide on mobile devices (less than 576px) */
+@media (max-width: 575.98px) {
+  .workflowhide {
+    display: none; /* Hide on mobile */
+  }
+  .downarrowhide {
+    display: block; /* Show on mobile */
+  }
+}
+
+/* Hide .workflowhide on mobile devices (less than 576px) */
+@media (max-width: 768px) {
+  .workflowhide {
+    display: none; /* Hide on mobile */
+  }
+  .downarrowhide {
+    display: block; /* Show on mobile */
+  }
+}
+
+/* Show .workflowhide on larger screens (576px and up) */
+@media (min-width: 768px) {
+  .workflowhide {
+    display: block; /* Show on larger screens */
+  }
+  .downarrowhide {
+    display: none; /* Hide on larger screens */
+  }
+}
 
 
+.carousel-item {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Responsive height and text adjustments */
+@media (max-width: 575.98px) {
+  .carousel-item {
+    height: 150px;
+    /* Reduce height on very small screens */
+    background-size: contain;
+    background-position: center top;
+   margin-top: 10px;
+  }
+  .subheading {
+    font-size: 13px;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .fsize {
+    font-size: 40px;
+    font-weight: 800}
+  
+  .fsizeblue {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--TextColor);
+    letter-spacing: 2px;
+  
+  }
+  
+
+  .heading {
+    font-size: 17px;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+
+  .carousel-item .display-6 {
+    font-size: 17px;
+    /* Smaller heading for small screens */
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .carousel-item p {
+    font-size: 10px;
+    /* Smaller subtext for small screens */
+    font-weight: 700;
+    font-style: normal;
+    margin: 10px 0 0px 0;
+
+  }
+}
+
+@media (min-width: 576px)  {
+  .carousel-item {
+    height: 520px;
+    /* Medium-small screen height */
+    background-size: cover;
+
+  }
+
+  .carousel-item .display-6 {
+    font-size: 50px;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .subheading {
+    font-size: 35px;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .heading {
+    font-size: 50px;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .carousel-item p {
+    font-size: 20px;
+    font-weight: 700;
+    font-style: normal;
+    margin: 85px 0 0px 0;
+  }
+}
 

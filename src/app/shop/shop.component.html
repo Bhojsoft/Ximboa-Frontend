@@ -26,15 +26,9 @@
       </div>
       
       
-      <div class="row g-1 align-items-center mt-3">
-        <!-- <div class="col-sm-12 col-md-3 col-lg-3 ">
-          <button  class="btn border-primary">Add to Wishlist</button>
-        </div> -->
-        <div class="col-sm-12 col-md-3 col-lg-3">
-          <button  routerLink="/coursedetails/{{Showproductdata?.traienrid}}" class="btn btn-outline-primary" >View Trainer Profile</button>
-        </div>
-<!-- share button scetion -->
-        <div class="col-sm-12 col-md-3 col-lg-2 ">
+      <div class="mt-3">
+        
+          <button  routerLink="/coursedetails/{{Showproductdata?.traienrid}}" class="btn btn-outline-primary me-3" >View Trainer Profile</button>
           <button  (click)="shareicon()" class="btn text-white   px-2" style="background-color: #307DFF;"><i class="fas fa-share-alt fs-5"></i> Share</button>
           <div class="share-container">
               <div *ngIf="showshare" class="share-options gap-4 p-2">
@@ -50,15 +44,11 @@
               </div>
           </div>
       </div>
-    </div>
 
-      <div class="mt-3 " style="cursor: pointer;">
-        <b class="me-2">Tags:</b>
-        <span class="border py-1 rounded px-2  me-2">Development</span>
-        <span class="border py-1 rounded px-2 me-2">App</span>
-        <span class="border rounded py-1 px-2 me-2">Design</span>
-        <span class="border rounded py-1 px-2 me-2">Coding</span>
-    </div>
+      <div class="mt-3 pb" style="cursor: pointer;">
+        <b class="me-1">Tags: </b>
+        <label *ngFor="let tag of Showproductdata.tags" class="border rounded py-1 px-2 me-2 mb-2"> {{tag }}</label>
+      </div>
   </div>
    </div>
    <div class="row">
@@ -98,11 +88,16 @@
                       <span class="border px-2">{{ rating }}</span>
                   </div>
                   <div class="my-3">
-                      <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
-                          name="review" id="review"></textarea>
+                      <!-- <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
+                          name="review" id="review"></textarea> -->
+                          <textarea class="form-control" placeholder="Message" [(ngModel)]="review.review"
+                          name="review" id="review" #reviewField="ngModel" required></textarea>
+                          <div *ngIf="reviewField.invalid && (reviewField.touched || reviewForm.submitted)" class="text-danger">
+                            <small *ngIf="reviewField.errors?.['required']">Review is required.</small>
+                          </div>
                   </div>
                   <div>
-                      <button type="submit" class="btn btnq" [disabled]="!reviewForm.valid">Submit you'r Review</button>
+                      <button type="submit" class="btn btnq">Submit you'r Review</button>
                   </div>
               </form>
           </div>
@@ -111,28 +106,33 @@
       </mat-tab>
     </mat-tab-group>
   </div>
-    <div class="row p-5 gap-2">
+    <div class="p-3">
         <h5 class="fw-bold" style="color: var(--TextColor);">Related Product</h5>
-        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 gy-2">
           <div *ngFor="let product of ShowRelatedPeoduct " class="col-sm-12 col-md-3 col-lg-3 mb-3">
             <div class="card productcard">
-              <img src="{{product.product_image}}" routerLink="/shop/{{product._id}}" class="card-img-top img-fluid"  alt="...">
-                <button routerLink="/shop/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
+              <img src="{{product.product_image}}" routerLink="/productdetails/{{product._id}}" class="card-img-top img-fluid"  alt="...">
+                <button routerLink="/productdetails/{{product._id}}" class="btn btn-light rounded onproducthover">Add to cart</button>
                 <span class="onproducthoverflag rounded px-3">{{product.identityFlag}}</span>
-              <div class="card-body text-center mb-0 pt-0">
+              <div class="card-body text-center mb-0 pt-0 trainer-name-container">
                 <div class="d-flex align-items-center justify-content-between mt-1">
                   <p class="m-0 p-0 text-end w-25"></p>
                       <div class="w-50 text-center">
                         <ng-container *ngFor="let star of starsArray; let i = index">
                           <i
                             class="fa-solid fa-star"
-                            [ngStyle]="{ 'color': i < (product.avgRating || 4) ? '#FFAE06' : '#d3d3d3' }"
+                            [ngStyle]="{ 'color': i < (product.avgRating ) ? '#FFAE06' : '#d3d3d3' }"
                           ></i>
                         </ng-container>
                       </div>
                    <small class="m-0 p-0 text-end w-25">Virtual</small>
                 </div>
-                <h5 class="card-title">{{product.products_name}}</h5>
+                <h5 class="card-title  text-capitalize" 
+                (mouseenter)="showproductName = true" 
+                (mouseleave)="showproductName = false">
+                {{ trunproductName(product.products_name) }}
+              </h5>
+             <p *ngIf="showproductName" class=" full-name rounded" style="font-size: 13px;" >{{product.products_name }}</p>
                 <p>{{product.categoryNam}}</p>
                 <div class="d-flex align-items-center justify-content-between">
                   <i class="fa-solid fa-cart-shopping fs-5" style="color: var(--TextColor);"></i>
@@ -254,8 +254,8 @@
           </div>
   
           <div class="pt-5 mb-3 text-center">
-            <button type="submit" class="btn sign-in-btn rounded-pill "
-              [disabled]="!signUpForm.form.valid" id="closeModal"  (click)="onSave()"  style="width: 25%;">Sign up</button>
+            <button type="submit" class="btn btn-primary rounded-pill px-5"
+              [disabled]="!signUpForm.form.valid" id="closeModal"  (click)="onSave()"  >Sign up</button>
           </div>
         </div>
       </form>

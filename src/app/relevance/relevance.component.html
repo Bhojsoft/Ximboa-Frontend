@@ -1,23 +1,8 @@
   <img src="../../assets/Innner banner.jpg" class="object-fit-cover img-fluid"   alt="Short INFO" >
-<div class="container-fluid " style="background-color: #F5F5F5;">
+
+
+  <div class="container-fluid " style="background-color: #F5F5F5;">
   
-      
-  
-  <!-- <div class="row">
-    <div class="row p-3 rounded-top" style="background-color: #307Dff;">
-      <div class="col-sm-12 col-md-12 col-lg-8">
-        <div class="d-flex align-items-center gap-5 font-style">
-          <h6 routerLink="/relevance/seeallcategory" routerLinkActive="active-link" >Courses</h6>
-          <h6 routerLink="/relevance/trainer" routerLinkActive="active-link">Trainer</h6>
-          <h6 routerLink="/relevance/userproduct" routerLinkActive="active-link">Product</h6>
-          <h6 routerLink="/relevance/userevent" routerLinkActive="active-link">Event</h6>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
-
   <div class="row align-items-center justify-content-between">
 
     <div class="col-sm-12 col-md-1 col-lg-1 ">
@@ -41,25 +26,25 @@
     </div>
     
     <div class="col-sm-12 col-md-3 col-lg-3 mb-2">
-      <div class="d-flex align-items-center justify-content-between inputContainer1 py-2 my-2 position-relative" style="width: 300px;">
+      <div class="d-flex align-items-center justify-content-between inputContainer1 py-2 my-2 position-relative" >
         <input type="text" (input)="onSearch($event)" class="form-control form-control-lg searchinput" [placeholder]="inputPlaceholder">
         <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo"></i>
       </div>
     </div>
     
 
-    <div class="col-sm-12 col-md-2 col-lg-2 mb-2 bg-light">
-      <select class="form-select py-2" aria-label="Default select example">
-        <option selected>Sort By</option>
-        <option value="Newly Added">Newly Added</option>
-        <option value="Most Viewed">Most Viewed</option>
-        <option value="5 Star Rated">5 Star Rated</option>
+    <div class="col-sm-12 col-md-2 col-lg-2 mb-2">
+      <select class="form-select py-2" aria-label="Default select example" (change)="onSortOptionChange($event)">
+        <option selected >Sort By</option>
+        <option value="newly_added">Newly Added</option>
+        <option value="most_viewed">Most Viewed</option>
+        <option value="top_rated">Sort by Rated</option>
       </select>
     </div>
   </div>
 
   <div class="row ">
-    <div class="col-sm-12 col-md-6 col-lg-2 mt-1 pt-3 ps-4" style="background-color:#FFFFFF;height: 100vh;">
+    <div class="col-sm-12  col-lg-2 mt-1 pt-3 ps-4 rounded" style="background-color:#FFFFFF;">
       <h5>Categories</h5>
       <div class="form-check mb-2">
         <input class="form-check-input border border-dark" type="checkbox" id="selectAll" (change)="onSelectAll($event)" [checked]="areAllCategoriesSelected()">
@@ -74,7 +59,7 @@
     </div>
     
 
-    <div class="col-10">
+    <div class="col-sm-12 col-lg-10">
 
       <router-outlet></router-outlet>
 

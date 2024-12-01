@@ -1,4 +1,4 @@
-  import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 
@@ -11,7 +11,6 @@ import { TrainerComponent } from './trainer/trainer.component';
 import { ShopComponent } from './shop/shop.component';
 import { CartComponent } from './cart/cart.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -64,7 +63,10 @@ import { NgxEditorModule } from "ngx-editor";
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
 import { TagInputModule } from 'ngx-chips';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
+import { NgApexchartsModule } from "ng-apexcharts";
+import { SpinnerComponent } from './Loader/spinner/spinner.component';
 
 
 
@@ -78,7 +80,6 @@ import { TagInputModule } from 'ngx-chips';
     ShopComponent,
     CartComponent,
     SignInComponent,
-    ForgotPasswordComponent,
     SignUpComponent,
     CourseDetailsComponent,
     SeeallcategoriesComponent,
@@ -123,6 +124,8 @@ import { TagInputModule } from 'ngx-chips';
     ForumDetailsComponent,
     BreadcrumbComponent,
     ForumAddPageComponent,
+    ResetPasswordComponent,
+    SpinnerComponent,
     
   ],
   imports: [
@@ -136,7 +139,8 @@ import { TagInputModule } from 'ngx-chips';
     MatTabsModule,
     OAuthModule.forRoot(),
     NgxEditorModule,
-    TagInputModule
+    TagInputModule,
+    NgApexchartsModule 
     
    
   ],

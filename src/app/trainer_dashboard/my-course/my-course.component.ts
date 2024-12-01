@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
@@ -6,6 +7,9 @@ import { LoginService } from 'src/app/common_service/login.service';
 import { StudentService } from 'src/app/common_service/student.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
+
+declare var bootstrap: any;
+
 
 @Component({
   selector: 'app-my-course',
@@ -24,6 +28,12 @@ export class MyCourseComponent implements OnInit {
   maxWidth = 100; // Maximum width in pixels
   maxHeight = 100;
 
+  Showcoursedetails:any;
+  id:any;
+
+  starsArray = Array(5).fill(0);
+
+  
   checkUserRole() {
     const role = this.auth.getUserRole();
     // console.log(role);
@@ -42,41 +52,48 @@ export class MyCourseComponent implements OnInit {
   showCategorydata:any;
   showcoursedata:any;
   showcoursedatastudent:any[]=[];
+  showpendingCourses:any;
   
 
   thumbnail_image: File | null = null;
 
   Courses = {
-    course_name:' ',
-    category_id:' ',
-    online_offline:' ',
-    price:' ',
-    offer_prize:' ',
-    start_date:' ',
-    end_date:' ',
-    start_time:' ',
-    end_time:' ',
-    tags:' ',
-    course_information:' ',
-    course_brief_info:' ',
-    thumbnail_image:' ',
-    gallary_image:' ',
-    trainer_materialImage:' ',
+    course_name:'',
+    category_id:'',
+    online_offline:'',
+    price:'',
+    offer_prize:'',
+    start_date:'',
+    end_date:'',
+    start_time:'',
+    end_time:'',
+    tags:[],
+    course_information:'',
+    course_brief_info:'',
+    thumbnail_image:'',
+    gallary_image:'',
+    trainer_materialImage:'',
   };
 
   constructor(private admin:AdminService, 
     private service:TrainerService,
     private auth: AuthServiceService ,
      private student:StudentService,
+     private router:ActivatedRoute,
     private cookie:CookieService){}
 
   ngOnInit(): void{
     this.checkUserRole();
-    this.service.gettrainerdatabyID().subscribe((result:any) =>{
-      console.log("Show course Data",result);
-      this.showcoursedata = result?.coursesWithFullImageUrl;
-      })
-
+    this.getallcourses();
+    this. getPendingCourses();
+    
+    this.router.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      if (this.id) {
+        this.CourseDetails(); // Fetch user details when 'id' is available
+      }
+    });    
+    
     this.admin.getcategorydata().subscribe( data =>{
       // console.log("data",data)
       this.showCategorydata = data;  
@@ -90,87 +107,160 @@ export class MyCourseComponent implements OnInit {
 
   }
 
-    onsubmit(): void {
+  getallcourses(){
+    this.service.gettrainerdatabyID().subscribe((result:any) =>{
+      console.log("Show course Data",result);
+      this.showcoursedata = result?.coursesWithFullImageUrl;
+      });
+  }
+
+  getPendingCourses(){
+    this.service.getAllCourseRequest().subscribe(response => {
+      console.log("requested courses",response);
+      this.showpendingCourses = response.data;
+    })
+  }
+
+  CourseDetails() {
+    if (this.id) {
+      this.service.ViewRequestCoursebyID(this.id).subscribe(result => {
+        this.Showcoursedetails = result;
+        console.log("User Details:", this.Showcoursedetails);
+      });
+    }
+  }
+
+  openCourseDetailsModal(userId: string): void {
+    this.service.ViewRequestCoursebyID(userId).subscribe(result => {
+      this.Showcoursedetails = result;
+      console.log("User Details:", this.Showcoursedetails);
+    });
+  }
+
+  handleCourseApproval(Courseid: string, Status: string) {
+    if (Status === 'rejected') {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you really want to reject this Course? This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reject it',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
+            (response) => {
+              this.getPendingCourses();
+              Swal.fire('Request Rejected', 'The Trainer Course request Status has been successfully Rejected.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', 'Failed to reject the request. Please try again later.', 'error');
+            }
+          );
+        }
+      });
+    } else if (Status === 'approved') {
+      this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
+        (response) => {
+          this.getPendingCourses();
+          Swal.fire('Request Approved', 'The Trainer Course Status has been successfully updated.', 'success');
+        },
+        (error) => {
+          Swal.fire('Error', 'Failed to approve the request. Please try again later.', 'error');
+        }
+      );
+    }
+  }
+  
+
+
+
+  onsubmit(): void {
     const formData = new FormData();
-    for (const key in this.Courses) {
+  
+    for (const key of Object.keys(this.Courses) as (keyof typeof this.Courses)[]) {
       if (this.Courses.hasOwnProperty(key)) {
-        formData.append(key, (this.Courses as any)[key]);
+        if (key === 'tags' && Array.isArray(this.Courses[key])) {
+          const tagsArray = this.Courses[key] as any[];
+          const formattedTags = tagsArray.map(tag =>
+            typeof tag === 'object' ? (tag.name || tag.toString()) : tag
+          );
+          formData.append('tags', formattedTags.join(','));
+        } else {
+          formData.append(key, this.Courses[key] as string);
+        }
       }
     }
+  
     if (this.thumbnail_image) {
       formData.append('thumbnail_image', this.thumbnail_image);
     }
-
+  
     this.admin.postcoursesdata(formData).subscribe({
       next: (response) => {
-        Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success').then(() => {
-                // Close the modal
-                const modalCloseButton = document.querySelector('.btn-secondary[data-bs-dismiss="modal"]') as HTMLElement;
-                if (modalCloseButton) {
-                  modalCloseButton.click();
-                }
-                window.location.reload();               
-              });
+        Swal.fire('Ohh...!', 'Course Added Successfully..!', 'success')
+        this.getallcourses();
+        bootstrap.Modal.getInstance(document.getElementById('AddcourseModal'))?.hide();
       },
       error: (error) => {
-        console.error("Error", error);
-        Swal.fire('Error', 'Please fill the datails', 'error');
+        console.error('Error', error);
+        Swal.fire('Error', 'Please fill the details', 'error');
       }
-    }); 
-   }
+    });
+  }
+  
+  
+
+ 
 
    onFileSelected(event: any): void {
     this.thumbnail_image = event.target.files[0] || null;
   
-    // Ensure thumbnail_image is not null before proceeding
-    if (this.thumbnail_image) {
-      // File Size Check
-      if (this.thumbnail_image.size > this.maxSize) {
-        alert('File size exceeds 5MB.');
-        return;
-      }
+   }
   
-      // Check Image Dimensions
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const image = new Image();
-        image.src = e.target.result;
-        image.onload = () => {
-          const width = image.width;
-          const height = image.height;
-  
-          if (width > this.maxWidth || height > this.maxHeight) {
-            alert(`Image dimensions exceed ${this.maxWidth}x${this.maxHeight}px.`);
-          } else {
-            // Proceed with upload or further operations
-            console.log('Image is valid. Proceed with upload.');
-          }
-        };
-      };
-  
-      reader.readAsDataURL(this.thumbnail_image);  // No error, since thumbnail_image is checked
-    } else {
-      alert('No image file selected.');
-    }
+   showcourseName = false;
+   truncatecourseName(name: string): string {
+    return name.length > 18 ? name.slice(0, 12) + '...' : name;
   }
-  
-    
+
+  showcourse1Name = false;
+  truncatecourseName1(name: string): string {
+   return name.length > 18 ? name.slice(0, 12) + '...' : name;
+ }
+
+ showbusinessName = false;
+ trunbusinessName(name: string): string {
+  return name.length > 18 ? name.slice(0, 13) + '...' : name;
+}
+showbusiness1Name = false;
+ trunbusiness1Name(name: string): string {
+  return name.length > 18 ? name.slice(0, 13) + '...' : name;
+}
 
     onDelete(id: string): void {
-      this.service.deleteCoursebyID(id).subscribe(
-        response => {
-          // console.log('Data deleted successfully', response);
-          alert("Course deleted successfully");
-          window.location.reload();
-        },
-        error => {
-          // console.error('Error deleting data', error);
-          alert("Error");
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to delete this course? This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!', cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.service.deleteCoursebyID(id).subscribe(
+            response => {
+              Swal.fire('Deleted!','The course has been deleted successfully.','success' );
+              this.getallcourses();
+            },
+            error => {
+              Swal.fire('Error!', 'An error occurred while deleting the course.','error');
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire('Cancelled','The course is safe :)', 'info');
         }
-      );
+      });
     }
-
-
+    
       // conver Rupees K or laks
   getFormattedPrice(price: number): string {
     if (price >= 100000) {

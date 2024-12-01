@@ -15,7 +15,7 @@ export class FilterService {
   updateSelectedCategories(categories: string[]) {
     this.selectedCategoriesSubject.next(categories);
   }
-  
+
   filterDataByCategories(allData: any[], selectedCategories: string[]): any[] {
     if (!selectedCategories.length) {
       return allData; // If no categories are selected, return all data

@@ -2,7 +2,7 @@
     <div class="row ">
         <div class="col-sm-12 col-md-12 col-lg-12 d-flex align-items-center justify-content-between p-3 rounded-top" style="background-color: #E9E5FB;">
             <p class="poppins-semibold fs-5" >Shopping Cart</p>
-            <button routerLink="/relevance/userproduct" class="btn btn-0">Continue Shopping</button>
+            <button routerLink="/relevance/allproducts" class="btn btn-0">Continue Shopping</button>
         </div>
 
         <div *ngIf="showcartdata && showcartdata.length > 0">
@@ -33,11 +33,11 @@
                         </td>
                         <td>₹ {{cart.productTotalPrice}}</td>
                       </tr>                      
-                    <tr>
+                    <!-- <tr>
                         <td colspan="6">
                         <button class="btn btn-0 my-1 text-center">Update Cart</button>
                     </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -58,9 +58,13 @@
                 </tbody>
                 </table>
                 <div class="text-center mb-3 ">
-                <button type="button" class="btn btn-lg btn-block  rounded- w-100" style="background-color: var(--TextColor);color: white;font-size: 16px;">Procced to Checkout</button>
+                <!-- <button type="button" class="btn btn-lg btn-block  rounded- w-100" style="background-color: var(--TextColor);color: white;font-size: 16px;">Procced to Checkout</button> -->
             </div>
+           
             </div>
+            <!-- <p>Note: <span class="text-danger">Thank you for reaching out. We wanted to inform you that our online payment phase is currently a work in progress. We have forwarded your request, along with your details, to the product owner. They will be in touch with you soon to assist further.
+
+                We appreciate your patience and understanding.</span></p> -->
         </div>
     </div>
 

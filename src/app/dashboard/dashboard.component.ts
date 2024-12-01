@@ -32,6 +32,32 @@ export class DashboardComponent implements OnInit {
     return name.length > 18 ? name.slice(0, 15) + '...' : name;
   }
 
+  showcourseName = false;
+   truncatecourseName(name: string): string {
+    return name.length > 18 ? name.slice(0, 10) + '...' : name;
+  }
+  showbusinessName = false;
+  trunbusinessName(name: string): string {
+   return name.length > 18 ? name.slice(0, 15) + '...' : name;
+ }
+ 
+ showeventName = false;
+ truneventName(name: string): string {
+  return name.length > 14 ? name.slice(0, 12) + '...' : name;
+}
+
+showproductName = false;
+trunproductName(name: string): string {
+ return name.length > 10 ? name.slice(0, 3) + '...' : name;
+}
+
+
+
+  showFullcategorytitle = false;
+  truncatecategorytitle(name: string): string {
+    return name.length > 40 ? name.slice(0, 35) + '...' : name;
+  }
+
   visibleCategories() {
     return this.showAll ? this.showCategorydata : this.showCategorydata.slice(0, 9);
   }
@@ -62,31 +88,35 @@ export class DashboardComponent implements OnInit {
 
    ngOnInit(): void{
       this.Dservice.gethomedatauser(this.page, this.limit).subscribe( data =>{
-        console.log("category data",data);
+        // console.log("All Data",data);
         this.showCategorydata = data.categoriesWithFullImageUrl;
+        this.Showcouserdata = data.coursesWithFullImageUrl;
+        this.showtrainerData=data.trainersWithFullImageUrl;
+        this.showproductdata=data.productDetails;
+        this.showeventdata = data.eventDetails;
+
       });
 
       this.Dservice.getcategoryname().subscribe(response =>{
-        console.log(response);
         this.ShowAllCategory = response;
         this.ShowAllCategory.sort((a, b) => a.category_name.localeCompare(b.category_name));
       })
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(result => {
-        this.Showcouserdata = result.coursesWithFullImageUrl;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(result => {
+      //   this.Showcouserdata = result.coursesWithFullImageUrl;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
-        this.showtrainerData=data.trainersWithFullImageUrl;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
+      //   this.showtrainerData=data.trainersWithFullImageUrl;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
-          this.showproductdata=data.productDetails;
-      });
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(data =>{
+      //     this.showproductdata=data.productDetails;
+      // });
 
-      this.Dservice.gethomedatauser(this.page, this.limit).subscribe(Response =>{
-           this.showeventdata = Response.eventDetails;
-      })
+      // this.Dservice.gethomedatauser(this.page, this.limit).subscribe(Response =>{
+      //      this.showeventdata = Response.eventDetails;
+      // })
    }
 
 

@@ -9,7 +9,8 @@
   padding-left: 40px;
   font-size: var(--Poppins14);
   height: 40px;
-  width: 300px;
+  width: 335px;
+  font-size: small;
 }
 
 .icon {
@@ -117,6 +118,15 @@
 }
 
 
+.suggestions-list h6 {
+  margin: 0;
+  padding: 0.2rem 0;
+  padding-left: 5px;
+  font-family: 200;
+  color: var(--TextColor); /* Change to your preferred color */
+}
+
+
 
 
 /* Whatapps icon css */
@@ -164,13 +174,12 @@
 
 .active-link {
   border-bottom: 2px solid #307DFF; 
-  /* padding-bottom: 1px;  */
   color: #307DFF; 
 }
 
 .dropdown-menu {
-  left: auto;     
-  right: 0; 
+  left: auto !important;     
+  right: 0 !important; 
   li:hover{
     cursor: pointer;
     background-color: var(--bodyColor);
@@ -178,7 +187,7 @@
 }
 
 .Notification-icon{
-  padding: 10px 12px;
+  padding: 6px 8px;
 }
 
 .Notification-icon:hover, .cart-icon:hover {
@@ -211,12 +220,17 @@
   .cart-icon{
     width: 20px;
   }
+
+  .searchinput{
+    width: 350px;
+  }
+
  
 }
 
 /* Tablets (601px to 1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
-  /* Styles for tablets */
+  
 }
 
 /* Desktop/Laptops (1025px and above) */
@@ -224,4 +238,17 @@
   .category-dropdown{
     width: 200px;
   }
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    height: 60px;
+  }
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--TextColor); /* Replace var(--bd-violet-bg) with the actual color */
+  --bs-tooltip-color: #ffffff; /* Replace var(--bs-white) with the actual color */
 }

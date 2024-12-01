@@ -17,111 +17,117 @@ export class SeeallcategoriesComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 9; 
   ShowCourseData: any[] = [];   
-  filteredCourses: any[] = [];  
-  selectedCategories: any; 
+  filteredCourses: any;  
+  selectedCategory: string[] = []; 
   p: number = 1;
   term:any;
-  courses: any[] = [];
   searchTerm: string = '';
+  courses: any[] = [];
+
+  currentSortOption: string = '';
 
   constructor(private service: DashboardService, private filter: FilterService,
-    private http:HttpClient, private searchService: SearchService ) {}
+    private http:HttpClient, private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.loadCourses(this.currentPage, this.itemsPerPage);
-
-    // Subscribe to selected categories from FilterService
-    this.filter.selectedCategories$.subscribe(selectedCategories => {
-      this.selectedCategories = selectedCategories;
-      // this.filteredCourses = this.ShowCourseData;
-      this.applyFilter();
+    this.filter.selectedCategories$.subscribe(selectedCategoriesresult => {
+      this.selectedCategory = selectedCategoriesresult;
+      console.log('Received Selected category:', this.selectedCategory);
+     this.applyFilter();
     });
     
     this.searchService.currentSearchData.subscribe((term) => {
       this.searchTerm = term;
       console.log('Received search term in SeeAllCategoriesComponent:', this.searchTerm);  // Log the search term
-      this.fetchCourses();
+      // this.fetchCourses();
+      this.searchFilter();
     });
 
+    this.searchService.sortOption$.subscribe(option => {
+      this.currentSortOption = option;
+      console.log('Received Sort Option:', this.currentSortOption);
+      this.applyFilter();
+    });
+  
 
 }
   // Fetch courses from the backend
+  
   loadCourses(page: number, limit: number): void {
     this.service.getcouserdata(page, limit).subscribe(result => {
       console.log(result);
-      
-      this.ShowCourseData = result.coursesWithFullImageUrl;
+      this.ShowCourseData = result?.coursesWithFullImageUrl;
       this.filteredCourses = this.ShowCourseData;
       this.totalItems = result.pagination.totalItems;
-      this.applyFilter();  // Apply the filter after loading courses
     });
   }
 
-  // Apply filtering logic based on selected categories
-  applyFilter(): void {
-    // First, reset to full data
+
+
+  searchFilter(): void{
     this.filteredCourses = this.ShowCourseData;
-  
-    // Apply search term filter
     if (this.searchTerm) {
-      this.filteredCourses = this.filteredCourses.filter(course =>
+      this.filteredCourses = this.filteredCourses.filter((course: any) =>
         course.course_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
+      this.totalItems = this.filteredCourses.length;
     }
+  }
+
+  applyFilter(): void {
+    // Reset to full data initially
+    this.filteredCourses = this.ShowCourseData;
   
-    // Apply category filter (if any categories are selected)
-    // if (this.selectedCategories.length > 0) {
-    //   this.filteredCourses = this.filteredCourses.filter(course =>
-    //     this.selectedCategories.includes(course.category_name)
-    //   );
-    // }
-
-    if (this.selectedCategories.length > 0) {
-      this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+    // Check if categories are selected
+    if ( this.selectedCategory.length > 0) {
+      // API call when categories are selected
+      this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategory[0], this.currentSortOption)
         .subscribe(result => {
-          console.log("filtered category wise course", result);  
-          // Update filteredCourses directly with the result from API
-          this.filteredCourses = result.data.filter((course:any) =>
-            this.selectedCategories.includes(course.category_name)
+          console.log("Filtered category-wise courses:", result); 
+ 
+          this.filteredCourses = result?.data.filter((course: any) =>
+            this.selectedCategory.includes(course.category_name)
+          
           );
+          this.totalItems = result.pagination.totalItems;
         });
-    }
-    
-    // this.totalItems = this.filteredCourses.length;
-
-    console.log('Filtered Courses:', this.filteredCourses);  // Log filtered courses for debugging
+    } else if (this.currentSortOption){
+      // API call for sort option without categories
+      this.service.getcouserdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategory[0], this.currentSortOption)
+        .subscribe(result => {
+          console.log("Courses with sort option only: ", result);
+          this.ShowCourseData = result?.data;
+          this.filteredCourses = this.ShowCourseData;
+          this.totalItems = result.pagination.totalItems;
+        });
+    } else {
+      // If no categories and no sort option selected, do nothing or show default data
+      console.log("No filter applied; showing default data.");
+      this.filteredCourses = this.ShowCourseData; // Default to unfiltered data
+      this.totalItems = this.ShowCourseData.length;
+    }  
   }
   
-  
-
-  // Handle page change for pagination
+ 
   onPageChange(page: number): void {
     this.currentPage = page;
-    this.loadCourses(this.currentPage, this.itemsPerPage); 
     this.p = page;
+    this.loadCourses(this.currentPage, this.itemsPerPage); 
   }
 
-  // updateFilteredCourses() {
-  //   if (this.term) {
-  //     this.filteredCourses = this.ShowCourseData.filter(course =>
-  //       course.course_name.toLowerCase().includes(this.term.toLowerCase())
-  //     );
-  //   } else {
-  //     this.filteredCourses = this.ShowCourseData;
-  //   }
-  
-  //   this.p = 1;  // Reset to the first page after filtering
-  // }
-  
 
   fetchCourses() {
     if (this.searchTerm) {
-      this.http.get<any>(`http://localhost:1000/search/courses?course_name=${this.searchTerm}`)
+      this.http.get<any>(`http://13.203.89.189/api/search/courses?course_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
             this.ShowCourseData = response.data;  // Store the received data in ShowCourseData
             console.log('Fetched Courses:', this.ShowCourseData);  // Log the received data
-            this.applyFilter();  // Apply filter after fetching the data
+            // this.applyFilter();  
+            this.searchFilter();
+            this.totalItems = response.pagination.totalItems;
+            // Apply filter after fetching the data
           },
           (error) => {
             console.error('Error fetching courses:', error);
@@ -142,5 +148,15 @@ export class SeeallcategoriesComponent implements OnInit {
         return '₹' + price.toString(); 
       }
     }
+
+
+    showcourseName = false;
+    truncatecourseName(name: string): string {
+     return name.length > 18 ? name.slice(0, 13) + '...' : name;
+   }
+   showbusinessName = false;
+  trunbusinessName(name: string): string {
+   return name.length > 18 ? name.slice(0, 16) + '...' : name;
+ }
     
 }

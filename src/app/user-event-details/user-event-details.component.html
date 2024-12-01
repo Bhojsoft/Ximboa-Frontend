@@ -2,11 +2,10 @@
 <div *ngIf="ShowEvent" class="container" >
   <div class="row gap-5">
     <div class="col-sm-12 col-md-5 col-lg-8">
-      <div class="position-relative">
+      <div >
         <img *ngIf="ShowEvent.event_thumbnail; else dummyImage" src="{{ShowEvent?.event_thumbnail}}" class="ThumbnailImage rounded img-fluid" alt="Event Thumbnail">
       <ng-template #dummyImage>
-        <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="ThumbnailImage img-fluid rounded  opacity-75">
-        <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 35%;left: 30%;font-size: 30px;">{{ShowEvent?.event_name}}</h5>
+        <img src="../../assets/event dummy.jpg" alt="Dummy Image" class="ThumbnailImage img-fluid rounded">
       </ng-template>
       </div>
       <div class="d-flex align-items-center justify-content-between px-2">
@@ -120,6 +119,7 @@
            <p>{{review.review}}</p>
           </div>
         </div>
+        
         <pagination-controls (pageChange)="onPageChange($event)" class="text-end" style="font-size: small;"></pagination-controls>
         <!-- Write Review -->
         <div class="mt-3" >
@@ -159,13 +159,18 @@
        <img src="{{Event.event_thumbnail}}" class="card-img-top img-fluid" alt="...">
        <span class="onproducthoverflag rounded px-3">{{Event.event_flag}}</span>
        <div class="card-body text">
-         <div class="d-flex align-items-center justify-content-between gap-1">
+         <div class="d-flex align-items-center justify-content-between gap-1 trainer-name-container">
            <span>
              <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |  date: 'MMM'}}</label><br>
              <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date |  date: 'dd'}}</span>
            </span>
-           <span>
-             <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
+           <span class="text-center">
+            <p class="card-title poppins-semibold-italic text-center  text-capitalize"
+            (mouseenter)="showeventName = true" (mouseleave)="showeventName = false">
+            {{ truneventName(Event.event_name) }}
+          </p>
+          <p *ngIf="showeventName" class="card-title full-name rounded" style="font-size: 14px; ">
+            {{Event.event_name}}</p>
            </span>
            <span class="text-center">
              <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>
@@ -181,8 +186,8 @@
            <label class="p-2 border rounded-circle"> +35</label>
          </div>
          <div class="d-flex align-items-center justify-content-between mt-2">
-           <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
-           <button class="btn rounded-pill px-4 text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
+           <button class="btn rounded-pill  text-light poppins-regular" style="font-size: 14px;background-color: var(--TextColor);">Book Seat</button>
+           <button class="btn rounded-pill  text-light poppins-regular" style="font-size: 14px;background-color: var(--btndarkColor);">View More</button>
          </div>
        </div>
      </div>
@@ -297,8 +302,7 @@
             </div>
 
             <div class="pt-5 mb-3 text-center">
-              <button type="submit" class="btn sign-in-btn rounded-pill " [disabled]="!signUpForm.form.valid"
-                style="width: 25%;">Sign up</button>
+              <button type="submit" class="btn btn-primary rounded-pill px-5" [disabled]="!signUpForm.form.valid">Sign up</button>
             </div>
           </div>
         </form>

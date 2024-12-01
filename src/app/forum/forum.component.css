@@ -1,6 +1,6 @@
 .filterlist{
     display: flex;
-    gap: 20px;
+    gap: 15px;
     li{
         list-style: none;
     }

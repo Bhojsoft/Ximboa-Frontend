@@ -17,7 +17,7 @@ export class TrainerComponent implements OnInit {
   p: number = 1;
   totalItems = 0;
   currentPage = 1;
-  itemsPerPage = 8; 
+  itemsPerPage = 9; 
   
   constructor(private service: DashboardService, private filter: FilterService,
     private http: HttpClient, private searchService: SearchService
@@ -91,7 +91,7 @@ export class TrainerComponent implements OnInit {
   
   fetchTrainer(): void {
     if (this.searchTerm) {
-      this.http.get<any>(`http://localhost:1000/search/trainer?trainer_name=${this.searchTerm}`)
+      this.http.get<any>(`http://13.203.89.189/api/search/trainer?trainer_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
             console.log('API Response:', response); // Log the whole response

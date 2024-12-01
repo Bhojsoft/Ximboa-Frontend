@@ -14,7 +14,9 @@ export class RelevanceComponent implements OnInit {
   Showcategorydata: any[] = [];
   filteredCategoryData: any[] = [];  
   selectedCategories: string[] = [];
+  
   category: string = '';
+  selectedSortOption: string = '';
 
   inputPlaceholder: string = 'Search';
 
@@ -24,19 +26,19 @@ export class RelevanceComponent implements OnInit {
     switch (selectedValue) {
       case 'Courses':
         this.inputPlaceholder = 'Search Courses';
-        this.router.navigate(['/relevance/seeallcategory']); 
+        this.router.navigate(['/relevance/Allcourses']); 
         break;
       case 'Trainers':
         this.inputPlaceholder = 'Search Trainers';
-        this.router.navigate(['/relevance/trainer']); 
+        this.router.navigate(['/relevance/alltrainer']); 
         break;
       case 'Products':
         this.inputPlaceholder = 'Search Products';
-        this.router.navigate(['/relevance/userproduct']); 
+        this.router.navigate(['/relevance/allproducts']); 
         break;
       case 'Events':
         this.inputPlaceholder = 'Search Events';
-        this.router.navigate(['/relevance/userevent']); 
+        this.router.navigate(['/relevance/allevents']); 
         break;
     }
   }
@@ -46,26 +48,22 @@ export class RelevanceComponent implements OnInit {
      private searchService:SearchService) {}
 
   ngOnInit(): void {
-    // Fetch category data
     this.service.getcategoryname().subscribe(data => {
       this.Showcategorydata = data;
-      console.log("name",data);
-      this.initializeSelectedCategory();  // Initialize category selection from query params
     });
 
-    // Subscribe to route query parameters to detect changes
     this.route.queryParams.subscribe(params => {
       this.category = params['category'] || '';  
-      console.log(this.category);
-      
-      this.initializeSelectedCategory();  // Apply category filter on route param change
     });
+
+    this.initializeSelectedCategory();  // Apply category filter on route param change
   }
 
   // Initialize selected category from query params
   initializeSelectedCategory(): void {
     if (this.category) {
       this.selectedCategories = [this.category];  
+      console.log("what are the category",this.selectedCategories);      
       this.filter.updateSelectedCategories(this.selectedCategories);  // Update FilterService with selected categories
       this.applyCategoryFilter();  // Apply the filter to the category data
     }
@@ -75,8 +73,7 @@ export class RelevanceComponent implements OnInit {
   applyCategoryFilter(): void {
     if (this.selectedCategories.length > 0) {
       this.filteredCategoryData = this.Showcategorydata.filter(cat =>
-        this.selectedCategories.includes(cat.category_name)
-      );
+        this.selectedCategories.includes(cat.category_name));
     } else {
       this.filteredCategoryData = this.Showcategorydata;
     }
@@ -125,6 +122,13 @@ export class RelevanceComponent implements OnInit {
     const searchTerm = event.target.value;
     console.log('Search Term:', searchTerm);  // Log search term
     this.searchService.changeSearchData(searchTerm);  // Update the search term in the service
+  }
+
+  onSortOptionChange(event: Event): void {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.selectedSortOption = selectedValue;
+    console.log('Selected Sort Option:', this.selectedSortOption);
+    this.searchService.setSortOption(this.selectedSortOption);
   }
   
 }

@@ -11,12 +11,15 @@ export class LoginService {
 //********************** Trainer LOGIN API **********************
 
 
-    private register ='https://demo-eosin-psi.vercel.app/registration';
+    private register ='http://13.203.89.189/api/registration';
 
-    private institute="https://demo-eosin-psi.vercel.app/institute";
+    private institute="http://13.203.89.189/api/institute";
 
-    private APIURL ="https://demo-eosin-psi.vercel.app/notifications";
+    private APIURL ="http://13.203.89.189/api/notifications";
   
+
+    private unseen = 'http://13.203.89.189/api'
+   
 
   constructor(private http:HttpClient, private router: Router){ }
 
@@ -42,7 +45,15 @@ export class LoginService {
     }
 
     getrolerequest():Observable<any>{
-      return this.http.get<any>(`${this.register}/all-rolechange-request`)
+      return this.http.get<any>(`${this.register}/all-pending-request`)
+    }
+
+    getroleApprovedrequest():Observable<any>{
+      return this.http.get<any>(`${this.register}/all-approved-request`)
+    }
+
+    getRejectRequest():Observable<any>{
+      return this.http.get<any>(`${this.register}/all-rejected-request`)
     }
 
     RoleChange(data: { userid: string, approved: number }): Observable<any> {
@@ -57,14 +68,42 @@ export class LoginService {
     return this.http.get<any>(`${this.institute}/get-institutes`);
    }
 
-   Notification(page: number, limit: number):Observable<any>{
+  Notification(page: number, limit: number):Observable<any>{
     let headers = new HttpHeaders()
     .set("Authorization", `Bearer ${sessionStorage.getItem('Authorization')}`)
     return this.http.get<any>(`${this.APIURL}/unseen?page=${page}&limit=${limit}`,{headers});
   }
-}
-  // getcouserdata(page: number, limit: number):Observable<any>{
-  //   return this.http.get<any>(`${this.beforelogin}/allcourses?page=${page}&limit=${limit}`)
+
+
+  showunseennotification(page: number, limit: number):Observable<any>{
+    return this.http.get<any>(`${this.APIURL}/Allunseen?page=${page}&limit=${limit}`);
+  }
+
+  // Method to update the notification status
+  // updateNotificationStatus(notificationId: string): Observable<any> {
+  //   return this.http.put<any>(`${this.APIURL}/view/${notificationId}`);
+  // }
+
+  updateNotificationStatus(notificationId: string): Observable<any> {
+    return this.http.put<any>(`${this.APIURL}/view/${notificationId}`,{});
+  }
+
+  // Mark all notifications as seen
+  // markAllNotificationsAsSeen() {
+  //   return this.http.put<any>(`${this.APIURL}/markAllNotificationsAsSeen`, {});
   // }
 
 
+
+  unseenNotification():Observable<any>{
+    return this.http.get<any>(`${this.unseen}/notifications/unseen-count`)
+  }
+
+  // Show User Details when Super Admin view
+  getuserdetail(id:string):Observable<any>{
+    return this.http.get<any>(`${this.unseen}/registration/get-user-info/${id}`)
+  }
+
+
+}
+ 

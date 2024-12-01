@@ -1,23 +1,31 @@
 <!-- Event List Code Start From Here -->
-<div class="row mt-3">
+<div class="container-fluid">
 
-   <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-4 gy-2 mt-3">
+   <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-4 gy-2 mt-1">
     <div *ngFor="let Event of filteredEvent | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems }" class="col-sm-12 col-md-3 col-lg-4 mb-3">
       <div class="card" routerLink="/eventdetails/{{Event._id}}">
-        <img *ngIf="Event.event_thumbnail; else dummyImage" src="{{Event?.event_thumbnail}}" class="card-img-top img-fluid"  alt="..." style="height: 208px !important;">
+        <img *ngIf="Event.event_thumbnail; else dummyImage" src="{{Event?.event_thumbnail}}" class="card-img-top img-fluid"  alt="Event Image" >
       <ng-template #dummyImage>
-        <img src="../../assets/gallery-small-img.jpg" alt="Dummy Image" class="card-img-top img-fluid position-relative opacity-75">
-        <h5 class="card-title m-0 p-0 position-absolute poppins-semibold" style="top: 22%;left: 30%;font-size: 30px;">{{Event.event_name}}</h5>
+        <img src="../../assets/event dummy.jpg" alt="Event Image" class="card-img-top" style="height: 250px !important;">
       </ng-template>
-        <span class="onproducthoverflag rounded px-2">{{Event.event_flag}}</span>
+        <button class="onproducthoverflag rounded px-2">{{Event.event_flag}}</button>
         <div class="card-body text">
-          <div class="d-flex align-items-center justify-content-between gap-1">
+          <div class="d-flex align-items-center justify-content-between gap-1 trainer-name-container">
             <span>
               <label class="poppins-semibold-italic text-muted" style="font-size: 12px;">{{Event.event_date |  date: 'MMM'}}</label><br>
               <span class="poppins-semibold-italic" style="font-size: 24px;">{{Event.event_date |  date: 'dd'}}</span>
             </span>
-            <span>
+            <!-- <span>
               <p class="card-title poppins-semibold-italic">{{Event.event_name}}</p>
+            </span> -->
+
+            <span class="">
+              <p class="card-title poppins-semibold-italic text-center  text-capitalize"
+                (mouseenter)="showeventName = true" (mouseleave)="showeventName = false">
+                {{ truneventName(Event.event_name) }}
+              </p>
+              <p *ngIf="showeventName" class="card-title full-name rounded" style="font-size: 14px; ">
+                {{Event.event_name}}</p>
             </span>
             <span class="text-center">
               <span class="poppins-semibold-italic"> {{Event.event_type}} </span> <br>

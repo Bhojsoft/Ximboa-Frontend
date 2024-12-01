@@ -32,18 +32,38 @@ export class UserEventDetailsComponent {
   private loginservices:LoginService,private authService:AuthServiceService)
   {this.id=this.router.snapshot.paramMap.get('id');}
 
+  // ngOnInit(): void {
+  //   this.routeSub = this.router.params.subscribe(params => {
+  //     this.id = params['id']; 
+  //     this.loadevent(this.id);
+  //   });   
+  //     this.loadreview(this.currentPage,this.itemsPerPage);
+  //     this.review.eventid=this.id;
+  // }
   ngOnInit(): void {
-
-    this.routeSub = this.router.params.subscribe(params => {
-      this.id = params['id']; 
-      this.loadevent(this.id);
+    this.id = this.router.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.loadevent(this.id); // Load course details
+      this.loadreview(this.currentPage, this.itemsPerPage); // Load reviews
+      this.review.eventid = this.id;
+    }
+  
+    this.routeSub = this.router.params.subscribe((params) => {
+      const newId = params['id'];
+      if (newId !== this.id) {
+        this.id = newId;
+        
+        this.currentPage = 1;
+        this.ShowEventReview = [];
+        this.totalItems = 0;
+  
+        this.loadevent(this.id);
+        this.loadreview(this.currentPage, this.itemsPerPage);
+      }
     });
-      
-      this.loadreview(this.currentPage,this.itemsPerPage);
-
-      this.review.eventid=this.id;
-
   }
+
+
 
   loadevent(id:string): void{
     console.log("Event ID:", this.id);
@@ -113,16 +133,21 @@ toggleRating(clickedStar: number): void {
 
 
 review = {
-  review: ' ',
+  review: '',
   star_count: 0,
-  eventid:' ',
+  eventid:'',
 }
 postreviewEvent(){
+  if (!this.review.review || !this.review.star_count) {
+    Swal.fire('Sorry', 'Please provide both a review and a star rating to submit your feedback.', 'warning');
+    return;
+  }
   if(this.token){
     this.review.star_count = this.rating;
   this.dservice.postreviewEvent(this.review).subscribe({
     next : (Response) =>{
       Swal.fire('Ohh...!', 'You are Review Add Successfully..!', 'success');
+      this.loadreview(this.currentPage,this.itemsPerPage);
       this.resetForm();
     },
     error : (Error) => {
@@ -232,6 +257,11 @@ rememberMe: boolean = false;
      togglePassword() {
       this.show = !this.show;
     }
+
+    showeventName = false;
+    truneventName(name: string): string {
+     return name.length > 14 ? name.slice(0, 12) + '...' : name;
+   }
 
 
 }

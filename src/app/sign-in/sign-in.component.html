@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row" style="background-image: url('../../assets/Log IN_background.png') ;">
-    <div class="login-img col-md-6 col-lg-6 col-sm-12 mt-5 d-flex align-items-center justify-containt-center"
+    <div class="login-img col-md-12 col-lg-6 col-sm-12 mt-5 d-flex align-items-center justify-containt-center"
       style="background-image: url('../../assets/Log IN_background.png') ; ">
       <img src="../../assets/Login-Vol 1.png" class="w-100 " alt="Login Image">
 
     </div>
-    <div class="col-sm-12 col-md-6  col-lg-6">
-      <div class="row desktop my-3 ms-5 py-3 px-2">
+    <div class="col-sm-12 col-md-12  col-lg-6">
+      <div class="row desktop my-3 py-3 px-2">
 
         <div class="col-sm-12 col-lg-12 py-1 text-end">
-          <p>New Users? <label routerLink="/signup" style="color: #3078FF; cursor: pointer;">Create
-              an account <span class="px-2 py-1  ms-2" style="border-radius: 12px; font-size: 20px; border: 1px solid #674ACB;">
-                <i class="fas fa-ellipsis-h" style="color: #674ACB;"></i></span></label></p>
+          <p>New Users? <label routerLink="/signup" style="color: var(--TextColor); cursor: pointer;">Create
+              an account <span class="px-2 py-1  ms-2" style="border-radius: 12px; font-size: 20px; border: 1px solid var(--TextColor);">
+                <i class="fas fa-ellipsis-h" style="color: var(--TextColor);"></i></span></label></p>
         </div>
         <div class="px-5 py-4"
           style="background-color: white; border-radius:20px; box-shadow: rgba(146, 145, 145, 0.19) 0px 10px 20px, rgba(154, 153, 153, 0.23) 0px 6px 6px;">
@@ -31,7 +31,7 @@
                   <label for="password" class="form-label" style="font-weight: 500;">Password</label>
                   <div class="d-flex align-items-center inputbtn">
                     <input [type]="show ? 'text' : 'password'" class="form-control rounded-pill" id="password"
-                      [(ngModel)]="password" name="password" required placeholder>
+                      [(ngModel)]="password" name="password" required placeholder="Enter Password">
                     <button type="button" (click)="togglePassword()">
                       <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
                       <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
@@ -44,7 +44,7 @@
                   id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">Remember me</label>
                 &nbsp; &nbsp; &nbsp;
-                <label data-bs-toggle="modal" data-bs-target="#forgotpwd" style="color: #3078FF;cursor: pointer;">Forgot Password?</label>
+                <label data-bs-toggle="modal" data-bs-target="#forgotpwd" style="color: var(--TextColor);cursor: pointer;">Forgot Password?</label>
               </div>
               
             </div>
@@ -59,16 +59,18 @@
         </div>
         
         <div class="row justify-content-center my-3">
-          <div class="col-md-6 col-12 mb-2">
-            <button class="btn  rounded-pill btn-google w-100">
-              <i class="fa-brands fa-google px-2"></i>Google</button>
+          <div class="col-sm-12 col-md-6 col-lg-6 mb-2">
+            <button class="btn rounded-pill btn-google w-100">
+              <i class="fa-brands fa-google px-2"></i>Google
+            </button>
           </div>
-          <div class="col-md-6 col-12">
-            <button class="btn  rounded-pill btn-facebook w-100">
-              <i class="fa-brands fa-facebook px-2"></i>Facebook</button>
+          <div class="col-sm-12 col-md-6 col-lg-6 mb-2">
+            <button class="btn rounded-pill btn-facebook w-100">
+              <i class="fa-brands fa-facebook px-2"></i>Facebook
+            </button>
           </div>
-          
         </div>
+        
         </div>
       </div>
     </div>

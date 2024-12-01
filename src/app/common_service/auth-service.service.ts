@@ -13,7 +13,7 @@ export interface JwtPayload {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class  AuthServiceService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private user = new BehaviorSubject<string | null>(null);
   private userId = new BehaviorSubject<string | null >(null);
@@ -37,6 +37,8 @@ export class AuthServiceService {
     this.setUserFromToken(token);
   }
 
+ 
+
   logout() {
     sessionStorage.removeItem('Authorization');
     sessionStorage.removeItem(this.tokenKey);
@@ -45,6 +47,17 @@ export class AuthServiceService {
     this.userId.next(null);
   }
 
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem(this.tokenKey); 
+  }
+
+  hasRole(requiredRole: string): boolean {
+    const payload = this.getTokenPayload();
+    if (payload && payload.role) {
+      return payload.role === requiredRole; // Adjust logic if a user can have multiple roles
+    }
+    return false;
+  }
   
   private setUserFromToken(token: string) {
     try {
@@ -84,6 +97,8 @@ export class AuthServiceService {
     const payload = this.getTokenPayload();
     return payload ? payload.role : null;
   }
+
+
 
    // Get user ID from token
    getUserId(): string | null {

@@ -19,8 +19,8 @@ export class EdittrainerComponent implements OnInit {
   isTrainer: boolean = false;
   isUser: boolean = false;
   isAdmin: boolean = false;
-  isSELF_EXPERT: boolean = false;
-
+  isInstitute: boolean = false;
+  isSELF_EXPERT: boolean = false
 
 
   currentRow = 0;
@@ -30,10 +30,11 @@ export class EdittrainerComponent implements OnInit {
 
   social = {
 
-    facebook: ' ',
-    instagram: ' ',
-    youtube: ' ',
-    Linkdein: ' ',
+    facebook: '',
+    instagram: '',
+    youtube: '',
+    Linkdein: '',
+    website: '',
   }
 
   education = {
@@ -65,6 +66,17 @@ export class EdittrainerComponent implements OnInit {
   selectedFiles: any[] = [];
 
 
+  onCheckboxChange(event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      const mobileNumber = this.myForm.get('mobile_number')?.value;
+      this.myForm.get('whatsapp_no')?.setValue(mobileNumber);
+    } else {
+      this.myForm.get('whatsapp_no')?.setValue('');
+    }
+  }
+
+
   constructor(private service: TrainerService, private router: ActivatedRoute, private fromb: FormBuilder, private auth: AuthServiceService) { this.id = this.router.snapshot.paramMap.get('id'); }
 
   onFileSelected(event: any) {
@@ -78,20 +90,21 @@ export class EdittrainerComponent implements OnInit {
 
     this.isAdmin = role === 'SUPER_ADMIN';
     this.isTrainer = role === 'TRAINER';
-    this.isSELF_EXPERT = role === 'SELF_EXPERT';
-    this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'SELF_EXPERT';
+    this.isInstitute = role === 'INSTITUTE';
+    this.isSELF_EXPERT = role == 'SELF_EXPERT';
+    this.isUser = role === 'USER' || role === 'TRAINER' || role === 'SUPER_ADMIN' || role === 'INSTITUTE' || role === 'SELF_EXPERT';
 
-    console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin,);
+    console.log('isTrainer:', this.isTrainer, 'isUser:', this.isUser, 'isAdmin:', this.isAdmin, this.isInstitute, this.isSELF_EXPERT);
   }
 
 
   ngOnInit(): void {
     this.checkUserRole();
     this.myForm = this.fromb.group({
-      f_Name: [' '],
-      l_Name: [' '],
-      email_id: [' '],
-      mobile_number: [' '],
+      f_Name: [''],
+      l_Name: [''],
+      email_id: [''],
+      mobile_number: [''],
       trainer_image: [''],
       date_of_birth: [''],
       whatsapp_no: [''],
@@ -122,6 +135,8 @@ export class EdittrainerComponent implements OnInit {
     });
   }
 
+
+
   onSubmit() {
     this.myForm.markAllAsTouched();
     if (this.myForm.valid) {
@@ -142,7 +157,7 @@ export class EdittrainerComponent implements OnInit {
       this.service.updatetrainerDetails(formData).subscribe({
         next: response => {
           console.log(response);
-          Swal.fire('Ohh...!', 'Your Profile Updated Successfully..!', 'success');
+          Swal.fire('Ohh...!', 'Your profile has been updated successfully..!', 'success');
         },
         error: error => {
           console.log(error);
@@ -165,7 +180,8 @@ export class EdittrainerComponent implements OnInit {
             facebook: this.social.facebook,
             instagram: this.social.instagram,
             youtube: this.social.youtube,
-            Linkdein: this.social.Linkdein
+            Linkdein: this.social.Linkdein,
+            website: this.social.website
           };
 
           if (this.isAtLeastOneFieldFilled()) {
@@ -190,7 +206,8 @@ export class EdittrainerComponent implements OnInit {
           this.social.facebook.trim() !== '' ||
           this.social.instagram.trim() !== '' ||
           this.social.youtube.trim() !== '' ||
-          this.social.Linkdein.trim() !== ''
+          this.social.Linkdein.trim() !== '' ||
+          this.social.website.trim() !==''
         );
       }
 

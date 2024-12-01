@@ -7,7 +7,7 @@ import { SearchService } from '../search.service';
 @Component({
   selector: 'app-userside-product',
   templateUrl: './userside-product.component.html',
-  styleUrls: ['./userside-product.component.css']
+  styleUrls: ['./userside-product.component.css'],
 })
 export class UsersideProductComponent implements OnInit {
 
@@ -20,6 +20,9 @@ export class UsersideProductComponent implements OnInit {
   p: number = 1;
   term:any;
   products: any[] = [];
+
+  currentSortOption: string = '';
+
  
   starsArray: number[] = [1, 2, 3, 4, 5]; // 5 stars total
   searchTerm: string = ''; // New property for search term
@@ -35,7 +38,7 @@ export class UsersideProductComponent implements OnInit {
     this.loadProducts(this.currentPage, this.itemsPerPage); // Load initial product data
 
     // Subscribe to category changes
-    this.filter.selectedCategories$.subscribe(categories => {
+    this.filter. selectedCategories$.subscribe(categories => {
       this.selectedCategories = categories;
       this.applyFilter(); // Re-filter when categories change
     });
@@ -44,7 +47,15 @@ export class UsersideProductComponent implements OnInit {
     this.searchService.currentSearchData.subscribe(term => {
       this.searchTerm = term;
       console.log('Received search term in UsersideProductComponent:', this.searchTerm);
-      this.fetchProducts(); // Fetch products based on search term
+      // this.fetchProducts(); // Fetch products based on search term
+      this.searchfilter();
+    });
+
+    this.searchService.sortOption$.subscribe(option => {
+      this.currentSortOption = option;
+      console.log('Received Sort Option:', this.currentSortOption);
+      // Apply logic based on the received sort option
+      this.applyFilter();
     });
   }
 
@@ -54,40 +65,59 @@ export class UsersideProductComponent implements OnInit {
       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
       this.filteredProducts = this.showproductdata;
       this.totalItems = data?.pagination.totalItems;
-      this.applyFilter(); // Apply filter after fetching the product data
+      // this.applyFilter(); // Apply filter after fetching the product data
+      // this.searchfilter();
     });
+  }
+
+  searchfilter(): void{
+    this.filteredProducts = this.showproductdata;
+
+    if (this.searchTerm) {
+      this.filteredProducts = this.filteredProducts.filter((product:any) =>
+        product.products_name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
   }
 
   applyFilter(): void {
     // Start with all products
     this.filteredProducts = this.showproductdata;
 
-    // Apply search term filter
-    if (this.searchTerm) {
-      this.filteredProducts = this.filteredProducts.filter((product:any) =>
-        product.products_name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
-
-    // Apply category filter
-    // if (this.selectedCategories.length > 0) {
-    //   this.filteredProduct = this.filteredProduct.filter(product => 
-    //     this.selectedCategories.includes(product?.products_category)
-    //   );
-    // }
-
-    if (this.selectedCategories.length > 0) {
-      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories)
+    if (this.selectedCategories && this.selectedCategories.length > 0) {
+      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage, this.selectedCategories,this.currentSortOption)
         .subscribe(result => {
           console.log("filtered category wise product", result);  
           this.filteredProducts = result.data.filter((product:any) =>
             this.selectedCategories.includes(product.products_category)
           );
+          this.totalItems = result.pagination.totalItems;
         });
-    }
-  }
+    }else if (this.currentSortOption){
 
-   // Handle page change for pagination
+      this.service.getproductdatacategory(this.currentPage, this.itemsPerPage,this.selectedCategories, this.currentSortOption)
+      .subscribe(result => {
+        console.log("Products with sort option only:", result);
+        this.showproductdata = result.data;
+        this.filteredProducts = this.showproductdata;
+        this.totalItems = result.pagination.totalItems;
+      });
+  //     this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
+  //       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
+  //       this.totalItems = data?.pagination.totalItems;
+       
+  //     });
+   }
+   else {
+    // If no categories and no sort option selected, do nothing or show default data
+    console.log("No filter applied; showing default data.");
+    this.filteredProducts = this.showproductdata; // Default to unfiltered data
+    this.totalItems = this.showproductdata.length;
+  }  
+}
+
+  //  Handle page change for pagination
+  
    onPageChange(page: number): void {
     this.currentPage = page;
     this.loadProducts(this.currentPage, this.itemsPerPage); 
@@ -108,12 +138,13 @@ export class UsersideProductComponent implements OnInit {
 
   fetchProducts(): void {
     if (this.searchTerm) {
-      this.http.get<any>(`http://localhost:1000/search/products?product_name=${this.searchTerm}`)
+      this.http.get<any>(`http://13.203.89.189/api/search/products?product_name=${this.searchTerm}`)
         .subscribe(
           response => {
             this.showproductdata = response.data; // Update showproductdata with search results
             console.log('Fetched Products:', this.showproductdata); // Log fetched data
-            this.applyFilter(); // Apply filter after fetching products
+            this.searchfilter(); // Apply filter after fetching products
+            this.totalItems = response.pagination.totalItems;
           },
           error => {
             console.error('Error fetching products:', error);
@@ -124,7 +155,7 @@ export class UsersideProductComponent implements OnInit {
     }
   }
 
-  // conver Rupees K or laks
+// conver Rupees K or laks
   getFormattedPrice(price: number): string {
     if (price >= 100000) {
       return '₹' + (price / 100000).toFixed(1) + 'L';  // For lakhs
@@ -135,6 +166,16 @@ export class UsersideProductComponent implements OnInit {
     }
   }
 
+  // showproductName = false;
+  // trunproductName(name: string): string {
+  //  return name.length > 18 ? name.slice(0, 5) + '...' : name;
+  // }
+  showproductName = false;
+  trunproductName(name: string): string {
+    return name.length > 10 ? name.slice(0, 12) + '...' : name;
+  }
+
+  
  
 }
 

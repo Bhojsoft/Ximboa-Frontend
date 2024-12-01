@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="container-fluid px-4">
+    <div class="container-fluid heading ">
         <div class="row my-5 position-relative poppins-bold">
             <div class="col-sm-12 col-md-5 col-lg-5 poppins-bold" @slideInLeft>
                 <p class="fw-bold pt-5"
@@ -16,11 +16,11 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row py-5 px-2">
-            <div class="col-sm-12 col-md-5 col-lg-5 p-4">
-                <div class="px-4 py-4 poppins-bold h-100"
-                    style="box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; border-radius: 25px;">
+    <div class="container-fluid g-0">
+        <div class="row  form_container g-0">
+            <div class="col-sm-12 col-md-5 col-lg-5">
+                <div class=" form poppins-bold h-100"
+                    style="">
                     <p style="font-size: 22px; font-weight: 600;"
                         class="mb-4">Have Questions? Contact Ximboa</p>
                     <form>
@@ -47,17 +47,17 @@
                                 style="background-color: #f7f7f7;"></textarea>
                         </div>
                         <button type="submit"
-                            class="btn  w-50 rounded-pill py-3 px-3 text-light fw-bold"
+                            class="btn   rounded-pill  text-light fw-bold"
                             style="background-color: #307dff;">Send
                             Your Question</button>
                     </form>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-7 col-lg-7 px-5 ">
+            <div class="col-sm-12 col-md-7 col-lg-7 faq ">
                 <p class="text-muted poppins-regular">These FAQs address common pain points and concerns for both
                     experts and seekers, providing solutions and reassurance to
                     help them get the most out of the Ximboa platform.</p>
-                <div class="accordion py-5" id="accordionExample"  @slideInRight>
+                <div class="accordion" id="accordionExample"  @slideInRight>
                     <!-- Departure and Return -->
 
                     <div class="accordion-item mb-3">
@@ -600,35 +600,26 @@
     </div>
 
     <!-- subscribe section  -->
-    <div class="container-fluid px-4 py-5 poppins-bold">
-        <!-- Subscribe Section -->
-        <div class="row subscribe-section my-5 g-0  poppins-bold"  @slideUp
-            style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 30px;">
-            <div class="col-lg-5 mb-4 mb-lg-0">
-                <!-- Replace the image link with your actual image source -->
-                <img src="../../assets/Untitled-design-25.jpg" class="img-fluid"
-                    style="border-top-left-radius: 22px;border-bottom-left-radius: 22px;"
-                    alt="Woman using laptop">
-            </div>
-            <div
-                class="col-lg-7 d-flex flex-column justify-content-center px-5 ">
-                <p
-                    class="text-uppercase text-primary fw-bold  mb-2 text-primary"
-                    style="font-size: 16px;letter-spacing: 2px;">Subscribe
-                    Now</p>
-                <p style="font-size: 48px; font-weight: 700; line-height: 52px;"
-                    class="mb-4">Subscribe for Learning Insights!</p>
-                <form class="d-flex">
-                    <input type="email" class="form-control w-75 py-3"
-                        placeholder="Your Email"  style="background-color: #f7f7f7; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;">
-                        <button type="submit" class="btn text-light px-5"
-                        style="background-color: #307DFF; border-top-right-radius: 18px; border-bottom-right-radius: 18px; border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; font-weight: 600; letter-spacing: 1px;">
-                  SUBSCRIBE HERE
-                </button>
-                
-                </form>
-            </div>
+    <div class="row subscribe-section my-5 g-0  poppins-bold" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 30px;"  @slideUp>
+        <div class="col-lg-5 mb-4 mb-lg-0">
+            <!-- Replace the image link with your actual image source -->
+            <img src="../../assets/Untitled-design-25.jpg" class="img-fluid"
+                style="border-top-left-radius: 22px;border-bottom-left-radius: 22px;" alt="Woman using laptop">
+        </div>
+        <div class="col-lg-7 d-flex flex-column justify-content-center Subscribe-section ">
+            <p
+                class="text-uppercase text-primary fw-bold  mb-2 text-primary" style="font-size: 16px;letter-spacing: 2px;">Subscribe
+                Now</p>
+            <p style=""
+                class="mb-4 font">Subscribe for Learning Insights!</p>
+            <form class="d-flex">
+                <input type="email" class="form-control w-75 py-3 "
+                    placeholder="Your Email" style="background-color: #f7f7f7; border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;">
+                    <button type="submit" class="btn text-light subscribe  "
+                    style="background-color: #307DFF;">
+              SUBSCRIBE HERE
+            </button>
+            </form>
         </div>
     </div>
-
 </div>

@@ -20,25 +20,14 @@
   justify-content: center;
   gap: 10px;
 
-  /* ::after{
-    content: '|';
-    margin-left: 15px;
-  } */
 
   li{
-    /* text-decoration: none; */
     list-style: none;
     cursor: pointer;
-    /* padding: 3px 5px; */
-  
   }
 }
 
-/* .srolltabs > li:hover {
-  color: var(--WhiteColor);
-  background-color: var(--TextColor);
-  border-radius: 5px;
-} */
+
 
 .ViewmoreArrow{
   cursor: pointer;
@@ -211,4 +200,55 @@
   background: #3078FF  ;
   color: white;
   padding: 10px;
+}
+
+
+/* Mobile view (less than 576px) */
+@media (max-width: 575.98px) {
+  .galleryimg > img {
+    height: auto !important; /* Maintain natural height */
+    width: auto !important; /* Maintain natural width */
+  }
+}
+
+/* Tablet view (between 576px and 768px) */
+@media (min-width: 576px) and (max-width: 1024px) {
+  .galleryimg > img {
+    height: auto !important; /* Maintain natural height */
+    width: auto !important; /* Maintain natural width */
+  }
+}
+
+/* Larger screens (768px and up) */
+@media (min-width: 1024px) {
+  .galleryimg > img {
+    height: 95px !important; /* Fixed height */
+    width: 114px !important; /* Fixed width */
+  }
+}
+
+
+
+.trainer-name-container {
+  position: relative;
+  display: inline-block;
+}
+
+.full-name {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  font-size: small;
+  padding: 5px;
+  z-index: 1;
+}
+
+.trainer-name-container:hover .full-name {
+  display: block;
+}
+
+.custom-tooltip {
+  --bs-tooltip-bg: var(--TextColor); /* Replace var(--bd-violet-bg) with the actual color */
+  --bs-tooltip-color: #ffffff; /* Replace var(--bs-white) with the actual color */
 }

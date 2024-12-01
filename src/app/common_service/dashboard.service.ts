@@ -10,16 +10,14 @@ import { Observable } from 'rxjs';
 export class DashboardService {
 
    
-  private API_URL ="https://demo-eosin-psi.vercel.app";
+  private API_URL ="http://13.203.89.189/api";
 
+  
 
   // private API_URL="http://localhost:1000"
 
-
-
-
-
-  constructor(private http:HttpClient) { }
+ 
+constructor(private http:HttpClient) { }
 
           getcategoryname():Observable<any>{
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
@@ -29,8 +27,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allcourses?page=${page}&limit=${limit}`)
           }
 
-          getcouserdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/filter/courses?categories=${categories}&page=${page}&limit=${limit}`);
+          getcouserdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/filter/courses?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
           gethomedatauser(page: number, limit: number):Observable<any>{
@@ -53,8 +51,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allproduct?page=${page}&limit=${limit}`);
            }
 
-           getproductdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/product/filter/product?categories=${categories}&page=${page}&limit=${limit}`);
+           getproductdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/product/filter/product?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
            productdatabyID(id:any):Observable<any>{
@@ -69,8 +67,8 @@ export class DashboardService {
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allevents?page=${page}&limit=${limit}`);
            }
 
-           getEventdatacategory(page: number, limit: number, categories?: string): Observable<any> {
-            return this.http.get<any>(`${this.API_URL}/event/filter/event?categories=${categories}&page=${page}&limit=${limit}`);
+           getEventdatacategory(page: number, limit: number, categories?: string, filterType?: string): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/event/filter/event?categories=${categories}&filterType=${filterType}&page=${page}&limit=${limit}`);
           }
 
            EventdatabyID(id:any):Observable<any>{
@@ -129,6 +127,10 @@ export class DashboardService {
             return this.http.post<any>(`${this.API_URL}/appointment`,data)
           }
 
+          registerProduct(product: { product_id: string }): Observable<any> {
+            return this.http.post(`${this.API_URL}/product/registerproduct`, product);
+          }
+
           Addtocart(cart:{productId:any, quantity:any}):Observable<any>{
             return this.http.post<any>(`${this.API_URL}/cart/add`,cart)
           }
@@ -151,6 +153,10 @@ export class DashboardService {
 
           getDashboardData(): Observable<any> {
             return this.http.get<any>(`${this.API_URL}/dashboard`);
+          }
+
+          getDashboardDataAdmin(): Observable<any> {
+            return this.http.get<any>(`${this.API_URL}/admin/s/dashboard-counts`);
           }
 
           GetAllForum(): Observable<any>{

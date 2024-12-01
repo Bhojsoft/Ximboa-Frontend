@@ -83,7 +83,7 @@ export class UpdateProductComponent implements OnInit {
       next: response => {
         // console.log('Response:', response);
         Swal.fire('Success', 'Product updated successfully!', 'success');
-        this.route.navigate(['/trainer/product']);
+        this.route.navigate(['/dashboard/product']);
       },
       error: error => {
         // console.error('Update failed', error);

@@ -27,14 +27,19 @@
   background-color: transparent;
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 1024px) {
   .desktop {
     width: 80%;
     margin-left: auto;
   }
 }
+@media only screen and (max-width: 800px) {
+  .desktop {
+  
+  }
+}
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1023px) {
   .login-img {
     visibility: hidden;
     display: none;

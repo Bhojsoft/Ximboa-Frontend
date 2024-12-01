@@ -11,14 +11,6 @@
               <small *ngIf="myForm.get('f_Name')?.errors?.['required']">First Name is required.</small>
             </div>
           </div>
-
-          <!-- <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="f_Name" class="col-form-label">First Name</label>
-            <input type="text" class="form-control" id="f_Name" formControlName="f_Name" required>
-            <div *ngIf="myForm.get('f_Name')?.invalid && (myForm.get('f_Name')?.touched || myForm.get('f_Name')?.dirty)" class="text-danger">
-              <small *ngIf="myForm.get('f_Name')?.errors?.['required']">First Name is required.</small>
-            </div>
-          </div> -->
           
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <label for="l_Name" class="col-form-label">Last Name</label>
@@ -37,23 +29,30 @@
             </div>
           </div>
       
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="recipient-name" class="col-form-label">Mobile Number <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="mobile_number" required>
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
+            <label for="mobile-number" class="col-form-label">Mobile Number <sup>*</sup></label>
+            <input type="number" class="form-control" id="mobile-number" formControlName="mobile_number" required>
             <div *ngIf="myForm.get('mobile_number')?.invalid && (myForm.get('mobile_number')?.touched || myForm.get('mobile_number')?.dirty)" class="text-danger">
               <small *ngIf="myForm.get('mobile_number')?.errors?.['required']">Mobile Number is required.</small>
             </div>
           </div>
-      
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="recipient-name" class="col-form-label">Whatsapp Number <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="whatsapp_no" required>
+          
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
+            <label for="whatsapp-number" class="col-form-label">WhatsApp Number <sup>*</sup></label>
+            <input type="number" class="form-control" id="whatsapp-number" formControlName="whatsapp_no" required>
+            <div class="d-flex flex-column flex-sm-row">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="same-as-mobile" (change)="onCheckboxChange($event)">
+              <small class="form-check-label me-2" for="same-as-mobile" style="font-size: small;">Same as Mobile Number</small>
+            </div>
             <div *ngIf="myForm.get('whatsapp_no')?.invalid && (myForm.get('whatsapp_no')?.touched || myForm.get('whatsapp_no')?.dirty)" class="text-danger">
-              <small *ngIf="myForm.get('whatsapp_no')?.errors?.['required']">Whatsapp Number is required.</small>
+              <small *ngIf="myForm.get('whatsapp_no')?.errors?.['required']" style="font-size: small;">WhatsApp Number is required.</small>
             </div>
           </div>
+          </div>
+          
       
-          <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-1">
             <label for="recipient-name" class="col-form-label">Date of Birth <sup>*</sup></label>
             <input type="date" class="form-control" id="recipient-name" formControlName="date_of_birth" required>
             <div *ngIf="myForm.get('date_of_birth')?.invalid && (myForm.get('date_of_birth')?.touched || myForm.get('date_of_birth')?.dirty)" class="text-danger">
@@ -70,15 +69,19 @@
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-            <label for="address2" class="col-form-label">Address Line 2</label>
+            <label for="address2" class="col-form-label">Address Line 2 <sup>*</sup></label>
             <input type="text" class="form-control" id="address2" formControlName="address2" required>
+            <div *ngIf="myForm.get('address2')?.invalid && (myForm.get('address2')?.touched || myForm.get('address2')?.dirty)" class="text-danger">
+              <small *ngIf="myForm.get('address2')?.errors?.['required']">Address Line 2 is required.</small>
+            </div>
           </div>
       
           <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
             <label for="recipient-name" class="col-form-label">Pincode <sup>*</sup></label>
-            <input type="number" class="form-control" id="recipient-name" formControlName="pincode" required>
+            <input type="text" class="form-control" id="recipient-name" formControlName="pincode" maxlength="6" required>
             <div *ngIf="myForm.get('pincode')?.invalid && (myForm.get('pincode')?.touched || myForm.get('pincode')?.dirty)" class="text-danger">
               <small *ngIf="myForm.get('pincode')?.errors?.['required']">Pincode is required.</small>
+              <small *ngIf="myForm.get('pincode')?.errors?.['maxlength']">Pincode is 6 Digit.</small>
             </div>
           </div>
       
@@ -108,7 +111,7 @@
       
           <div class="d-flex align-items-center justify-content-between mb-4">
             <button type="submit" class="btn submitbtn">Update Profile</button>
-            <button *ngIf="isTrainer || isAdmin || isSELF_EXPERT" (click)="nextRow()" class="btn nextbtn">Next</button>
+            <button *ngIf="isTrainer || isAdmin || isSELF_EXPERT || isInstitute" (click)="nextRow()" class="btn nextbtn">Next</button>
           </div>
         </div>   
       </form>
@@ -134,6 +137,10 @@
                     <label for="Linkdein" class="col-form-label">LinkedIn</label>
                     <input type="text" class="form-control" id="Linkdein" name="Linkdein" [(ngModel)]="social.Linkdein">
                 </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                  <label for="website" class="col-form-label">Website</label>
+                  <input type="text" class="form-control" id="website" name="website" [(ngModel)]="social.website">
+              </div>
                 <div *ngIf="isFormInvalid && socialForm.submitted" class="text-danger mb-3">At least one field is required</div>
                 <div class="text-end">
                     <button type="submit" class="btn submitbtn">Save</button>
@@ -142,7 +149,7 @@
         </form>
         
       <hr class="mt-3">
-      <form #educationForm="ngForm" (ngSubmit)="onEducation()">
+      <form #educationForm="ngForm" (ngSubmit)="onEducation()" *ngIf="!isInstitute">
         <div class="12">
             <h2>Educational Information</h2>
         </div>
@@ -152,6 +159,7 @@
                 <input type="text" class="form-control" id="school" 
                     [(ngModel)]="education.school" name="school" 
                     #school="ngModel" (ngModelChange)="checkFields()">
+
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                 <label for="college" class="col-form-label">College Name</label>
@@ -178,10 +186,6 @@
                     #other_details="ngModel" (ngModelChange)="checkFields()">
             </div>
             <div *ngIf="isFormInvalid && educationForm.submitted" class="text-danger mb-3">At least one field is required</div>
-
-            <!-- <div *ngIf="!isAtLeastOneFieldFillededucation" class="text-danger mb-2">
-                At least one field is required.
-            </div> -->
     
             <div class="d-flex align-items-center justify-content-between">
                 <button (click)="previousRow()" class="btn nextbtn">Back</button>
@@ -190,41 +194,10 @@
             </div>
         </div>
     </form>
-    
-    
-        <!-- <form (ngSubmit)="onEducation()">
-        <div class="12">
-            <h2>Educational Information</h2>
-        </div>
-       <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="school" class="col-form-label">School Name</label>
-             <input type="text" class="form-control" id="school" [(ngModel)]="education.school" name="school">  
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="college" class="col-form-label">College Name</label>
-             <input type="text" class="form-control" id="college" [(ngModel)]="education.college" name="college">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="degree" class="col-form-label">Degree</label>
-             <input type="text" class="form-control" id="degree" [(ngModel)]="education.degree" name="degree">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="university" class="col-form-label">University Name</label>
-             <input type="text" class="form-control" id="university" [(ngModel)]="education.university" name="university">    
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="other_details" class="col-form-label">Other Details</label>
-             <input type="text" class="form-control" id="other_details" [(ngModel)]="education.other_details" name="other_details">    
-        </div>
-       
-        <div class="d-flex align-items-center justify-content-between">
-            <button (click)="previousRow()" class="btn nextbtn">Back</button>
-            <button type="submit" class="btn submitbtn">Submit</button>
-            <button (click)="nextRow()" class="btn nextbtn">Next</button>
-        </div>
-    </div>
-    </form> -->
+    <div *ngIf="isInstitute" class="d-flex align-items-center justify-content-between">
+      <button (click)="previousRow()" class="btn nextbtn">Back</button>
+      <button (click)="nextRow()" class="btn nextbtn">Next</button>
+  </div>
     </div>
 
     <div *ngIf="currentRow === 2" class="row mt-4">
@@ -303,6 +276,7 @@
               </div>
           </div>
       </form>
+      
            <hr class="my-3">
             <h2 class="mt-3">Gallary</h2>
                 <form (ngSubmit)="onGallary()">

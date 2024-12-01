@@ -2,7 +2,6 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RelevanceComponent } from './relevance/relevance.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
@@ -44,48 +43,50 @@ import { ContactComponent } from './contact/contact.component';
 import { ForumComponent } from './forum/forum.component';
 import { ForumDetailsComponent } from './forum-details/forum-details.component';
 import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { authGuard } from './AuthGuard/auth.guard';
 
 const routes: Routes = [
 
   { path: "signin", component: SignInComponent },
   { path: "signup", component: SignUpComponent },
-  { path: "forgotfassword", component: ForgotPasswordComponent },
   { path: "auth/linkedin", component: LinkedinAuthCallbackComponent },
 
   // Routing For Super Admin Dashboard
-  { path: "superadmin", component: SuperAdminComponent },
-
-  { path: "editcategory/:_id", component: EditCategoryComponent },
-  { path: "Notification", component: NotificationComponent },
-  { path: "editprofilepicture", component: EditProfilePictureComponent },
+  // { path: "superadmin", component: SuperAdminComponent },
+  { path: "reset-password",component:ResetPasswordComponent},
+  // { path: "editcategory/:_id", component: EditCategoryComponent },
+  { path: "editcategory/:_id",component:EditCategoryComponent , canActivate: [authGuard]},
+  { path: "Notification", component: NotificationComponent, canActivate: [authGuard]},
+  { path: "editprofilepicture", component: EditProfilePictureComponent , canActivate: [authGuard] },
 
   //  Routing For Trainer Dashboard
   {
-    path: "trainer", component: TrainerHomeComponent,
+    path: "dashboard", component: TrainerHomeComponent, canActivate: [authGuard],
     children: [
-      { path: "", component: TrainerMyhomeComponent },
-      { path: "superadmin", component: SuperAdminComponent },
-      { path: "admincategory", component: AdminDashboardCategoriesComponent },
-      { path: "mycourse", component: MyCourseComponent },
-      { path: "product", component: ProductComponent },
-      { path: "question", component: QuestionComponent },
-      { path: "appointment", component: AppointmentComponent },
-      { path: "event", component: EventComponent },
-      { path: "enquiry", component: EnquiryComponent },
-      { path: "review", component: ReviewComponent },
+      { path: "", component: TrainerMyhomeComponent, canActivate: [authGuard]},
+      { path: "superadmin", component: SuperAdminComponent, canActivate: [authGuard]},
+      { path: "admincategory", component: AdminDashboardCategoriesComponent ,canActivate: [authGuard], data: { role: 'SUPER_ADMIN' }},
+      { path: "mycourse", component: MyCourseComponent,canActivate: [authGuard] },
+      { path: "product", component: ProductComponent,canActivate: [authGuard] },
+      { path: "question", component: QuestionComponent, canActivate: [authGuard] },
+      { path: "appointment", component: AppointmentComponent , canActivate: [authGuard] },
+      { path: "event", component: EventComponent , canActivate: [authGuard] },
+      { path: "enquiry", component: EnquiryComponent , canActivate: [authGuard]},
+      { path: "review", component: ReviewComponent , canActivate: [authGuard] },
     ] },
-  { path: "edittrainer", component: EdittrainerComponent },
-  { path: "editcourse/:_id", component: EditCourseComponent },
-  { path: "editproduct/:_id", component: UpdateProductComponent },
-  { path: "editevent/:_id", component: UpdateEventComponent },
+    
+  { path: "edittrainer", component: EdittrainerComponent , canActivate: [authGuard] },
+  { path: "editcourse/:_id", component: EditCourseComponent , canActivate: [authGuard] },
+  { path: "editproduct/:_id", component: UpdateProductComponent , canActivate: [authGuard] },
+  { path: "editevent/:_id", component: UpdateEventComponent , canActivate: [authGuard] },
 
 
   //  Routing For User Dashboard
   { path: "", component: DashboardComponent },
   { path: "Home", component: DashboardComponent},
-  { path: "seeallcategories", component: SeeallcategoriesComponent},
   { path: "coursedetails/:id", component: CourseDetailsComponent },
-  { path: "shop/:id", component: ShopComponent ,data: { breadcrumb: 'Product Details' }},
+  { path: "productdetails/:id", component: ShopComponent ,data: { breadcrumb: 'Product Details' }},
   { path: "eventdetails/:id", component: UserEventDetailsComponent,data: { breadcrumb: 'Events Details' } },
   { path: "cart", component: CartComponent },
   { path: "gallery", component: GalleryComponent },
@@ -94,10 +95,10 @@ const routes: Routes = [
     children: [
       // {path:"",component:RelevanceDataComponent},
       { path: "", component: SeeallcategoriesComponent },
-      { path: "seeallcategory", component: SeeallcategoriesComponent,data: { breadcrumb: 'All Courses' } },
-      { path: "trainer", component: TrainerComponent ,data: { breadcrumb: 'All Trainer' } },
-      { path: "userproduct", component: UsersideProductComponent ,data: { breadcrumb: 'All Product' } },
-      { path: "userevent", component: UserEventComponent ,data: { breadcrumb: 'All Events' } },
+      { path: "Allcourses", component: SeeallcategoriesComponent,data: { breadcrumb: 'All Courses' } },
+      { path: "alltrainer", component: TrainerComponent ,data: { breadcrumb: 'All Trainer' } },
+      { path: "allproducts", component: UsersideProductComponent ,data: { breadcrumb: 'All Product' } },
+      { path: "allevents", component: UserEventComponent ,data: { breadcrumb: 'All Events' } },
     ]
   },
 
