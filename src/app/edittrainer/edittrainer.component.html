@@ -145,7 +145,7 @@
         </form>
         
       <hr class="mt-3">
-      <form #educationForm="ngForm" (ngSubmit)="onEducation()">
+      <form #educationForm="ngForm" (ngSubmit)="onEducation()" *ngIf="!isInstitute">
         <div class="12">
             <h2>Educational Information</h2>
         </div>
@@ -190,7 +190,10 @@
             </div>
         </div>
     </form>
-  
+    <div *ngIf="isInstitute" class="d-flex align-items-center justify-content-between">
+      <button (click)="previousRow()" class="btn nextbtn">Back</button>
+      <button (click)="nextRow()" class="btn nextbtn">Next</button>
+  </div>
     </div>
 
     <div *ngIf="currentRow === 2" class="row mt-4">

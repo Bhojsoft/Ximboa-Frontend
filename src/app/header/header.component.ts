@@ -448,7 +448,7 @@ export class HeaderComponent {
       next: (response) => {
         Swal.fire(
           'Congratulations..!',
-          'Your request has been successfully submitted to the admin. You can expect access to the Self Expert role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.',
+          'Your request has been successfully submitted to the admin. You can expect access to the Institute role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.',
           'success'
         );
         this.closeModal();
@@ -459,7 +459,7 @@ export class HeaderComponent {
         if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
           Swal.fire(
             'Request Already Submitted',
-            'Your request for access to the Self Expert role has already been submitted. Please allow up to 24 hours for processing. If you have any questions or concerns, feel free to contact us at contact@ximboa.io.',
+            'Your request for access to the Institute role has already been submitted. Please allow up to 24 hours for processing. If you have any questions or concerns, feel free to contact us at contact@ximboa.io.',
             'error'
           );
         } else {
@@ -486,7 +486,7 @@ export class HeaderComponent {
       next: (response) => {
         Swal.fire(
           'Congratulations..!',
-          'Your request has been successfully submitted to the admin. You can expect access to the Self Expert role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.',
+          'Your request has been successfully submitted to the admin. You can expect access to the Trainer role within the next 24 hours. If you experience any issues, please don’t hesitate to reach out to us at contact@ximboa.io.',
           'success'
         );
         this.closeModal();
@@ -498,7 +498,7 @@ export class HeaderComponent {
         if (error?.error?.statusCode === 400 && error?.error?.message === "Role change request is already pending.") {
           Swal.fire(
             'Request Already Submitted',
-            'Your request for access to the Self Expert role has already been submitted. Please allow up to 24 hours for processing. If you have any questions or concerns, feel free to contact us at contact@ximboa.io.',
+            'Your request for access to the Trainer role has already been submitted. Please allow up to 24 hours for processing. If you have any questions or concerns, feel free to contact us at contact@ximboa.io.',
             'error'
           );
         } else {

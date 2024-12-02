@@ -134,17 +134,16 @@
       <div>
         <i class="fa-solid fa-location-dot p-2"></i> &nbsp;
         <span>{{showprofile.trainer?.address1 + ", " + showprofile.trainer?.address2 }}</span>
-
         <div class="d-flex gap-3 py-3">
-          <a class="text-dark" href="{{showprofile.SocialMedias?.facebook}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Facebook"><i
+          <a class="text-dark" href="{{showprofile?.SocialMedias[0]?.facebook}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Facebook"><i
               class="fa-brands fa-facebook ms-2 fs-4"></i></a>
-          <a class="text-dark" href="{{showprofile.SocialMedias?.instagram}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Instagram">
+          <a class="text-dark" href="{{showprofile.SocialMedias[0]?.instagram}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Instagram">
             <i class="fa-brands fa-instagram ms-2 fs-4"></i></a>
-          <a class="text-dark" href="{{showprofile.SocialMedias?.youtube}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Youtube">
+          <a class="text-dark" href="{{showprofile.SocialMedias[0]?.youtube}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Youtube">
             <i class="fa-brands fa-youtube ms-2 fs-4"></i></a>
-          <a class="text-dark" href="{{showprofile.SocialMedias?.Linkdein}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="linkedin">
+          <a class="text-dark" href="{{showprofile.SocialMedias[0]?.Linkdein}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="linkedin">
             <i class="fa-brands fa-linkedin ms-2 fs-4"></i></a>
-          <a class="text-dark" href="{{showprofile.SocialMedias?.website}}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Visit Website">
+          <a class="text-dark" href="{{showprofile.SocialMedias[0]?.website}}" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Visit Website">
             <i class="fa-solid fa-globe ms-2 fs-4"></i></a>
               
         </div>
@@ -228,7 +227,7 @@
 
 
 
-        <div *ngIf="showprofile.Educations[0]?.school && showprofile.Educations[0]?.college && showprofile.Educations[0]?.degree">
+        <div *ngIf="showprofile.Educations[0]?.school && showprofile.Educations[0]?.college && showprofile.Educations[0]?.degree && showprofile.trainer?.role !== 'INSTITUTE'">
           <h5 class="text-color" id="Education">Education</h5>
           <table>
             <tbody>
@@ -431,7 +430,7 @@
                   <div class="d-flex align-items-center gap-2  trainer-name-container">
                     <p><img src="{{allcourses.trainer_image}}" class="rounded-circle" height="20px" width="20px" alt="">
                     </p>
-                    <p class="card-title  text-capitalize" (mouseenter)="showbusinessName = true"
+                    <p class="card-title  text-capitalize pb-1" (mouseenter)="showbusinessName = true"
                       (mouseleave)="showbusinessName = false">
                       {{ trunbusinessName(allcourses.business_Name) }}
                     </p>
