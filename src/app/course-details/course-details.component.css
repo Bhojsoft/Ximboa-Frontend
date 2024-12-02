@@ -222,8 +222,14 @@
 /* Larger screens (768px and up) */
 @media (min-width: 1024px) {
   .galleryimg > img {
-    height: 95px !important; /* Fixed height */
+    height: 100px !important; /* Fixed height */
     width: 114px !important; /* Fixed width */
+  }
+  .gallary-section{
+    height: 207px !important;
+  }
+  .main-four-image{
+    height: 206px !important;
   }
 }
 

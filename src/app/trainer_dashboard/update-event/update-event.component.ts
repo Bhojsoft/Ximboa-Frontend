@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
@@ -26,14 +27,15 @@ export class UpdateEventComponent implements OnInit {
     private service: TrainerService,
     private formb: FormBuilder,
     private route: Router,
-    private admin: AdminService
+    private admin: AdminService,
+    private dashborad: DashboardService
   ) {
     this._id = this.router.snapshot.paramMap.get('_id');
   }
 
   ngOnInit() {
 
-    this.admin.getcategorydata().subscribe(data => {
+    this.dashborad.getcategoryname().subscribe(data => {
       this.showCategorydata = data;
     });
 

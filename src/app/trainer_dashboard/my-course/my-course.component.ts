@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { LoginService } from 'src/app/common_service/login.service';
 import { StudentService } from 'src/app/common_service/student.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
@@ -60,6 +61,7 @@ export class MyCourseComponent implements OnInit {
   Courses = {
     course_name:'',
     category_id:'',
+    sub_category:'',
     online_offline:'',
     price:'',
     offer_prize:'',
@@ -80,6 +82,8 @@ export class MyCourseComponent implements OnInit {
     private auth: AuthServiceService ,
      private student:StudentService,
      private router:ActivatedRoute,
+     private Admin : AdminService,
+     private dashboard : DashboardService,
     private cookie:CookieService){}
 
   ngOnInit(): void{
@@ -94,8 +98,8 @@ export class MyCourseComponent implements OnInit {
       }
     });    
     
-    this.admin.getcategorydata().subscribe( data =>{
-      // console.log("data",data)
+    this.dashboard.getcategoryname().subscribe( data =>{
+      console.log("data",data)
       this.showCategorydata = data;  
     });
 
@@ -260,7 +264,24 @@ showbusiness1Name = false;
         }
       });
     }
+
+    subCategory: any = []; // Holds the subcategory data
+    fetchcategoryID: string = ''; // Holds the selected category ID
     
+    getsubcategory(): void {
+      if (this.fetchcategoryID) {
+        this.Admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
+          this.subCategory = result.data || [];
+        });
+      } else {
+        this.subCategory = []; // Clear subcategory data if no category selected
+      }
+    }
+    
+
+
+
+   
       // conver Rupees K or laks
   getFormattedPrice(price: number): string {
     if (price >= 100000) {

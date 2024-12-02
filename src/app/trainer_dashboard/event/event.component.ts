@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
@@ -48,6 +49,7 @@ export class EventComponent  implements OnInit{
     event_name: '',
     event_type: '',
     event_category: '',
+    sub_category:'',
     event_info:'',
     event_description:'',
     event_date:'',
@@ -63,7 +65,8 @@ export class EventComponent  implements OnInit{
   formSubmitted: boolean = false;
 
 
-  constructor(private service:TrainerService, private admin:AdminService, private auth: AuthServiceService,private router: ActivatedRoute){}
+  constructor(private service:TrainerService, private admin:AdminService, private dashboard: DashboardService,
+    private auth: AuthServiceService,private router: ActivatedRoute){}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
@@ -83,7 +86,7 @@ export class EventComponent  implements OnInit{
 
     this.LoadMyEvent();
 
-      this.admin.getcategorydata().subscribe( data =>{
+      this.dashboard.getcategoryname().subscribe( data =>{
         // console.log("data",data)
         this.showCategorydata = data;
       });
@@ -174,6 +177,7 @@ export class EventComponent  implements OnInit{
     formData.append('event_name', this.event.event_name.trim());
     formData.append('event_type', this.event.event_type.trim());
     formData.append('event_category', this.event.event_category.trim());
+    formData.append('sub_category', this.event.sub_category.trim());
     formData.append('event_info', this.event.event_info.trim());
     formData.append('event_description', this.event.event_description.trim());
     formData.append('event_date', this.event.event_date.trim());
@@ -233,5 +237,18 @@ export class EventComponent  implements OnInit{
   truneventName1(name: string): string {
    return name.length > 14 ? name.slice(0, 12) + '...' : name;
  }
+
+ subCategory: any = []; // Holds the subcategory data
+    fetchcategoryID: string = ''; // Holds the selected category ID
+    
+    getsubcategory(): void {
+      if (this.fetchcategoryID) {
+        this.admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
+          this.subCategory = result.data || [];
+        });
+      } else {
+        this.subCategory = []; // Clear subcategory data if no category selected
+      }
+    }
   
 }
