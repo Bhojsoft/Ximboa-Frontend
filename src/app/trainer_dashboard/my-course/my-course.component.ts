@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
@@ -27,7 +28,12 @@ export class MyCourseComponent implements OnInit {
   maxWidth = 100; // Maximum width in pixels
   maxHeight = 100;
 
+  Showcoursedetails:any;
+  id:any;
 
+  starsArray = Array(5).fill(0);
+
+  
   checkUserRole() {
     const role = this.auth.getUserRole();
     // console.log(role);
@@ -46,6 +52,7 @@ export class MyCourseComponent implements OnInit {
   showCategorydata:any;
   showcoursedata:any;
   showcoursedatastudent:any[]=[];
+  showpendingCourses:any;
   
 
   thumbnail_image: File | null = null;
@@ -72,11 +79,21 @@ export class MyCourseComponent implements OnInit {
     private service:TrainerService,
     private auth: AuthServiceService ,
      private student:StudentService,
+     private router:ActivatedRoute,
     private cookie:CookieService){}
 
   ngOnInit(): void{
     this.checkUserRole();
     this.getallcourses();
+    this. getPendingCourses();
+    
+    this.router.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      if (this.id) {
+        this.CourseDetails(); // Fetch user details when 'id' is available
+      }
+    });    
+    
     this.admin.getcategorydata().subscribe( data =>{
       // console.log("data",data)
       this.showCategorydata = data;  
@@ -96,6 +113,67 @@ export class MyCourseComponent implements OnInit {
       this.showcoursedata = result?.coursesWithFullImageUrl;
       });
   }
+
+  getPendingCourses(){
+    this.service.getAllCourseRequest().subscribe(response => {
+      console.log("requested courses",response);
+      this.showpendingCourses = response.data;
+    })
+  }
+
+  CourseDetails() {
+    if (this.id) {
+      this.service.ViewRequestCoursebyID(this.id).subscribe(result => {
+        this.Showcoursedetails = result;
+        console.log("User Details:", this.Showcoursedetails);
+      });
+    }
+  }
+
+  openCourseDetailsModal(userId: string): void {
+    this.service.ViewRequestCoursebyID(userId).subscribe(result => {
+      this.Showcoursedetails = result;
+      console.log("User Details:", this.Showcoursedetails);
+    });
+  }
+
+  handleCourseApproval(Courseid: string, Status: string) {
+    if (Status === 'rejected') {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you really want to reject this Course? This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reject it',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
+            (response) => {
+              this.getPendingCourses();
+              Swal.fire('Request Rejected', 'The Trainer Course request Status has been successfully Rejected.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', 'Failed to reject the request. Please try again later.', 'error');
+            }
+          );
+        }
+      });
+    } else if (Status === 'approved') {
+      this.service.CourserequestchangeStatus(Courseid, Status).subscribe(
+        (response) => {
+          this.getPendingCourses();
+          Swal.fire('Request Approved', 'The Trainer Course Status has been successfully updated.', 'success');
+        },
+        (error) => {
+          Swal.fire('Error', 'Failed to approve the request. Please try again later.', 'error');
+        }
+      );
+    }
+  }
+  
+
+
 
   onsubmit(): void {
     const formData = new FormData();

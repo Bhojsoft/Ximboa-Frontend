@@ -137,6 +137,10 @@
                     <label for="Linkdein" class="col-form-label">LinkedIn</label>
                     <input type="text" class="form-control" id="Linkdein" name="Linkdein" [(ngModel)]="social.Linkdein">
                 </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                  <label for="website" class="col-form-label">Website</label>
+                  <input type="text" class="form-control" id="website" name="website" [(ngModel)]="social.website">
+              </div>
                 <div *ngIf="isFormInvalid && socialForm.submitted" class="text-danger mb-3">At least one field is required</div>
                 <div class="text-end">
                     <button type="submit" class="btn submitbtn">Save</button>

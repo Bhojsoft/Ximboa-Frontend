@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
@@ -26,6 +27,9 @@ export class ProductComponent implements OnInit {
   selectedProduct: any;
   showCategorydata: any;
   starsArray: number[] = [1, 2, 3, 4, 5]; // 5 stars total
+  id:any;
+  Showproductdata:any;
+  showpendingProducts:any;
 
   showIcon = false;
   toggleIcon() {
@@ -59,13 +63,22 @@ export class ProductComponent implements OnInit {
   selectedFile: File | null = null;
   formSubmitted: boolean = false;
 
-  constructor(private service: TrainerService, private admin: AdminService, private auth: AuthServiceService) { }
+  constructor(private service: TrainerService, private admin: AdminService, private auth: AuthServiceService,private router:ActivatedRoute) { }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
   }
 
   ngOnInit(): void {
+
+    this.router.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      if (this.id) {
+        this.ProductDetails(); // Fetch user details when 'id' is available
+      }
+    });
+
+    this.getPendingProducts();
 
     this.checkUserRole();
     this.loadproduct();
@@ -91,6 +104,64 @@ export class ProductComponent implements OnInit {
     })
   }
 
+  getPendingProducts(){
+    this.service.getAllProductRequest().subscribe(response => {
+      console.log("requested courses",response);
+      this.showpendingProducts = response.data;
+    })
+  }
+
+
+  ProductDetails() {
+    if (this.id) {
+      this.service.ViewRequestProductbyID(this.id).subscribe(result => {
+        this.Showproductdata = result;
+        console.log("User Details:", this.Showproductdata);
+      });
+    }
+  }
+
+  openProductDetailsModal(userId: string): void {
+    this.service.ViewRequestProductbyID(userId).subscribe(result => {
+      this.Showproductdata = result;
+      console.log("User Details:", this.Showproductdata);
+    });
+  }
+
+  handleProductApproval(productId: string, Status: string) {
+    if (Status === 'rejected') {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you really want to reject this Product? This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, reject it',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.service.ProductrequestchangeStatus(productId, Status).subscribe(
+            (response) => {
+              this.getPendingProducts();
+              Swal.fire('Request Rejected', 'The Trainer Product request Status has been successfully Rejected.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', 'Failed to reject the request. Please try again later.', 'error');
+            }
+          );
+        }
+      });
+    } else if (Status === 'approved') {
+      this.service.ProductrequestchangeStatus(productId, Status).subscribe(
+        (response) => {
+          this.getPendingProducts();
+          Swal.fire('Request Approved', 'The Trainer Product Status has been successfully updated.', 'success');
+        },
+        (error) => {
+          Swal.fire('Error', 'Failed to approve the request. Please try again later.', 'error');
+        }
+      );
+    }
+  }
 
 
   onSubmit(productForm: any) {

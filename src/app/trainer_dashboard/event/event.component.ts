@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
@@ -18,6 +19,9 @@ export class EventComponent  implements OnInit{
   showCategorydata:any;
   selectedFile: File | null = null;
   showeventdatastudent:any[]=[];
+  showpendingEvents:any;
+  ShowEvent:any;
+  id:any;
 
   showIcon = false;
   toggleIcon() {
@@ -59,15 +63,23 @@ export class EventComponent  implements OnInit{
   formSubmitted: boolean = false;
 
 
-  constructor(private service:TrainerService, private admin:AdminService, private auth: AuthServiceService){}
+  constructor(private service:TrainerService, private admin:AdminService, private auth: AuthServiceService,private router: ActivatedRoute){}
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
   }
 
   ngOnInit(): void {
-      
+
+    this.router.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      if (this.id) {
+        this.EventsDetails(); // Fetch user details when 'id' is available
+      }
+    });
+    this.getPendingEvents();
     this.checkUserRole();
+
 
     this.LoadMyEvent();
 
@@ -82,12 +94,73 @@ export class EventComponent  implements OnInit{
       })
   }
 
-      LoadMyEvent(){
+  LoadMyEvent(){
         this.service.gettrainerdatabyID().subscribe(data=>{
-          // console.log(data);
           this.showeventdata = data.eventsWithThumbnailUrl;
         });
       }
+
+      getPendingEvents(){
+        this.service.getAllEventsRequest().subscribe(response => {
+          console.log("requested Events",response);
+          this.showpendingEvents = response.data;
+        })
+      }
+    
+      EventsDetails() {
+        if (this.id) {
+          console.log();
+          
+          this.service.ViewRequestEventsbyID(this.id).subscribe(result => {
+            this.ShowEvent = result;
+            console.log("Event by ID Details:", this.ShowEvent);
+          });
+        }
+      }
+    
+      openEventsDetailsModal(eventId: string): void {
+        this.service.ViewRequestEventsbyID(eventId).subscribe(result => {
+          this.ShowEvent = result;
+          console.log("Event by ID Details:", this.ShowEvent);
+        });
+      }
+    
+      handleEventsApproval(Eventid: string, Status: string) {
+        if (Status === 'rejected') {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to reject this Event? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, reject it',
+            cancelButtonText: 'Cancel',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.service.EventsrequestchangeStatus(Eventid, Status).subscribe(
+                (response) => {
+                  this.getPendingEvents();
+                  Swal.fire('Request Rejected', 'The Trainer Course request Status has been successfully Rejected.', 'success');
+                },
+                (error) => {
+                  Swal.fire('Error', 'Failed to reject the request. Please try again later.', 'error');
+                }
+              );
+            }
+          });
+        } else if (Status === 'approved') {
+          this.service.EventsrequestchangeStatus(Eventid, Status).subscribe(
+            (response) => {
+              this.getPendingEvents();
+              Swal.fire('Request Approved', 'The Trainer Course Status has been successfully updated.', 'success');
+            },
+            (error) => {
+              Swal.fire('Error', 'Failed to approve the request. Please try again later.', 'error');
+            }
+          );
+        }
+      }
+      
+    
       
   onSubmit(eventForm: any) {
 
