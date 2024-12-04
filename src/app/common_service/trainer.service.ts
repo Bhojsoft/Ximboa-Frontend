@@ -7,10 +7,10 @@ import { Observable, observable } from 'rxjs';
 })
 export class TrainerService {
 
- private  Trainer_APIURL ="http://13.203.89.189/api/trainerbyid";
+ private  Trainer_APIURL ="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/trainerbyid";
 
-  private APIURL = "http://13.203.89.189/api";
-  private apiUrl = 'http://13.203.89.189/api/event/get/my-registered-events';
+  private APIURL = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api";
+  private apiUrl = 'https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/event/get/my-registered-events';
 
 
   constructor(private http:HttpClient) { }

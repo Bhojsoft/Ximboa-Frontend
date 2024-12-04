@@ -67,6 +67,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 
 import { NgApexchartsModule } from "ng-apexcharts";
 import { SpinnerComponent } from './Loader/spinner/spinner.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -140,7 +141,8 @@ import { SpinnerComponent } from './Loader/spinner/spinner.component';
     OAuthModule.forRoot(),
     NgxEditorModule,
     TagInputModule,
-    NgApexchartsModule 
+    NgApexchartsModule,
+    FontAwesomeModule 
     
    
   ],

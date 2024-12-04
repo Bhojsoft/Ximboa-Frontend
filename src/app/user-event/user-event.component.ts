@@ -40,14 +40,13 @@ export class UserEventComponent implements OnInit {
     this.searchService.currentSearchData.subscribe(term => {
       this.searchTerm = term;
       console.log('Received search term in UserEventComponent:', this.searchTerm);
-      // this.fetchEvents(); // Fetch events based on search term
       this.searchFilter();
+      this.fetchEvents(); 
     });
 
     this.searchService.sortOption$.subscribe(option => {
       this.currentSortOption = option;
       console.log('Received Sort Option:', this.currentSortOption);
-      // Apply logic based on the received sort option
       this.filterEvents();
     });
   }
@@ -63,12 +62,10 @@ export class UserEventComponent implements OnInit {
 
 
   searchFilter(): void{
-    // First, reset to full data
-    this.filteredEvent = this.showeventdata;
-
-    // Apply search term filter
-    if (this.searchTerm) {
-      this.filteredEvent = this.filteredEvent.filter(event =>
+    if (!this.searchTerm) {
+      this.filteredEvent = this.showeventdata; // Reset to full event list
+    } else {
+      this.filteredEvent = this.showeventdata.filter(event =>
         event.event_name.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
@@ -85,13 +82,6 @@ export class UserEventComponent implements OnInit {
             this.selectedCategories.includes(event.event_category)
           );
           this.totalItems = result.pagination.totalItems;
-        // }, error => {
-        //     console.error('Error fetching category data:', error);
-        //     const selectedCategoryNamesEvents = this.selectedCategories.join(', ');
-        //     alert(`${selectedCategoryNamesEvents} category not found. Showing all Events.`);
-        //     // Reset to full data if there's an error
-        //     this.filteredEvent = this.showeventdata;
-        //     this.totalItems = this.filteredEvent.length;
         });
     }else if (this.currentSortOption) {
 
@@ -102,15 +92,8 @@ export class UserEventComponent implements OnInit {
         this.filteredEvent = this.showeventdata;
         this.totalItems = result.pagination.totalItems;
       });
-
-      //   this.Dservice.Eventdata(this.currentPage, this.itemsPerPage).subscribe(Response => {
-      //   console.log(Response);
-      //   this.showeventdata = Response.data;
-      //   this.totalItems = Response.pagination.totalItems;
-      // });
     }
     else {
-      // If no categories and no sort option selected, do nothing or show default data
       console.log("No filter applied; showing default data.");
       this.filteredEvent = this.showeventdata; // Default to unfiltered data
       this.totalItems = this.showeventdata.length;
@@ -126,12 +109,12 @@ export class UserEventComponent implements OnInit {
 
   fetchEvents(): void {
     if (this.searchTerm) {
-      this.http.get<any>(`http://13.203.89.189/api/search/events?event_name=${this.searchTerm}`)
+      this.http.get<any>(`https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/search/events?event_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
-            this.showeventdata = response.data; // Update showeventdata with search results
-            console.log('Fetched Events:', this.showeventdata); // Log fetched data
-            this.searchFilter(); // Apply filter after fetching events
+            this.showeventdata = response.data; 
+            console.log('Fetched Events:', this.showeventdata); 
+            this.filteredEvent = response.data;
             this.totalItems = response.pagination.totalItems;
           },
           (error) => {

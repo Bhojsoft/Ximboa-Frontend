@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class StudentService {
 
-  loginUrl="http://13.203.89.189/api"
+  loginUrl="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api"
 
   constructor(private http:HttpClient) { }
 

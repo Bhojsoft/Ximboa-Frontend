@@ -35,6 +35,7 @@ export class UsersideProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.loadProducts(this.currentPage, this.itemsPerPage); // Load initial product data
 
     // Subscribe to category changes
@@ -47,26 +48,23 @@ export class UsersideProductComponent implements OnInit {
     this.searchService.currentSearchData.subscribe(term => {
       this.searchTerm = term;
       console.log('Received search term in UsersideProductComponent:', this.searchTerm);
-      // this.fetchProducts(); // Fetch products based on search term
-      this.searchfilter();
+        this.searchfilter();
+        this.fetchProducts();
     });
 
     this.searchService.sortOption$.subscribe(option => {
       this.currentSortOption = option;
       console.log('Received Sort Option:', this.currentSortOption);
-      // Apply logic based on the received sort option
       this.applyFilter();
     });
+    
   }
 
   loadProducts(page: number, limit: number): void {
     this.service.productdata(page, limit).subscribe(data => {
-      // console.log(data);
-      this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
+      this.showproductdata = data?.productsWithFullImageUrls; 
       this.filteredProducts = this.showproductdata;
       this.totalItems = data?.pagination.totalItems;
-      // this.applyFilter(); // Apply filter after fetching the product data
-      // this.searchfilter();
     });
   }
 
@@ -81,7 +79,6 @@ export class UsersideProductComponent implements OnInit {
   }
 
   applyFilter(): void {
-    // Start with all products
     this.filteredProducts = this.showproductdata;
 
     if (this.selectedCategories && this.selectedCategories.length > 0) {
@@ -102,14 +99,9 @@ export class UsersideProductComponent implements OnInit {
         this.filteredProducts = this.showproductdata;
         this.totalItems = result.pagination.totalItems;
       });
-  //     this.service.productdata(this.currentPage, this.itemsPerPage).subscribe(data => {
-  //       this.showproductdata = data?.productsWithFullImageUrls; // Ensure it’s an array
-  //       this.totalItems = data?.pagination.totalItems;
-       
-  //     });
+ 
    }
    else {
-    // If no categories and no sort option selected, do nothing or show default data
     console.log("No filter applied; showing default data.");
     this.filteredProducts = this.showproductdata; // Default to unfiltered data
     this.totalItems = this.showproductdata.length;
@@ -120,30 +112,18 @@ export class UsersideProductComponent implements OnInit {
   
    onPageChange(page: number): void {
     this.currentPage = page;
-    this.loadProducts(this.currentPage, this.itemsPerPage); 
     this.p = page;
+    this.loadProducts(this.currentPage, this.itemsPerPage); 
   }
 
-  // updateFilteredCourses() {
-  //   if (this.term) {
-  //     this.filteredProducts = this.showproductdata.filter(product =>
-  //       product.products_name.toLowerCase().includes(this.term.toLowerCase())
-  //     );
-  //   } else {
-  //     this.filteredProducts = this.showproductdata;
-  //   }
-  
-  //   this.p = 1;  // Reset to the first page after filtering
-  // }
 
   fetchProducts(): void {
-    if (this.searchTerm) {
-      this.http.get<any>(`http://13.203.89.189/api/search/products?product_name=${this.searchTerm}`)
+    if (this.searchTerm) {      
+      this.http.get<any>(`https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/search/products?product_name=${this.searchTerm}`)
         .subscribe(
           response => {
             this.showproductdata = response.data; // Update showproductdata with search results
             console.log('Fetched Products:', this.showproductdata); // Log fetched data
-            this.searchfilter(); // Apply filter after fetching products
             this.totalItems = response.pagination.totalItems;
           },
           error => {
@@ -166,10 +146,7 @@ export class UsersideProductComponent implements OnInit {
     }
   }
 
-  // showproductName = false;
-  // trunproductName(name: string): string {
-  //  return name.length > 18 ? name.slice(0, 5) + '...' : name;
-  // }
+
   showproductName = false;
   trunproductName(name: string): string {
     return name.length > 10 ? name.slice(0, 12) + '...' : name;

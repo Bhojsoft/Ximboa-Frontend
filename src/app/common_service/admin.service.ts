@@ -7,15 +7,15 @@ import { Observable, retry } from 'rxjs';
 })
 export class AdminService {
 
-  private APIURL = "http://13.203.89.189/api/trainer";
+  private APIURL = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/trainer";
 
-  private CategoryURL = "http://13.203.89.189/api";
+  private CategoryURL = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api";
 
-  private dashboard = "http://13.203.89.189/api/beforeLogin/allcategory"
+  private dashboard = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/beforeLogin/allcategory"
 
-  private Cousers_API = "http://13.203.89.189/api/course";
+  private Cousers_API = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/course";
 
-  private trainer_API = "http://13.203.89.189/api/registration";
+  private trainer_API = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/registration";
 
 
 

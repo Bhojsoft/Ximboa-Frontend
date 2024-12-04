@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, tap , map } from 'rxjs';
 })
 export class BreadcrumbService {
 
-  private APIURL = "http://13.203.89.189/api";
+  private APIURL = "https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api";
 
   // BehaviorSubject to manage breadcrumb data
   private breadcrumbsSubject = new BehaviorSubject<Array<{ label: string, url: string }>>([]);

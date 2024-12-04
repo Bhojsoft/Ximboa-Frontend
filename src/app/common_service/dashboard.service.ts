@@ -10,7 +10,7 @@ import { Observable, tap } from 'rxjs';
 export class DashboardService {
 
    
-  private API_URL ="http://13.203.89.189/api";
+  private API_URL ="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api";
 
   
 

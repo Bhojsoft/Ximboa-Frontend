@@ -14,78 +14,84 @@
 
         <mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
             <mat-tab label="Pending">
-                <table class="table table-bordered text-center mt-2">
-                    <thead class="mb-2">
-                        <tr>
-                            <th>FULL NAME</th>
-                            <th>USER ROLE</th>
-                            <th>STATUS</th>
-                            <th>REQUEST DATE & Time</th>
-                            <th>ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let request of getrequest">
-                            <!-- <td data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;"><i
-                                    class="fa-solid fa-user mx-2 text-primary"></i>{{request.user_name}}</td> -->
-                            <td (click)="openUserDetailsModal(request.userid)" style="cursor: pointer;"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-solid fa-user mx-2 text-primary"></i>{{request.user_name}}
-                            </td>
-                            <td>{{request.requestedRole}}</td>
-                            <td>{{request.status}}</td>
-                            <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
-                            <td>
-                                <button (click)="handleApproval(request.userid, 1)"
-                                    class="btn text-light bg-success me-4">Approve</button>
-                                <button (click)="handleApproval(request.userid, 0)"
-                                    class="btn text-light bg-danger">Reject</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center mt-2">
+                        <thead class="mb-2">
+                            <tr>
+                                <th>FULL NAME</th>
+                                <th>USER ROLE</th>
+                                <th>STATUS</th>
+                                <th>REQUEST DATE & Time</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of getrequest">
+                                <!-- <td data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer;"><i
+                                        class="fa-solid fa-user mx-2 text-primary"></i>{{request.user_name}}</td> -->
+                                <td (click)="openUserDetailsModal(request.userid)" style="cursor: pointer;"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="fa-solid fa-user mx-2 text-primary"></i>{{request.user_name}}
+                                </td>
+                                <td>{{request.requestedRole}}</td>
+                                <td>{{request.status}}</td>
+                                <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
+                                <td>
+                                    <button (click)="handleApproval(request.userid, 1)"
+                                        class="btn text-light bg-success me-4">Approve</button>
+                                    <button (click)="handleApproval(request.userid, 0)"
+                                        class="btn text-light bg-danger">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-tab>
             <mat-tab label="Approved">
-                <table class="table table-bordered text-center mt-2">
-                    <thead class="mb-2">
-                        <tr>
-                            <th>FULL NAME</th>
-                            <th>USER ROLE</th>
-                            <th>STATUS</th>
-                            <th>REQUEST DATE & Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let request of getapprovedrequest">
-                            <td>{{request.user_name}}</td>
-                            <td>{{request.requestedRole}}</td>
-                            <td>{{request.status}}</td>
-                            <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center mt-2">
+                        <thead class="mb-2">
+                            <tr>
+                                <th>FULL NAME</th>
+                                <th>USER ROLE</th>
+                                <th>STATUS</th>
+                                <th>REQUEST DATE & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of getapprovedrequest">
+                                <td>{{request.user_name}}</td>
+                                <td>{{request.requestedRole}}</td>
+                                <td>{{request.status}}</td>
+                                <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
 
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-tab>
             <mat-tab label="Reject">
-                <table class="table table-bordered text-center mt-2">
-                    <thead class="mb-2">
-                        <tr>
-                            <th>FULL NAME</th>
-                            <th>USER ROLE</th>
-                            <th>STATUS</th>
-                            <th>REQUEST DATE & Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let request of getRejectedrequest">
-                            <td>{{request.user_name}}</td>
-                            <td>{{request.requestedRole}}</td>
-                            <td>{{request.status}}</td>
-                            <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center mt-2">
+                        <thead class="mb-2">
+                            <tr>
+                                <th>FULL NAME</th>
+                                <th>USER ROLE</th>
+                                <th>STATUS</th>
+                                <th>REQUEST DATE & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of getRejectedrequest">
+                                <td>{{request.user_name}}</td>
+                                <td>{{request.requestedRole}}</td>
+                                <td>{{request.status}}</td>
+                                <td>{{request.requestDate | date}} &nbsp; {{request.requestTime}}</td>
 
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </mat-tab>
         </mat-tab-group>
 

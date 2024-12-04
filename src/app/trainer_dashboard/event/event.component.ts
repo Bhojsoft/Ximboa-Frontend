@@ -23,6 +23,7 @@ export class EventComponent  implements OnInit{
   showpendingEvents:any;
   ShowEvent:any;
   id:any;
+  event_thumbnail: File | null = null;
 
   showIcon = false;
   toggleIcon() {
@@ -58,7 +59,6 @@ export class EventComponent  implements OnInit{
     event_location:'',
     event_languages: '',
     estimated_seats:'',
-
     event_thumbnail:null,
   };
 
@@ -69,8 +69,46 @@ export class EventComponent  implements OnInit{
     private auth: AuthServiceService,private router: ActivatedRoute){}
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] as File;
+    // this.selectedFile = event.target.files[0] as File;
+    const file: File = event.target.files[0];
+    if (file) {
+      const maxFileSizeMB = 5;
+      if (file.size > maxFileSizeMB * 1024 * 1024) {
+        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(file.type)) {
+        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 2000; 
+        const maxHeight = 2000; 
+
+        if (img.width > maxWidth || img.height > maxHeight) {
+          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
+          this.event_thumbnail = null;
+          return;
+        }
+
+        this.event_thumbnail = file;
+      };
+
+      img.onerror = () => {
+        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
+        this.event_thumbnail = null;
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
   }
+
 
   ngOnInit(): void {
 
@@ -80,14 +118,13 @@ export class EventComponent  implements OnInit{
         this.EventsDetails(); // Fetch user details when 'id' is available
       }
     });
+
     this.getPendingEvents();
     this.checkUserRole();
-
-
     this.LoadMyEvent();
 
+
       this.dashboard.getcategoryname().subscribe( data =>{
-        // console.log("data",data)
         this.showCategorydata = data;
       });
 

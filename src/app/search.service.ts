@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -5,6 +6,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SearchService {
+
+  // private Search URL= ""
 
   private searchData = new BehaviorSubject<string>('');  // This will store the search term
   currentSearchData = this.searchData.asObservable();

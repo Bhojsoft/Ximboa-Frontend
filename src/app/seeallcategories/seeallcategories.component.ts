@@ -40,8 +40,8 @@ export class SeeallcategoriesComponent implements OnInit {
     this.searchService.currentSearchData.subscribe((term) => {
       this.searchTerm = term;
       console.log('Received search term in SeeAllCategoriesComponent:', this.searchTerm);  // Log the search term
-      // this.fetchCourses();
       this.searchFilter();
+      this.fetchCourses();
     });
 
     this.searchService.sortOption$.subscribe(option => {
@@ -119,22 +119,20 @@ export class SeeallcategoriesComponent implements OnInit {
 
   fetchCourses() {
     if (this.searchTerm) {
-      this.http.get<any>(`http://13.203.89.189/api/search/courses?course_name=${this.searchTerm}`)
+      this.http.get<any>(`https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/search/courses?course_name=${this.searchTerm}`)
         .subscribe(
           (response) => {
-            this.ShowCourseData = response.data;  // Store the received data in ShowCourseData
-            console.log('Fetched Courses:', this.ShowCourseData);  // Log the received data
-            // this.applyFilter();  
-            this.searchFilter();
+            this.ShowCourseData = response.data;
+            console.log('Fetched Courses:', response);  
             this.totalItems = response.pagination.totalItems;
-            // Apply filter after fetching the data
+            
           },
           (error) => {
             console.error('Error fetching courses:', error);
           }
         );
     } else {
-      this.loadCourses(this.currentPage, this.itemsPerPage);   // Clear data if no search term
+      this.loadCourses(this.currentPage, this.itemsPerPage);   
     }
   }
   

@@ -31,6 +31,8 @@ export class ProductComponent implements OnInit {
   id:any;
   Showproductdata:any;
   showpendingProducts:any;
+  product_image: File | null = null;
+
 
   showIcon = false;
   toggleIcon() {
@@ -69,7 +71,44 @@ export class ProductComponent implements OnInit {
     private dashborad : DashboardService, private router:ActivatedRoute) { }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] as File;
+    // this.selectedFile = event.target.files[0] as File;
+    const file: File = event.target.files[0];
+    if (file) {
+      const maxFileSizeMB = 5;
+      if (file.size > maxFileSizeMB * 1024 * 1024) {
+        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
+        this.product_image = null;
+        return;
+      }
+
+      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(file.type)) {
+        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
+        this.product_image = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 2000; 
+        const maxHeight = 2000; 
+
+        if (img.width > maxWidth || img.height > maxHeight) {
+          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
+          this.product_image = null;
+          return;
+        }
+
+        this.product_image = file;
+      };
+
+      img.onerror = () => {
+        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
+        this.product_image = null;
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
   }
 
   ngOnInit(): void {
@@ -88,7 +127,6 @@ export class ProductComponent implements OnInit {
     this.loadpurchaseProduct();
 
     this.dashborad.getcategoryname().subscribe(data => {
-      // console.log("data",data)
       this.showCategorydata = data;
     });
 
