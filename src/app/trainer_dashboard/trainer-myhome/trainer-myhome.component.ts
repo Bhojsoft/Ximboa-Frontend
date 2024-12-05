@@ -3,8 +3,7 @@ import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { ChartComponent } from "ng-apexcharts";
-import { ApexNonAxisChartSeries, ApexResponsive, ApexChart, ApexAxisChartSeries, ApexXAxis, ApexDataLabels, ApexTooltip, ApexStroke } from "ng-apexcharts";
+import { ApexNonAxisChartSeries, ApexResponsive, ApexChart, ApexAxisChartSeries, ApexXAxis, ApexDataLabels, ApexTooltip, ApexStroke, ChartComponent } from "ng-apexcharts";
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
 
 export type DonutChartOptions = {

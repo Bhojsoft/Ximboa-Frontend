@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../common_service/login.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { RealoadServiceService } from '../common_service/reaload-service.service';
@@ -14,7 +14,7 @@ import { RealoadServiceService } from '../common_service/reaload-service.service
 })
 export class SignUpComponent implements OnInit {
 
- 
+  currentUrl: string = '';
  password: string='';
   rememberMe: boolean = false;
 
@@ -27,9 +27,14 @@ export class SignUpComponent implements OnInit {
       mobile_number:'',
 
   }
-  constructor(private loginservices:LoginService,private route:Router,private authService:AuthServiceService,private realoadservice: RealoadServiceService){ }
+  constructor(private loginservices:LoginService,private route:Router,private activatedRoute:ActivatedRoute,
+    private authService:AuthServiceService,private realoadservice: RealoadServiceService){ }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUrl = this.route.url;
+    console.log("fghj",this.currentUrl);
+    
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid && this.rememberMe) {
@@ -37,7 +42,11 @@ export class SignUpComponent implements OnInit {
       this.loginservices.postsignupdata(this.userData).subscribe({
         next: (response) => {
           sessionStorage.setItem("Authorization", response.token);
+          if(this.route.url == '/signup'){
+            console.log("url",this.route.url);
+            
           this.route.navigate(['/dashboard']);
+        }
           this.authService.login(response.token); // Set login state
           this.realoadservice.triggerReloadHeader();
           Swal.fire(

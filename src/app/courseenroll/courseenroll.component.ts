@@ -235,7 +235,7 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
   }
 
 
-      onSubmit(form: NgForm) {
+    onSubmit(form: NgForm) {
         if (form.valid) {
           this.loginservices.postsignupdata(this.userData).subscribe({
             next: (response) => {

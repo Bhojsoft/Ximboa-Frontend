@@ -65,9 +65,10 @@ import { ForumAddPageComponent } from './forum-add-page/forum-add-page.component
 import { TagInputModule } from 'ngx-chips';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule, ChartComponent } from "ng-apexcharts";
 import { SpinnerComponent } from './Loader/spinner/spinner.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -142,7 +143,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NgxEditorModule,
     TagInputModule,
     NgApexchartsModule,
-    FontAwesomeModule 
+    ChartComponent,
+    RouterModule
+    // FontAwesomeModule 
     
    
   ],
