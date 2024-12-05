@@ -230,7 +230,7 @@
 
 /* Tablets (601px to 1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
-  
+
 }
 
 /* Desktop/Laptops (1025px and above) */
@@ -251,4 +251,10 @@
 .custom-tooltip {
   --bs-tooltip-bg: var(--TextColor); /* Replace var(--bd-violet-bg) with the actual color */
   --bs-tooltip-color: #ffffff; /* Replace var(--bs-white) with the actual color */
+}
+
+
+.nav-link{
+  font-size: 17px;
+  font-weight: 500;
 }

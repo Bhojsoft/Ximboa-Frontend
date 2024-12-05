@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
@@ -22,6 +23,7 @@ export class EventComponent  implements OnInit{
   showpendingEvents:any;
   ShowEvent:any;
   id:any;
+  event_thumbnail: File | null = null;
 
   showIcon = false;
   toggleIcon() {
@@ -48,6 +50,7 @@ export class EventComponent  implements OnInit{
     event_name: '',
     event_type: '',
     event_category: '',
+    sub_category:'',
     event_info:'',
     event_description:'',
     event_date:'',
@@ -56,18 +59,56 @@ export class EventComponent  implements OnInit{
     event_location:'',
     event_languages: '',
     estimated_seats:'',
-
     event_thumbnail:null,
   };
 
   formSubmitted: boolean = false;
 
 
-  constructor(private service:TrainerService, private admin:AdminService, private auth: AuthServiceService,private router: ActivatedRoute){}
+  constructor(private service:TrainerService, private admin:AdminService, private dashboard: DashboardService,
+    private auth: AuthServiceService,private router: ActivatedRoute){}
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] as File;
+    // this.selectedFile = event.target.files[0] as File;
+    const file: File = event.target.files[0];
+    if (file) {
+      const maxFileSizeMB = 5;
+      if (file.size > maxFileSizeMB * 1024 * 1024) {
+        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(file.type)) {
+        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 2000; 
+        const maxHeight = 2000; 
+
+        if (img.width > maxWidth || img.height > maxHeight) {
+          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
+          this.event_thumbnail = null;
+          return;
+        }
+
+        this.event_thumbnail = file;
+      };
+
+      img.onerror = () => {
+        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
+        this.event_thumbnail = null;
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
   }
+
 
   ngOnInit(): void {
 
@@ -77,14 +118,13 @@ export class EventComponent  implements OnInit{
         this.EventsDetails(); // Fetch user details when 'id' is available
       }
     });
+
     this.getPendingEvents();
     this.checkUserRole();
-
-
     this.LoadMyEvent();
 
-      this.admin.getcategorydata().subscribe( data =>{
-        // console.log("data",data)
+
+      this.dashboard.getcategoryname().subscribe( data =>{
         this.showCategorydata = data;
       });
 
@@ -174,6 +214,7 @@ export class EventComponent  implements OnInit{
     formData.append('event_name', this.event.event_name.trim());
     formData.append('event_type', this.event.event_type.trim());
     formData.append('event_category', this.event.event_category.trim());
+    formData.append('sub_category', this.event.sub_category.trim());
     formData.append('event_info', this.event.event_info.trim());
     formData.append('event_description', this.event.event_description.trim());
     formData.append('event_date', this.event.event_date.trim());
@@ -233,5 +274,18 @@ export class EventComponent  implements OnInit{
   truneventName1(name: string): string {
    return name.length > 14 ? name.slice(0, 12) + '...' : name;
  }
+
+ subCategory: any = []; // Holds the subcategory data
+    fetchcategoryID: string = ''; // Holds the selected category ID
+    
+    getsubcategory(): void {
+      if (this.fetchcategoryID) {
+        this.admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
+          this.subCategory = result.data || [];
+        });
+      } else {
+        this.subCategory = []; // Clear subcategory data if no category selected
+      }
+    }
   
 }

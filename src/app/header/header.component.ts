@@ -102,6 +102,9 @@ export class HeaderComponent {
     });
   }
 
+  token = sessionStorage.getItem('Authorization');
+
+
   ngOnInit(): void {
 
     this.reloadservice.reloadHeader$.subscribe(() => {
@@ -111,24 +114,19 @@ export class HeaderComponent {
       this.cdr.detectChanges();
     });
 
+    if(this.token){
       this.checkUserRole();
       this.loadTrainerData();
       this.unseenNotification();
-      
+      // this.GetInstitutelist();
+    }
 
-    this.dservice.getcategoryname().subscribe(data => {
-      this.Showcategorydata = data;
-    });
+      this.dservice.getcategoryname().subscribe(data => {
+        this.Showcategorydata = data;
+      });
 
-    this.requst.GetInstitute().subscribe(response => {
-      console.log(response);
-      this.Institutedata = response?.data;
-
-    });
-
-    
-    
   }
+
 
   unseenNotification(): void{
     this.requst.unseenNotification().subscribe(response => {
@@ -136,6 +134,7 @@ export class HeaderComponent {
       console.log(response,"notification unseen");
       this.cdr.detectChanges();
         });
+      
   }
 
   loadTrainerData(): void {
@@ -143,6 +142,13 @@ export class HeaderComponent {
       console.log("Trainer Details", data);
       this.UserImage = data.trainer_image;
     });
+  }
+
+  GetInstitutelist(): void {
+    this.requst.GetInstitute().subscribe(response => {
+      console.log(response);
+      this.Institutedata = response?.data;
+    }); 
   }
 
   searchitem(event: KeyboardEvent) {
@@ -308,9 +314,6 @@ export class HeaderComponent {
     }
     return formattedResults;
   }
-
-
-
 
   onsearch() {
     if (this.query) {

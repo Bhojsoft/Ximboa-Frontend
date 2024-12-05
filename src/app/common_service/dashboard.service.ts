@@ -1,7 +1,7 @@
 import { query } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 
 @Injectable({
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
 
    
-  private API_URL ="http://13.203.89.189/api";
+  private API_URL ="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api";
 
   
 
@@ -19,9 +19,38 @@ export class DashboardService {
  
 constructor(private http:HttpClient) { }
 
-          getcategoryname():Observable<any>{
-            return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
+          // getcategoryname():Observable<any>{
+          //     let _AllCategory:any;
+          //   if(localStorage.getItem("AllCategory")){
+          //     _AllCategory = localStorage.getItem("AllCategory");
+          //   } else {
+          //     _AllCategory = this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
+          //     localStorage.setItem("AllCategory",_AllCategory);              
+          //   }
+          //     return _AllCategory;
+          // }
+
+          getcategoryname(): Observable<any> {
+            const cachedData = localStorage.getItem("AllCategory");
+          
+            if (cachedData) {
+              return new Observable(observer => {
+                observer.next(JSON.parse(cachedData));
+                observer.complete();
+              });
+            } else {
+              return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`).pipe(
+                tap((data: any) => {
+                  localStorage.setItem("AllCategory", JSON.stringify(data));
+                })
+              );
+            }
           }
+          
+
+          // getcategoryname():Observable<any>{
+          //  return this.http.get<any>(`${this.API_URL}/beforeLogin/allcategory`);
+          // }
 
           getcouserdata(page: number, limit: number):Observable<any>{
             return this.http.get<any>(`${this.API_URL}/beforeLogin/allcourses?page=${page}&limit=${limit}`)

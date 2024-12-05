@@ -293,7 +293,7 @@
     <!-- Search Bar -->
     <div class="d-flex align-items-center justify-content-between inputContainer1 position-relative globale-search ">
       <input type="text" [(ngModel)]="query" (keyup)="searchitem($event)"
-        class="form-control form-control-lg searchinput " placeholder="Search Courses, Instructor, Product & Event" />
+        class="form-control form-control-lg searchinput " placeholder="Search Anything..." />
       <i class="fa-solid fa-magnifying-glass fs-5 pt-1 serachlogo" (click)="onsearch()" style="color: #307DFF;"></i>
 
       <div *ngIf="suggestions.length" class="suggestions-list">
@@ -325,7 +325,7 @@
 
     <div *ngIf="(isLoggedIn$ | async)" class="sign-in-up d-flex align-items-center justify-content-end gap-2">
       <button *ngIf="isUser" class="btn btn-sm btn-primary main-button" data-bs-toggle="modal"
-        data-bs-target="#exampleModalExpert" style="font-size: x-small;">
+        data-bs-target="#exampleModalExpert" (click)="GetInstitutelist()" style="font-size: x-small;">
         Become an Expert
       </button>
       <!-- <i routerLink="/Notification" class="fa-regular fa-bell mx-2 fs-3 Notification-icon"></i> -->

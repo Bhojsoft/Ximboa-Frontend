@@ -11,14 +11,14 @@ export class LoginService {
 //********************** Trainer LOGIN API **********************
 
 
-    private register ='http://13.203.89.189/api/registration';
+    private register ='https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/registration';
 
-    private institute="http://13.203.89.189/api/institute";
+    private institute="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/institute";
 
-    private APIURL ="http://13.203.89.189/api/notifications";
+    private APIURL ="https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api/notifications";
   
 
-    private unseen = 'http://13.203.89.189/api'
+    private unseen = 'https://rshvtu5ng8.execute-api.ap-south-1.amazonaws.com/api'
    
 
   constructor(private http:HttpClient, private router: Router){ }

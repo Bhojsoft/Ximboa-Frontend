@@ -1,28 +1,28 @@
 <div *ngIf="showprofile" class="container-fluid " style="background-color: #F5F5F5;">
 
-  <div class="row g-2 mb-0 pt-1">
+  <div class="row g-2 mb-0 pt-1 gallary-section">
     <div class="col-sm-12 col-md-6 col-lg-10 ">
       <div class="row g-2">
         <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
           <img
             [src]="showprofile?.gallarys?.[0]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'"
-            alt="Gallery Image" class="object-fit-cover img-fluid rounded h-100 w-100">
+            alt="Gallery Image" class="object-fit-cover img-fluid rounded  w-100 main-four-image" >
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
           <img
             [src]="showprofile?.gallarys?.[1]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'"
-            alt="Gallery Image" class="object-fit-cover img-fluid rounded h-100 w-100">
+            alt="Gallery Image" class="object-fit-cover img-fluid rounded  w-100 main-four-image" >
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
           <img
             [src]="showprofile?.gallarys?.[2]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'"
-            alt="Gallery Image" class="object-fit-cover img-fluid rounded h-100 w-100">
+            alt="Gallery Image" class="object-fit-cover img-fluid rounded  w-100 main-four-image" >
         </div>
         <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
           <img
             [src]="showprofile?.gallarys?.[3]?.photos ? showprofile.gallarys[3].photos : 'assets/gallery-small-img.jpg'"
-            alt="Gallery Image" class="object-fit-cover img-fluid rounded h-100 w-100">
+            alt="Gallery Image" class="object-fit-cover img-fluid rounded  w-100 main-four-image" >
         </div>
       </div>
     </div>
@@ -30,31 +30,31 @@
       <div class="row g-1">
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  mb-2 mb-lg-0">
           <img
-            [src]="showprofile?.gallarys?.[4]?.photos ? showprofile.gallarys[5].photos : 'assets/gallery-small-img.jpg'"
+            [src]="showprofile?.gallarys?.[4]?.photos ? showprofile.gallarys[4].photos : 'assets/gallery-small-img.jpg'"
             class="rounded object-fit-cover img-fluid" alt="Gallery Image">
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  mb-2 mb-lg-0">
           <img
-            [src]="showprofile?.gallarys?.[5]?.photos ? showprofile.gallarys[1].photos : 'assets/gallery-small-img.jpg'"
+            [src]="showprofile?.gallarys?.[5]?.photos ? showprofile.gallarys[5].photos : 'assets/gallery-small-img.jpg'"
             class="rounded object-fit-cover img-fluid" alt="Gallery Image">
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg  position-relative mb-2" data-bs-toggle="modal"
           data-bs-target="#gallery" style="cursor: pointer;">
           <img
-            [src]="showprofile?.gallarys?.[6]?.photos ? showprofile.gallarys[2].photos : 'assets/gallery-small-img.jpg'"
+            [src]="showprofile?.gallarys?.[6]?.photos ? showprofile.gallarys[6].photos : 'assets/gallery-small-img.jpg'"
             class="rounded object-fit-cover opacity-25 img-fluid cursor-pointer" alt="Gallery Image" >
           <span class="position-absolute top-50 start-50 translate-middle fw-bold text-dark p-2">View More</span>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 galleryimg ">
           <img
-            [src]="showprofile?.gallarys?.[7]?.photos ? showprofile.gallarys[0].photos : 'assets/gallery-small-img.jpg'"
+            [src]="showprofile?.gallarys?.[7]?.photos ? showprofile.gallarys[7].photos : 'assets/gallery-small-img.jpg'"
             class="rounded object-fit-cover img-fluid" alt="Gallery Image">
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-3 ">
+  <div class="row mt-4 ">
     <div class="table-responsive">
       <div class="d-flex  justify-content-start">
         <ul class="srolltabs pe-3">

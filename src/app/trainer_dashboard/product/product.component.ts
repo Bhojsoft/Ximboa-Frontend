@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
 import { AuthServiceService } from 'src/app/common_service/auth-service.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
@@ -30,6 +31,8 @@ export class ProductComponent implements OnInit {
   id:any;
   Showproductdata:any;
   showpendingProducts:any;
+  product_image: File | null = null;
+
 
   showIcon = false;
   toggleIcon() {
@@ -52,6 +55,7 @@ export class ProductComponent implements OnInit {
     product_prize: '',
     product_selling_prize: '',
     categoryid: '',
+    sub_category:'',
     product_flag: '',
     tags: [],
     products_info: '',
@@ -63,10 +67,48 @@ export class ProductComponent implements OnInit {
   selectedFile: File | null = null;
   formSubmitted: boolean = false;
 
-  constructor(private service: TrainerService, private admin: AdminService, private auth: AuthServiceService,private router:ActivatedRoute) { }
+  constructor(private service: TrainerService, private admin: AdminService, private auth: AuthServiceService,
+    private dashborad : DashboardService, private router:ActivatedRoute) { }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] as File;
+    // this.selectedFile = event.target.files[0] as File;
+    const file: File = event.target.files[0];
+    if (file) {
+      const maxFileSizeMB = 5;
+      if (file.size > maxFileSizeMB * 1024 * 1024) {
+        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
+        this.product_image = null;
+        return;
+      }
+
+      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(file.type)) {
+        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
+        this.product_image = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 2000; 
+        const maxHeight = 2000; 
+
+        if (img.width > maxWidth || img.height > maxHeight) {
+          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
+          this.product_image = null;
+          return;
+        }
+
+        this.product_image = file;
+      };
+
+      img.onerror = () => {
+        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
+        this.product_image = null;
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
   }
 
   ngOnInit(): void {
@@ -84,8 +126,7 @@ export class ProductComponent implements OnInit {
     this.loadproduct();
     this.loadpurchaseProduct();
 
-    this.admin.getcategorydata().subscribe(data => {
-      // console.log("data",data)
+    this.dashborad.getcategoryname().subscribe(data => {
       this.showCategorydata = data;
     });
 
@@ -180,6 +221,7 @@ export class ProductComponent implements OnInit {
     formData.append('product_prize', this.product.product_prize.toString());
     formData.append('product_selling_prize', this.product.product_selling_prize.toString());
     formData.append('categoryid', this.product.categoryid);
+    formData.append('sub_category', this.product.sub_category);
     formData.append('products_info', this.product.products_info);
     formData.append('products_description', this.product.products_description);
     formData.append('product_flag', this.product.product_flag);
@@ -242,5 +284,18 @@ trunproductName1(name: string): string {
  return name.length > 18 ? name.slice(0, 3) + '...' : name;
 }
 
+
+subCategory: any = []; // Holds the subcategory data
+    fetchcategoryID: string = ''; // Holds the selected category ID
+    
+    getsubcategory(): void {
+      if (this.fetchcategoryID) {
+        this.admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
+          this.subCategory = result.data || [];
+        });
+      } else {
+        this.subCategory = []; // Clear subcategory data if no category selected
+      }
+    }
 
 }

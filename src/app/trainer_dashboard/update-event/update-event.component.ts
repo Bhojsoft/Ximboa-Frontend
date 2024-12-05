@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'src/app/common_service/admin.service';
+import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
 
@@ -26,14 +27,15 @@ export class UpdateEventComponent implements OnInit {
     private service: TrainerService,
     private formb: FormBuilder,
     private route: Router,
-    private admin: AdminService
+    private admin: AdminService,
+    private dashborad: DashboardService
   ) {
     this._id = this.router.snapshot.paramMap.get('_id');
   }
 
   ngOnInit() {
 
-    this.admin.getcategorydata().subscribe(data => {
+    this.dashborad.getcategoryname().subscribe(data => {
       this.showCategorydata = data;
     });
 
@@ -76,7 +78,44 @@ export class UpdateEventComponent implements OnInit {
 
 
   onFileSelected(event: any): void {
-    this.event_thumbnail = event.target.files[0];
+    // this.event_thumbnail = event.target.files[0];
+    const file: File = event.target.files[0];
+    if (file) {
+      const maxFileSizeMB = 5;
+      if (file.size > maxFileSizeMB * 1024 * 1024) {
+        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(file.type)) {
+        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
+        this.event_thumbnail = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 2000; 
+        const maxHeight = 2000; 
+
+        if (img.width > maxWidth || img.height > maxHeight) {
+          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
+          this.event_thumbnail = null;
+          return;
+        }
+
+        this.event_thumbnail = file;
+      };
+
+      img.onerror = () => {
+        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
+        this.event_thumbnail = null;
+      };
+
+      img.src = URL.createObjectURL(file);
+    }
   }
 
 
