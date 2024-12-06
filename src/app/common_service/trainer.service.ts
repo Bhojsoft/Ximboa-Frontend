@@ -16,6 +16,7 @@ export class TrainerService {
   constructor(private http:HttpClient) { }
 
   // *************** Trainer Profile API *****************
+
       gettrainerbyID():Observable<any>{
         return this.http.get<any>(`${this.APIURL}/registration/trainer`);
       }
@@ -216,11 +217,23 @@ export class TrainerService {
       
       GetQuestion(page: number, limit: number):Observable<any>{
         return this.http.get<any>(`${this.APIURL}/questions/trainer?page=${page}&limit=${limit}`);
-       }
+      }
       
-       deleteQuestionBYID(_id: string):Observable<any>{
+      deleteQuestionBYID(_id: string):Observable<any>{
         return this.http.delete<any>(`${this.APIURL}/questions/${_id}`)
       }  
+      
+      //  ****************** 	Social Media ********************* 
 
+      GetUserSocialMidiabyID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/socialMedia`);
+      }
 
+      GetEducationbyID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/education`);
+      }
+
+      GetAboutUSbyID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/about`);
+      }
 }

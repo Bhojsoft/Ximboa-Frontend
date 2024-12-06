@@ -65,7 +65,7 @@
         </div>
     </mat-tab>
     <mat-tab *ngIf="isUser" label="Purchase Products">
-      <div *ngIf="showproductdata && showproductdatauser.length > 0"
+      <div *ngIf="showproductdatauser && showproductdatauser.length > 0" 
         class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
         <div *ngFor="let product of showproductdatauser" class="col-sm-12 col-md-3 col-lg-4 mb-3">
           <div class="card productcard">

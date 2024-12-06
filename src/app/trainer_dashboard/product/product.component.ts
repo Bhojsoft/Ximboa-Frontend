@@ -140,8 +140,7 @@ export class ProductComponent implements OnInit {
 
   loadpurchaseProduct(){
     this.service.getproductdatabyID().subscribe((result:any) =>{
-      console.log("Show My product Data",result);
-      this.showproductdatauser = result.data;      
+      this.showproductdatauser = result?.data;      
     })
   }
 
@@ -291,7 +290,8 @@ subCategory: any = []; // Holds the subcategory data
     getsubcategory(): void {
       if (this.fetchcategoryID) {
         this.admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
-          this.subCategory = result.data || [];
+          console.log("subcategoryyy",result);
+          this.subCategory = result?.data;
         });
       } else {
         this.subCategory = []; // Clear subcategory data if no category selected

@@ -118,100 +118,99 @@
       
    
         <div *ngIf="currentRow === 1" class="row">
-          <form #socialForm="ngForm" (ngSubmit)="onSave(socialForm)">
+
+          <form [formGroup]="SocialForm" (ngSubmit)="onSubmitSocialMidea()">
             <div class="row">
                 <h2>Social Information</h2>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label for="facebook" class="col-form-label">Facebook</label>
-                    <input type="text" class="form-control" id="facebook" name="facebook" [(ngModel)]="social.facebook">
+                    <input type="text" class="form-control" id="facebook" name="facebook" formControlName="facebook">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label for="instagram" class="col-form-label">Instagram</label>
-                    <input type="text" class="form-control" id="instagram" name="instagram" [(ngModel)]="social.instagram">
+                    <input type="text" class="form-control" id="instagram" name="instagram" formControlName="instagram">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label for="youtube" class="col-form-label">Youtube</label>
-                    <input type="text" class="form-control" id="youtube" name="youtube" [(ngModel)]="social.youtube">
+                    <input type="text" class="form-control" id="youtube" name="youtube" formControlName="youtube">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                     <label for="Linkdein" class="col-form-label">LinkedIn</label>
-                    <input type="text" class="form-control" id="Linkdein" name="Linkdein" [(ngModel)]="social.Linkdein">
+                    <input type="text" class="form-control" id="Linkdein" name="Linkdein" formControlName="Linkdein">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                   <label for="website" class="col-form-label">Website</label>
-                  <input type="text" class="form-control" id="website" name="website" [(ngModel)]="social.website">
+                  <input type="text" class="form-control" id="website" name="website" formControlName="website">
               </div>
-                <div *ngIf="isFormInvalid && socialForm.submitted" class="text-danger mb-3">At least one field is required</div>
                 <div class="text-end">
                     <button type="submit" class="btn submitbtn">Save</button>
                 </div>
             </div>
         </form>
-        
-      <hr class="mt-3">
-      <form #educationForm="ngForm" (ngSubmit)="onEducation()" *ngIf="!isInstitute">
-        <div class="12">
-            <h2>Educational Information</h2>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                <label for="school" class="col-form-label">School Name</label>
-                <input type="text" class="form-control" id="school" 
-                    [(ngModel)]="education.school" name="school" 
-                    #school="ngModel" (ngModelChange)="checkFields()">
 
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                <label for="college" class="col-form-label">College Name</label>
-                <input type="text" class="form-control" id="college" 
-                    [(ngModel)]="education.college" name="college" 
-                    #college="ngModel" (ngModelChange)="checkFields()">
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                <label for="degree" class="col-form-label">Degree</label>
-                <input type="text" class="form-control" id="degree" 
-                    [(ngModel)]="education.degree" name="degree" 
-                    #degree="ngModel" (ngModelChange)="checkFields()">
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                <label for="university" class="col-form-label">University Name</label>
-                <input type="text" class="form-control" id="university" 
-                    [(ngModel)]="education.university" name="university" 
-                    #university="ngModel" (ngModelChange)="checkFields()">
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-                <label for="other_details" class="col-form-label">Other Details</label>
-                <input type="text" class="form-control" id="other_details" 
-                    [(ngModel)]="education.other_details" name="other_details" 
-                    #other_details="ngModel" (ngModelChange)="checkFields()">
-            </div>
-            <div *ngIf="isFormInvalid && educationForm.submitted" class="text-danger mb-3">At least one field is required</div>
-    
-            <div class="d-flex align-items-center justify-content-between">
-                <button (click)="previousRow()" class="btn nextbtn">Back</button>
-                <button type="submit" class="btn submitbtn" [disabled]="!isAtLeastOneFieldFilled">Submit</button>
-                <button (click)="nextRow()" class="btn nextbtn">Next</button>
-            </div>
-        </div>
-    </form>
-    <div *ngIf="isInstitute" class="d-flex align-items-center justify-content-between">
-      <button (click)="previousRow()" class="btn nextbtn">Back</button>
-      <button (click)="nextRow()" class="btn nextbtn">Next</button>
-  </div>
+            <hr class="mt-3">
+            <form [formGroup]="EducationForm" (ngSubmit)="onEducation()" *ngIf="!isInstitute">
+              <div class="12">
+                  <h2>Educational Information</h2>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <label for="school" class="col-form-label">School Name</label>
+                      <input type="text" class="form-control" id="school" 
+                          formControlName="school" name="school" >
+
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <label for="college" class="col-form-label">College Name</label>
+                      <input type="text" class="form-control" id="college" 
+                          formControlName="college" name="college" >
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <label for="degree" class="col-form-label">Degree</label>
+                      <input type="text" class="form-control" id="degree" 
+                          formControlName="degree" name="degree" >
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <label for="university" class="col-form-label">University Name</label>
+                      <input type="text" class="form-control" id="university" 
+                          formControlName="university" name="university" >
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                      <label for="other_details" class="col-form-label">Other Details</label>
+                      <input type="text" class="form-control" id="other_details" 
+                          formControlName="other_details" name="other_details" >
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+                    <label for="achievements" class="col-form-label">Achievements</label>
+                    <input type="text" class="form-control" id="achievements" 
+                        formControlName="achievements" name="achievements" >
+                </div>
+          
+                  <div class="d-flex align-items-center justify-content-between">
+                      <button (click)="previousRow()" class="btn nextbtn">Back</button>
+                      <button type="submit" class="btn submitbtn" >Submit</button>
+                      <button (click)="nextRow()" class="btn nextbtn">Next</button>
+                  </div>
+              </div>
+          </form>
+          <div *ngIf="isInstitute" class="d-flex align-items-center justify-content-between">
+            <button (click)="previousRow()" class="btn nextbtn">Back</button>
+            <button (click)="nextRow()" class="btn nextbtn">Next</button>
+          </div>
     </div>
 
     <div *ngIf="currentRow === 2" class="row mt-4">
         <h2>About us</h2>
-            <form (ngSubmit)="onabout()">
+            <form [formGroup]="AboutusForm" (ngSubmit)="onabout()">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                         <label for="about_us" class="col-form-label">About Us <sup>*</sup></label><br>
-                        <textarea type="text" class="form-control" id="about_us" name="about_us" [(ngModel)]="about.about_us" > </textarea>   
+                        <textarea type="text" class="form-control" id="about_us" name="about_us" formControlName="about_us" > </textarea>   
                     </div>
 
                     <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
                         <label for="our_services" class="col-form-label">Services <sup>*</sup></label><br>
-                        <textarea type="text" class="form-control" id="our_services" name="our_services" [(ngModel)]="about.our_services" ></textarea>    
+                        <textarea type="text" class="form-control" id="our_services" name="our_services" formControlName="our_services" ></textarea>    
                     </div>
                     
                     <div class="text-end">

@@ -45,6 +45,7 @@ export class SignInComponent implements OnInit {
     this.loginService.login(token).subscribe({
       next: (response: any) => { 
         sessionStorage.setItem("Authorization",response.token);
+        sessionStorage.setItem("Profile",response.profile);
             this.route.navigate(['/dashboard']);
             this.authService.login(response.token); // Set login state
             this.realoadservice.triggerReloadHeader();

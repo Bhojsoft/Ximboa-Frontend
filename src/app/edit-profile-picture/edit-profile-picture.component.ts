@@ -2,6 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { TrainerService } from '../common_service/trainer.service';
 import Swal from 'sweetalert2';
+import { RealoadServiceService } from '../common_service/reaload-service.service';
 
 @Component({
   selector: 'app-edit-profile-picture',
@@ -14,12 +15,12 @@ export class EditProfilePictureComponent implements OnInit, OnDestroy {
   trainer_image: File | null = null;
   maxFileSizeMB: number = 5; 
   allowedFileTypes: string[] = ['image/jpeg', 'image/jpg', 'image/png']; 
-  maxResolution = { width: 800, height: 800 }; 
+  maxResolution = { width: 2000, height: 2000 }; 
   uploadAttempts = 0;
   maxAttempts = 5;
   imageObjectURL: string | null = null; 
 
-  constructor(private service: TrainerService, private cd: ChangeDetectorRef) {}
+  constructor(private service: TrainerService, private cd: ChangeDetectorRef, private reload:RealoadServiceService) {}
 
   ngOnInit(): void {
     this.loadTrainerData();
@@ -93,11 +94,15 @@ export class EditProfilePictureComponent implements OnInit, OnDestroy {
     formData.append('trainer_image', this.trainer_image);
 
     this.service.updatetrainerDetails(formData).subscribe({
-      next: () => {
+      next: (response) => {
         Swal.fire('Success', 'Image updated successfully.', 'success');
         this.loadTrainerData();
         this.cd.detectChanges();
         this.uploadAttempts = 0; 
+        // console.log('Backend response:', response.user);
+        sessionStorage.setItem("Profile", response.user.trainer_image);
+          this.reload.updateUserImage();
+        
       },
       error: (error: any) => {
         if (error.status === 0) {

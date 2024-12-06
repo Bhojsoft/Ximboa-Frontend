@@ -4,7 +4,7 @@
   </div>
 
   <mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab *ngIf="isTrainer || isSELF_EXPERT || isInstitute" label="My Courses ({{showcoursedata.length}})">
+    <mat-tab *ngIf="isTrainer || isSELF_EXPERT || isInstitute" label="My Courses ({{showcoursedata?.length}})">
 
       <div class="col-12 d-flex flex-wrap gap-3 justify-content-start justify-content-md-end mt-2">
         <button class="btn btn-sm rounded-pill text-light px-3" data-bs-toggle="modal" data-bs-target="#AddcourseModal"
@@ -71,7 +71,7 @@
 
 
     </mat-tab>
-    <mat-tab *ngIf="isUser" label="Enrolled Courses ({{showcoursedatastudent.length}})">
+    <mat-tab *ngIf="isUser" label="Enrolled Courses ({{showcoursedatastudent?.length}})">
       <!-- My Courses For Trainer -->
       <div *ngIf="showcoursedatastudent && showcoursedatastudent.length > 0"
         class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 gx-3 mt-3">
@@ -116,7 +116,7 @@
           alt="">
       </div>
     </mat-tab>
-    <mat-tab *ngIf="isInstitute" label="Course Request ({{showpendingCourses.length}})">
+    <mat-tab *ngIf="isInstitute" label="Course Request ({{showpendingCourses?.length}})">
       <table class="table table-bordered text-center mt-2">
         <thead class="mb-2">
           <tr>

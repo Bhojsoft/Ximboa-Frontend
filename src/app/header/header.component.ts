@@ -30,7 +30,11 @@ export class HeaderComponent {
   id: string = '';
   type: string = '';
   keyword: string = '';
+
   UserImage: string | null = null;
+
+  // UserImage = sessionStorage.getItem("profile");
+
 
   unseennotificationcount: any;
 
@@ -109,21 +113,26 @@ export class HeaderComponent {
 
     this.reloadservice.reloadHeader$.subscribe(() => {
       this.checkUserRole();
-      this.loadTrainerData();
       this.unseenNotification();
       this.cdr.detectChanges();
+      this.UserImage = sessionStorage.getItem("Profile");
     });
 
     if(this.token){
       this.checkUserRole();
-      this.loadTrainerData();
       this.unseenNotification();
-      // this.GetInstitutelist();
     }
 
       this.dservice.getcategoryname().subscribe(data => {
         this.Showcategorydata = data;
       });
+
+
+        this.reloadservice.userImage$.subscribe(()=>{
+          this.UserImage = sessionStorage.getItem("Profile");
+        })
+      
+
 
   }
 
@@ -135,13 +144,6 @@ export class HeaderComponent {
       this.cdr.detectChanges();
         });
       
-  }
-
-  loadTrainerData(): void {
-    this.service.gettrainerbyID().subscribe((data: any) => {
-      console.log("Trainer Details", data);
-      this.UserImage = data.trainer_image;
-    });
   }
 
   GetInstitutelist(): void {
