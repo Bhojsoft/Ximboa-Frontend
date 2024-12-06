@@ -89,7 +89,8 @@ export class CourseDetailsComponent implements OnInit {
           console.log("All Couese by id",Response);
           
         })
-    }
+    }   
+    
 
     GetAllProducts(page: number, limit: number){
       this.serive.GetAllProductonprofilepage(this.id,page, limit).subscribe(Response => {
