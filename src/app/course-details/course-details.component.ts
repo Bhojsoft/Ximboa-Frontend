@@ -77,8 +77,8 @@ export class CourseDetailsComponent implements OnInit {
 
       GetAllCourses(page: number, limit: number){
           this.serive.GetAllCoursesonprofilepage(this.id,page, limit).subscribe(Response => {
-            this.AllCourses = Response.data;
-            this.totalItems = Response.pagination.totalItems;
+            this.AllCourses = Response[0]?.data || [];
+            this.totalItems = Response.pagination?.totalItems || '';
             console.log("All Couese by id",Response);
             
           })
@@ -86,8 +86,8 @@ export class CourseDetailsComponent implements OnInit {
 
     GetAllEvents(page: number, limit: number){
         this.serive.GetAllEventsonprofilepage(this.id,page, limit).subscribe(Response => {
-          this.AllEvents = Response.data;
-          this.totalItems = Response.pagination.totalItems;
+          this.AllEvents = Response[0]?.data || [];
+          this.totalItems = Response.pagination?.totalItems || '';
           console.log("All Couese by id",Response);
           
         })
@@ -95,9 +95,9 @@ export class CourseDetailsComponent implements OnInit {
     
 
     GetAllProducts(page: number, limit: number){
-      this.serive.GetAllProductonprofilepage(this.id,page, limit).subscribe(Response => {
-        this.AllProducts = Response.data;
-        this.totalItems = Response.pagination.totalItems;
+      this.serive.GetAllProductonprofilepage(this.id, page, limit).subscribe(Response => {
+        this.AllProducts = Response[0]?.data || [];
+        this.totalItems = Response.pagination?.totalItems || '';
         console.log("All Couese by id",Response);
         
       })

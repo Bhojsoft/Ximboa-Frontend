@@ -5,6 +5,7 @@ import { AdminService } from 'src/app/common_service/admin.service';
 import { DashboardService } from 'src/app/common_service/dashboard.service';
 import { TrainerService } from 'src/app/common_service/trainer.service';
 import Swal from 'sweetalert2';
+import imageCompression from 'browser-image-compression';
 
 
 @Component({
@@ -18,6 +19,10 @@ export class UpdateEventComponent implements OnInit {
   uploadform!: FormGroup;
   showCategorydata: any[] = [];
   event_thumbnail: File | null = null;
+  compressedFile?: File;
+  imageObjectURL: string | null = null; 
+  maxFileSizeMB: number = 5;
+  allowedFileTypes: string[] = ['image/jpeg', 'image/jpg', 'image/png']; 
 
   formSubmitted: boolean = false;
 
@@ -44,6 +49,7 @@ export class UpdateEventComponent implements OnInit {
       event_name: ['', Validators.required],
       event_type: ['', Validators.required],
       event_categories: ['', Validators.required],
+      sub_category: ['',Validators.required],
       event_date: ['', Validators.required],
       event_start_time: ['', Validators.required],
       event_end_time: ['', Validators.required],
@@ -63,6 +69,7 @@ export class UpdateEventComponent implements OnInit {
         event_name: d.event_name,
         event_type: d.event_type,
         event_categories: d.event_categories,
+        sub_category: d.sub_category,
         event_date: d.event_date,
         event_start_time: d.event_start_time,
         event_location: d.event_location,
@@ -75,49 +82,6 @@ export class UpdateEventComponent implements OnInit {
       this.event_thumbnail = d.event_thumbnail;
     });
   }
-
-
-  onFileSelected(event: any): void {
-    // this.event_thumbnail = event.target.files[0];
-    const file: File = event.target.files[0];
-    if (file) {
-      const maxFileSizeMB = 5;
-      if (file.size > maxFileSizeMB * 1024 * 1024) {
-        Swal.fire('File Too Large',`The file is too large. Please upload an image smaller than ${maxFileSizeMB} MB.`,'error');
-        this.event_thumbnail = null;
-        return;
-      }
-
-      const allowedFileTypes = ['image/jpeg','image/jpg', 'image/png'];
-      if (!allowedFileTypes.includes(file.type)) {
-        Swal.fire('Invalid Format','Unsupported file format. Please upload a JPG, JPEG or PNG image.','error' );
-        this.event_thumbnail = null;
-        return;
-      }
-
-      const img = new Image();
-      img.onload = () => {
-        const maxWidth = 2000; 
-        const maxHeight = 2000; 
-
-        if (img.width > maxWidth || img.height > maxHeight) {
-          Swal.fire('Invalid Resolution',`The image resolution exceeds the maximum allowed dimensions of ${maxWidth}x${maxHeight} pixels.`,'error');
-          this.event_thumbnail = null;
-          return;
-        }
-
-        this.event_thumbnail = file;
-      };
-
-      img.onerror = () => {
-        Swal.fire('File Corrupted','The file appears to be corrupted. Please try a different image.','error');
-        this.event_thumbnail = null;
-      };
-
-      img.src = URL.createObjectURL(file);
-    }
-  }
-
 
 
   onSubmit() {
@@ -149,6 +113,99 @@ export class UpdateEventComponent implements OnInit {
       }
     });
   }
+
+  async onFileSelected(event: any): Promise<void> {
+    const file = event.target.files[0];
+    
+    if (!file) return;
+  
+    if (file.size > this.maxFileSizeMB * 1024 * 1024) {
+      Swal.fire('File Too Large', `The file is too large. Please upload an image smaller than ${this.maxFileSizeMB} MB.`, 'error');
+      return;
+    }
+  
+    if (!this.allowedFileTypes.includes(file.type)) {
+      Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, JPEG, or PNG image.', 'error');
+      return;
+    }
+  
+    try {
+      const compressionOptions = {
+        maxSizeMB: 5,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(file, compressionOptions);
+  
+      // Convert to AVIF or WebP
+      const convertedFile = await this.convertImageFormat(compressedFile, 'image/webp'); // Change to 'image/avif' for AVIF format
+  
+      console.log('Original file size:', file.size / 1024 / 1024, 'MB');
+      console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
+      console.log('Converted file size:', convertedFile.size / 1024 / 1024, 'MB');
+  
+      this.event_thumbnail = convertedFile;
+  
+      // Preview the new image
+      this.imageObjectURL = URL.createObjectURL(convertedFile);
+  
+    } catch (error) {
+      console.error('Error during compression or conversion:', error);
+      Swal.fire('Error', 'There was an error processing the image. Please try again.', 'error');
+    }
+  }
+  
+  async convertImageFormat(file: File, format: string): Promise<File> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d')!;
+          
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+  
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, '') + `.${format.split('/')[1]}`, {
+                  type: format,
+                  lastModified: Date.now(),
+                });
+                resolve(newFile);
+              } else {
+                reject(new Error('Canvas conversion failed.'));
+              }
+            },
+            format, 0.9);
+        };
+        img.onerror = (err) => {
+          reject(new Error('Error loading image for conversion: ' + err));
+        };
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = (err) => {
+        reject(new Error('Error reading file: ' + err));
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  subCategory: any = []; 
+    fetchcategoryID: string = ''; 
+    
+    getsubcategory(): void {
+      if (this.fetchcategoryID) {
+        this.admin.getsubcategorybyCategoryID(this.fetchcategoryID).subscribe(result => {
+          this.subCategory = result.data || [];
+        });
+      } else {
+        this.subCategory = []; 
+      }
+    }
 }
 
 

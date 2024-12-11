@@ -164,63 +164,6 @@ export class EditProfilePictureComponent implements OnInit, OnDestroy {
     });
   }
 
-  // async onFileSelected(event: any): Promise<void> {
-  //   const file = event.target.files[0];
-    
-  //   if (!file) return;
-  //   if (file.size > this.maxFileSizeMB * 1024 * 1024) {
-  //     Swal.fire('File Too Large', `The file is too large. Please upload an image smaller than ${this.maxFileSizeMB} MB.`, 'error');
-  //     return;
-  //   }
-
-  //   if (!this.allowedFileTypes.includes(file.type)) {
-  //     Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, JPEG, or PNG image.', 'error');
-  //     return;
-  //   }
-
-  //   try {
-  //     // Compress the image
-  //     const options = {
-  //       maxSizeMB: 1, // Maximum compressed size in MB
-  //       maxWidthOrHeight: 1000, // Max width/height
-  //       useWebWorker: true, // Use Web Worker
-  //     };
-  //     const compressedFile = await imageCompression(file, options);
-
-  //     console.log('Original file size:', file.size / 1024 / 1024, 'MB');
-  //     console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
-
-  //     this.trainer_image = compressedFile;
-
-  //     const img = new Image();
-  //     this.imageObjectURL = URL.createObjectURL(compressedFile);
-  //     img.src = this.imageObjectURL;
-
-  //     img.onload = () => {
-  //       const { width, height } = img;
-  //       if (width > this.maxResolution.width || height > this.maxResolution.height) {
-  //         Swal.fire('Invalid Resolution', `Please upload an image with a resolution no larger than ${this.maxResolution.width}x${this.maxResolution.height} pixels.`, 'error');
-  //         URL.revokeObjectURL(this.imageObjectURL!);
-  //         this.imageObjectURL = null;
-  //         return;
-  //       }
-
-  //       // Cleanup
-  //       URL.revokeObjectURL(this.imageObjectURL!);
-  //       this.imageObjectURL = null;
-  //     };
-
-  //     img.onerror = () => {
-  //       Swal.fire('File Corrupted', 'The file appears to be corrupted. Please try a different image.', 'error');
-  //       URL.revokeObjectURL(this.imageObjectURL!);
-  //       this.imageObjectURL = null;
-  //     };
-
-  //   } catch (error) {
-  //     console.error('Error during compression:', error);
-  //     Swal.fire('Compression Error', 'There was an error compressing the image. Please try again.', 'error');
-  //   }
-  // }
 
   async onFileSelected(event: any): Promise<void> {
     const file = event.target.files[0];
@@ -338,5 +281,5 @@ export class EditProfilePictureComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+
 }

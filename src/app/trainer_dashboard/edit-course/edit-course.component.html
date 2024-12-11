@@ -11,25 +11,28 @@
 
           <div class="col-sm-12 col-md-6 col-lg-6">
             <label for="category_id" class="col-form-label">Select Categories</label>
-            <select class="form-select" formControlName="category_id" id="category_id" name="category_id">
+            <select class="form-select" (change)="getsubcategory()" [(ngModel)]="fetchcategoryID" formControlName="category_id" id="category_id" name="category_id">
               <option value="" disabled>Select Categories</option>
               <option *ngFor="let category of showCategorydata" [value]="category._id">
                 {{ category.category_name }}
               </option>
             </select>
           </div>
-          
 
-          <!-- <div class="col-sm-12 col-md-6 col-lg-6">
-            <label for="event_categories" class="col-form-label">Select Categories</label>
-            <select class="form-select" aria-label="Default select example" id="event_categories"
-            formControlName="event_categories" name="event_categories">
-              <option selected>Select Categories</option>
-              <option *ngFor="let category of showCategorydata" [value]="category._id">
-                {{ category.category_name }}
+           <!-- Sub Category -->
+           <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+            <label for="sub_category" class="col-form-label">Select Sub Categories <sup>*</sup></label>
+            <select class="form-select" id="sub_category" formControlName="sub_category" name="sub_category" required>
+              <option value="" disabled selected>Select Sub Categories</option>
+              <option *ngFor="let category of subCategory" [value]="category._id">{{ category.sub_category_name }}
               </option>
             </select>
-          </div> -->
+            <!-- <div *ngIf="subcategory.invalid && subcategory.touched" class="text-danger">
+              <small>Select a sub category.</small>
+            </div> -->
+          </div>
+          
+
 
           <div class="col-sm-12 col-md-6 col-lg-6">
             <label for="online_offline" class="col-form-label">Mode Online/Offline</label>
@@ -71,6 +74,11 @@
             <input type="time" class="form-control" id="end_time" formControlName="end_time" />
           </div>
 
+          <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+            <label for="tags" class="col-form-label">tags</label>
+            <input type="text" class="form-control" id="tags" formControlName="tags" name="tags" />
+          </div>
+
           <div class="mb-3 col-sm-12 col-md-6 col-lg-6">
             <label for="thumbnail_image" class="col-form-label">Upload Course Image</label><br />
             <input
@@ -79,11 +87,6 @@
               id="thumbnail_image"
               (change)="onFileSelected($event)"
             />
-          </div>
-
-          <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
-            <label for="tags" class="col-form-label">tags</label>
-            <input type="text" class="form-control" id="tags" formControlName="tags" name="tags" />
           </div>
 
           <div class="col-sm-12 col-md-12 col-lg-12 mb-3">

@@ -255,7 +255,7 @@
               <label for="event_category" class="col-form-label">Select Categories<sup>*</sup></label>
               <select class="form-select" aria-label="Default select example" id="event_category"
                 [(ngModel)]="event.event_category" name="event_category" [(ngModel)]="fetchcategoryID" (change)="getsubcategory()" #category="ngModel" required>
-                <option selected>Select Categories</option>
+                <option selected disabled>Select Categories</option>
                 <option *ngFor="let category of showCategorydata" [value]="category._id">
                   {{ category.category_name }}
                 </option>
@@ -283,7 +283,7 @@
               <label for="event_type" class="col-form-label">Event Mode<sup>*</sup></label>
             <select class="form-select" aria-label="Default select example" id="event_type"
                 [(ngModel)]="event.event_type" name="event_type" #EventMode="ngModel" required>
-                <option selected>Select Mode</option>
+                <option selected disabled>Select Mode</option>
                 <option value="Online">Online</option>
                 <option value="Online">Offline</option>
               </select>

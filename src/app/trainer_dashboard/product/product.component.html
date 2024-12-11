@@ -52,10 +52,9 @@
                   </span>
                   <i class="fa-regular fa-heart fs-5" style="color: #417CE8;"></i>
                 </div>
-                <i routerLink="/editproduct/{{product._id}}" *ngIf="showIcon "
-                  class="fa-solid fa-edit right-side-top"></i>
-                <i (click)="onDelete(product._id)" *ngIf="showIcon" class="fa-solid fa-trash right-side-top-delete"></i>
               </div>
+              <i routerLink="/editproduct/{{product._id}}" *ngIf="showIcon " class="fa-solid fa-edit right-side-top"></i>
+              <i (click)="onDelete(product._id)" *ngIf="showIcon" class="fa-solid fa-trash right-side-top-delete"></i>
             </div>
           </div>
         </div>
@@ -262,6 +261,19 @@
                 <small>Select a sub category.</small>
               </div>
             </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="product_flag" class="col-form-label">Product Type <sup>*</sup></label>
+                <select class="form-select" aria-label="Default select example" id="product_flag"
+                [(ngModel)]="product.product_flag" name="product_flag" #producttype="ngModel" required>
+                <option selected disabled>Select Mode</option>
+                <option value="Physical">Physical</option>
+                <option value="Virtual">Virtual</option>
+              </select>
+              <div *ngIf="producttype.invalid && producttype.touched" class="text-danger">
+                <small>Select a sub category.</small>
+              </div>
+            </div>
         
             <!-- Tags -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
@@ -279,7 +291,7 @@
               <label for="product_image" class="col-form-label">Product Image</label>
               <input class="form-control" type="file" id="product_image" name="product_image" 
                 (change)="onFileSelected($event)" required />
-              <div *ngIf="!selectedFile && productForm.submitted" class="text-danger">
+              <div *ngIf="!product_image && productForm.submitted" class="text-danger">
                 Product image is required.
               </div>
             </div>

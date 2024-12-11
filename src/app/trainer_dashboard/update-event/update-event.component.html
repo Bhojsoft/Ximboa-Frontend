@@ -113,7 +113,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
               <label for="event_categories" class="col-form-label">Select Categories<sup>*</sup></label>
               <select class="form-select" aria-label="Default select example" id="event_categories"
-                formControlName="event_categories" name="event_categories">
+                formControlName="event_categories" name="event_categories" [(ngModel)]="fetchcategoryID" (change)="getsubcategory()">
                 <option selected disabled>Select Categories</option>
                 <option *ngFor="let category of showCategorydata" [value]="category._id">
                   {{ category.category_name }}
@@ -123,6 +123,20 @@
                 class="text-danger">
                 Event category is required.
               </small>
+            </div>
+
+             <!--Sub Category Selection -->
+             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
+              <label for="sub_category" class="col-form-label">Select Sub Categories <sup>*</sup></label>
+              <select class="form-select" id="sub_category" formControlName="sub_category" name="sub_category" required>
+                <option value="" disabled selected>Select Sub Categories</option>
+                <option *ngFor="let category of subCategory" [value]="category._id">{{ category.sub_category_name }}
+                </option>
+              </select>
+              <small *ngIf="uploadform.get('sub_category')?.touched && uploadform.get('sub_category')?.invalid"
+              class="text-danger">
+              Event category is required.
+            </small>
             </div>
 
             <!-- Event Date -->

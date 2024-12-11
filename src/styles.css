@@ -4,27 +4,27 @@
 
 
 .right-side-top{
-    background-color: #F9C4C4;
-    padding: 4px 6px;
-    border-radius: 50%;
+    background-color: #F9C4C4 !important;
+    padding: 4px 6px !important;
+    border-radius: 50% !important;
     font-size: large;
     border: none;
     position: absolute;
-    top: -7px;
-    right: 15px;
-    margin-top: 20px;
+    top: -7px !important;
+    right: 15px !important;
+    margin-top: 20px !important;
   }
 
   .right-side-top-delete{
-    background-color: #F9C4C4;
-    padding: 5px 6px;
-    border-radius: 50%;
-    font-size: large;
+    background-color: #F9C4C4 !important;
+    padding: 5px 6px !important;
+    border-radius: 50% !important;
+    font-size: large !important;
     border: none;
-    position: absolute;
-    top: -7px;
-    right: 50px;
-    margin-top: 20px;
+    position: absolute !important;
+    top: -7px !important;
+    right: 50px !important;
+    margin-top: 20px !important;
   }
 
   input:focus,
