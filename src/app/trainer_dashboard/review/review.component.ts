@@ -17,9 +17,8 @@ export class ReviewComponent implements OnInit {
   constructor(private service:TrainerService){}
 
   ngOnInit(): void {
-    this.service.gettrainerdatabyID().subscribe(data => {
+    this.service.GetReviewbyTrainerID().subscribe(data => {
       console.log(data);
-      
       this.showReview = data?.reviews;
     });
   }

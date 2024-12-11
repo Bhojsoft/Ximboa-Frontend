@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { LoginService } from '../common_service/login.service';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Subscription } from 'rxjs';
+import { ModalServiceService } from '../common_service/modal-service.service';
 
 @Component({
   selector: 'app-user-event-details',
@@ -28,8 +29,8 @@ export class UserEventDetailsComponent {
 
 
   constructor(private dservice:DashboardService,
-    private router:ActivatedRoute,private route:Router,
-  private loginservices:LoginService,private authService:AuthServiceService)
+      private router:ActivatedRoute,private route:Router,private modalService:ModalServiceService,
+       private loginservices:LoginService,private authService:AuthServiceService)
   {this.id=this.router.snapshot.paramMap.get('id');}
 
   // ngOnInit(): void {
@@ -107,11 +108,15 @@ export class UserEventDetailsComponent {
         }
          else {
           sessionStorage.setItem('event_id',event_id)
-      const modalElement = document.getElementById('CheckLoggedIN');
-            if (modalElement) {
-              const modal = new (window as any).bootstrap.Modal(modalElement);
-              modal.show();
-            }
+
+            // const modalElement = document.getElementById('CheckLoggedIN');
+            // if (modalElement) {
+            //   const modal = new (window as any).bootstrap.Modal(modalElement);
+            //   modal.show();
+            // }
+
+            this.modalService.openModal();
+
         
     }
 }
@@ -156,11 +161,15 @@ postreviewEvent(){
   })
 }
 else{
-  const modalElement = document.getElementById('CheckLoggedIN');
-  if (modalElement) {
-    const modal = new (window as any).bootstrap.Modal(modalElement);
-    modal.show();
-  }  }
+  // const modalElement = document.getElementById('CheckLoggedIN');
+  // if (modalElement) {
+  //   const modal = new (window as any).bootstrap.Modal(modalElement);
+  //   modal.show();
+  // } 
+
+  this.modalService.openModal();
+  
+}
 }
 
 resetForm() {
@@ -207,56 +216,6 @@ resetForm() {
   }
 
 
-
-show: boolean = false; 
-rememberMe: boolean = false;
-
- userData= {
-    f_Name:'',
-    middle_Name:'',
-    l_Name:'',
-    email_id:' ',
-    password:'',
-    mobile_number:' ',
-
-}
-
-
-    onSubmit(form: NgForm) {
-      if (form.valid) {
-        this.loginservices.postsignupdata(this.userData).subscribe({
-          next: (response) => {
-            sessionStorage.setItem("Authorization",response.token);
-            this.authService.login(response.token); // Set login state       
-           Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-          let event_id = sessionStorage.getItem('event_id')
-           const data = { event_id };
-           this.dservice.bookevent(data).subscribe(
-               response => {
-              Swal.fire('Congratulation','You have Succssfully Booked Event! ', 'success');
-              sessionStorage.removeItem('event_id');
-               },
-               error => {
-                    Swal.fire('Error', 'You Have Already Enrolled This Event.', 'error');
-   
-               } );
-           
-           
-          },
-          error: (error)=>{
-            Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-          } 
-        });
-      } else {
-        console.log('Form is invalid');
-      }
-    }
-
-
-     // Hide And Show Password Logic
-     togglePassword() {
-      this.show = !this.show;
-    }
 
     showeventName = false;
     truneventName(name: string): string {

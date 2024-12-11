@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Token } from '@angular/compiler';
 import { LoginService } from '../common_service/login.service';
 import { AuthServiceService } from '../common_service/auth-service.service';
+import { ModalServiceService } from '../common_service/modal-service.service';
 declare var bootstrap: any;
 
 
@@ -45,9 +46,10 @@ export class CourseDetailsComponent implements OnInit {
     window.location.href = `tel:${phoneNumber}`;
   }
 
-  constructor(private serive:TrainerService,private router:ActivatedRoute,private authService:AuthServiceService,
-    private dashboard:DashboardService,private loginservices:LoginService,private route:Router)
-  {this.id=this.router.snapshot.paramMap.get('id');}
+  constructor(private serive:TrainerService,private router:ActivatedRoute,
+              private authService:AuthServiceService,private modalService : ModalServiceService,
+              private dashboard:DashboardService,private loginservices:LoginService,private route:Router,)
+            {this.id=this.router.snapshot.paramMap.get('id');}
 
   ngOnInit(): void {
     this.serive.getprofile(this.id).subscribe(data =>{
@@ -262,11 +264,14 @@ export class CourseDetailsComponent implements OnInit {
       window.open(`https://wa.me/${this.showprofile.trainer.whatsapp_no}`, '_blank');
     } else {
       // Swal.fire({icon: 'warning',title: 'Please Login', text: 'You need to be logged in to contact via WhatsApp.',confirmButtonText: 'OK'});
-      const modalElement = document.getElementById('CheckLoggedIN');
-      if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }  
+      // const modalElement = document.getElementById('CheckLoggedIN');
+      // if (modalElement) {
+      //   const modal = new (window as any).bootstrap.Modal(modalElement);
+      //   modal.show();
+      // }  
+
+      this.modalService.openModal();
+
     }
   }
 
@@ -327,11 +332,13 @@ export class CourseDetailsComponent implements OnInit {
     })
   }
   else {
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+    // const modalElement = document.getElementById('CheckLoggedIN');
+    // if (modalElement) {
+    //   const modal = new (window as any).bootstrap.Modal(modalElement);
+    //   modal.show();
+    // } 
+    this.modalService.openModal();  
+  }
   }
   
 
@@ -357,11 +364,13 @@ export class CourseDetailsComponent implements OnInit {
     });
   }
   else{
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+    // const modalElement = document.getElementById('CheckLoggedIN');
+    // if (modalElement) {
+    //   const modal = new (window as any).bootstrap.Modal(modalElement);
+    //   modal.show();
+    // } 
+    this.modalService.openModal();   
+  }
 }
 
   stars: number[] = [1, 2, 3, 4, 5];  
@@ -399,11 +408,13 @@ export class CourseDetailsComponent implements OnInit {
     })
   }
   else{
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+    // const modalElement = document.getElementById('CheckLoggedIN');
+    // if (modalElement) {
+    //   const modal = new (window as any).bootstrap.Modal(modalElement);
+    //   modal.show();
+    // } 
+    this.modalService.openModal(); 
+  }
   }
 
   Appoinment = {
@@ -428,11 +439,9 @@ export class CourseDetailsComponent implements OnInit {
     })
   }
   else{
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+    //open registration modal
+    this.modalService.openModal();  
+    }
   }
 
 
@@ -445,59 +454,6 @@ export class CourseDetailsComponent implements OnInit {
       return '₹' + (price / 1000).toFixed(1) + 'K';  // For thousands
     } else {
       return '₹' + price.toString();  // For rupees
-    }
-  }
-
-
-  
-
-  show: boolean = false;
-  rememberMe: boolean = false;
-
-  userData = {
-    f_Name: '',
-    middle_Name: '',
-    l_Name: '',
-    email_id: ' ',
-    password: '',
-    mobile_number: ' ',
-
-  }
-
-
-
-
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      this.loginservices.postsignupdata(this.userData).subscribe({
-        next: (response) => {
-          sessionStorage.setItem("Authorization",response.token);
-          this.authService.login(response.token); // Set login state
-          Swal.fire('Congratulation',
-            'Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!',
-             'success');
-          this.closeModal();
-        },
-        error: (error)=>{
-          Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-        } 
-      });
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
-
-   // Hide And Show Password Logic
-   togglePassword() {
-    this.show = !this.show;
-  }
-
-  closeModal() {
-    const modalElement = document.getElementById('CheckLoggedIN');
-    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Returns a Bootstrap modal instance
-    if (modalInstance) {
-      modalInstance.hide(); // Hides the modal
     }
   }
   
@@ -522,10 +478,11 @@ export class CourseDetailsComponent implements OnInit {
   }
   
   
-  showcourseName = false;
-  truncatecourseName(name: string): string {
-   return name.length > 18 ? name.slice(0, 16) + '...' : name;
- }
+showcourseName = false;
+truncatecourseName(name: string): string {
+return name.length > 18 ? name.slice(0, 16) + '...' : name;
+}
+
  showbusinessName = false;
  trunbusinessName(name: string): string { 
   return name.length > 18 ? name.slice(0, 18) + '...' : name;

@@ -68,6 +68,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { NgApexchartsModule, ChartComponent } from "ng-apexcharts";
 import { SpinnerComponent } from './Loader/spinner/spinner.component';
 import { RouterModule } from '@angular/router';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -144,7 +146,8 @@ import { RouterModule } from '@angular/router';
     TagInputModule,
     NgApexchartsModule,
     ChartComponent,
-    RouterModule
+    RouterModule,
+    NgxIntlTelInputModule
     // FontAwesomeModule 
     
    

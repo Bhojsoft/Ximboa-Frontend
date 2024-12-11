@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { LoginService } from '../common_service/login.service';
 import { AuthServiceService } from '../common_service/auth-service.service';
+import { ModalServiceService } from '../common_service/modal-service.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ForumAddPageComponent {
     description: ''  // Ensure the name is correct here
 };
 
-constructor(private Service: DashboardService, private route:Router,
+constructor(private Service: DashboardService, private route:Router,private modalService:ModalServiceService,
   private loginservices:LoginService,private authService:AuthServiceService) {}
 
 token = sessionStorage.getItem('Authorization');
@@ -40,11 +41,13 @@ AddForum(): void {
   });
 }
 else{
-  const modalElement = document.getElementById('CheckLoggedIN');
-  if (modalElement) {
-    const modal = new (window as any).bootstrap.Modal(modalElement);
-    modal.show();
-  }  }
+  // const modalElement = document.getElementById('CheckLoggedIN');
+  // if (modalElement) {
+  //   const modal = new (window as any).bootstrap.Modal(modalElement);
+  //   modal.show();
+  // } 
+  this.modalService.openModal();
+}
 }
 
   editor!: Editor;
@@ -79,44 +82,6 @@ else{
     this.editor.destroy();
   }
 
-  
-  show: boolean = false;
-  rememberMe: boolean = false;
 
-  userData = {
-    f_Name: '',
-    middle_Name: '',
-    l_Name: '',
-    email_id: ' ',
-    password: '',
-    mobile_number: ' ',
-
-  }
-
-
-
-
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      this.loginservices.postsignupdata(this.userData).subscribe({
-        next: (response) => {
-          sessionStorage.setItem("Authorization",response.token);
-          this.authService.login(response.token); // Set login state
-          Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-        },
-        error: (error)=>{
-          Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-        } 
-      });
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
-
-   // Hide And Show Password Logic
-   togglePassword() {
-    this.show = !this.show;
-  }
 
 }

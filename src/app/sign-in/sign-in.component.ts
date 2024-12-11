@@ -5,6 +5,8 @@ import { AuthServiceService } from '../common_service/auth-service.service';
 import Swal from 'sweetalert2';
 import { jwtDecode } from "jwt-decode";
 import { RealoadServiceService } from '../common_service/reaload-service.service';
+import { ModalServiceService } from '../common_service/modal-service.service';
+import { NgForm } from '@angular/forms';
 declare var bootstrap: any;
 
 
@@ -29,6 +31,7 @@ export class SignInComponent implements OnInit {
     private router: Router,
     private authService: AuthServiceService,
     private route:Router,
+    private modalService: ModalServiceService,
     private realoadservice: RealoadServiceService
   ) {}
 
@@ -46,7 +49,16 @@ export class SignInComponent implements OnInit {
       next: (response: any) => { 
         sessionStorage.setItem("Authorization",response.token);
         sessionStorage.setItem("Profile",response.profile);
-            this.route.navigate(['/dashboard']);
+            if(this.route.url == '/signin'){
+              console.log("url",this.route.url);  
+              this.route.navigate(['/dashboard']);
+            }
+            // this.route.navigate(['/dashboard']);
+            this.email_id = ''; // Clear email manually if needed
+            this.password = ''; // Clear password manually if needed
+            this.rememberMe = false; // Clear rememberMe checkbox
+    
+            this.modalService.CloseLoginModal();
             this.authService.login(response.token); // Set login state
             this.realoadservice.triggerReloadHeader();
         Swal.fire('','We’re excited to see you again. Your login was successful, and you’re now ready to continue creating amazing learning experiences.', 'success');
@@ -59,6 +71,8 @@ export class SignInComponent implements OnInit {
       }
     });
   }
+
+  
 
   forget = {
     email_id:' ',
@@ -104,6 +118,17 @@ export class SignInComponent implements OnInit {
     if (modalInstance) {
       modalInstance.hide(); // Hides the modal
     }
+
+  }
+
+  registermodal(){
+    if(this.route.url == '/signin'){
+      this.route.navigate(['/signup']);
+      }
+      else{
+        this.modalService.CloseLoginModal();
+        this.modalService.openModal();
+      }
   }
 
   

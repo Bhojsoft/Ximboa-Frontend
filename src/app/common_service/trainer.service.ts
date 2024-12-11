@@ -58,6 +58,10 @@ export class TrainerService {
         return this.http.get<any>(`${this.APIURL}/trainers`,{headers});
       }
 
+      GetCoursesbyTrainerID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/getCoursetrainerDashboard`)
+      }
+
       getAllCourseRequest():Observable<any>{
         return this.http.get<any>(`${this.APIURL}/admin/course/requests`)
       }
@@ -81,6 +85,11 @@ export class TrainerService {
 
 
   // *************** Event API *****************
+
+      GetEventbyTrainerID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/event/getEvent/getEventTrainerdashboard`)
+      }
+
       geteventdata():Observable<any>{
         return this.http.get<any>(`${this.APIURL}/trainers`)
       }
@@ -119,6 +128,10 @@ export class TrainerService {
       }
 
   // *************** Product API *****************
+
+      GetAllProductbyTrainerID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/product/getproduct/trainer`)
+      }
 
       addProduct(productData: FormData): Observable<any> {
         return this.http.post(`${this.APIURL}/product`, productData);
@@ -236,4 +249,10 @@ export class TrainerService {
       GetAboutUSbyID():Observable<any>{
         return this.http.get<any>(`${this.APIURL}/about`);
       }
+
+      GetReviewbyTrainerID():Observable<any>{
+        return this.http.get<any>(`${this.APIURL}/review/trainerDashboard/review`);
+      }
+
+
 }

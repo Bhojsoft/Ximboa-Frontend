@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { RealoadServiceService } from '../common_service/reaload-service.service';
+import { ModalServiceService } from '../common_service/modal-service.service';
 
 
 @Component({
@@ -15,25 +16,27 @@ import { RealoadServiceService } from '../common_service/reaload-service.service
 export class SignUpComponent implements OnInit {
 
   currentUrl: string = '';
- password: string='';
+  password: string = '';
   rememberMe: boolean = false;
+  
 
-   userData= {
-      f_Name:'',
-      middle_Name:'',
-      l_Name:'',
-      email_id:'',
-      password:'',
-      mobile_number:'',
+  userData = {
+    f_Name: '',
+    middle_Name: '',
+    l_Name: '',
+    email_id: '',
+    password: '',
+    mobile_number: '',
 
   }
-  constructor(private loginservices:LoginService,private route:Router,private activatedRoute:ActivatedRoute,
-    private authService:AuthServiceService,private realoadservice: RealoadServiceService){ }
+  constructor(private loginservices: LoginService, private route: Router,
+    private activatedRoute: ActivatedRoute, private modalService: ModalServiceService,
+    private authService: AuthServiceService, private realoadservice: RealoadServiceService) { }
 
   ngOnInit() {
     this.currentUrl = this.route.url;
-    console.log("fghj",this.currentUrl);
-    
+    console.log("fghj", this.currentUrl);
+
   }
 
   onSubmit(form: NgForm) {
@@ -42,27 +45,26 @@ export class SignUpComponent implements OnInit {
       this.loginservices.postsignupdata(this.userData).subscribe({
         next: (response) => {
           sessionStorage.setItem("Authorization", response.token);
-          if(this.route.url == '/signup'){
-            console.log("url",this.route.url);
-            
-          this.route.navigate(['/dashboard']);
-        }
+          if (this.route.url == '/signup') {
+            console.log("url", this.route.url);
+            this.route.navigate(['/dashboard']);
+          }
+          this.resetForm(form);
+          this.modalService.closeModal();
           this.authService.login(response.token); // Set login state
           this.realoadservice.triggerReloadHeader();
           Swal.fire(
             'Congratulations',
-            'Welcome to Ximbo! <br> We’re thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You have registered successfully!',
-            'success');
-         
+            'Welcome to Ximbo! <br> We’re thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You have registered successfully!', 'success');
         },
         error: (error) => {
-            let errorMessage = 'Please enter valid details.';
-            if (error.error && typeof error.error === 'string') {
-              errorMessage = error.error;
-            } else if (error.error && error.error.message) {
-              errorMessage = error.error.message;
-            }
-            Swal.fire('Error', errorMessage, 'error');
+          let errorMessage = 'Please enter valid details.';
+          if (error.error && typeof error.error === 'string') {
+            errorMessage = error.error;
+          } else if (error.error && error.error.message) {
+            errorMessage = error.error.message;
+          }
+          Swal.fire('Error', errorMessage, 'error');
         },
       });
     } else if (!this.rememberMe) {
@@ -72,11 +74,23 @@ export class SignUpComponent implements OnInit {
       console.log('Form is invalid');
     }
   }
-  
-  // Hide And Show Password Logic  
+
   show: boolean = false;
   togglePassword() {
     this.show = !this.show;
+  }
+
+  resetForm(signUpForm: NgForm) {
+    signUpForm.resetForm();
+    this.userData = {
+      f_Name: '',
+      l_Name: '',
+      middle_Name: '',
+      email_id: '',
+      mobile_number: '',
+      password: ''
+    };
+    this.rememberMe = false;
   }
 
   allowOnlyNumbers(event: KeyboardEvent): void {
@@ -85,11 +99,21 @@ export class SignUpComponent implements OnInit {
       event.preventDefault();
     }
   }
-  
+
   limitToTenDigits(): void {
     if (this.userData.mobile_number.length > 10) {
       this.userData.mobile_number = this.userData.mobile_number.slice(0, 10);
     }
   }
-  
+
+  openModal() {
+    if (this.route.url == '/signup') {
+      this.route.navigate(['/signin']);
+    }
+    else {
+      this.modalService.closeModal();
+      this.modalService.openLoginModal();
+    }
+  }
+
 }

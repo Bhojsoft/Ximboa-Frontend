@@ -6,6 +6,7 @@ import { LoginService } from '../common_service/login.service';
 import Swal from 'sweetalert2';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Subscription } from 'rxjs';
+import { ModalServiceService } from '../common_service/modal-service.service';
 
 
 
@@ -31,7 +32,8 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
     routeSub: Subscription = new Subscription();
 
 
-    constructor(private dservice:DashboardService,private router:ActivatedRoute, private route:Router,
+    constructor(private dservice:DashboardService,private router:ActivatedRoute,
+       private route:Router,private modalService:ModalServiceService,
       private loginservices:LoginService,private authService:AuthServiceService)
     {this.id=this.router.snapshot.paramMap.get('id');}
     
@@ -111,11 +113,14 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
             console.log(course_id);
             sessionStorage.setItem('course_id',course_id);
 
-             const modalElement = document.getElementById('CheckLoggedIN');
-              if (modalElement) {
-                const modal = new (window as any).bootstrap.Modal(modalElement);
-                modal.show();
-              }
+            //  const modalElement = document.getElementById('CheckLoggedIN');
+            //   if (modalElement) {
+            //     const modal = new (window as any).bootstrap.Modal(modalElement);
+            //     modal.show();
+            //   }
+
+            this.modalService.openModal();
+
       }
   }
 
@@ -158,12 +163,10 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
       }
     })
   }
-  else{
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+  else {
+      //open registration modal
+      this.modalService.openModal(); 
+    }
   }
 
   resetForm() {
@@ -220,56 +223,12 @@ export class CourseenrollComponent implements OnInit, OnDestroy {
   shareicon(){
     this.showshare = !this.showshare;
   }
+
+
   
-  show: boolean = false; 
-  rememberMe: boolean = false;
-
-   userData= {
-      f_Name:'',
-      middle_Name:'',
-      l_Name:'',
-      email_id:' ',
-      password:'',
-      mobile_number:' ',
-
-  }
 
 
-    onSubmit(form: NgForm) {
-        if (form.valid) {
-          this.loginservices.postsignupdata(this.userData).subscribe({
-            next: (response) => {
-              sessionStorage.setItem("Authorization",response.token);
-               this.authService.login(response.token); // Set login state
-              Swal.fire('Congratulation','Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-              let course_id = sessionStorage.getItem('course_id');
-              const data = { course_id };
-              console.log(data);
-              
-              this.dservice.courseenroll(data).subscribe({
-                next: (response) => {
-               Swal.fire('Congratulation','You have Succssfully Enroll Now! ', 'success');
-                sessionStorage.removeItem('course_id');
-              },
-              error: (error) => {
-                   Swal.fire('Error', 'You Have Already Enrolled This course.', 'error');
-              }
-             });
-            },
-            error: (error)=>{
-              Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-            } 
-          });
-        } else {
-          console.log('Form is invalid');
-        }
-      }
 
-
-       // Hide And Show Password Logic
-       togglePassword() {
-        this.show = !this.show;
-      }
 
 }
 

@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { LoginService } from '../common_service/login.service';
 import { AuthServiceService } from '../common_service/auth-service.service';
 import { Subscription } from 'rxjs';
+import { ModalServiceService } from '../common_service/modal-service.service';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class ShopComponent {
   }
 
   constructor(private dservice: DashboardService, private router: ActivatedRoute,
-     private loginservices: LoginService, private route: Router,private authService:AuthServiceService) 
+        private loginservices: LoginService, private route: Router, private modalService:ModalServiceService,
+        private authService:AuthServiceService) 
      { this.id = this.router.snapshot.paramMap.get('id');this.checkLoginStatus(); }
 
      checkLoginStatus() {
@@ -122,11 +124,14 @@ export class ShopComponent {
       sessionStorage.setItem('productId',productId);
       sessionStorage.setItem('quantity',quantity.toString());
             
-      const modalElement = document.getElementById('CheckLoggedIN');
-      if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.show();
-      }
+      // const modalElement = document.getElementById('CheckLoggedIN');
+      // if (modalElement) {
+      //   const modal = new (window as any).bootstrap.Modal(modalElement);
+      //   modal.show();
+      // }
+
+      this.modalService.openModal();
+
     }
   }
 
@@ -183,11 +188,15 @@ export class ShopComponent {
     })
   }
   else{
-    const modalElement = document.getElementById('CheckLoggedIN');
-    if (modalElement) {
-      const modal = new (window as any).bootstrap.Modal(modalElement);
-      modal.show();
-    }  }
+    // const modalElement = document.getElementById('CheckLoggedIN');
+    // if (modalElement) {
+    //   const modal = new (window as any).bootstrap.Modal(modalElement);
+    //   modal.show();
+    // }  
+
+       this.modalService.openModal();
+
+    }
   }
 
   resetForm() {
@@ -232,59 +241,6 @@ export class ShopComponent {
   shareicon(){
     this.showshare = !this.showshare;
   }
-
-
-  show: boolean = false;
-  rememberMe: boolean = false;
-
-  userData = {
-    f_Name: '',
-    middle_Name: '',
-    l_Name: '',
-    email_id: ' ',
-    password: '',
-    mobile_number: ' ',
-
-  }
-
-
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      this.loginservices.postsignupdata(this.userData).subscribe({
-        next: (response) => {
-          sessionStorage.setItem("Authorization",response.token);
-          this.authService.login(response.token); // Set login state
-          Swal.fire('Congratulation', 'Welcome to Ximbo! <br> Were thrilled to have you join our community of esteemed trainers, coaches, and educators. Ximbo is designed to empower you with the tools and resources needed to deliver exceptional training and create impactful learning experiences. <br> You Have Register successfully!', 'success');
-          let quantity = Number(sessionStorage.getItem('quantity'));
-          let productId = sessionStorage.getItem('productId')?.toString();
-          const  cart = {  quantity, productId };
-          this.dservice.Addtocart(cart).subscribe({
-            next: (Response) =>{
-              Swal.fire('Ohh...!', 'Added to cart..!', 'success');
-              sessionStorage.removeItem('productId');
-              sessionStorage.removeItem('quantity');
-              this.route.navigate(['/cart'])
-            },
-            error : (error)=>{
-              Swal.fire('Error', 'sorry..!', 'error');
-            }
-          });
-        },
-        error: (error) => {
-          Swal.fire('Error', 'Please Enter Valid Details.', 'error');
-        }
-      });
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
-
-  // Hide And Show Password Logic
-  togglePassword() {
-    this.show = !this.show;
-  }
-
 
   public onSave() {
     this.closebutton.nativeElement.click();

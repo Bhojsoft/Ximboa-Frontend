@@ -133,7 +133,7 @@ export class ProductComponent implements OnInit {
   }
 
   loadproduct() {
-    this.service.gettrainerdatabyID().subscribe(data => {
+    this.service.GetAllProductbyTrainerID().subscribe(data => {
       this.showproductdata = data?.productsWithFullImageUrl;
     });
   }

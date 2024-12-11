@@ -110,7 +110,7 @@ export class MyCourseComponent implements OnInit {
   }
 
   getallcourses() {
-    this.service.gettrainerdatabyID().subscribe((result: any) => {
+    this.service.GetCoursesbyTrainerID().subscribe((result: any) => {
       console.log("Show course Data", result);
       this.showcoursedata = result?.coursesWithFullImageUrl;
     });

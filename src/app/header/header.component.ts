@@ -9,8 +9,6 @@ import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 import { RealoadServiceService } from '../common_service/reaload-service.service';
 
-
-
 declare var bootstrap: any;
 
 
@@ -21,8 +19,6 @@ declare var bootstrap: any;
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
-
-
 
   Showcategorydata: any;
   Institutedata: any;
@@ -37,7 +33,6 @@ export class HeaderComponent {
 
 
   unseennotificationcount: any;
-
 
 
   role = {
@@ -127,8 +122,7 @@ export class HeaderComponent {
         this.Showcategorydata = data;
       });
 
-
-        this.reloadservice.userImage$.subscribe(()=>{
+       this.reloadservice.userImage$.subscribe(()=>{
           this.UserImage = sessionStorage.getItem("Profile");
         })
       
@@ -158,8 +152,7 @@ export class HeaderComponent {
     const query = element.value.trim();
 
     if (query.length > 1) {
-      this.dservice.search(query).subscribe(
-        result => {
+      this.dservice.search(query).subscribe(result => {
           this.suggestions = this.formatSearchResults(result);
           console.log("Search results", this.suggestions);
         },
@@ -173,75 +166,39 @@ export class HeaderComponent {
   }
 
 
-
   onSelectSuggestion(suggestion: any) {
-    const enteredKeyword = this.query;
+    // const enteredKeyword = this.query;
     this.suggestions = [];
 
     if (suggestion.type === 'course') {
-      
-      this.route.navigate([`/couserenroll/${suggestion.id}`], {
-        // queryParams: {
-        //   category: suggestion.category_name || 'defaultCategory',  // For courses
-        //   id: suggestion.id,
-        //   type: suggestion.type,
-        //   keyword: enteredKeyword
-        // }
+            this.route.navigate([`/couserenroll/${suggestion.id}`], {
       });
     } else if (suggestion.type === 'category') {
       this.route.navigate(['/relevance/Allcourses'], {
-        // queryParams: {
-        //   category: suggestion.name || 'defaultCategory',
-        //   id: suggestion.id,
-        //   type: suggestion.type,
-        //   keyword: enteredKeyword
-        // }
       });
     } else if (suggestion.type === 'product') {
       this.route.navigate([`/productdetails/${suggestion.id}`], {
-        // queryParams: {
-        //   category: suggestion.category || 'defaultCategory', // For products
-        //   id: suggestion.id,
-        //   type: suggestion.type,
-        //   keyword: enteredKeyword
-        // }
       });
     } else if (suggestion.type === 'event') {
       this.route.navigate([`/eventdetails/${suggestion.id}`], {
-        // queryParams: {
-        //   category: suggestion.events_category || 'defaultCategory',
-        //   id: suggestion.id,
-        //   type: suggestion.type,
-        //   keyword: enteredKeyword
-        // }
       });
     }
-
     else if (suggestion.type === 'trainer') {
       const trainerCategory = suggestion.trainer_categories.length > 0 ? suggestion.trainer_categories[0] : 'defaultCategory';
       console.log(trainerCategory);
-
       this.route.navigate([`/coursedetails/${suggestion.id}`], {
-        // queryParams: {
-        //   category: trainerCategory,
-        //   id: suggestion.id,
-        //   type: suggestion.type,
-        //   keyword: enteredKeyword
-        // }
-
       });
       console.log(trainerCategory);
     }
-
     else if (suggestion.type === 'institute') {
       this.route.navigate([`/coursedetails/${suggestion.id}`], {
-        // queryParams: {
-        //   id: suggestion.id // Pass the ID as a query parameter
-        // }
       });
     }
 
   }
+
+
+  
 
   formatSearchResults(result: any): any[] {
     const formattedResults = [];

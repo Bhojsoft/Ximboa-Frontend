@@ -115,7 +115,7 @@ export class EventComponent  implements OnInit{
     this.router.paramMap.subscribe(params => {
       this.id = params.get('id');
       if (this.id) {
-        this.EventsDetails(); // Fetch user details when 'id' is available
+        this.EventsDetails(); 
       }
     });
 
@@ -135,7 +135,7 @@ export class EventComponent  implements OnInit{
   }
 
   LoadMyEvent(){
-        this.service.gettrainerdatabyID().subscribe(data=>{
+        this.service.GetEventbyTrainerID().subscribe(data=>{
           this.showeventdata = data.eventsWithThumbnailUrl;
         });
       }
@@ -275,8 +275,8 @@ export class EventComponent  implements OnInit{
    return name.length > 14 ? name.slice(0, 12) + '...' : name;
  }
 
- subCategory: any = []; // Holds the subcategory data
-    fetchcategoryID: string = ''; // Holds the selected category ID
+ subCategory: any = []; 
+    fetchcategoryID: string = ''; 
     
     getsubcategory(): void {
       if (this.fetchcategoryID) {
@@ -284,7 +284,7 @@ export class EventComponent  implements OnInit{
           this.subCategory = result.data || [];
         });
       } else {
-        this.subCategory = []; // Clear subcategory data if no category selected
+        this.subCategory = []; 
       }
     }
   
