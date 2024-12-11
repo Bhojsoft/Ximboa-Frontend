@@ -35,22 +35,22 @@
                 </li>
             
                 <!-- Enquiry: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/dashboard/enquiry" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                <li *ngIf="isSELF_EXPERT || isInstitute" routerLink="/dashboard/enquiry" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
                     <i class="fa-solid fa-envelope pt-2 " ></i> Enquiry
                 </li>
             
                 <!-- Appointment: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/dashboard/appointment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                <li *ngIf="isSELF_EXPERT || isInstitute" routerLink="/dashboard/appointment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
                     <i class="fa-solid fa-circle-user pt-2 " ></i> Appointment
                 </li>
             
                 <!-- Question: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isSELF_EXPERT" routerLink="/dashboard/question" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                <li *ngIf="isSELF_EXPERT || isInstitute" routerLink="/dashboard/question" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
                  <i class="fa-solid fa-circle-question pt-2"></i> Question
                 </li>
             
                 <!-- Review: Visible to TRAINER and ADMIN -->
-                <li *ngIf="isTrainer || isInstitute || isSELF_EXPERT" routerLink="/dashboard/review" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
+                <li *ngIf="isInstitute || isSELF_EXPERT" routerLink="/dashboard/review" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="hover">
                     <i class="fa-solid fa-face-smile pt-2 " ></i> Review
                 </li>
                             
