@@ -335,7 +335,7 @@
             <div class="mb-3">
               <label class="form-label">Select Date</label>
               <input class="form-control" type="date" class="form-control" name="date" id="date"
-                [(ngModel)]="Appoinment.date" #dateField="ngModel" required>
+                [(ngModel)]="Appoinment.date" #dateField="ngModel" [min]="minDate" required>
               <div *ngIf="dateField.invalid && (dateField.touched || ApmtForm.submitted)" class="text-danger">
                 <small *ngIf="dateField.errors?.['required']">Date is required.</small>
               </div>

@@ -257,8 +257,8 @@
             <!-- Start Date -->
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="start_date" class="col-form-label">Start Date <sup>*</sup></label>
-              <input type="date" class="form-control" id="start_date" [(ngModel)]="Courses.start_date" name="start_date"
-                #startDate="ngModel" required />
+              <input type="date" class="form-control" id="start_date" [(ngModel)]="Courses.start_date"  name="start_date"
+                #startDate="ngModel" [min]="minDate"   required />
               <div *ngIf="startDate.invalid && startDate.touched" class="text-danger">
                 <small>Start Date is required.</small>
               </div>
@@ -268,7 +268,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="end_date" class="col-form-label">End Date <sup>*</sup></label>
               <input type="date" class="form-control" id="end_date" [(ngModel)]="Courses.end_date" name="end_date"
-                #endDate="ngModel" required />
+                #endDate="ngModel" [min]="Courses.start_date || minDate" required />
               <div *ngIf="endDate.invalid && endDate.touched" class="text-danger">
                 <small>End Date is required.</small>
               </div>

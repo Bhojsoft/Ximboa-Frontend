@@ -297,7 +297,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6 mb-3">
               <label for="event_date" class="col-form-label">Event Date<sup>*</sup></label>
               <input class="form-control" type="date" id="event_date" [(ngModel)]="event.event_date"
-                name="event_date" required #Eventdate="ngModel"/>
+                name="event_date" [min]="minDate"  required #Eventdate="ngModel"/>
                 <div *ngIf="Eventdate.invalid && Eventdate.touched" class="text-danger">
                   Event Date is required.
                 </div>

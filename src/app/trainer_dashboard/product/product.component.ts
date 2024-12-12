@@ -216,16 +216,66 @@ export class ProductComponent implements OnInit {
   }
 
 
+  // async onFileSelected(event: any): Promise<void> {
+  //   const file = event.target.files[0];
+    
+  //   if (!file) return;
+  
+  //   if (file.size > this.maxFileSizeMB * 1024 * 1024) {
+  //     Swal.fire('File Too Large', `The file is too large. Please upload an image smaller than ${this.maxFileSizeMB} MB.`, 'error');
+  //     return;
+  //   }
+  
+  //   if (!this.allowedFileTypes.includes(file.type)) {
+  //     Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, JPEG, or PNG image.', 'error');
+  //     return;
+  //   }
+  
+  //   try {
+  //     const compressionOptions = {
+  //       maxSizeMB: 5,
+  //       maxWidthOrHeight: 1000,
+  //       useWebWorker: true,
+  //     };
+  //     const compressedFile = await imageCompression(file, compressionOptions);
+  
+  //     // Convert to AVIF or WebP
+  //     const convertedFile = await this.convertImageFormat(compressedFile, 'image/webp'); // Change to 'image/avif' for AVIF format
+  
+  //     console.log('Original file size:', file.size / 1024 / 1024, 'MB');
+  //     console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
+  //     console.log('Converted file size:', convertedFile.size / 1024 / 1024, 'MB');
+  
+  //     this.product_image = convertedFile;
+  
+  //     // Preview the new image
+  //     this.imageObjectURL = URL.createObjectURL(convertedFile);
+  
+  //   } catch (error) {
+  //     console.error('Error during compression or conversion:', error);
+  //     Swal.fire('Error', 'There was an error processing the image. Please try again.', 'error');
+  //   }
+  // }
+  
   async onFileSelected(event: any): Promise<void> {
     const file = event.target.files[0];
-    
+  
     if (!file) return;
   
+    // Ensure course name is available before proceeding
+    const productName = this.product.product_name.trim().replace(/\s+/g, '_'); // Replace spaces with underscores to make the filename valid
+    if (!productName) {
+      Swal.fire('Error', 'Course name is missing. Please ensure the course name is provided.', 'error');
+      return;
+    }
+  
+    // Check if the file is too large
     if (file.size > this.maxFileSizeMB * 1024 * 1024) {
       Swal.fire('File Too Large', `The file is too large. Please upload an image smaller than ${this.maxFileSizeMB} MB.`, 'error');
       return;
     }
   
+    // Check if the file type is valid
     if (!this.allowedFileTypes.includes(file.type)) {
       Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, JPEG, or PNG image.', 'error');
       return;
@@ -239,24 +289,36 @@ export class ProductComponent implements OnInit {
       };
       const compressedFile = await imageCompression(file, compressionOptions);
   
-      // Convert to AVIF or WebP
-      const convertedFile = await this.convertImageFormat(compressedFile, 'image/webp'); // Change to 'image/avif' for AVIF format
+      // Convert the compressed image to desired format (e.g., WebP)
+      const convertedFile = await this.convertImageFormat(compressedFile, 'image/webp'); // Change to 'image/avif' if needed
   
+      // Create a new file name by combining the course name and the original file extension
+      const fileExtension = convertedFile.name.split('.').pop();
+      const newFileName = `${productName}.${fileExtension}`;
+  
+      // Create a new File object with the updated name
+      const renamedFile = new File([convertedFile], newFileName, {
+        type: convertedFile.type,
+        lastModified: Date.now(),
+      });
+  
+      // Log the file information (optional)
       console.log('Original file size:', file.size / 1024 / 1024, 'MB');
       console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
       console.log('Converted file size:', convertedFile.size / 1024 / 1024, 'MB');
+      console.log('Renamed file:', renamedFile);
   
-      this.product_image = convertedFile;
+      // Set the renamed file for uploading
+      this.product_image = renamedFile;
   
-      // Preview the new image
-      this.imageObjectURL = URL.createObjectURL(convertedFile);
+      // Preview the renamed image
+      this.imageObjectURL = URL.createObjectURL(renamedFile);
   
     } catch (error) {
       console.error('Error during compression or conversion:', error);
-      Swal.fire('Error', 'There was an error processing the image. Please try again.', 'error');
-    }
+      Swal.fire('Error', 'There was an error processing the image. Please try again.', 'error');
+    }
   }
-  
  
   async convertImageFormat(file: File, format: string): Promise<File> {
     return new Promise((resolve, reject) => {

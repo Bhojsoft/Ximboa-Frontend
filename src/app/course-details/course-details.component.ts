@@ -34,7 +34,7 @@ export class CourseDetailsComponent implements OnInit {
 
   itemsPerPage: number = 2; 
   itemsPerPageAllcourses: number = 4; 
-
+  minDate: string = '';
 
 
   AllCourses:any;
@@ -66,6 +66,10 @@ export class CourseDetailsComponent implements OnInit {
     this.question.trainerid = this.id;
     this.review.t_id=this.id;
     this.Appoinment.t_id=this.id;
+
+
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0]; // Format to 'YYYY-MM-DD'
   }
 
   ngAfterViewInit(): void {
