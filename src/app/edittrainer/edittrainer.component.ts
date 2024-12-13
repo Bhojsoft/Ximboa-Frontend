@@ -477,6 +477,75 @@ async onFileSelected(event: any): Promise<void> {
   }
 }
 
+// async onFileSelected(event: any): Promise<void> {
+//   const file = event.target.files[0];
+
+//   if (!file) return;
+
+//   // Ensure trainer's name and last name are available
+//   const trainerName = this.myForm.get("f_Name")?.value.trim().replace(/\s+/g, '_');
+//   const trainerLastName = this.myForm.get("l_Name")?.value.trim();
+//   if (!trainerName || !trainerLastName) {
+//     Swal.fire('Error', 'Trainer name or last name is missing. Please ensure both fields are filled.', 'error');
+//     return;
+//   }
+
+//   // Check if the file size exceeds the limit
+//   if (file.size > this.maxFileSizeMB * 1024 * 1024) {
+//     Swal.fire('File Too Large', `The file is too large. Please upload an image smaller than ${this.maxFileSizeMB} MB.`, 'error');
+//     return;
+//   }
+
+//   // Check if the file type is valid
+//   if (!this.allowedFileTypes.includes(file.type)) {
+//     Swal.fire('Invalid Format', 'Unsupported file format. Please upload a JPG, JPEG, or PNG image.', 'error');
+//     return;
+//   }
+
+//   try {
+//     const compressionOptions = {
+//       maxSizeMB: 5,
+//       maxWidthOrHeight: 1000,
+//       useWebWorker: true,
+//     };
+
+//     // Compress the image
+//     const compressedFile = await imageCompression(file, compressionOptions);
+
+//     // Convert the compressed image to the desired format (e.g., WebP)
+//     const convertedFile = await this.convertImageFormat(compressedFile, 'image/webp');
+
+//     // Create a new file name
+//     const fileExtension = convertedFile.name.split('.').pop();
+//     const newFileName = `${trainerName}_${trainerLastName}.${fileExtension}`;
+
+//     // Create a new File object with the updated name
+//     const renamedFile = new File([convertedFile], newFileName, {
+//       type: convertedFile.type,
+//       lastModified: Date.now(),
+//     });
+
+//     // Assign the renamed file to an array for multiple previews
+//     this.selectedFiles = [renamedFile];
+
+//     // Preview the renamed image
+//     this.imageObjectURLs = [URL.createObjectURL(renamedFile)];
+
+//     // Log file details (optional)
+//     console.log('Original file size:', file.size / 1024 / 1024, 'MB');
+//     console.log('Compressed file size:', compressedFile.size / 1024 / 1024, 'MB');
+//     console.log('Converted file size:', convertedFile.size / 1024 / 1024, 'MB');
+//     console.log('Renamed file:', renamedFile);
+
+//   } catch (error) {
+//     console.error('Error during compression or conversion:', error);
+//     Swal.fire('Error', 'There was an error processing the image. Please try again.', 'error');
+//   }
+// }
+
+
+
+
 async convertImageFormat(file: File, format: string): Promise<File> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
