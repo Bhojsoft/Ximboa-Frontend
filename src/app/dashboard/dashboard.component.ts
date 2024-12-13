@@ -94,7 +94,6 @@ trunproductName(name: string): string {
         this.showtrainerData=data.trainersWithFullImageUrl;
         this.showproductdata=data.productDetails;
         this.showeventdata = data.eventDetails;
-
       });
 
       this.Dservice.getcategoryname().subscribe(response =>{
@@ -155,7 +154,6 @@ trunproductName(name: string): string {
     animateSVG("#line-2", "#arrow-group-2");
     animateSVG("#line-3", "#arrow-group-3");
   }
-
 
 
   // conver Rupees K or laks
