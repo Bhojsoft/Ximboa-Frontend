@@ -21,7 +21,6 @@ export class TrainerService {
         return this.http.get<any>(`${this.APIURL}/registration/trainer`);
       }
 
-
       updatetrainerDetails(formData:FormData):Observable<any>{
         return this.http.put<any>(`${this.APIURL}/registration/update`,formData)
       }

@@ -3,6 +3,7 @@ import { DashboardService } from '../common_service/dashboard.service';
 import { FilterService } from '../common_service/filter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../search.service';
+import { AdminService } from '../common_service/admin.service';
 
 @Component({
   selector: 'app-relevance',
@@ -16,6 +17,7 @@ export class RelevanceComponent implements OnInit {
   selectedCategories: string[] = [];
   
   category: string = '';
+  categoryID : string = '';
   selectedSortOption: string = '';
 
   inputPlaceholder: string = 'Search';
@@ -45,7 +47,7 @@ export class RelevanceComponent implements OnInit {
 
   constructor(private service: DashboardService, private filter: FilterService,
      private route: ActivatedRoute, private router:Router,
-     private searchService:SearchService) {}
+     private searchService:SearchService, private admin:AdminService) {}
 
   ngOnInit(): void {
     this.service.getcategoryname().subscribe(data => {
@@ -54,9 +56,27 @@ export class RelevanceComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.category = params['category'] || '';  
+      this.categoryID = params['id'] || '';  
+      console.log("category id",this.categoryID);
+      this.getsubcategory();      
     });
 
     this.initializeSelectedCategory();  // Apply category filter on route param change
+  }
+
+  subCategory: any = []; // Holds the subcategory data
+  fetchcategoryID: string = ''; // Holds the selected category ID
+
+  getsubcategory(): void {
+    if (this.categoryID) {
+      this.admin.getsubcategorybyCategoryID(this.categoryID).subscribe(result => {
+        this.subCategory = result.data || [];
+        console.log("lkjhgfcvbnjuhygtfv",result);
+        
+      });
+    } else {
+      this.subCategory = []; // Clear subcategory data if no category selected
+    }
   }
 
   // Initialize selected category from query params
